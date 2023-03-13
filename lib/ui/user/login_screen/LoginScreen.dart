@@ -108,7 +108,7 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                         Gaps.vGap8,
                         Text(
                           S.of(context).welcomeBackToClimizer,
-                          style: Theme.of(context).textTheme.displaySmall,
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ],
                     ),
@@ -143,7 +143,7 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                                       }),
                                   Text(
                                     S.of(context).rememberMe,
-                                    style: Theme.of(context).textTheme.displaySmall,
+                                    style: Theme.of(context).textTheme.titleMedium,
                                   ),
                                   Spacer(),
                                   InkWell(
@@ -187,7 +187,7 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                       children: [
                         Text(
                           S.of(context).dontHaveAnAccount,
-                          style: Theme.of(context).textTheme.bodyMedium.copyWith(fontSize: 12.sp),
+                          style: Theme.of(context).textTheme.titleSmall.copyWith(fontWeight: FontWeight.w600),
                         ),
                         InkWell(
                           onTap: () {
@@ -195,7 +195,7 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                           },
                           child: Text(
                             S.of(context).signUp,
-                            style: Theme.of(context).textTheme.labelSmall.copyWith(fontSize: 12.sp),
+                            style: Theme.of(context).textTheme.titleSmall.copyWith(color:Color(0xff44A4F2),fontWeight: FontWeight.w500),
                           ),
                         ),
                       ],
@@ -311,8 +311,8 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: SvgPicture.asset(
-                      ImageUtils.getSVGPath("eye_password"),
-                      color: provider.obscureTextPassword ? MColors.primary_text_color : MColors.primary_color,
+                      ImageUtils.getSVGPath(provider.obscureTextPassword ?"eye_password" : 'hide_eye'),
+                      color: MColors.primary_color,
                     ),
                   )
                   // Icon(_obscureTextPassword ? Icons.visibility : Icons.visibility_off, color: MColors.primary_color),
@@ -382,7 +382,7 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
               padding: const EdgeInsets.only(top: 3),
               child: Text(
                 S.of(context).orRegisterWith,
-                style: TextStyle(fontSize: 12.sp, color: MColors.gray_99.withOpacity(.8)),
+                style: Theme.of(context).textTheme.titleSmall.copyWith(fontWeight: FontWeight.w600),
               ),
             ),
             SizedBox(
@@ -426,9 +426,6 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
           );
         });
         FocusScope.of(context).unfocus();
-        if (email.isEmpty || password.isEmpty) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("message")));
-        }
         _submitForm();
       },
     );

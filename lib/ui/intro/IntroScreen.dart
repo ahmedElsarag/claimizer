@@ -6,11 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
-import 'package:Cliamizer/ui/intro/join_screen.dart';
 import 'package:Cliamizer/ui/intro/widgets/language.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../../CommonUtils/log_utils.dart';
 import '../../CommonUtils/preference/Prefs.dart';
 import '../../generated/l10n.dart';
@@ -49,8 +47,12 @@ class IntroScreenState extends BaseState<IntroScreen, IntroPresenter> with Autom
   Widget build(BuildContext context) {
     mHeight = MediaQuery.of(context).size.height;
     mWidth = MediaQuery.of(context).size.width;
-    List<String> introText = [S.of(context).intro_text_1,S.of(context).intro_text_2, S.of(context).intro_text_3,];
-    List<String> introDescText = [S.of(context).desc1,S.of(context).desc2,S.of(context).desc3];
+    List<String> introText = [
+      S.of(context).intro_text_1,
+      S.of(context).intro_text_2,
+      S.of(context).intro_text_3,
+    ];
+    List<String> introDescText = [S.of(context).desc1, S.of(context).desc2, S.of(context).desc3];
     List<Color> introColor = [
       MColors.white,
       MColors.white,
@@ -63,59 +65,8 @@ class IntroScreenState extends BaseState<IntroScreen, IntroPresenter> with Autom
         children: [
           Column(
             children: <Widget>[
-              SizedBox(
-                height: 4.h,
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  width: 70,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: DropdownButton(
-                    dropdownColor: Colors.black.withOpacity(0.75),
-                    isExpanded: true,
-                    style: TextStyle(color: Colors.white),
-                    borderRadius: BorderRadius.circular(12.0),
-                    underline: SizedBox(),
-                    onChanged: (Language newValue) {
-                      setState(() {
-                        lang = newValue;
-                        setSelected(lang.languageCode);
-                      });
-                    },
-                    // onChanged: _changeLanguageName,
-                    hint: lang == null
-                        ? Text(
-                            languageSelected,
-                            style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.w600, fontFamily: 'PFBagueRoundPro'),
-                          )
-                        : Text(
-                            "${lang.language}",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'PFBagueRoundPro',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12.sp,
-                            ),
-                          ),
-                    icon: Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: MColors.white,
-                      size: 26.sp,
-                    ),
-                    items: Language.languageList()
-                        .map<DropdownMenuItem<Language>>((lang) => DropdownMenuItem(
-                            value: lang,
-                            child: Text(
-                              lang.language,
-                              style: TextStyle(color: Colors.white, fontSize: 12.sp, fontFamily: 'Tajawal', fontWeight: FontWeight.w500),
-                            )))
-                        .toList(),
-                  ),
-                ),
-              ),
               Container(
-                height: 60.h,
+                height: 65.h,
                 margin: EdgeInsets.symmetric(horizontal: 8.w),
                 child: PageView(
                   controller: _mainPageViewController,
@@ -150,10 +101,10 @@ class IntroScreenState extends BaseState<IntroScreen, IntroPresenter> with Autom
                                 introText[index],
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 18.sp,
+                                  fontSize: 24.sp,
                                   color: MColors.primary_text_color,
                                   height: 1.2,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w700,
                                 ),
                               ),
                               Gaps.vGap12,
@@ -161,9 +112,8 @@ class IntroScreenState extends BaseState<IntroScreen, IntroPresenter> with Autom
                                 introDescText[index],
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 8.sp,
-                                  color: MColors.primary_text_color,
-                                  height: 1.2,
+                                  fontSize: 9.sp,
+                                  color: MColors.secondary_text_color,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -176,13 +126,28 @@ class IntroScreenState extends BaseState<IntroScreen, IntroPresenter> with Autom
                       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                       child: GestureDetector(
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 3.w, horizontal: 3.w),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(40)),
-                            color: Colors.redAccent,
-                          ),
-                          child: Icon(Icons.arrow_forward_ios_rounded,color: MColors.white,)
-                        ),
+                            child: endReached
+                                ? Container(
+                                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                      color: Colors.redAccent,
+                                    ),
+                                    child: Text(
+                                      S.of(context).getStarted,
+                                      style: TextStyle(color: MColors.white, fontWeight: FontWeight.w700, fontSize: 13.sp),
+                                    ),
+                                  )
+                                : Container(
+                                    padding: EdgeInsets.symmetric(vertical: 3.w, horizontal: 3.w),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                                      color: Colors.redAccent,
+                                    ),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios_rounded,
+                                      color: MColors.white,
+                                    ))),
                         onTap: () {
                           if (!endReached)
                             _mainPageViewController.nextPage(duration: Duration(milliseconds: 200), curve: Curves.decelerate);
@@ -199,31 +164,87 @@ class IntroScreenState extends BaseState<IntroScreen, IntroPresenter> with Autom
             ],
             // onPageChanged: onChangedFunction,
           ),
-          PositionedDirectional(
-            top: 8.h,
-            end: 6.w,
-            child: GestureDetector(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                  color: MColors.btn_color,
+          Visibility(
+            visible: !endReached,
+            child: PositionedDirectional(
+              top: 8.h,
+              end: 6.w,
+              child: GestureDetector(
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(32)),
+                    color: MColors.btn_color,
+                  ),
+                  child: Text(
+                    S.of(context).skip,
+                    style: TextStyle(color: MColors.primary_text_color, fontWeight: FontWeight.w500, fontSize: 12.5.sp),
+                  ),
                 ),
-                child: Text(
-                  S.of(context).next,
-                  style: TextStyle(color: MColors.primary_text_color, fontWeight: FontWeight.w600, fontSize: 12.sp),
-                ),
+                onTap: () {
+                  if (!endReached)
+                    _mainPageViewController.nextPage(duration: Duration(milliseconds: 200), curve: Curves.decelerate);
+                  else {
+                    _openLoginScreen(context);
+                  }
+                  FocusScope.of(context).unfocus();
+                },
               ),
-              onTap: () {
-                if (!endReached)
-                  _mainPageViewController.nextPage(duration: Duration(milliseconds: 200), curve: Curves.decelerate);
-                else {
-                  _openLoginScreen(context);
-                }
-                FocusScope.of(context).unfocus();
-              },
             ),
-          )
+          ),
+          // PositionedDirectional(
+          //   top: 8.h,
+          //   start: 6.w,
+          //   child: Align(
+          //     alignment: Alignment.centerLeft,
+          //     child: Container(
+          //       width: 70,
+          //       margin: EdgeInsets.symmetric(horizontal: 20),
+          //       child: DropdownButton(
+          //         dropdownColor: Colors.black.withOpacity(0.75),
+          //         isExpanded: true,
+          //         style: TextStyle(color: Colors.blue),
+          //         borderRadius: BorderRadius.circular(12.0),
+          //         underline: SizedBox(),
+          //         onChanged: (Language newValue) {
+          //           setState(() {
+          //             lang = newValue;
+          //             setSelected(lang.languageCode);
+          //           });
+          //         },
+          //         // onChanged: _changeLanguageName,
+          //         hint: lang == null
+          //             ? Text(
+          //           languageSelected,
+          //           style:
+          //           TextStyle(color: Colors.blue, fontSize: 12.sp, fontWeight: FontWeight.w600, fontFamily: 'PFBagueRoundPro'),
+          //         )
+          //             : Text(
+          //           "${lang.language}",
+          //           style: TextStyle(
+          //             color: Colors.blue,
+          //             fontFamily: 'PFBagueRoundPro',
+          //             fontWeight: FontWeight.w600,
+          //             fontSize: 12.sp,
+          //           ),
+          //         ),
+          //         icon: Icon(
+          //           Icons.keyboard_arrow_down_rounded,
+          //           color: MColors.black,
+          //           size: 26.sp,
+          //         ),
+          //         items: Language.languageList()
+          //             .map<DropdownMenuItem<Language>>((lang) => DropdownMenuItem(
+          //             value: lang,
+          //             child: Text(
+          //               lang.language,
+          //               style: TextStyle(color: Colors.white, fontSize: 12.sp, fontFamily: 'Tajawal', fontWeight: FontWeight.w500),
+          //             )))
+          //             .toList(),
+          //       ),
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );
@@ -234,7 +255,7 @@ class IntroScreenState extends BaseState<IntroScreen, IntroPresenter> with Autom
   }
 
   _openLoginScreen(context) {
-      Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context) => LoginScreen()));
+    Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context) => LoginScreen()));
   }
 
   _openHomeScreen(context) {

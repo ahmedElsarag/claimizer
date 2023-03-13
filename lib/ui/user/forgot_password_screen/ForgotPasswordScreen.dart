@@ -28,31 +28,24 @@ class ForgotPasswordScreen extends StatefulWidget {
   ForgotPasswordScreenState createState() => ForgotPasswordScreenState();
 }
 
-class ForgotPasswordScreenState extends BaseState<ForgotPasswordScreen, ForgotPasswordPresenter> with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
+class ForgotPasswordScreenState extends BaseState<ForgotPasswordScreen, ForgotPasswordPresenter>
+    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   ForgotPasswordProvider<LoginResponse> provider = ForgotPasswordProvider<LoginResponse>();
 
   double opacity = 0.0;
-
-  //Rolling listener
-  ScrollController _controller = ScrollController();
-
-  bool showTopTitle = false;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final phoneFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
 
-  String phone, password, email;
-
-  bool _obscureTextPassword = true;
+  String  email;
 
   String languageSelected = "English";
   int languageSelectedValue = 1;
   bool isError = false;
   String errorMessage;
   Widget myloginWidget;
-  int selectedLang;
 
   @override
   void initState() {
@@ -81,7 +74,6 @@ class ForgotPasswordScreenState extends BaseState<ForgotPasswordScreen, ForgotPa
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -100,19 +92,25 @@ class ForgotPasswordScreenState extends BaseState<ForgotPasswordScreen, ForgotPa
                   children: <Widget>[
                     SizedBox(height: 10.h),
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pop(context);
                       },
                       child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 8.w),
-                        padding: EdgeInsets.symmetric(horizontal: 3.w,vertical:2.w),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: MColors.outlineBorderLight
-                          ),
+                        margin: EdgeInsets.symmetric(horizontal: 6.w),
+                        child: Stack(
+                          children: [
+                            SvgPicture.asset(ImageUtils.getSVGPath("Rectangle_button")),
+                            PositionedDirectional(
+                                top: 2.w,
+                                bottom: 2.w,
+                                end: 2.w,
+                                start: 3.w,
+                                child: Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 15.sp,
+                                )),
+                          ],
                         ),
-                        child: Icon(Icons.arrow_back_ios),
                       ),
                     ),
                     SizedBox(height: 8.h),
@@ -122,22 +120,22 @@ class ForgotPasswordScreenState extends BaseState<ForgotPasswordScreen, ForgotPa
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            S.current.forgotPassword.toUpperCase(),
+                            S.of(context).forgotPasswordTitle,
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
-                          Gaps.vGap8,
+                          Gaps.vGap12,
                           SizedBox(
-                            width: 60.w,
+                            width: 65.w,
                             child: Text(
                               S.of(context).enterYourEmailAndInstructionsWillBeSentToYou,
-                              style: Theme.of(context).textTheme.displaySmall,
+                              style: Theme.of(context).textTheme.titleSmall,
                               textAlign: TextAlign.center,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Gaps.vGap40,
+                    Gaps.vGap50,
                     Form(
                       key: _formKey,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -145,8 +143,7 @@ class ForgotPasswordScreenState extends BaseState<ForgotPasswordScreen, ForgotPa
                         child: Column(
                           children: <Widget>[
                             buildEmailField(context),
-                            Gaps.vGap10,
-                            Gaps.vGap30,
+                            Gaps.vGap40,
                             buildButton(context),
                           ],
                         ),
@@ -185,9 +182,12 @@ class ForgotPasswordScreenState extends BaseState<ForgotPasswordScreen, ForgotPa
               errorStyle: Theme.of(context).textTheme.bodySmall.copyWith(color: Colors.redAccent),
               contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-              focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              enabledBorder:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              errorBorder:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedErrorBorder:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
               focusedBorder:
               OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
               counterText: "",
@@ -247,15 +247,13 @@ class ForgotPasswordScreenState extends BaseState<ForgotPasswordScreen, ForgotPa
     if (form.validate()) {
       form.save();
       print('New user saved with signup data:\n');
-      print(email + " " + password);
-      _doServerLogin(email, password);
+      print(email );
     }
   }
 
   Future<void> _doServerLogin(String email, String password) async {
     Map<String, dynamic> bodyParams = new Map();
     bodyParams["email"] = email;
-    bodyParams["password"] = password;
     await mPresenter.doLoginApiCall(bodyParams);
   }
 

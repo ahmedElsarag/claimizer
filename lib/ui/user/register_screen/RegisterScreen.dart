@@ -101,6 +101,9 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        buildLogo(context),
+                        Gaps.vGap15,
+                        Gaps.vGap10,
                         Text(
                           S.current.signUp.toUpperCase(),
                           style: Theme.of(context).textTheme.headlineLarge,
@@ -108,7 +111,7 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
                         Gaps.vGap8,
                         Text(
                           S.of(context).welcomeToClimizer,
-                          style: Theme.of(context).textTheme.displaySmall,
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ],
                     ),
@@ -157,13 +160,15 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
                       children: [
                         Text(
                           S.of(context).alreadyHaveAnAccount,
-                          style: Theme.of(context).textTheme.bodyMedium.copyWith(fontSize: 12.sp),
+                          style: Theme.of(context).textTheme.titleSmall.copyWith(fontWeight: FontWeight.w600),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(context, CupertinoPageRoute(builder: (_) => RegisterScreen()));
+                          },
                           child: Text(
                             S.of(context).login,
-                            style: Theme.of(context).textTheme.labelSmall.copyWith(fontSize: 12.sp),
+                            style: Theme.of(context).textTheme.titleSmall.copyWith(color:Color(0xff44A4F2),fontWeight: FontWeight.w500),
                           ),
                         ),
                       ],
@@ -179,6 +184,15 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
         },
       ),
     );
+  }
+
+  Widget buildLogo(BuildContext context) {
+    return Center(
+        child: Image.asset(
+      ImageUtils.getImagePath("logo"),
+      width: 20.w,
+      height: 20.w,
+    ));
   }
 
   Widget buildNameField(BuildContext context) {
@@ -215,7 +229,10 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
               counterText: "",
               hintStyle: Theme.of(context).textTheme.displaySmall,
             ),
-            inputFormatters: [LengthLimitingTextInputFormatter(50), FilteringTextInputFormatter.allow(RegExp("[a-zA-Zأ-ي]")),],
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(50),
+              FilteringTextInputFormatter.allow(RegExp("[a-zA-Zأ-ي]")),
+            ],
             maxLength: 50,
             maxLengthEnforced: false,
             keyboardType: TextInputType.name,
@@ -334,7 +351,7 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
             controller: phoneNumberController,
             keyboardType: TextInputType.phone,
             showDropdownIcon: false,
-            initialCountryCode: '+971',
+            initialCountryCode: 'SA',
             onChanged: (phone) {
               print(phone.completeNumber);
             },
@@ -377,8 +394,8 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: SvgPicture.asset(
-                      ImageUtils.getSVGPath("eye_password"),
-                      color: provider.obscureTextPassword ? MColors.primary_text_color : MColors.primary_color,
+                      ImageUtils.getSVGPath(provider.obscureTextPassword ?"eye_password" : 'hide_eye'),
+                      color: MColors.primary_color,
                     ),
                   )
                   // Icon(_obscureTextPassword ? Icons.visibility : Icons.visibility_off, color: MColors.primary_color),
@@ -454,8 +471,8 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: SvgPicture.asset(
-                      ImageUtils.getSVGPath("eye_password"),
-                      color: provider.obscureTextPassword ? MColors.primary_text_color : MColors.primary_color,
+                      ImageUtils.getSVGPath(provider.obscureTextPassword ?"eye_password" : 'hide_eye'),
+                      color: MColors.primary_color,
                     ),
                   )
                   // Icon(_obscureTextPassword ? Icons.visibility : Icons.visibility_off, color: MColors.primary_color),
@@ -528,7 +545,7 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
               padding: const EdgeInsets.only(top: 3),
               child: Text(
                 S.of(context).orRegisterWith,
-                style: TextStyle(fontSize: 12.sp, color: MColors.gray_99.withOpacity(.8)),
+                style: Theme.of(context).textTheme.titleSmall.copyWith(fontWeight: FontWeight.w600),
               ),
             ),
             SizedBox(
@@ -573,11 +590,13 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
         });
         FocusScope.of(context).unfocus();
         if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(S.of(context).enterAllData),margin: EdgeInsets.all(20),
-            behavior: SnackBarBehavior.floating,shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8)
-            ),
-          backgroundColor: Colors.redAccent[700],));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(S.of(context).enterAllData),
+            margin: EdgeInsets.all(20),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            backgroundColor: Colors.redAccent[700],
+          ));
         }
         _submitForm();
       },

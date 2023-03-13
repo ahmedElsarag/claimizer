@@ -17,9 +17,9 @@ class MColors {
   static const intro3_color = Color(0xFF8C6AA7);
   static const primary_text_color = Color(0xFF031D3C);
   static const dark_text_color = Color(0xFF58113C);
-  static const secondary_text_color = Color(0xFF637381);
-  static const light_text_color = Color(0xFF8C8CA1);
-  static const error_color = Color(0xFFD43131);
+  static const secondary_text_color = Color(0xFF535763);
+  static const light_text_color = Color(0xFF2E435C);
+  static const error_color = Color(0xFFE94033);
   static const btn_color = Color(0xFFF8DBED);
   static const approved_color = Color(0xFF2BC48A);
   static const rejected_color = Color(0xFFF65464);
@@ -39,7 +39,7 @@ class MColors {
 
   static const back_button_color = const Color(0xffA0A2B3);
 
-  static const hint_color = const Color(0xffA59fB7);
+  static const hint_color = const Color(0xff637381);
 
   static const badge_color = const Color(0xffCC0000);
 

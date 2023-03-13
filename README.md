@@ -1,4 +1,4 @@
-# woosh
+# Claimizer
 
 A new Flutter application.
 

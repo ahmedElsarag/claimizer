@@ -82,7 +82,7 @@ class _MyAppState extends State<MyApp> {
                 debugShowCheckedModeBanner: false,
                 title: "Claimizer",
                 theme: LightStyles.lightTheme(context),
-                home: IntroScreen(),
+                home: SplashScreen(),
               );
             },
           );

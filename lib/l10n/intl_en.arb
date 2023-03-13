@@ -38,5 +38,7 @@
   "enterAllData": "Enter All Data",
   "desc1": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual.",
   "desc2": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual.",
-  "desc3": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual."
+  "desc3": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual.",
+  "getStarted": "Get Started",
+  "forgotPasswordTitle": "Forgot Password"
 }
