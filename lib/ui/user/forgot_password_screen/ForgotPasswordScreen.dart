@@ -97,20 +97,7 @@ class ForgotPasswordScreenState extends BaseState<ForgotPasswordScreen, ForgotPa
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 6.w),
-                        child: Stack(
-                          children: [
-                            SvgPicture.asset(ImageUtils.getSVGPath("Rectangle_button")),
-                            PositionedDirectional(
-                                top: 2.w,
-                                bottom: 2.w,
-                                end: 2.w,
-                                start: 3.w,
-                                child: Icon(
-                                  Icons.arrow_back_ios,
-                                  size: 15.sp,
-                                )),
-                          ],
-                        ),
+                        child: SvgPicture.asset(ImageUtils.getSVGPath("back_icon")),
                       ),
                     ),
                     SizedBox(height: 8.h),

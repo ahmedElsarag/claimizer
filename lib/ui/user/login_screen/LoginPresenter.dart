@@ -8,31 +8,18 @@ import '../../../CommonUtils/preference/Prefs.dart';
 import '../../../network/api/network_api.dart';
 import '../../../network/network_util.dart';
 
-
 class LoginPresenter extends BasePresenter<LoginScreenState> {
-
-
-
   Future doLoginApiCall(Map<String, dynamic> bodyParams) async {
     view.showProgress(isDismiss: false);
-    await requestFutureData<LoginResponse>(Method.post,
-        endPoint: Api.refreshTokenApiCall,
-        params: bodyParams, onSuccess: (data) {
+    await requestFutureData<LoginResponse>(Method.post, endPoint: Api.refreshTokenApiCall, params: bodyParams, onSuccess: (data) {
       view.closeProgress();
-      if (data != null) {
-      }
-    }, onError: (code, msg) {
-
-    });
+      if (data != null) {}
+    }, onError: (code, msg) {});
   }
-
 
   void saveUser(LoginResponse response) async {
     Prefs.setCurrentUser(jsonEncode(response.toJson()));
     Prefs.setUserName(response.data.name);
     Prefs.setIsLogin(true).then((value) => print("login status $value"));
   }
-
-
-
 }

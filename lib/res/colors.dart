@@ -16,7 +16,7 @@ class MColors {
   static const intro2_color = Color(0xFF42868A);
   static const intro3_color = Color(0xFF8C6AA7);
   static const primary_text_color = Color(0xFF031D3C);
-  static const dark_text_color = Color(0xFF58113C);
+  static const dark_text_color = Color(0xFF4A4A68);
   static const secondary_text_color = Color(0xFF535763);
   static const light_text_color = Color(0xFF2E435C);
   static const error_color = Color(0xFFE94033);
@@ -24,6 +24,7 @@ class MColors {
   static const approved_color = Color(0xFF2BC48A);
   static const rejected_color = Color(0xFFF65464);
   static const outlineBorderLight = Color(0xFFD8DADC);
+  static const blueButtonColor = Color(0xFF3577F2);
 
 
 
@@ -31,7 +32,7 @@ class MColors {
 
   static const secondary_dark_color = const Color(0xff5554DB);
 
-  static const page_background = const Color(0xfff6f6f6);
+  static const page_background = const Color(0xffF1F2F5);
 
   static const facebook_color = const Color(0xff345287);
 
@@ -62,7 +63,7 @@ class MColors {
   static const Color lightGreen = Color(0xFF12c07f);
 
   static const Color darkGrey = Color(0xFF848B92);
-  static const Color dividerColor = Color(0xFF414141);
+  static const Color dividerColor = Color(0xFFEBEBEB);
   static const Color gray = Color(0xFFE7E8EA);
   static const Color gold = Color(0xFFdebc29);
   static const Color yellow = Color(0xFFF0DF00);
@@ -93,7 +94,7 @@ class MColors {
 
   static const Color tabsTextColor = Color(0xFF848B92);
 
-  static const Color text_dark = Color(0xFF333333);
+  static const Color text_dark = Color(0xFF031D3C);
   static const Color text_normal = Color(0xFF666666);
   static const Color text_gray = Color(0xFF999999);
   static const Color app_bar_gray = Color(0x996d7278);
@@ -130,6 +131,7 @@ class MColors {
   static const darkBlueGrey12 = const Color(0x1d1f314a);
   static const coolGrey = const Color(0xff8a959e);
   static const white = const Color(0xffffffff);
+  static const whiteE = const Color(0xffFEFEFE);
   static const white5 = const Color(0xffF5F5F5);
   static const windowsBlue9 = const Color(0x163c80d1);
 
