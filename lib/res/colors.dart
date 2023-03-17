@@ -17,11 +17,14 @@ class MColors {
   static const intro3_color = Color(0xFF8C6AA7);
   static const primary_text_color = Color(0xFF031D3C);
   static const dark_text_color = Color(0xFF58113C);
+  static const headline_text_color = Color(0xFF031D3C);
   static const secondary_text_color = Color(0xFF535763);
+  static const subText_color = Color(0xFF8C8CA1);
   static const light_text_color = Color(0xFF2E435C);
   static const error_color = Color(0xFFE94033);
   static const btn_color = Color(0xFFF8DBED);
   static const approved_color = Color(0xFF2BC48A);
+  static const background_color = Color(0xFFF6F6F6);
   static const rejected_color = Color(0xFFF65464);
   static const outlineBorderLight = Color(0xFFD8DADC);
 

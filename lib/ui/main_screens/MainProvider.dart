@@ -13,25 +13,6 @@ class MainProvider<T> extends BaseProvider<T> {
     notifyListeners();
   }
 
-  List<Widget> _pages = [
-    Container(
-      color: MColors.white,
-    ),
-    Container(
-      color: MColors.font_color,
-    ),
-    Container(
-      color: MColors.hint_color,
-    ),
-  ];
-
-  List<Widget> get pages => _pages;
-
-  set pages(List<Widget> value) {
-    _pages = value;
-    notifyListeners();
-  }
-
   DateTime _lastPressedAt;
 
   DateTime get lastPressedAt => _lastPressedAt;
