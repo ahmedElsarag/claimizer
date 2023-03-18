@@ -7,11 +7,12 @@ class MColors {
   static const second_dark_color = Color(0xFF1E1E1E);
   static const text_dark_color = Color(0xFFE1E1E1);
   static const text2_dark_color = Color(0xFF9F9F9F);
-  static const loginColor2 =  Color(0xff7A1336);
-  static const loginColor1 =  Color(0xff561435);
+  static const loginColor2 = Color(0xff7A1336);
+  static const loginColor1 = Color(0xff561435);
 
   static const primary_color = Color(0xFFE94033);
   static const primary_light_color = Color(0xFF8C8CA1);
+  static const subText_color = Color(0xFF8C8CA1);
   static const secondary_color = Color(0xFFB12278);
   static const intro2_color = Color(0xFF42868A);
   static const intro3_color = Color(0xFF8C6AA7);
@@ -19,7 +20,7 @@ class MColors {
   static const dark_text_color = Color(0xFF58113C);
   static const headline_text_color = Color(0xFF031D3C);
   static const secondary_text_color = Color(0xFF535763);
-  static const subText_color = Color(0xFF8C8CA1);
+
   static const light_text_color = Color(0xFF2E435C);
   static const error_color = Color(0xFFE94033);
   static const btn_color = Color(0xFFF8DBED);
