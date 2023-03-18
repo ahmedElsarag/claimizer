@@ -1,4 +1,6 @@
 import 'package:Cliamizer/ui/intro/IntroScreen.dart';
+import 'package:Cliamizer/ui/notification_screen/NotificationScreen.dart';
+import 'package:Cliamizer/ui/profile_screen/ProfileScreen.dart';
 import 'package:Cliamizer/ui/user/login_screen/LoginScreen.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:fluro/fluro.dart';
@@ -19,6 +21,7 @@ import 'package:Cliamizer/ui/splash_screen/SplashScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import 'CommonUtils/LanguageProvider.dart';
 import 'generated/l10n.dart';
 
 
@@ -64,14 +67,16 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (context) => IntroProvider()),
         ChangeNotifierProvider(create: (context) => MainProvider()),
+        ChangeNotifierProvider(create: (context) => LanguageProvider()),
       ],
       child: ValueListenableBuilder(
         valueListenable: Setting.mobileLanguage,
         builder: (context, Locale local, _) {
+          final languageProvider = Provider.of<LanguageProvider>(context);
           return Sizer(
             builder: (context, orientation, deviceType) {
               return MaterialApp(
-                locale: local,
+                locale: languageProvider.locale,
                 localizationsDelegates: [
                   S.delegate,
                   GlobalCupertinoLocalizations.delegate,

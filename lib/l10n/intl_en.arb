@@ -40,5 +40,15 @@
   "desc2": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual.",
   "desc3": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual.",
   "getStarted": "Get Started",
-  "forgotPasswordTitle": "Forgot Password"
+  "forgotPasswordTitle": "Forgot Password",
+  "logOut": "Log Out",
+  "notification": "Notification",
+  "language": "Language",
+  "help": "Help",
+  "support": "Support",
+  "privacyAndPolicy": "Privacy and Policy",
+  "editProfile": "Edit Profile",
+  "chooseFromGallery": "Choose from Gallery",
+  "takePhoto": "Take Photo",
+  "yourOldPassword": "Your Old Password"
 }
