@@ -19,7 +19,6 @@ class MColors {
   static const primary_text_color = Color(0xFF031D3C);
   static const dark_text_color = Color(0xFF58113C);
   static const headline_text_color = Color(0xFF031D3C);
-  static const dark_text_color = Color(0xFF4A4A68);
   static const secondary_text_color = Color(0xFF535763);
 
   static const light_text_color = Color(0xFF2E435C);

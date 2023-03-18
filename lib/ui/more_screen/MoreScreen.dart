@@ -1,11 +1,12 @@
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
+import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/res/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:Cliamizer/base/view/base_state.dart';
+
 import '../../CommonUtils/LanguageProvider.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
@@ -69,11 +70,11 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter> with Automati
         Row(
           children: [
             Image.asset(
-              ImageUtils.getImagePath('profile_image'),
-              fit: BoxFit.cover,
-              height: 16.w,
-              width: 16.w,
-            ),
+              ImageUtils.getImagePath('profileImage'),
+                  fit: BoxFit.cover,
+                  height: 16.w,
+                  width: 16.w,
+                ),
             Gaps.hGap12,
             Padding(
               padding: const EdgeInsetsDirectional.only(start: 10, top: 6),

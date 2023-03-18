@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../base/provider/base_provider.dart';
-import '../../res/colors.dart';
 
 class MainProvider<T> extends BaseProvider<T> {
   bool _isUserLoggedIn = false;
@@ -31,14 +30,6 @@ class MainProvider<T> extends BaseProvider<T> {
     notifyListeners();
   }
 
-  TabController _tabController;
-
-  TabController get tabController => _tabController;
-
-  set tabController(TabController value) {
-    _tabController = value;
-    notifyListeners();
-  }
 
   PageController _pageController = PageController();
 

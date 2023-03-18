@@ -1,4 +1,5 @@
 import 'package:Cliamizer/base/view/base_state.dart';
+import 'package:Cliamizer/ui/more_screen/MoreScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -24,12 +25,18 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends BaseState<MainScreen, MainPresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-
   DateTime currentBackPressTime;
   MainProvider pr;
+  TabController _tabController;
 
   @override
   void initState() {
+    pr = context.read<MainProvider>();
+    _tabController = TabController(vsync: this, length: 4);
+    if (mounted)
+      _tabController.addListener(() {
+        pr.currentSelect = _tabController.index;
+      });
     super.initState();
   }
 
@@ -44,12 +51,12 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
           child: Scaffold(
             body: TabBarView(
               physics: NeverScrollableScrollPhysics(),
-              controller: mainProvider.tabController,
+              controller: _tabController,
               children: [
                 HomeScreen(),
                 ClaimsScreen(),
                 ClaimsScreen(),
-                ClaimsScreen(),
+                MoreScreen(),
               ],
             ),
             bottomNavigationBar: Container(
@@ -57,43 +64,39 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
               padding: EdgeInsets.only(top: 1.h, left: 1.w, right: 1.w),
               color: MColors.white,
               child: TabBar(
-                controller: mainProvider.tabController,
+                controller: _tabController,
                 labelStyle: TextStyle(fontSize: 12),
                 isScrollable: false,
-                unselectedLabelColor:  MColors.subText_color,
+                unselectedLabelColor: MColors.subText_color,
+
                 indicatorWeight: 3,
                 indicatorSize: TabBarIndicatorSize.label,
                 tabs: [
                   Tab(
-                    icon: SvgPicture.asset(ImageUtils.getSVGPath('home'),
-                      color: mainProvider.currentSelect == 0
-                          ? MColors.primary_color
-                          : MColors.tabsTextColor,
-
+                    icon: SvgPicture.asset(
+                      ImageUtils.getSVGPath('home'),
+                      color: mainProvider.currentSelect == 0 ? MColors.primary_color : MColors.tabsTextColor,
                     ),
                     text: 'Home',
                   ),
                   Tab(
-                    icon:  SvgPicture.asset(ImageUtils.getSVGPath('claims'),
-                      color: mainProvider.currentSelect == 1
-                          ? MColors.primary_color
-                          : MColors.tabsTextColor,
+                    icon: SvgPicture.asset(
+                      ImageUtils.getSVGPath('claims'),
+                      color: mainProvider.currentSelect == 1 ? MColors.primary_color : MColors.tabsTextColor,
                     ),
                     text: 'Claims',
                   ),
                   Tab(
-                    icon:  SvgPicture.asset(ImageUtils.getSVGPath('units'),
-                      color: mainProvider.currentSelect == 2
-                          ? MColors.primary_color
-                          : MColors.tabsTextColor,
+                    icon: SvgPicture.asset(
+                      ImageUtils.getSVGPath('units'),
+                      color: mainProvider.currentSelect == 2 ? MColors.primary_color : MColors.tabsTextColor,
                     ),
                     text: 'Units',
                   ),
                   Tab(
-                    icon:  Icon(Icons.more_horiz_rounded,
-                      color: mainProvider.currentSelect == 3
-                          ? MColors.primary_color
-                          : MColors.tabsTextColor,
+                    icon: Icon(
+                      Icons.more_horiz_rounded,
+                      color: mainProvider.currentSelect == 3 ? MColors.primary_color : MColors.tabsTextColor,
                     ),
                     text: 'More',
                   ),
@@ -104,8 +107,7 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
           ),
         );
       },
-    )
-    ;
+    );
   }
 
   @override
@@ -115,5 +117,4 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
 
   @override
   bool get wantKeepAlive => true;
-
 }

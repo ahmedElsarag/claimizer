@@ -1,4 +1,6 @@
+import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class RememberThatItem extends StatelessWidget {
   const RememberThatItem({Key key, @required this.index}) : super(key: key);
@@ -18,27 +20,28 @@ class RememberThatItem extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(200), color: Colors.blue.withOpacity(.2)),
-                child: Icon(
-                  Icons.add_box,
-                  color: Colors.blue,
-                  size: 20,
-                ),
-              ),
+                  padding: EdgeInsets.all(8),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(200), color: Colors.blue.withOpacity(.2)),
+                  child: SvgPicture.asset(
+                    ImageUtils.getSVGPath('remember'),
+                    width: 16,
+                    height: 16,
+                  )),
               SizedBox(
                 width: 10,
               ),
               Expanded(
                   child: Text(
-                'You Need To Renew The Contract',
+                    'You Need To Renew The Contract',
                 maxLines: 2,
-                style: TextStyle(color: Colors.black.withOpacity(.8), fontSize: 16, fontWeight: FontWeight.w500),
+                style: TextStyle(color: Colors.black.withOpacity(.8), fontSize: 14, fontWeight: FontWeight.w500),
               )),
-              Icon(
-                Icons.arrow_circle_left_rounded,
-                color: Colors.red,
-              ),
+              SvgPicture.asset(
+                ImageUtils.getSVGPath('alert'),
+                width: 16,
+                height: 16,
+              )
             ],
           ),
           Spacer(),
