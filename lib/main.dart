@@ -1,7 +1,11 @@
-import 'package:Cliamizer/ui/intro/IntroScreen.dart';
-import 'package:Cliamizer/ui/notification_screen/NotificationScreen.dart';
-import 'package:Cliamizer/ui/profile_screen/ProfileScreen.dart';
-import 'package:Cliamizer/ui/user/login_screen/LoginScreen.dart';
+import 'package:Cliamizer/res/setting.dart';
+import 'package:Cliamizer/route/application.dart';
+import 'package:Cliamizer/route/routers.dart';
+import 'package:Cliamizer/styles/light_theme_style.dart';
+import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
+import 'package:Cliamizer/ui/intro/IntroProvider.dart';
+import 'package:Cliamizer/ui/main_screens/MainProvider.dart';
+import 'package:Cliamizer/ui/splash_screen/SplashScreen.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -9,21 +13,11 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:Cliamizer/res/setting.dart';
-import 'package:Cliamizer/route/application.dart';
-import 'package:Cliamizer/route/routers.dart';
-import 'package:Cliamizer/styles/light_theme_style.dart';
-import 'package:Cliamizer/ui/intro/IntroProvider.dart';
-import 'package:Cliamizer/ui/main_screens/MainProvider.dart';
-import 'package:Cliamizer/ui/main_screens/MainScreen.dart';
-import 'package:Cliamizer/ui/splash_screen/SplashScreen.dart';
-
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import 'CommonUtils/LanguageProvider.dart';
 import 'generated/l10n.dart';
-
 
 void main() async {
   if (!kIsWeb) {
@@ -68,6 +62,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => IntroProvider()),
         ChangeNotifierProvider(create: (context) => MainProvider()),
         ChangeNotifierProvider(create: (context) => LanguageProvider()),
+        ChangeNotifierProvider(create: (context) => HomeProvider()),
       ],
       child: ValueListenableBuilder(
         valueListenable: Setting.mobileLanguage,
@@ -87,7 +82,7 @@ class _MyAppState extends State<MyApp> {
                 debugShowCheckedModeBanner: false,
                 title: "Claimizer",
                 theme: LightStyles.lightTheme(context),
-                home: MainScreen(),
+                home: SplashScreen(),
               );
             },
           );

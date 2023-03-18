@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:Cliamizer/res/colors.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
@@ -51,21 +51,26 @@ class LightStyles {
           shadow: MColors.black),
       // text theme
       textTheme: TextTheme(
-        headlineLarge: GoogleFonts.montserrat(fontSize: 24.sp, fontWeight: FontWeight.w700, color: MColors.primary_text_color),
-        bodyLarge: GoogleFonts.montserrat(fontSize: 16.sp, fontWeight: FontWeight.w700, color: MColors.primary_text_color),
-        bodyMedium: GoogleFonts.montserrat(fontSize: 14.sp, color: MColors.light_text_color,fontWeight: FontWeight.w500),
-        bodySmall: GoogleFonts.montserrat(fontSize: 12.sp, color: MColors.primary_text_color),
+        headlineLarge:
+            GoogleFonts.montserrat(fontSize: 22.sp, fontWeight: FontWeight.w700, color: MColors.primary_text_color),
+        bodyLarge:
+            GoogleFonts.montserrat(fontSize: 14.sp, fontWeight: FontWeight.w700, color: MColors.primary_text_color),
+        bodyMedium:
+            GoogleFonts.montserrat(fontSize: 10.sp, color: MColors.light_text_color, fontWeight: FontWeight.w500),
+        bodySmall: GoogleFonts.montserrat(fontSize: 9.sp, color: MColors.primary_text_color),
         labelLarge: GoogleFonts.montserrat(fontSize: 16.sp, color: MColors.primary_text_color),
-        displayLarge: GoogleFonts.montserrat(fontSize: 12.sp),
-        displayMedium: GoogleFonts.montserrat(fontSize: 14.sp, fontWeight: FontWeight.w600, color: MColors.white),
-        displaySmall: GoogleFonts.montserrat(fontSize: 11.sp,color: MColors.light_text_color),
+        displayLarge: GoogleFonts.montserrat(fontSize: 14.sp),
+        displayMedium: GoogleFonts.montserrat(fontSize: 12.sp, fontWeight: FontWeight.w600, color: MColors.white),
+        displaySmall: GoogleFonts.montserrat(fontSize: 10.sp, color: MColors.light_text_color),
         headlineMedium: GoogleFonts.montserrat(fontSize: 12.sp),
         headlineSmall: GoogleFonts.montserrat(fontSize: 12.sp),
         titleLarge: GoogleFonts.montserrat(fontSize: 12.sp),
-        titleMedium: GoogleFonts.montserrat(fontSize: 10.sp,color: MColors.hint_color),
-        titleSmall: GoogleFonts.montserrat(fontSize: 11.sp,color: MColors.primary_light_color),
-        labelSmall: GoogleFonts.montserrat(fontSize: 9.sp,color: MColors.text_button_color, fontWeight: FontWeight.w500),
-        labelMedium: GoogleFonts.montserrat(fontSize: 12.sp,fontWeight: FontWeight.w600, color: MColors.primary_text_color),
+        titleMedium: GoogleFonts.montserrat(fontSize: 9.sp, color: MColors.hint_color),
+        titleSmall: GoogleFonts.montserrat(fontSize: 9.sp, color: MColors.primary_light_color),
+        labelSmall:
+            GoogleFonts.montserrat(fontSize: 9.sp, color: MColors.text_button_color, fontWeight: FontWeight.w500),
+        labelMedium:
+            GoogleFonts.montserrat(fontSize: 12.sp, fontWeight: FontWeight.w600, color: MColors.primary_text_color),
       ),
       //app themes
       appBarTheme: AppBarTheme(

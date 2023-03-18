@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:Cliamizer/CommonUtils/log_utils.dart';
 import 'package:Cliamizer/CommonUtils/preference/Prefs.dart';
+import 'package:dio/dio.dart';
 import 'package:sprintf/sprintf.dart';
 
 import 'exception/error_status.dart';
@@ -126,7 +126,12 @@ class AdapterInterceptor extends Interceptor {
       result = sprintf(SUCCESS_FORMAT, [content]);
       response.statusCode = ErrorStatus.SUCCESS;
     } else {
-      result = sprintf(FAILURE_FORMAT, [response.statusCode, DefaultResponse.fromJson(jsonDecode(response.data)).message.isNotEmpty? DefaultResponse.fromJson(jsonDecode(response.data)).message.toString(): NOT_FOUND]);
+      result = sprintf(FAILURE_FORMAT, [
+        response.statusCode,
+        DefaultResponse?.fromJson(jsonDecode(response?.data))?.message?.isNotEmpty ?? false
+            ? DefaultResponse.fromJson(jsonDecode(response.data)).message.toString()
+            : NOT_FOUND
+      ]);
       response.statusCode = ErrorStatus.SUCCESS;
     }
     if (response.statusCode == ErrorStatus.SUCCESS) {

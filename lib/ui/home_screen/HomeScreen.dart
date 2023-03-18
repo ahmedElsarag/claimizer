@@ -1,16 +1,27 @@
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/app_widgets/app_headline.dart';
+import 'package:Cliamizer/base/view/base_state.dart';
+import 'package:Cliamizer/ui/home_screen/HomePresenter.dart';
+import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
 import 'package:Cliamizer/ui/home_screen/widgets/home_card_item.dart';
 import 'package:Cliamizer/ui/home_screen/widgets/remember_that_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../res/colors.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => HomeScreenState();
+}
+
+class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
+    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
+  HomeProvider provider;
   List cardsColor = [
     Color(0xff44A4F2),
     Color(0xffFF9500),
@@ -20,6 +31,7 @@ class HomeScreen extends StatelessWidget {
     Color(0xffFF0000),
     Color(0xff679C0D),
   ];
+
   List<String> cardTitles = [
     'All Claims',
     'New Claims',
@@ -29,6 +41,7 @@ class HomeScreen extends StatelessWidget {
     'Cancelled Claims',
     'Closed Claims'
   ];
+
   List<String> cardImages = [
     'allclaims',
     'newclaims',
@@ -40,6 +53,13 @@ class HomeScreen extends StatelessWidget {
   ];
 
   @override
+  void initState() {
+    provider = context.read<HomeProvider>();
+    mPresenter.getStatisticsApiCall();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MColors.background_color,
@@ -49,7 +69,7 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: Row(
                 children: [
                   Container(
@@ -79,22 +99,25 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 18,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 16 / 9,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                children: List.generate(
-                  7,
-                  (index) => HomeCardItem(
-                      cardColor: cardsColor[index],
-                      title: cardTitles[index],
-                      imageIcon: cardImages[index],
-                      value: '255'),
+            Selector<HomeProvider, List<String>>(
+              selector: (_, provider) => provider.claimsStatistics,
+              builder: (context, list, child) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 16 / 9,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  children: List.generate(
+                    7,
+                    (index) => HomeCardItem(
+                        cardColor: cardsColor[index],
+                        title: cardTitles[index],
+                        imageIcon: cardImages[index],
+                        value: list.isNotEmpty ? list[index] : ' '),
+                  ),
                 ),
               ),
             ),
@@ -162,11 +185,17 @@ class HomeScreen extends StatelessWidget {
             //   ),
             // ),
           ],
-          )
-        ),
+        )),
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+
+  @override
+  HomePresenter createPresenter() {
+    return HomePresenter();
+  }
 }
-
-

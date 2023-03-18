@@ -50,5 +50,7 @@
   "editProfile": "Edit Profile",
   "chooseFromGallery": "Choose from Gallery",
   "takePhoto": "Take Photo",
-  "yourOldPassword": "Your Old Password"
+  "yourOldPassword": "Your Old Password",
+  "loggedInSuccessfully": "Logged in successfully",
+  "accountCreated": "account created"
 }

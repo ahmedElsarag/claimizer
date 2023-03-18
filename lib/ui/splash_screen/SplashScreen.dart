@@ -1,12 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:Cliamizer/CommonUtils/custom_route.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
-import 'package:Cliamizer/ui/intro/intro_start_screen.dart';
 import 'package:Cliamizer/ui/user/login_screen/LoginScreen.dart';
+import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
@@ -14,7 +10,7 @@ import 'package:sizer/sizer.dart';
 import '../../CommonUtils/SizeConfig2.dart';
 import '../../CommonUtils/image_utils.dart';
 import '../../CommonUtils/preference/Prefs.dart';
-import '../../res/colors.dart';
+import '../main_screens/MainScreen.dart';
 import 'SplashPresenter.dart';
 import 'SplashProvider.dart';
 
@@ -94,6 +90,6 @@ class SplashScreenState extends BaseState<SplashScreen, SplashPresenter> with Au
   bool get wantKeepAlive => true;
 
   _openHomeScreen(BuildContext context) {
-    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainScreen()));
   }
 }
