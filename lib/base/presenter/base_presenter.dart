@@ -1,11 +1,11 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:Cliamizer/CommonUtils/preference/Prefs.dart';
 import 'package:Cliamizer/generated/l10n.dart';
 import 'package:Cliamizer/network/exception/error_status.dart';
 import 'package:Cliamizer/network/models/LoginResponse.dart';
 import 'package:Cliamizer/network/network_util.dart';
 import 'package:Cliamizer/ui/user/login_screen/LoginScreen.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 import '../../CommonUtils/log_utils.dart';
 import '../../network/api/network_api.dart';
@@ -167,7 +167,7 @@ class BasePresenter<V extends IBaseView> extends IPresenter {
       // view.closeProgress();
       if (data != null) {
         Log.d("onSuccess " + data.toString());
-        Prefs.setUserToken(data.accessToken);
+        Prefs.setUserToken(data.data.token);
         // view.provider.addedToCart = true;
         // view.provider.setData(data);
       } else {

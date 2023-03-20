@@ -56,5 +56,7 @@
   "newClaims": "New Claims",
   "allClaims": "All Claims",
   "claimsRequests": "Claims Requests",
-  "addNewClaim": "Add New Claim"
+  "addNewClaim": "Add New Claim",
+  "loggedInSuccessfully": "Logged in successfully",
+  "accountCreated": "account created"
 }

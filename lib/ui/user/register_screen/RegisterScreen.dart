@@ -1,15 +1,17 @@
 import 'dart:io';
 import 'dart:math';
+
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
+import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/res/gaps.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+
 import '../../../CommonUtils/log_utils.dart';
 import '../../../CommonUtils/preference/Prefs.dart';
 import '../../../CommonUtils/utils.dart';
@@ -131,8 +133,7 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
                             buildPasswordField(context),
                             Gaps.hGap8,
                             buildConfirmPasswordField(context),
-                            Gaps.vGap30,
-                            buildLoginButton(context),
+                            Gaps.vGap15,
                             AnimatedOpacity(
                               opacity: provider.opacity,
                               curve: Curves.bounceIn,
@@ -146,6 +147,8 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
                                 ),
                               ),
                             ),
+                            Gaps.vGap15,
+                            buildLoginButton(context),
                             SizedBox(
                               height: 1.h,
                             ),
@@ -610,15 +613,18 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
       form.save();
       print('New user saved with signup data:\n');
       print(emailController.text + " " + passwordController.text);
-      // _doServerLogin(emailController.text, passwordController.text);
+      _doServerLogin();
     }
   }
 
-  Future<void> _doServerLogin(String email, String password) async {
+  Future<void> _doServerLogin() async {
     Map<String, dynamic> bodyParams = new Map();
-    bodyParams["email"] = email;
-    bodyParams["password"] = password;
-    await mPresenter.doLoginApiCall(bodyParams);
+    bodyParams["name"] = nameController.text;
+    bodyParams["email"] = emailController.text;
+    bodyParams["mobile"] = phoneNumberController.text;
+    bodyParams["password"] = passwordController.text;
+    bodyParams["password_confirmation"] = confirmPasswordController.text;
+    await mPresenter.doRegisterApiCall(bodyParams);
   }
 
   @override
@@ -629,11 +635,6 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
   @override
   bool get wantKeepAlive => true;
 
-  void _refresh() {
-    setState(() {
-      isError = false;
-    });
-  }
 
   void setSelected(String s) {
     if (s == 'en' || s == 'null')
@@ -642,13 +643,6 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
       Setting.mobileLanguage.value = new Locale('ar');
     Prefs.setAppLocal(s);
     Log.d(s);
-  }
-
-  void setError(String message, bool isErrors) {
-    setState(() {
-      isError = isErrors;
-      errorMessage = message;
-    });
   }
 
   bool checkPlatformIos() {

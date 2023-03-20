@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'dart:math';
+
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
+import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/res/gaps.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -95,7 +96,7 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                     SizedBox(height: 7.h),
                     buildLogo(context),
                     SizedBox(
-                      height: 3.h,
+                      height: 2.h,
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -112,7 +113,7 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                         ),
                       ],
                     ),
-                    Gaps.vGap40,
+                    Gaps.vGap30,
                     Form(
                       key: _formKey,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -124,11 +125,8 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                             buildPasswordField(context),
                             Gaps.hGap8,
                             Container(
-                              width: MediaQuery.of(context).size.width * .872,
-                              margin: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.height * .01,
-                                  right: MediaQuery.of(context).size.width * .06,
-                                  left: MediaQuery.of(context).size.width * .01),
+                              width: 100.w,
+                              margin: EdgeInsets.symmetric(horizontal: 20),
                               child: Row(
                                 children: [
                                   Checkbox(
@@ -148,7 +146,8 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                                   Spacer(),
                                   InkWell(
                                     onTap: () {
-                                      Navigator.push(context, CupertinoPageRoute(builder: (_) => ForgotPasswordScreen()));
+                                      Navigator.push(
+                                          context, CupertinoPageRoute(builder: (_) => ForgotPasswordScreen()));
                                     },
                                     child: Text(
                                       S.of(context).forgotPassword,
@@ -158,14 +157,14 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                                 ],
                               ),
                             ),
-                            Gaps.vGap30,
-                            buildLoginButton(context),
+                            Gaps.vGap12,
                             AnimatedOpacity(
                               opacity: provider.opacity,
                               curve: Curves.bounceIn,
                               duration: Duration(seconds: 1),
                               child: Container(
                                 width: 100.w,
+                                margin: EdgeInsets.only(bottom: 15),
                                 alignment: Alignment.center,
                                 child: Text(
                                   provider.errorMessage,
@@ -173,6 +172,7 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                                 ),
                               ),
                             ),
+                            buildLoginButton(context),
                             SizedBox(
                               height: 4.h,
                             ),
@@ -216,9 +216,9 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
   Widget buildLogo(BuildContext context) {
     return Center(
         child: Image.asset(
-      ImageUtils.getImagePath("logo"),
-      width: 20.w,
-      height: 20.w,
+          ImageUtils.getImagePath("logo"),
+      width: 18.w,
+      height: 18.w,
     ));
   }
 
@@ -302,16 +302,16 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
             style: Theme.of(context).textTheme.bodySmall,
             decoration: InputDecoration(
               errorStyle: Theme.of(context).textTheme.bodySmall.copyWith(color: Colors.redAccent),
-              hintText: ".........",
+              hintText: "password",
               contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
               suffixIcon: GestureDetector(
                   onTap: () {
                     provider.obscureTextPassword = !provider.obscureTextPassword;
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: SvgPicture.asset(
-                      ImageUtils.getSVGPath(provider.obscureTextPassword ?"eye_password" : 'hide_eye'),
+                      ImageUtils.getSVGPath(provider.obscureTextPassword ? "eye_password" : 'hide_eye'),
                       color: MColors.primary_color,
                     ),
                   )
@@ -366,7 +366,7 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 50.sp,
+              width: 28.w,
               decoration: BoxDecoration(
                 border: Border(
                     bottom: BorderSide(
@@ -389,7 +389,7 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
               width: 2.w,
             ),
             Container(
-              width: 50.sp,
+              width: 28.w,
               decoration: BoxDecoration(
                 border: Border(bottom: BorderSide(color: MColors.gray, width: 2)),
               ),
