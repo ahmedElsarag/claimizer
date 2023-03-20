@@ -1,6 +1,7 @@
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/res/styles.dart';
+import 'package:Cliamizer/ui/edit_profile_screen/EditProfileScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -92,14 +93,19 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter> with Automati
     ),
   );
 
-  Widget editProfileButton() => Container(
-    width: 8.w,
-    height: 8.w,
-    padding: EdgeInsets.all(6),
-    decoration: BoxDecoration(border: Border.all(color: MColors.primary_color), borderRadius: BorderRadius.circular(8)),
-    child: SvgPicture.asset(
-      ImageUtils.getSVGPath('edit-2'),
-      fit: BoxFit.fitWidth,
+  Widget editProfileButton() => InkWell(
+    onTap: (){
+      Navigator.push(context, CupertinoPageRoute(builder: (_)=>EditProfileScreen()));
+    },
+    child: Container(
+      width: 8.w,
+      height: 8.w,
+      padding: EdgeInsets.all(6),
+      decoration: BoxDecoration(border: Border.all(color: MColors.primary_color), borderRadius: BorderRadius.circular(8)),
+      child: SvgPicture.asset(
+        ImageUtils.getSVGPath('edit-2'),
+        fit: BoxFit.fitWidth,
+      ),
     ),
   );
 

@@ -21,16 +21,20 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "addNewClaim" : MessageLookupByLibrary.simpleMessage("Add New Claim"),
+    "allClaims" : MessageLookupByLibrary.simpleMessage("All Claims"),
     "alreadyHaveAnAccount" : MessageLookupByLibrary.simpleMessage("لديك حساب بالفعل؟  "),
     "anErrorOccurredTryAgainLater" : MessageLookupByLibrary.simpleMessage("حدث خطأ ما برجاء المحاولة لاحقا"),
     "checkYourInternet" : MessageLookupByLibrary.simpleMessage("تحقق من الاتصاال بالانترنت"),
-    "chooseFromGallery" : MessageLookupByLibrary.simpleMessage("Choose from Gallery"),
+    "chooseFromGallery" : MessageLookupByLibrary.simpleMessage("اختر من المعرض"),
+    "claimManagement" : MessageLookupByLibrary.simpleMessage("ادارة طلبات الصيانة"),
+    "claimsRequests" : MessageLookupByLibrary.simpleMessage("Claims Requests"),
     "confirmPassword" : MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
     "desc1" : MessageLookupByLibrary.simpleMessage("هو نص عنصر نائب يستخدم بشكل شائع لتوضيح الصورة المرئية."),
     "desc2" : MessageLookupByLibrary.simpleMessage("هو نص عنصر نائب يستخدم بشكل شائع لتوضيح الصورة المرئية."),
     "desc3" : MessageLookupByLibrary.simpleMessage("هو نص عنصر نائب يستخدم بشكل شائع لتوضيح الصورة المرئية."),
     "dontHaveAnAccount" : MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟ "),
-    "editProfile" : MessageLookupByLibrary.simpleMessage("Edit Profile"),
+    "editProfile" : MessageLookupByLibrary.simpleMessage("تعديل الملف الشخصي"),
     "emailAddress" : MessageLookupByLibrary.simpleMessage("البريد الالكتروني"),
     "emailisnotvalid" : MessageLookupByLibrary.simpleMessage("البريد الالكتروني غير صحيح"),
     "emailisrequired" : MessageLookupByLibrary.simpleMessage("البريد الالكتروني مطلوب"),
@@ -50,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "logOut" : MessageLookupByLibrary.simpleMessage("تسجيل خروج"),
     "login" : MessageLookupByLibrary.simpleMessage("تسجبل الدخول"),
     "name" : MessageLookupByLibrary.simpleMessage("الاسم"),
+    "newClaims" : MessageLookupByLibrary.simpleMessage("New Claims"),
     "next" : MessageLookupByLibrary.simpleMessage("التالي"),
     "notification" : MessageLookupByLibrary.simpleMessage("الاشعارات"),
     "orRegisterWith" : MessageLookupByLibrary.simpleMessage("أو سجل بواسطة"),
@@ -67,9 +72,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "signUp" : MessageLookupByLibrary.simpleMessage("سجل الان"),
     "skip" : MessageLookupByLibrary.simpleMessage("تخطى"),
     "support" : MessageLookupByLibrary.simpleMessage("الدعم"),
-    "takePhoto" : MessageLookupByLibrary.simpleMessage("Take Photo"),
+    "takePhoto" : MessageLookupByLibrary.simpleMessage("التقط صورة"),
+    "welcome" : MessageLookupByLibrary.simpleMessage("مرحبا"),
     "welcomeBackToClimizer" : MessageLookupByLibrary.simpleMessage("مرحبا بك في كلمايزر"),
     "welcomeToClimizer" : MessageLookupByLibrary.simpleMessage("مرحبا في كلمايزر"),
-    "yourOldPassword" : MessageLookupByLibrary.simpleMessage("Your Old Password")
+    "yourOldPassword" : MessageLookupByLibrary.simpleMessage("كلمة المرور القديمة")
   };
 }

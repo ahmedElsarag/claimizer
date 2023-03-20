@@ -12,7 +12,8 @@ class MColors {
 
   static const primary_color = Color(0xFFE94033);
   static const primary_light_color = Color(0xFF8C8CA1);
-  static const subText_color = Color(0xFF8C8CA1);
+  static const subText_color = Color(0xFF6F767E);
+  static const subtitlesColor = Color(0xFF4A4A68);
   static const secondary_color = Color(0xFFB12278);
   static const intro2_color = Color(0xFF42868A);
   static const intro3_color = Color(0xFF8C6AA7);

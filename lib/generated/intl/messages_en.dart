@@ -21,11 +21,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "addNewClaim" : MessageLookupByLibrary.simpleMessage("Add New Claim"),
+    "allClaims" : MessageLookupByLibrary.simpleMessage("All Claims"),
     "alreadyHaveAnAccount" : MessageLookupByLibrary.simpleMessage("Already Have An Account ? "),
     "anErrorOccurredTryAgainLater" : MessageLookupByLibrary.simpleMessage("An Error Occurred Try Again Later"),
     "ar" : MessageLookupByLibrary.simpleMessage("Ar"),
     "checkYourInternet" : MessageLookupByLibrary.simpleMessage("check Your Internet"),
     "chooseFromGallery" : MessageLookupByLibrary.simpleMessage("Choose from Gallery"),
+    "claimManagement" : MessageLookupByLibrary.simpleMessage("Claim Management"),
+    "claimsRequests" : MessageLookupByLibrary.simpleMessage("Claims Requests"),
     "confirmPassword" : MessageLookupByLibrary.simpleMessage("Confirm Password"),
     "desc1" : MessageLookupByLibrary.simpleMessage("Lorem ipsum is a placeholder text commonly used to demonstrate the visual."),
     "desc2" : MessageLookupByLibrary.simpleMessage("Lorem ipsum is a placeholder text commonly used to demonstrate the visual."),
@@ -52,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "logOut" : MessageLookupByLibrary.simpleMessage("Log Out"),
     "login" : MessageLookupByLibrary.simpleMessage("Login"),
     "name" : MessageLookupByLibrary.simpleMessage("Name"),
+    "newClaims" : MessageLookupByLibrary.simpleMessage("New Claims"),
     "next" : MessageLookupByLibrary.simpleMessage("Next"),
     "notification" : MessageLookupByLibrary.simpleMessage("Notification"),
     "orRegisterWith" : MessageLookupByLibrary.simpleMessage("Or Register with"),
@@ -70,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "skip" : MessageLookupByLibrary.simpleMessage("Skip"),
     "support" : MessageLookupByLibrary.simpleMessage("Support"),
     "takePhoto" : MessageLookupByLibrary.simpleMessage("Take Photo"),
+    "welcome" : MessageLookupByLibrary.simpleMessage("Welcome"),
     "welcomeBackToClimizer" : MessageLookupByLibrary.simpleMessage("Welcome Back To Climizer"),
     "welcomeToClimizer" : MessageLookupByLibrary.simpleMessage("Welcome To Climizer"),
     "yourOldPassword" : MessageLookupByLibrary.simpleMessage("Your Old Password")

@@ -46,8 +46,14 @@
   "help": "مساعدة",
   "support": "الدعم",
   "privacyAndPolicy": "سياسة الخصوصية",
-  "editProfile": "Edit Profile",
-  "chooseFromGallery": "Choose from Gallery",
-  "takePhoto": "Take Photo",
-  "yourOldPassword": "Your Old Password"
+  "editProfile": "تعديل الملف الشخصي",
+  "chooseFromGallery": "اختر من المعرض",
+  "takePhoto": "التقط صورة",
+  "yourOldPassword": "كلمة المرور القديمة",
+  "welcome": "مرحبا",
+  "claimManagement": "ادارة طلبات الصيانة",
+  "newClaims": "New Claims",
+  "allClaims": "All Claims",
+  "claimsRequests": "Claims Requests",
+  "addNewClaim": "Add New Claim"
 }

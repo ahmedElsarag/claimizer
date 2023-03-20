@@ -15,8 +15,12 @@ class MTextStyles {
   );
   static TextStyle textMainLight16 =
       GoogleFonts.montserrat(fontSize: Dimens.font_sp16, fontWeight: FontWeight.w500, color: MColors.light_text_color.withOpacity(0.8));
+  static TextStyle textMainLight14 =
+      GoogleFonts.montserrat(fontSize: Dimens.font_sp14, fontWeight: FontWeight.w500, color: MColors.light_text_color.withOpacity(0.8));
   static TextStyle textMain18 =
       GoogleFonts.montserrat(fontSize: Dimens.font_sp18, fontWeight: FontWeight.w600, color: MColors.primary_text_color);
+  static TextStyle textMain16 =
+      GoogleFonts.montserrat(fontSize: Dimens.font_sp16, fontWeight: FontWeight.w600, color: MColors.primary_text_color);
   static const TextStyle textNormal12 = const TextStyle(
     fontSize: Dimens.font_sp12,
     color: MColors.text_normal,
@@ -83,4 +87,6 @@ class MTextStyles {
       GoogleFonts.montserrat(fontSize: Dimens.font_sp12, fontWeight: FontWeight.w600, color: MColors.dark_text_color);
   static TextStyle textLabelSmall =
       GoogleFonts.montserrat(fontSize: Dimens.font_sp12, fontWeight: FontWeight.w500, color: MColors.primary_light_color);
+  static TextStyle textSubtitle =
+      GoogleFonts.montserrat(fontSize: Dimens.font_sp12, fontWeight: FontWeight.w500, color: MColors.subText_color);
 }

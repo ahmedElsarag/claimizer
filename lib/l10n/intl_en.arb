@@ -50,5 +50,11 @@
   "editProfile": "Edit Profile",
   "chooseFromGallery": "Choose from Gallery",
   "takePhoto": "Take Photo",
-  "yourOldPassword": "Your Old Password"
+  "yourOldPassword": "Your Old Password",
+  "welcome": "Welcome",
+  "claimManagement": "Claim Management",
+  "newClaims": "New Claims",
+  "allClaims": "All Claims",
+  "claimsRequests": "Claims Requests",
+  "addNewClaim": "Add New Claim"
 }

@@ -2,10 +2,13 @@ import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/app_widgets/app_headline.dart';
 import 'package:Cliamizer/ui/home_screen/widgets/home_card_item.dart';
 import 'package:Cliamizer/ui/home_screen/widgets/remember_that_item.dart';
+import 'package:Cliamizer/ui/notification_screen/NotificationScreen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../generated/l10n.dart';
 import '../../res/colors.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -54,13 +57,17 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Container(
                     width: 200,
-                    child: Text('Welcome, Ahmed Elsarag',
+                    child: Text(S.of(context).welcome + " "+'Ahmed Elsarag',
                         maxLines: 2,
                         style: TextStyle(
                             color: MColors.headline_text_color, fontSize: 14.sp, fontWeight: FontWeight.bold)),
                   ),
                   Spacer(),
-                  SvgPicture.asset(ImageUtils.getSVGPath('notification')),
+                  InkWell(
+                      onTap: (){
+                        Navigator.push(context, CupertinoPageRoute(builder: (_)=>NotificationScreen()));
+                      },
+                      child: SvgPicture.asset(ImageUtils.getSVGPath('notification'))),
                   SizedBox(
                     width: 8,
                   ),

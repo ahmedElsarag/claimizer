@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -551,6 +550,66 @@ class S {
     return Intl.message(
       'Your Old Password',
       name: 'yourOldPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome`
+  String get welcome {
+    return Intl.message(
+      'Welcome',
+      name: 'welcome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Claim Management`
+  String get claimManagement {
+    return Intl.message(
+      'Claim Management',
+      name: 'claimManagement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Claims`
+  String get newClaims {
+    return Intl.message(
+      'New Claims',
+      name: 'newClaims',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All Claims`
+  String get allClaims {
+    return Intl.message(
+      'All Claims',
+      name: 'allClaims',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Claims Requests`
+  String get claimsRequests {
+    return Intl.message(
+      'Claims Requests',
+      name: 'claimsRequests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add New Claim`
+  String get addNewClaim {
+    return Intl.message(
+      'Add New Claim',
+      name: 'addNewClaim',
       desc: '',
       args: [],
     );
