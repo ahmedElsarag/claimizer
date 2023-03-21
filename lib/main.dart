@@ -2,6 +2,7 @@ import 'package:Cliamizer/res/setting.dart';
 import 'package:Cliamizer/route/application.dart';
 import 'package:Cliamizer/route/routers.dart';
 import 'package:Cliamizer/styles/light_theme_style.dart';
+import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
 import 'package:Cliamizer/ui/intro/IntroProvider.dart';
 import 'package:Cliamizer/ui/main_screens/MainProvider.dart';
@@ -63,6 +64,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => MainProvider()),
         ChangeNotifierProvider(create: (context) => LanguageProvider()),
         ChangeNotifierProvider(create: (context) => HomeProvider()),
+        ChangeNotifierProvider(create: (context) => ClaimsProvider()),
       ],
       child: ValueListenableBuilder(
         valueListenable: Setting.mobileLanguage,

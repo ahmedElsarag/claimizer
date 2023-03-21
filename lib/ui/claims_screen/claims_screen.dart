@@ -34,27 +34,41 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter> with Au
     'claims_requests',
   ];
 
-  List<String> _unitItems = [    'Item 1',    'Item 2',    'Item 3',    'Item 4',    'Item 5',    'Item 6',    'Item 7',    'Item 8',    'I'
-      'tem 9',    'Item 10'  ];
+  List<String> _unitItems = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+    'Item 6',
+    'Item 7',
+    'Item 8',
+    'I'
+        'tem 9',
+    'Item 10'
+  ];
 
+  @override
+  void initState() {
+    mPresenter.getAllClaimsApiCall();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ChangeNotifierProvider<ClaimsProvider>(
-      create: (context) => provider,
-      builder: (context, child) => Consumer<ClaimsProvider>(
-        builder: (context, value, child) => Scaffold(
-          backgroundColor: MColors.page_background,
-          body: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16, 60, 16, 0),
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    children: [
+    return Consumer<ClaimsProvider>(
+      builder: (context, value, child) => Scaffold(
+        backgroundColor: MColors.page_background,
+        body: Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(16, 60, 16, 0),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
                       Row(
                         children: [
                           Container(
@@ -339,18 +353,19 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter> with Au
                       )
                           : provider.selectedIndex == 1
                           ? ListView.builder(
-                        itemCount: 2,
-                        itemBuilder: (context, index) => Container(
-                          decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
-                          margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                        itemCount: provider.claimsList.length,
+                                itemBuilder: (context, index) => Container(
+                                  decoration:
+                                      BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
+                                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
+                                  margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Falcon Tower A5 - Owned",
@@ -368,9 +383,9 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter> with Au
                                         color: Color(0xff44A4F2).withOpacity(0.08),
                                         borderRadius: BorderRadius.circular(32),
                                       ),
-                                      child: Text("New",
-                                          style: MTextStyles.textDark12
-                                              .copyWith(color: MColors.blueButtonColor, fontWeight: FontWeight.w600)))
+                                      child: Text(provider?.claimsList[index]?.status ?? '',
+                                                  style: MTextStyles.textDark12.copyWith(
+                                                      color: MColors.blueButtonColor, fontWeight: FontWeight.w600)))
                                 ],
                               ),
                               buildDivider(),
@@ -411,9 +426,9 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter> with Au
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text(
-                                        "2023-03-03",
-                                        style: MTextStyles.textSubtitle,
-                                      ),
+                                        provider?.claimsList[index]?.startAt ?? '',
+                                                style: MTextStyles.textSubtitle,
+                                              ),
                                       Gaps.vGap8,
                                       Text(
                                         "Falcon Tower A5 - Owned",
@@ -494,12 +509,11 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter> with Au
                           SvgPicture.asset(ImageUtils.getSVGPath("export"))
                         ],
                       ),*/
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                              ),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),
