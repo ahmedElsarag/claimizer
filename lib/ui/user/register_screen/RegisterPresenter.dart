@@ -32,9 +32,8 @@ class RegisterPresenter extends BasePresenter<RegisterScreenState> {
 
   void saveUser(LoginResponse response) async {
     Prefs.setCurrentUser(jsonEncode(response.toJson()));
+    Prefs.setUserToken(response.data.token);
     Prefs.setIsLogin(true).then((value) => print("login status $value"));
   }
-
-
 
 }

@@ -28,7 +28,10 @@ class HomePresenter extends BasePresenter<HomeScreenState> {
         view.provider.claimsStatistics.add(data.data.claims.closed.toString());
       }
     }, onError: (code, msg) {
-      // view.closeProgress();
+      view.closeProgress();
+      if(code==401){
+        return "error";
+      }
     });
   }
 }
