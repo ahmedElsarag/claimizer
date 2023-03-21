@@ -1,6 +1,6 @@
+import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:flutter/material.dart';
-import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -52,7 +52,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter> with Au
               children: [
                 Container(
                   decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 3.w),
+                  padding: EdgeInsets.all(20),
                   child: Column(
                     children: [
                       Row(
@@ -61,7 +61,8 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter> with Au
                             width: 1.w,
                             height: 5.w,
                             margin: EdgeInsetsDirectional.only(end: 2.w),
-                            decoration: BoxDecoration(color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
+                            decoration:
+                                BoxDecoration(color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
                           ),
                           Text(S.of(context).claimManagement, style: MTextStyles.textMain18),
                         ],
@@ -69,7 +70,6 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter> with Au
                       Gaps.vGap16,
                       Container(
                         height: 110,
-                        margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: cardTitles.length,
@@ -81,31 +81,31 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter> with Au
                               child: Card(
                                 elevation: 0.5,
                                 color: provider.selectedIndex == pageIndex ? MColors.primary_color : Colors.white,
-                                margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                                 child: SizedBox(
-                                  width: 104,
+                                  width: 25.w,
                                   height: 96,
-                                  child: ListTile(
-                                    title: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        SvgPicture.asset(
-                                          ImageUtils.getSVGPath(cardImages[pageIndex]),
-                                          color: provider.selectedIndex == pageIndex ? Colors.white : MColors.primary_color,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        ImageUtils.getSVGPath(cardImages[pageIndex]),
+                                        color:
+                                            provider.selectedIndex == pageIndex ? Colors.white : MColors.primary_color,
+                                      ),
+                                      SizedBox(
+                                        width: provider.selectedIndex == pageIndex ? 70 : 80,
+                                        child: Text(
+                                          cardTitles[pageIndex],
+                                          style: MTextStyles.textMainLight14.copyWith(
+                                              color: provider.selectedIndex == pageIndex
+                                                  ? Colors.white
+                                                  : MColors.light_text_color,
+                                              fontSize: provider.selectedIndex == pageIndex ? 14 : 12),
+                                          textAlign: TextAlign.center,
                                         ),
-                                        SizedBox(
-                                          width: provider.selectedIndex == pageIndex ? 70 : 80,
-                                          child: Text(
-                                            cardTitles[pageIndex],
-                                            style: MTextStyles.textMainLight14.copyWith(
-                                                color: provider.selectedIndex == pageIndex ? Colors.white : MColors.light_text_color,
-                                                fontSize: provider.selectedIndex == pageIndex ? 14 : 12),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -160,335 +160,332 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter> with Au
                     children: [
                       provider.selectedIndex == 0
                           ? Container(
-                              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w),
+                        padding: EdgeInsets.symmetric(vertical: 20),
                               margin: EdgeInsets.symmetric(vertical: 2.w),
                               decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
                               child: Column(
                                 children: [
                                   Text(S.of(context).addNewClaim, style: MTextStyles.textMain18),
                                   Gaps.vGap12,
-                                  Gaps.vGap12,
                                   Expanded(
                                     child: Theme(
                                       data: ThemeData(
-                                          canvasColor: Colors.white, colorScheme: ColorScheme.light(primary: MColors.primary_color)),
+                                          canvasColor: Colors.white,
+                                          colorScheme: ColorScheme.light(primary: MColors.primary_color)),
                                       child: Stepper(
-                                          elevation: 0,
+                                    elevation: 0,
                                           type: StepperType.horizontal,
-                                          physics: ScrollPhysics(),
+                                          physics: BouncingScrollPhysics(),
                                           currentStep: provider.currentStep,
                                           controlsBuilder: (context, details) {
-                                            return Visibility(
-
-                                              child: Row(
-                                                children: [
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      provider.currentStep > 0 ? provider.currentStep -= 1 : null;
-                                                    },
-                                                    child: Text(
-                                                      'Back',
-                                                      style: MTextStyles.textMain14.copyWith(fontWeight: FontWeight.w700),
-                                                    ),
-                                                    style: ButtonStyle(
-                                                        backgroundColor: MaterialStateProperty.all<Color>(MColors.white),
-                                                        elevation: MaterialStatePropertyAll(0),
-                                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(8),
-                                                            side: BorderSide(color: MColors.primary_color))),
-                                                    padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 4.w,
-                                                        vertical: 3.w))
-                                                    ),
+                                            return Row(
+                                              children: [
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    provider.currentStep > 0 ? provider.currentStep -= 1 : null;
+                                                  },
+                                                  child: Text(
+                                                    'Back',
+                                                    style: MTextStyles.textMain14.copyWith(fontWeight: FontWeight.w700),
                                                   ),
-                                                ],
-                                              ),
+                                                  style: ButtonStyle(
+                                                      backgroundColor: MaterialStateProperty.all<Color>(MColors.white),
+                                                      elevation: MaterialStatePropertyAll(0),
+                                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius.circular(8),
+                                                              side: BorderSide(color: MColors.primary_color))),
+                                                      padding: MaterialStateProperty.all<EdgeInsets>(
+                                                          EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                                ),
+                                              ],
                                             );
                                           },
-                                          onStepTapped: (step) {
-                                            provider.currentStep = step;
-                                          },
-                                          onStepContinue: () {
-                                            provider.currentStep < 2 ? provider.currentStep += 1 : null;
-                                          },
-                                          onStepCancel: () {
-                                            provider.currentStep > 0 ? provider.currentStep -= 1 : null;
-                                          },
+                                    onStepTapped: (step) {
+                                      provider.currentStep = step;
+                                    },
+                                    onStepContinue: () {
+                                      provider.currentStep < 2 ? provider.currentStep += 1 : null;
+                                    },
+                                    onStepCancel: () {
+                                      provider.currentStep > 0 ? provider.currentStep -= 1 : null;
+                                    },
                                           steps: [
-                                            Step(
-                                              title: new Text(''),
-                                              content: SizedBox(
-                                                height: 400,
-                                                child: ListView(
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Container(
-                                                          width: 1.w,
-                                                          height: 5.w,
-                                                          margin: EdgeInsetsDirectional.only(end: 2.w),
-                                                          decoration: BoxDecoration(color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
-                                                        ),
-                                                        Text("Select Building", style: MTextStyles.textMain16),
-                                                      ],
-                                                    ),
-                                                    Gaps.vGap12,
-                                                    Gaps.vGap10,
-                                                    SizedBox(
-                                                      height: (_unitItems.length/3) *130,
-                                                      child: GridView.builder(
-                                                        physics: NeverScrollableScrollPhysics(),
-                                                      itemCount: _unitItems.length,
-                                                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                        crossAxisCount: 3,
-                                                        childAspectRatio: 1.0,
-                                                        crossAxisSpacing: 8.0,
-                                                        mainAxisSpacing: 8.0,
+                                      Step(
+                                        title: new Text(''),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        width: 1.w,
+                                                        height: 5.w,
+                                                        margin: EdgeInsetsDirectional.only(end: 2.w),
+                                                        decoration: BoxDecoration(
+                                                            color: MColors.primary_color,
+                                                            borderRadius: BorderRadius.circular(4)),
                                                       ),
-                                                      itemBuilder: (BuildContext context, int index) {
-                                                        return GestureDetector(
-                                                          onTap: () {
-                                                              provider.selectedUnitIndex = index;
-                                                              provider.currentStep < 2 ? provider.currentStep += 1 : null;
-                                                          },
-                                                          child: Container(
-                                                            decoration: BoxDecoration(
-                                                              color: provider.selectedUnitIndex == index ? MColors.primary_color : Colors.white,
+                                                      Text("Select Building", style: MTextStyles.textMain16),
+                                                    ],
+                                                  ),
+                                                  GridView.builder(
+                                                    itemCount: _unitItems.length,
+                                                    shrinkWrap: true,
+                                                    physics: NeverScrollableScrollPhysics(),
+                                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 3,
+                                                      childAspectRatio: 1.0,
+                                                      crossAxisSpacing: 8.0,
+                                                      mainAxisSpacing: 8.0,
+                                                    ),
+                                                    itemBuilder: (BuildContext context, int index) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          provider.selectedUnitIndex = index;
+                                                          provider.currentStep < 2 ? provider.currentStep += 1 : null;
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: provider.selectedUnitIndex == index
+                                                                  ? MColors.primary_color
+                                                                  : Colors.white,
                                                               borderRadius: BorderRadius.circular(8),
-                                                                boxShadow: [
-                                                                  BoxShadow(
-                                                                      color: MColors.coolGrey.withOpacity(0.1),
-                                                                      spreadRadius: 1,
-                                                                      blurRadius: 5,
-                                                                      offset: Offset(1, 4))
-                                                                ]
-                                                            ),
-                                                            child: Center(
-                                                              child: Text(
-                                                                _unitItems[index],
-                                                                style: TextStyle(
-                                                                  fontSize: 16.0,
-                                                                  color: provider.selectedUnitIndex == index ? Colors.white : Colors.black,
-                                                                ),
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                    color: MColors.coolGrey.withOpacity(0.1),
+                                                                    spreadRadius: 1,
+                                                                    blurRadius: 5,
+                                                                    offset: Offset(1, 4))
+                                                              ]),
+                                                          child: Center(
+                                                            child: Text(
+                                                              _unitItems[index],
+                                                              style: TextStyle(
+                                                                fontSize: 16.0,
+                                                                color: provider.selectedUnitIndex == index
+                                                                    ? Colors.white
+                                                                    : Colors.black,
                                                               ),
                                                             ),
                                                           ),
-                                                        );
-                                                      },
                                                         ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              isActive: provider.currentStep >= 0,
-                                              state: provider.currentStep >= 1 ? StepState.complete : StepState.disabled,
-                                            ),
-                                            Step(
-                                              title: new Text(''),
-                                              content: Column(
-                                                children: <Widget>[
-                                                  InkWell(
-                                                    onTap: () {
-                                                      provider.currentStep < 2 ? provider.currentStep += 1 : null;
+                                                      );
                                                     },
-                                                    child: Text("Data2"),
-                                                  )
-                                                ],
-                                              ),
-                                              isActive: provider.currentStep >= 0,
-                                              state: provider.currentStep >= 2 ? StepState.complete : StepState.disabled,
-                                            ),
-                                            Step(
-                                              title: new Text(''),
-                                              content: Column(
-                                                children: <Widget>[
-                                                  TextFormField(
-                                                    decoration: InputDecoration(labelText: 'Email'),
                                                   ),
                                                 ],
                                               ),
                                               isActive: provider.currentStep >= 0,
-                                              state: provider.currentStep >= 3 ? StepState.complete : StepState.disabled,
+                                              state:
+                                                  provider.currentStep >= 1 ? StepState.complete : StepState.disabled,
                                             ),
-                                            Step(
-                                              title: new Text(''),
-                                              content: Column(
-                                                children: <Widget>[
-                                                  TextFormField(
-                                                    decoration: InputDecoration(labelText: 'Email'),
-                                                  ),
-                                                ],
-                                              ),
-                                              isActive: provider.currentStep >= 0,
-                                              state: provider.currentStep >= 4 ? StepState.complete : StepState.disabled,
+                                      Step(
+                                        title: new Text(''),
+                                        content: Column(
+                                          children: <Widget>[
+                                            InkWell(
+                                              onTap: () {
+                                                provider.currentStep < 2 ? provider.currentStep += 1 : null;
+                                              },
+                                              child: Text("Data2"),
+                                            )
+                                          ],
+                                        ),
+                                        isActive: provider.currentStep >= 0,
+                                        state: provider.currentStep >= 2 ? StepState.complete : StepState.disabled,
+                                      ),
+                                      Step(
+                                        title: new Text(''),
+                                        content: Column(
+                                          children: <Widget>[
+                                            TextFormField(
+                                              decoration: InputDecoration(labelText: 'Email'),
                                             ),
-                                            Step(
-                                              title: new Text(''),
-                                              content: Column(
-                                                children: <Widget>[
-                                                  InkWell(
-                                                    onTap: () {},
-                                                    child: Text("Data"),
-                                                  )
-                                                ],
-                                              ),
-                                              isActive: provider.currentStep >= 0,
-                                              state: provider.currentStep >= 5 ? StepState.complete : StepState.disabled,
+                                          ],
+                                        ),
+                                        isActive: provider.currentStep >= 0,
+                                        state: provider.currentStep >= 3 ? StepState.complete : StepState.disabled,
+                                      ),
+                                      Step(
+                                        title: new Text(''),
+                                        content: Column(
+                                          children: <Widget>[
+                                            TextFormField(
+                                              decoration: InputDecoration(labelText: 'Email'),
                                             ),
-                                          ]),
-                                    ),
-                                  ),
-                                ],
+                                          ],
+                                        ),
+                                        isActive: provider.currentStep >= 0,
+                                        state: provider.currentStep >= 4 ? StepState.complete : StepState.disabled,
+                                      ),
+                                      Step(
+                                        title: new Text(''),
+                                        content: Column(
+                                          children: <Widget>[
+                                            InkWell(
+                                              onTap: () {},
+                                              child: Text("Data"),
+                                            )
+                                          ],
+                                        ),
+                                        isActive: provider.currentStep >= 0,
+                                        state: provider.currentStep >= 5 ? StepState.complete : StepState.disabled,
+                                      ),
+                                    ]),
                               ),
-                            )
+                            ),
+                          ],
+                        ),
+                      )
                           : provider.selectedIndex == 1
-                              ? ListView.builder(
-                                  itemCount: 2,
-                                  itemBuilder: (context, index) => Container(
-                                    decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
-                                    margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Falcon Tower A5 - Owned",
-                                                  style: MTextStyles.textBoldDark16,
-                                                ),
-                                                Text(
-                                                  "Request Code:" + " #123-45-567",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Container(
-                                                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xff44A4F2).withOpacity(0.08),
-                                                  borderRadius: BorderRadius.circular(32),
-                                                ),
-                                                child: Text("New",
-                                                    style: MTextStyles.textDark12
-                                                        .copyWith(color: MColors.blueButtonColor, fontWeight: FontWeight.w600)))
-                                          ],
-                                        ),
-                                        buildDivider(),
-                                        Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Unit Name",
-                                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Gaps.vGap8,
-                                                Text(
-                                                  "Unit Name",
-                                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Gaps.vGap8,
-                                                Text(
-                                                  "Client id",
-                                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Gaps.vGap8,
-                                                Text(
-                                                  "Start AT",
-                                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Gaps.vGap8,
-                                                Text(
-                                                  "End AT",
-                                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  "2023-03-03",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                                Gaps.vGap8,
-                                                Text(
-                                                  "Falcon Tower A5 - Owned",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                                Gaps.vGap8,
-                                                Text(
-                                                  "345567890",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                                Gaps.vGap8,
-                                                Text(
-                                                  "2023-03-06",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                                Gaps.vGap8,
-                                                Text(
-                                                  "2024-03-04",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              : Container(
-                                  decoration: BoxDecoration(color: MColors.rejected_color, borderRadius: BorderRadius.circular(8)),
-                                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
-                                  child: Row(
+                          ? ListView.builder(
+                        itemCount: 2,
+                        itemBuilder: (context, index) => Container(
+                          decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
+                          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
+                          margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Expanded(
-                                        child: SearchField(),
+                                      Text(
+                                        "Falcon Tower A5 - Owned",
+                                        style: MTextStyles.textBoldDark16,
                                       ),
-                                      SizedBox(width: 17.0),
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Container(
-                                          width: 36,
-                                          height: 36,
-                                          padding: EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(8),
-                                              color: MColors.whiteE,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: MColors.coolGrey.withOpacity(0.2),
-                                                    spreadRadius: 1,
-                                                    blurRadius: 5,
-                                                    offset: Offset(1, 4))
-                                              ]),
-                                          child: SvgPicture.asset(ImageUtils.getSVGPath("filter")),
-                                        ),
-                                      ),
-                                      Gaps.hGap8,
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Container(
-                                          width: 36,
-                                          height: 36,
-                                          padding: EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(8),
-                                            color: MColors.whiteE,
-                                          ),
-                                          child: SvgPicture.asset(ImageUtils.getSVGPath("export")),
-                                        ),
+                                      Text(
+                                        "Request Code:" + " #123-45-567",
+                                        style: MTextStyles.textSubtitle,
                                       ),
                                     ],
-                                  ), /*Row(
+                                  ),
+                                  Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                                      decoration: BoxDecoration(
+                                        color: Color(0xff44A4F2).withOpacity(0.08),
+                                        borderRadius: BorderRadius.circular(32),
+                                      ),
+                                      child: Text("New",
+                                          style: MTextStyles.textDark12
+                                              .copyWith(color: MColors.blueButtonColor, fontWeight: FontWeight.w600)))
+                                ],
+                              ),
+                              buildDivider(),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Unit Name",
+                                        style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                      ),
+                                      Gaps.vGap8,
+                                      Text(
+                                        "Unit Name",
+                                        style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                      ),
+                                      Gaps.vGap8,
+                                      Text(
+                                        "Client id",
+                                        style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                      ),
+                                      Gaps.vGap8,
+                                      Text(
+                                        "Start AT",
+                                        style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                      ),
+                                      Gaps.vGap8,
+                                      Text(
+                                        "End AT",
+                                        style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        "2023-03-03",
+                                        style: MTextStyles.textSubtitle,
+                                      ),
+                                      Gaps.vGap8,
+                                      Text(
+                                        "Falcon Tower A5 - Owned",
+                                        style: MTextStyles.textSubtitle,
+                                      ),
+                                      Gaps.vGap8,
+                                      Text(
+                                        "345567890",
+                                        style: MTextStyles.textSubtitle,
+                                      ),
+                                      Gaps.vGap8,
+                                      Text(
+                                        "2023-03-06",
+                                        style: MTextStyles.textSubtitle,
+                                      ),
+                                      Gaps.vGap8,
+                                      Text(
+                                        "2024-03-04",
+                                        style: MTextStyles.textSubtitle,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                          : Container(
+                        decoration: BoxDecoration(color: MColors.rejected_color, borderRadius: BorderRadius.circular(8)),
+                        padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: SearchField(),
+                            ),
+                            SizedBox(width: 17.0),
+                            InkWell(
+                              onTap: () {},
+                              child: Container(
+                                width: 36,
+                                height: 36,
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: MColors.whiteE,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: MColors.coolGrey.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: Offset(1, 4))
+                                    ]),
+                                child: SvgPicture.asset(ImageUtils.getSVGPath("filter")),
+                              ),
+                            ),
+                            Gaps.hGap8,
+                            InkWell(
+                              onTap: () {},
+                              child: Container(
+                                width: 36,
+                                height: 36,
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: MColors.whiteE,
+                                ),
+                                child: SvgPicture.asset(ImageUtils.getSVGPath("export")),
+                              ),
+                            ),
+                          ],
+                        ), /*Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -497,7 +494,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter> with Au
                           SvgPicture.asset(ImageUtils.getSVGPath("export"))
                         ],
                       ),*/
-                                ),
+                      ),
                     ],
                   ),
                 )
