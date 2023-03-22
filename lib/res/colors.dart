@@ -11,6 +11,7 @@ class MColors {
   static const loginColor1 = Color(0xff561435);
 
   static const primary_color = Color(0xFFE94033);
+  static const primary_verticalHeader = Color(0xFFD1D5DB);
   static const primary_light_color = Color(0xFF8C8CA1);
   static const subText_color = Color(0xFF6F767E);
   static const subtitlesColor = Color(0xFF4A4A68);
@@ -29,6 +30,7 @@ class MColors {
   static const background_color = Color(0xFFF6F6F6);
   static const rejected_color = Color(0xFFF65464);
   static const outlineBorderLight = Color(0xFFD8DADC);
+  static const textFieldBorder = Color(0xFFD8DADC);
   static const blueButtonColor = Color(0xFF3577F2);
 
 

@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -631,6 +630,86 @@ class S {
     return Intl.message(
       'account created',
       name: 'accountCreated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get back {
+    return Intl.message(
+      'Back',
+      name: 'back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your building`
+  String get yourBuilding {
+    return Intl.message(
+      'Your building',
+      name: 'yourBuilding',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Unit`
+  String get yourUnit {
+    return Intl.message(
+      'Your Unit',
+      name: 'yourUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `claim category`
+  String get claimCategory {
+    return Intl.message(
+      'claim category',
+      name: 'claimCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `claim sub category`
+  String get claimSubCategory {
+    return Intl.message(
+      'claim sub category',
+      name: 'claimSubCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `claim type`
+  String get claimType {
+    return Intl.message(
+      'claim type',
+      name: 'claimType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `available time`
+  String get availableTime {
+    return Intl.message(
+      'available time',
+      name: 'availableTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Claims Details`
+  String get newClaimsDetails {
+    return Intl.message(
+      'New Claims Details',
+      name: 'newClaimsDetails',
       desc: '',
       args: [],
     );

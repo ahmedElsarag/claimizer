@@ -58,5 +58,13 @@
   "claimsRequests": "Claims Requests",
   "addNewClaim": "Add New Claim",
   "loggedInSuccessfully": "Logged in successfully",
-  "accountCreated": "account created"
+  "accountCreated": "account created",
+  "back": "Back",
+  "yourBuilding": "Your building",
+  "yourUnit": "Your Unit",
+  "claimCategory": "claim category",
+  "claimSubCategory": "claim sub category",
+  "claimType": "claim type",
+  "availableTime": "available time",
+  "newClaimsDetails": "New Claims Details"
 }

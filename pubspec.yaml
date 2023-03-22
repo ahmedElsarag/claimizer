@@ -118,8 +118,10 @@ dependencies:
   smooth_page_indicator: ^1.0.1
   carousel_slider: ^4.1.1
   image_picker:
+  file_picker:
   path_provider:
   path:
+  im_stepper: ^1.0.1+1
 
 
 dev_dependencies:
