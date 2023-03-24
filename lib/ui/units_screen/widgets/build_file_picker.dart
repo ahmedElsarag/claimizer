@@ -1,20 +1,21 @@
 import 'dart:io';
 
-import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
+import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:path/path.dart' as path;
 
+import '../../../CommonUtils/image_utils.dart';
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/styles.dart';
 
 class BuildFilePicker extends StatelessWidget {
   const BuildFilePicker({Key key, this.provider}) : super(key: key);
-  final ClaimsProvider provider;
+  final UnitProvider provider;
 
   Future<void> _pickFile(String fileName) async {
     FilePickerResult result = await FilePicker.platform.pickFiles();
@@ -26,7 +27,7 @@ class BuildFilePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ClaimsProvider>(
+    return Consumer<UnitProvider>(
       builder: (context, pr, child) => TextFormField(
         controller: TextEditingController(text: pr.fileName),
         readOnly: true,
@@ -53,14 +54,12 @@ class BuildFilePicker extends StatelessWidget {
                   pr.fileName = path.basename(file.path);
                 }
               },
-              child: Padding(
+              child:Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
               ),
             )),
-        onChanged: (value) {
-          pr.fileName = value;
-        },
+
       ),
     );
   }

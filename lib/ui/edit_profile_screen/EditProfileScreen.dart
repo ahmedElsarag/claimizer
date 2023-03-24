@@ -80,134 +80,138 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
       builder: (context, child) => Consumer<EditProfileProvider>(
           builder: (context, value, child) => Scaffold(
                 backgroundColor: MColors.page_background,
-                body: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      ClaimizerAppBar(title: S.current.editProfile),
-                      Gaps.vGap12,
-                      Gaps.vGap8,
-                      Container(
-                        color: MColors.page_background,
-                        padding: EdgeInsets.symmetric(horizontal: 6.w),
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                          Stack(
-                            children: [
-                              Container(
-                                height: 30.w,
-                                width: 30.w,
-                                decoration: BoxDecoration(color: MColors.page_background, borderRadius: BorderRadius.circular(100)),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: _image != null
-                                      ? Image.file(_image)
-                                      : Image.asset(
-                                          ImageUtils.getImagePath("img"),
-                                        ),
-                                ),
-                              ),
-                              PositionedDirectional(
-                                bottom: 2.w,
-                                end: 0,
-                                child: InkWell(
-                                    onTap: () {
-                                      showDialog(context: context, builder: (_) => buildPickImageDialog(context));
-                                    },
-                                    child: SvgPicture.asset(ImageUtils.getSVGPath("edit_photo"))),
-                              )
-                            ],
-                          ),
-                          Gaps.vGap16,
-                          Gaps.vGap12,
-                          Form(
-                            key: _formKey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                body: SafeArea(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                            margin: EdgeInsets.symmetric(horizontal: 4.w,vertical: 4.w),
+                            child: ClaimizerAppBar(title: S.current.editProfile)),
+                        Gaps.vGap12,
+                        Gaps.vGap8,
+                        Container(
+                          color: MColors.page_background,
+                          padding: EdgeInsets.symmetric(horizontal: 6.w),
+                          child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                            Stack(
                               children: [
-                                buildNameField(context),
-                                Gaps.vGap12,
-                                Gaps.vGap8,
-                                buildEmailField(context),
-                                Gaps.vGap8,
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                                Container(
+                                  height: 30.w,
+                                  width: 30.w,
+                                  decoration: BoxDecoration(color: MColors.page_background, borderRadius: BorderRadius.circular(100)),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: _image != null
+                                        ? Image.file(_image)
+                                        : Image.asset(
+                                            ImageUtils.getImagePath("img"),
+                                          ),
+                                  ),
+                                ),
+                                PositionedDirectional(
+                                  bottom: 2.w,
+                                  end: 0,
                                   child: InkWell(
-                                    onTap: (){},
-                                    child: Row(
-                                      children: [
-                                        SvgPicture.asset(ImageUtils.getSVGPath("plus_icon")),
-                                        Gaps.hGap8,
-                                        Text("Update secondary email", style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Gaps.vGap12,
-                                Gaps.vGap8,
-                                buildPhoneField(context),
-                                Gaps.vGap12,
-                                Gaps.vGap8,
-                                buildOldPasswordField(context),
-                                Gaps.vGap12,
-                                Gaps.vGap8,
-                                buildPasswordField(context),
-                                Gaps.vGap12,
-                                Gaps.vGap8,
-                                buildConfirmPasswordField(context),
-                                Gaps.vGap12,
-                                Gaps.vGap8,
-                                Text('Email Notifications',style: Theme.of(context).textTheme.labelMedium,),
-                                Gaps.vGap12,
-                                Row(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Radio(
-                                          value: true,
-                                          groupValue: _isNotificationEnabled,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              _isNotificationEnabled = value;
-                                            });
-                                          },
-                                        ),
-                                        Text('Enable'),
-                                      ],
-                                    ),
-                                    SizedBox(width: 16.0),
-                                    Radio(
-                                      value: false,
-                                      groupValue: _isNotificationEnabled,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _isNotificationEnabled = value;
-                                        });
+                                      onTap: () {
+                                        showDialog(context: context, builder: (_) => buildPickImageDialog(context));
                                       },
-                                    ),
-                                    Text('Disable'),
-                                  ],
-                                ),
-                                SizedBox(height: 32.0),
-                                ElevatedButton(
-                                  style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all<Color>(MColors.primary_color),
-                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8)
-                                      )),
-                                    fixedSize: MaterialStateProperty.all<Size>(
-                                      Size(100.w, 50),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                  },
-                                  child: Text("Save Changes",style: MTextStyles.textWhite14,),
-                                ),
-                                SizedBox(height: 32.0),
+                                      child: SvgPicture.asset(ImageUtils.getSVGPath("edit_photo"))),
+                                )
                               ],
                             ),
-                          ),
-                        ]),
-                      ),
-                    ],
+                            Gaps.vGap16,
+                            Gaps.vGap12,
+                            Form(
+                              key: _formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  buildNameField(context),
+                                  Gaps.vGap12,
+                                  Gaps.vGap8,
+                                  buildEmailField(context),
+                                  Gaps.vGap8,
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 4.w),
+                                    child: InkWell(
+                                      onTap: (){},
+                                      child: Row(
+                                        children: [
+                                          SvgPicture.asset(ImageUtils.getSVGPath("plus_icon")),
+                                          Gaps.hGap8,
+                                          Text("Update secondary email", style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color))
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Gaps.vGap12,
+                                  Gaps.vGap8,
+                                  buildPhoneField(context),
+                                  Gaps.vGap12,
+                                  Gaps.vGap8,
+                                  buildOldPasswordField(context),
+                                  Gaps.vGap12,
+                                  Gaps.vGap8,
+                                  buildPasswordField(context),
+                                  Gaps.vGap12,
+                                  Gaps.vGap8,
+                                  buildConfirmPasswordField(context),
+                                  Gaps.vGap12,
+                                  Gaps.vGap8,
+                                  Text('Email Notifications',style: Theme.of(context).textTheme.labelMedium,),
+                                  Gaps.vGap12,
+                                  Row(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Radio(
+                                            value: true,
+                                            groupValue: _isNotificationEnabled,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                _isNotificationEnabled = value;
+                                              });
+                                            },
+                                          ),
+                                          Text('Enable'),
+                                        ],
+                                      ),
+                                      SizedBox(width: 16.0),
+                                      Radio(
+                                        value: false,
+                                        groupValue: _isNotificationEnabled,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _isNotificationEnabled = value;
+                                          });
+                                        },
+                                      ),
+                                      Text('Disable'),
+                                    ],
+                                  ),
+                                  SizedBox(height: 32.0),
+                                  ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all<Color>(MColors.primary_color),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(8)
+                                        )),
+                                      fixedSize: MaterialStateProperty.all<Size>(
+                                        Size(100.w, 50),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                    },
+                                    child: Text("Save Changes",style: MTextStyles.textWhite14,),
+                                  ),
+                                  SizedBox(height: 32.0),
+                                ],
+                              ),
+                            ),
+                          ]),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )),

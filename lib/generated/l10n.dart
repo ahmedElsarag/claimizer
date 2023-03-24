@@ -714,6 +714,486 @@ class S {
       args: [],
     );
   }
+
+  /// `New Link Request`
+  String get newLinkRequest {
+    return Intl.message(
+      'New Link Request',
+      name: 'newLinkRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Existing Unit`
+  String get existingUnit {
+    return Intl.message(
+      'Existing Unit',
+      name: 'existingUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit Link Request`
+  String get unitLinkRequest {
+    return Intl.message(
+      'Unit Link Request',
+      name: 'unitLinkRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Units Property`
+  String get unitsProperty {
+    return Intl.message(
+      'Units Property',
+      name: 'unitsProperty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `QR Code`
+  String get qrCode {
+    return Intl.message(
+      'QR Code',
+      name: 'qrCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Building`
+  String get selectBuilding {
+    return Intl.message(
+      'Select Building',
+      name: 'selectBuilding',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Unit`
+  String get selectUnit {
+    return Intl.message(
+      'Select Unit',
+      name: 'selectUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Claim Category`
+  String get selectClaimCategory {
+    return Intl.message(
+      'Select Claim Category',
+      name: 'selectClaimCategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Claim SubCategory`
+  String get selectClaimSubcategory {
+    return Intl.message(
+      'Select Claim SubCategory',
+      name: 'selectClaimSubcategory',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Claim Type`
+  String get selectClaimType {
+    return Intl.message(
+      'Select Claim Type',
+      name: 'selectClaimType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Available Time`
+  String get selectAvailableTime {
+    return Intl.message(
+      'Select Available Time',
+      name: 'selectAvailableTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Claims`
+  String get claims {
+    return Intl.message(
+      'Claims',
+      name: 'claims',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Units`
+  String get units {
+    return Intl.message(
+      'Units',
+      name: 'units',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More`
+  String get more {
+    return Intl.message(
+      'More',
+      name: 'more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit Name`
+  String get unitName {
+    return Intl.message(
+      'Unit Name',
+      name: 'unitName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Client ID`
+  String get clientId {
+    return Intl.message(
+      'Client ID',
+      name: 'clientId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start AT`
+  String get startAt {
+    return Intl.message(
+      'Start AT',
+      name: 'startAt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End AT`
+  String get endAt {
+    return Intl.message(
+      'End AT',
+      name: 'endAt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request Code:`
+  String get requestCode {
+    return Intl.message(
+      'Request Code:',
+      name: 'requestCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get confirm {
+    return Intl.message(
+      'Confirm',
+      name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirmation`
+  String get confirmation {
+    return Intl.message(
+      'Confirmation',
+      name: 'confirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thank you for submitting your request. one of our customerservices representatives will contact you shortly,`
+  String get thankYouForSubmittingYourRequestOneOfOurCustomerservices {
+    return Intl.message(
+      'Thank you for submitting your request. one of our customerservices representatives will contact you shortly,',
+      name: 'thankYouForSubmittingYourRequestOneOfOurCustomerservices',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write your thoughts here`
+  String get writeYourThoughtsHere {
+    return Intl.message(
+      'Write your thoughts here',
+      name: 'writeYourThoughtsHere',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload any files`
+  String get uploadAnyFiles {
+    return Intl.message(
+      'Upload any files',
+      name: 'uploadAnyFiles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Date`
+  String get selectDate {
+    return Intl.message(
+      'Select Date',
+      name: 'selectDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Evening`
+  String get evening {
+    return Intl.message(
+      'Evening',
+      name: 'evening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Morning`
+  String get morning {
+    return Intl.message(
+      'Morning',
+      name: 'morning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `- From`
+  String get from {
+    return Intl.message(
+      '- From',
+      name: 'from',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back To Home`
+  String get backToHome {
+    return Intl.message(
+      'Back To Home',
+      name: 'backToHome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assigned Claims`
+  String get assignedClaims {
+    return Intl.message(
+      'Assigned Claims',
+      name: 'assignedClaims',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Started Claims`
+  String get startedClaims {
+    return Intl.message(
+      'Started Claims',
+      name: 'startedClaims',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Completed Claims`
+  String get completedClaims {
+    return Intl.message(
+      'Completed Claims',
+      name: 'completedClaims',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancelled Claims`
+  String get cancelledClaims {
+    return Intl.message(
+      'Cancelled Claims',
+      name: 'cancelledClaims',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Closed Claims`
+  String get closedClaims {
+    return Intl.message(
+      'Closed Claims',
+      name: 'closedClaims',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Statistics For Your Claims`
+  String get statisticsForYourClaims {
+    return Intl.message(
+      'Statistics For Your Claims',
+      name: 'statisticsForYourClaims',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remember That`
+  String get rememberThat {
+    return Intl.message(
+      'Remember That',
+      name: 'rememberThat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You Need To Renew The Contract`
+  String get youNeedToRenewTheContract {
+    return Intl.message(
+      'You Need To Renew The Contract',
+      name: 'youNeedToRenewTheContract',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You Need To Renew The Contract, You Need To Renew The Contract`
+  String get youNeedToRenewTheContractYouNeedToRenew {
+    return Intl.message(
+      'You Need To Renew The Contract, You Need To Renew The Contract',
+      name: 'youNeedToRenewTheContractYouNeedToRenew',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit Query`
+  String get unitQuery {
+    return Intl.message(
+      'Unit Query',
+      name: 'unitQuery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The unit is reserved`
+  String get theUnitIsReserved {
+    return Intl.message(
+      'The unit is reserved',
+      name: 'theUnitIsReserved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The QR code is incorrect`
+  String get theQrCodeIsIncorrect {
+    return Intl.message(
+      'The QR code is incorrect',
+      name: 'theQrCodeIsIncorrect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start Date`
+  String get startDate {
+    return Intl.message(
+      'Start Date',
+      name: 'startDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End Date`
+  String get endDate {
+    return Intl.message(
+      'End Date',
+      name: 'endDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Building Name`
+  String get buildingName {
+    return Intl.message(
+      'Building Name',
+      name: 'buildingName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Company Name`
+  String get companyName {
+    return Intl.message(
+      'Company Name',
+      name: 'companyName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contract No`
+  String get contractNo {
+    return Intl.message(
+      'Contract No',
+      name: 'contractNo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You should select date and time`
+  String get youShouldSelectDateAndTime {
+    return Intl.message(
+      'You should select date and time',
+      name: 'youShouldSelectDateAndTime',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

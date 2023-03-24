@@ -7,6 +7,7 @@ import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
 import 'package:Cliamizer/ui/intro/IntroProvider.dart';
 import 'package:Cliamizer/ui/main_screens/MainProvider.dart';
 import 'package:Cliamizer/ui/splash_screen/SplashScreen.dart';
+import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -65,6 +66,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => LanguageProvider()),
         ChangeNotifierProvider(create: (context) => HomeProvider()),
         ChangeNotifierProvider(create: (context) => ClaimsProvider()),
+        ChangeNotifierProvider(create: (context) => UnitProvider()),
       ],
       child: ValueListenableBuilder(
         valueListenable: Setting.mobileLanguage,

@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import '../res/colors.dart';
 
 class AppHeadline extends StatelessWidget {
-  const AppHeadline({Key key, @required this.title}) : super(key: key);
+  const AppHeadline({Key key, @required this.title, this.padding=EdgeInsets.zero}) : super(key: key);
 
   final String title;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: padding,
       child: Row(
         children: [
           Container(
@@ -20,7 +21,7 @@ class AppHeadline extends StatelessWidget {
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: Colors.red),
           ),
           SizedBox(
-            width: 6,
+            width: 12,
           ),
           Text(title,
               maxLines: 1,

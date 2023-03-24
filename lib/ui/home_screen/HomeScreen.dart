@@ -36,13 +36,13 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
   ];
 
   List<String> cardTitles = [
-    'All Claims',
-    'New Claims',
-    'Assigned Claims',
-    'Started Claims',
-    'Completed Claims',
-    'Cancelled Claims',
-    'Closed Claims'
+    S.current.allClaims,
+    S.current.newClaims,
+    S.current.assignedClaims,
+    S.current.startedClaims,
+    S.current.completedClaims,
+    S.current.cancelledClaims,
+    S.current.closedClaims
   ];
 
   List<String> cardImages = [
@@ -102,7 +102,7 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
             const SizedBox(
               height: 40,
             ),
-            AppHeadline(title: 'Statistics For Your Claims'),
+            AppHeadline(title: S.of(context).statisticsForYourClaims,padding: const EdgeInsets.symmetric(horizontal: 20),),
             const SizedBox(
               height: 18,
             ),
@@ -129,7 +129,7 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
               ),
             ),
             const SizedBox(height: 40),
-            AppHeadline(title: 'Remember That'),
+            AppHeadline(title: S.of(context).rememberThat,padding: const EdgeInsets.symmetric(horizontal: 20)),
             const SizedBox(height: 18),
             Container(
               height: 130,

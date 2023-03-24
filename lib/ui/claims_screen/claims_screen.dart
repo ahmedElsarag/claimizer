@@ -1,3 +1,4 @@
+import 'package:Cliamizer/CommonUtils/time_format_util.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/build_date_picker.dart';
@@ -7,10 +8,13 @@ import 'package:Cliamizer/ui/claims_screen/widgets/build_file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../CommonUtils/LanguageProvider.dart';
 import '../../CommonUtils/image_utils.dart';
+import '../../app_widgets/app_headline.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
@@ -30,6 +34,9 @@ class ClaimsScreen extends StatefulWidget {
 class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   ClaimsProvider provider = ClaimsProvider();
+  final DateFormat _dateFormatEN = DateFormat('dd/MM/yyyy', 'en');
+  final DateFormat _dateFormatAR = DateFormat('yyyy/MM/dd', 'ar');
+
   List<String> cardTitles = [
     S.current.newClaims,
     S.current.allClaims,
@@ -52,6 +59,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
     'Item 9',
     'Item 10'
   ];
+
   String selectedBuilding;
   String selectedUnit;
   String selectedCategory;
@@ -66,6 +74,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     super.build(context);
     return Scaffold(
       backgroundColor: MColors.page_background,
@@ -75,20 +84,10 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
           children: [
             Container(
               decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 1.w,
-                        height: 5.w,
-                        margin: EdgeInsetsDirectional.only(end: 2.w),
-                        decoration: BoxDecoration(color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
-                      ),
-                      Text(S.of(context).claimManagement, style: MTextStyles.textMain18),
-                    ],
-                  ),
+                  AppHeadline(title: S.of(context).claimManagement),
                   Gaps.vGap16,
                   Consumer<ClaimsProvider>(
                     builder: (context, pr, child) => Container(
@@ -97,7 +96,6 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                         scrollDirection: Axis.horizontal,
                         itemCount: cardTitles.length,
                         itemBuilder: (context, pageIndex) {
-                          print("IS StepFinish : ${pr.isStepsFinished}");
                           return GestureDetector(
                             onTap: () {
                               pr.selectedIndex = pageIndex;
@@ -300,7 +298,8 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                 color: MColors.black,
                                               )),
                                           Gaps.vGap8,
-                                          Text("3/2/2023 - from 12-2 evening ",
+                                          Text(
+                                              "${languageProvider.locale == Locale("en") ? _dateFormatEN.format(pr.selectedDate) : _dateFormatAR.format(pr.selectedDate)} ${S.of(context).from} ${TimeFormatUtil.formatTimeOfDay(pr.selectedTime)}",
                                               style: MTextStyles.textMain14.copyWith(
                                                 color: MColors.black,
                                                 fontWeight: FontWeight.w400,
@@ -312,7 +311,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
-                                            width:30.w,
+                                            width: 30.w,
                                             margin: EdgeInsets.symmetric(vertical: 3.w),
                                             child: ElevatedButton(
                                               onPressed: () {
@@ -334,7 +333,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                             ),
                                           ),
                                           Container(
-                                            width:30.w,
+                                            width: 30.w,
                                             margin: EdgeInsets.symmetric(vertical: 3.w),
                                             child: ElevatedButton(
                                               onPressed: () {
@@ -343,20 +342,22 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                   builder: (context) => AlertDialog(
                                                     backgroundColor: MColors.whiteE,
                                                     elevation: 0,
-                                                    contentPadding: EdgeInsets.symmetric(vertical: 8.w,horizontal: 8.w),
+                                                    contentPadding:
+                                                        EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
                                                     content: Column(
                                                       mainAxisSize: MainAxisSize.min,
                                                       children: [
                                                         SvgPicture.asset(ImageUtils.getSVGPath("done")),
                                                         Gaps.vGap16,
-                                                        Text("Confirmation",
+                                                        Text(S.of(context).confirmation,
                                                             style: MTextStyles.textMain16.copyWith(
                                                               color: MColors.black,
                                                             )),
                                                         Gaps.vGap8,
                                                         Text(
-                                                          "Thank you for sumbitting your request.one of our customer services "
-                                                          "representatives will contact you shortly,",
+                                                          S
+                                                              .of(context)
+                                                              .thankYouForSubmittingYourRequestOneOfOurCustomerservices,
                                                           style: MTextStyles.textSubtitle,
                                                           textAlign: TextAlign.center,
                                                         ),
@@ -367,7 +368,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                             Navigator.pop(context);
                                                           },
                                                           child: Text(
-                                                            "Back To Home",
+                                                            S.of(context).backToHome,
                                                             style: MTextStyles.textWhite14
                                                                 .copyWith(fontWeight: FontWeight.w700),
                                                           ),
@@ -389,7 +390,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                 );
                                               },
                                               child: Text(
-                                                "Confirm",
+                                                S.of(context).confirm,
                                                 style: MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
                                               ),
                                               style: ButtonStyle(
@@ -431,10 +432,12 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               controlsBuilder: (context, details) {
                                                 return pr.currentStep != 5
                                                     ? Row(
-                                                      children: [
-                                                        Container(
-                                                          width:30.w,
-                                                            margin: EdgeInsetsDirectional.only(top: 6.w,),
+                                                        children: [
+                                                          Container(
+                                                            width: 30.w,
+                                                            margin: EdgeInsetsDirectional.only(
+                                                              top: 6.w,
+                                                            ),
                                                             child: ElevatedButton(
                                                               onPressed: () {
                                                                 pr.currentStep > 0 ? pr.currentStep -= 1 : null;
@@ -448,17 +451,19 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                                   backgroundColor:
                                                                       MaterialStateProperty.all<Color>(MColors.white),
                                                                   elevation: MaterialStatePropertyAll(0),
-                                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                                      RoundedRectangleBorder(
-                                                                          borderRadius: BorderRadius.circular(8),
-                                                                          side: BorderSide(color: MColors.primary_color))),
+                                                                  shape:
+                                                                      MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                          RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(8),
+                                                                              side: BorderSide(
+                                                                                  color: MColors.primary_color))),
                                                                   padding: MaterialStateProperty.all<EdgeInsets>(
                                                                       EdgeInsets.symmetric(
                                                                           horizontal: 4.w, vertical: 3.w))),
                                                             ),
                                                           ),
-                                                      ],
-                                                    )
+                                                        ],
+                                                      )
                                                     : Row(
                                                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                         children: [
@@ -494,10 +499,16 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                             margin: EdgeInsets.symmetric(vertical: 3.w),
                                                             child: ElevatedButton(
                                                               onPressed: () {
-                                                                pr.isStepsFinished = !pr.isStepsFinished;
+                                                                if (pr.selectedDate == null &&
+                                                                    pr.selectedTime == null) {
+                                                                  showWarningToasts(
+                                                                      S.of(context).youShouldSelectDateAndTime);
+                                                                } else {
+                                                                  pr.isStepsFinished = !pr.isStepsFinished;
+                                                                }
                                                               },
                                                               child: Text(
-                                                                "Confirm",
+                                                                S.of(context).confirm,
                                                                 style: MTextStyles.textWhite14
                                                                     .copyWith(fontWeight: FontWeight.w700),
                                                               ),
@@ -549,7 +560,8 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                             color: MColors.primary_color,
                                                           ),
                                                           Gaps.hGap8,
-                                                          Text("Select Building", style: MTextStyles.textMain16),
+                                                          Text(S.of(context).selectBuilding,
+                                                              style: MTextStyles.textMain16),
                                                         ],
                                                       ),
                                                       GridView.builder(
@@ -608,20 +620,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                   content: Column(
                                                     mainAxisSize: MainAxisSize.min,
                                                     children: [
-                                                      Row(
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: [
-                                                          Container(
-                                                            width: 1.w,
-                                                            height: 5.w,
-                                                            margin: EdgeInsetsDirectional.only(end: 3.w),
-                                                            decoration: BoxDecoration(
-                                                                color: MColors.primary_color,
-                                                                borderRadius: BorderRadius.circular(4)),
-                                                          ),
-                                                          Text("Select Unit", style: MTextStyles.textMain16),
-                                                        ],
-                                                      ),
+                                                      AppHeadline(title: S.of(context).selectUnit),
                                                       GridView.builder(
                                                         itemCount: _unitItems.length,
                                                         shrinkWrap: true,
@@ -677,20 +676,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                   content: Column(
                                                     mainAxisSize: MainAxisSize.min,
                                                     children: [
-                                                      Row(
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: [
-                                                          Container(
-                                                            width: 1.w,
-                                                            height: 5.w,
-                                                            margin: EdgeInsetsDirectional.only(end: 3.w),
-                                                            decoration: BoxDecoration(
-                                                                color: MColors.primary_color,
-                                                                borderRadius: BorderRadius.circular(4)),
-                                                          ),
-                                                          Text("Select Claim Category", style: MTextStyles.textMain16),
-                                                        ],
-                                                      ),
+                                                      AppHeadline(title: S.of(context).selectClaimCategory),
                                                       GridView.builder(
                                                         itemCount: _unitItems.length,
                                                         shrinkWrap: true,
@@ -746,21 +732,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                   content: Column(
                                                     mainAxisSize: MainAxisSize.min,
                                                     children: [
-                                                      Row(
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: [
-                                                          Container(
-                                                            width: 1.w,
-                                                            height: 5.w,
-                                                            margin: EdgeInsetsDirectional.only(end: 3.w),
-                                                            decoration: BoxDecoration(
-                                                                color: MColors.primary_color,
-                                                                borderRadius: BorderRadius.circular(4)),
-                                                          ),
-                                                          Text("Select Claim Sub Category",
-                                                              style: MTextStyles.textMain16),
-                                                        ],
-                                                      ),
+                                                      AppHeadline(title: S.of(context).selectClaimSubcategory),
                                                       GridView.builder(
                                                         itemCount: _unitItems.length,
                                                         shrinkWrap: true,
@@ -816,20 +788,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                   content: Column(
                                                     mainAxisSize: MainAxisSize.min,
                                                     children: [
-                                                      Row(
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: [
-                                                          Container(
-                                                            width: 1.w,
-                                                            height: 5.w,
-                                                            margin: EdgeInsetsDirectional.only(end: 3.w),
-                                                            decoration: BoxDecoration(
-                                                                color: MColors.primary_color,
-                                                                borderRadius: BorderRadius.circular(4)),
-                                                          ),
-                                                          Text("Select Claim Type", style: MTextStyles.textMain16),
-                                                        ],
-                                                      ),
+                                                      AppHeadline(title: S.of(context).selectClaimType),
                                                       GridView.builder(
                                                         itemCount: _unitItems.length,
                                                         shrinkWrap: true,
@@ -885,20 +844,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                   content: Column(
                                                     mainAxisSize: MainAxisSize.min,
                                                     children: [
-                                                      Row(
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: [
-                                                          Container(
-                                                            width: 1.w,
-                                                            height: 5.w,
-                                                            margin: EdgeInsetsDirectional.only(end: 3.w),
-                                                            decoration: BoxDecoration(
-                                                                color: MColors.primary_color,
-                                                                borderRadius: BorderRadius.circular(4)),
-                                                          ),
-                                                          Text("Select Available Time", style: MTextStyles.textMain16),
-                                                        ],
-                                                      ),
+                                                      AppHeadline(title: S.of(context).selectAvailableTime),
                                                       Gaps.vGap10,
                                                       Gaps.vGap12,
                                                       BuildDatePicker(
@@ -948,7 +894,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                   style: MTextStyles.textBoldDark16,
                                                 ),
                                                 Text(
-                                                  "Request Code:" + " #123-45-567",
+                                                  S.of(context).requestCode + " #123-45-567",
                                                   style: MTextStyles.textSubtitle,
                                                 ),
                                               ],
@@ -973,7 +919,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  "Unit Name",
+                                                  S.of(context).unitName,
                                                   style: MTextStyles.textBoldDark12
                                                       .copyWith(color: MColors.subtitlesColor),
                                                 ),
@@ -988,7 +934,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  "Unit Name",
+                                                  S.of(context).unitName,
                                                   style: MTextStyles.textBoldDark12
                                                       .copyWith(color: MColors.subtitlesColor),
                                                 ),
@@ -1003,7 +949,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  "Client ID",
+                                                  S.of(context).clientId,
                                                   style: MTextStyles.textBoldDark12
                                                       .copyWith(color: MColors.subtitlesColor),
                                                 ),
@@ -1018,7 +964,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  "Start AT",
+                                                  S.of(context).startAt,
                                                   style: MTextStyles.textBoldDark12
                                                       .copyWith(color: MColors.subtitlesColor),
                                                 ),
@@ -1033,7 +979,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  "End AT",
+                                                  S.of(context).endAt,
                                                   style: MTextStyles.textBoldDark12
                                                       .copyWith(color: MColors.subtitlesColor),
                                                 ),
@@ -1069,7 +1015,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                   style: MTextStyles.textBoldDark16,
                                                 ),
                                                 Text(
-                                                  "Request Code:" + " #123-45-567",
+                                                  S.of(context).requestCode + " #123-45-567",
                                                   style: MTextStyles.textSubtitle,
                                                 ),
                                               ],
@@ -1094,7 +1040,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  "Unit Name",
+                                                  S.of(context).unitName,
                                                   style: MTextStyles.textBoldDark12
                                                       .copyWith(color: MColors.subtitlesColor),
                                                 ),
@@ -1109,7 +1055,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  "Unit Name",
+                                                  S.of(context).unitName,
                                                   style: MTextStyles.textBoldDark12
                                                       .copyWith(color: MColors.subtitlesColor),
                                                 ),
@@ -1124,7 +1070,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  "Client ID",
+                                                  S.of(context).clientId,
                                                   style: MTextStyles.textBoldDark12
                                                       .copyWith(color: MColors.subtitlesColor),
                                                 ),
@@ -1139,7 +1085,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  "Start AT",
+                                                  S.of(context).startAt,
                                                   style: MTextStyles.textBoldDark12
                                                       .copyWith(color: MColors.subtitlesColor),
                                                 ),
@@ -1154,7 +1100,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  "End AT",
+                                                  S.of(context).endAt,
                                                   style: MTextStyles.textBoldDark12
                                                       .copyWith(color: MColors.subtitlesColor),
                                                 ),
@@ -1210,7 +1156,7 @@ class SearchField extends StatelessWidget {
       height: 10.w,
       child: TextField(
         decoration: InputDecoration(
-          hintText: 'Search',
+          hintText: S.of(context).search,
           hintStyle: MTextStyles.textGray14,
           prefixIcon: Icon(
             Icons.search_rounded,

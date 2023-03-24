@@ -1,6 +1,10 @@
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
+import 'package:Cliamizer/res/gaps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../generated/l10n.dart';
+import '../../../res/colors.dart';
 
 class RememberThatItem extends StatelessWidget {
   const RememberThatItem({Key key, @required this.index}) : super(key: key);
@@ -33,7 +37,7 @@ class RememberThatItem extends StatelessWidget {
               ),
               Expanded(
                   child: Text(
-                    'You Need To Renew The Contract',
+                    S.of(context).youNeedToRenewTheContract,
                 maxLines: 2,
                 style: TextStyle(color: Colors.black.withOpacity(.8), fontSize: 14, fontWeight: FontWeight.w500),
               )),
@@ -44,8 +48,12 @@ class RememberThatItem extends StatelessWidget {
               )
             ],
           ),
-          Spacer(),
-          Text('You Need To Renew The Contract, You Need To Renew The Contract',
+          Gaps.vGap12,
+          Divider(
+            color: MColors.dividerColor,
+          ),
+          Gaps.vGap8,
+          Text(S.of(context).youNeedToRenewTheContractYouNeedToRenew,
               maxLines: 2,
               style: TextStyle(
                 color: Colors.black54,

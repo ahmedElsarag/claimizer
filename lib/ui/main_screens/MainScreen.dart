@@ -6,10 +6,12 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/image_utils.dart';
+import '../../generated/l10n.dart';
 import '../../res/colors.dart';
 import '../claims_screen/claims_screen.dart';
 import '../home_screen/HomeScreen.dart';
 import '../main_screens/MainPresenter.dart';
+import '../units_screen/units_screen.dart';
 import 'MainProvider.dart';
 
 class MainScreen extends StatefulWidget {
@@ -55,20 +57,19 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
               children: [
                 HomeScreen(),
                 ClaimsScreen(),
-                ClaimsScreen(),
+                UnitsScreen(),
                 MoreScreen(),
               ],
             ),
             bottomNavigationBar: Container(
-              height: 8.h,
-              padding: EdgeInsets.only(top: 1.h, left: 1.w, right: 1.w),
+              height: 9.h,
+              padding: EdgeInsets.only(top: 1.h, left: 1.w, right: 1.w,bottom: 1.h),
               color: MColors.white,
               child: TabBar(
                 controller: _tabController,
-                labelStyle: TextStyle(fontSize: 12),
+                labelStyle: TextStyle(fontSize: 8.sp),
                 isScrollable: false,
                 unselectedLabelColor: MColors.subText_color,
-
                 indicatorWeight: 3,
                 indicatorSize: TabBarIndicatorSize.label,
                 tabs: [
@@ -77,28 +78,28 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
                       ImageUtils.getSVGPath('home'),
                       color: mainProvider.currentSelect == 0 ? MColors.primary_color : MColors.tabsTextColor,
                     ),
-                    text: 'Home',
+                    text: S.of(context).home,
                   ),
                   Tab(
                     icon: SvgPicture.asset(
                       ImageUtils.getSVGPath('claims'),
                       color: mainProvider.currentSelect == 1 ? MColors.primary_color : MColors.tabsTextColor,
                     ),
-                    text: 'Claims',
+                    text: S.of(context).claims,
                   ),
                   Tab(
                     icon: SvgPicture.asset(
                       ImageUtils.getSVGPath('units'),
                       color: mainProvider.currentSelect == 2 ? MColors.primary_color : MColors.tabsTextColor,
                     ),
-                    text: 'Units',
+                    text: S.of(context).units,
                   ),
                   Tab(
                     icon: Icon(
                       Icons.more_horiz_rounded,
                       color: mainProvider.currentSelect == 3 ? MColors.primary_color : MColors.tabsTextColor,
                     ),
-                    text: 'More',
+                    text: S.of(context).more,
                   ),
                 ],
                 // labelPadding: EdgeInsets.symmetric(horizontal: 1.0),

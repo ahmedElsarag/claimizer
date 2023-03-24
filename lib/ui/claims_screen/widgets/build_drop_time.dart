@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/l10n.dart';
+import '../../../res/styles.dart';
+
 class BuildTimeDropDown extends StatelessWidget {
   const BuildTimeDropDown({Key key, this.provider}) : super(key: key);
   final ClaimsProvider provider;
@@ -22,7 +25,9 @@ class BuildTimeDropDown extends StatelessWidget {
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
             isExpanded: true,
-            hint: Text('Available Time'),
+            hint: Text(S.of(context).availableTime,style: MTextStyles.textMain14.copyWith(
+                color: MColors.light_text_color
+            ),),
             value: pr.selectedTimeValue,
             onChanged: (String newValue) {
                 pr.selectedTimeValue = newValue;

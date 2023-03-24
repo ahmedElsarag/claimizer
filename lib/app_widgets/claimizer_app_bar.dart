@@ -45,32 +45,5 @@ class ClaimizerAppBar extends StatelessWidget {
         )
       ],
     );
-    /*AppBar(
-      centerTitle: true,
-      backgroundColor: MColors.page_background,
-      title: Text(
-        title,
-        style: GoogleFonts.montserrat(fontSize: 14.sp, fontWeight: FontWeight.w700, color: MColors.dark_text_color),
-      ),
-      leading: Container(
-        margin: const EdgeInsetsDirectional.only(
-          start: 20,
-        ),
-        child: InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: languageProvider.locale != Locale("en")
-                ? RotatedBox(
-              quarterTurns: 2,
-              child: SvgPicture.asset(
-                ImageUtils.getSVGPath("back_icon"),
-              ),
-            )
-                : SvgPicture.asset(
-              ImageUtils.getSVGPath("back_icon"),
-            )),
-      ),
-    );*/
   }
 }
