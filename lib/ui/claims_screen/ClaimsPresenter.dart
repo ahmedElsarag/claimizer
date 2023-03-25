@@ -18,6 +18,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
         onSuccess: (data) {
       view.closeProgress();
       if (data != null) {
+        print('########${data.data.length}');
         view.provider.claimsList = data.data;
       }
     }, onError: (code, msg) {

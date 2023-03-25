@@ -1,11 +1,12 @@
 import 'package:Cliamizer/CommonUtils/time_format_util.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
+import 'package:Cliamizer/ui/claims_screen/widgets/all_claims.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/build_date_picker.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/build_description_field.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/build_drop_time.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/build_file_picker.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:Cliamizer/ui/claims_screen/widgets/claims_requests.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -15,11 +16,11 @@ import 'package:sizer/sizer.dart';
 import '../../CommonUtils/LanguageProvider.dart';
 import '../../CommonUtils/image_utils.dart';
 import '../../app_widgets/app_headline.dart';
+import '../../app_widgets/custom_stepper.dart' as appStepper;
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
 import '../../res/styles.dart';
-import '../main_screens/MainScreen.dart';
 import 'ClaimsPresenter.dart';
 
 class ClaimsScreen extends StatefulWidget {
@@ -33,7 +34,6 @@ class ClaimsScreen extends StatefulWidget {
 
 class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  ClaimsProvider provider = ClaimsProvider();
   final DateFormat _dateFormatEN = DateFormat('dd/MM/yyyy', 'en');
   final DateFormat _dateFormatAR = DateFormat('yyyy/MM/dd', 'ar');
 
@@ -66,8 +66,11 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
   String selectedSubCategory;
   String selectedType;
 
+  ClaimsProvider provider;
+
   @override
   void initState() {
+    provider = context.read<ClaimsProvider>();
     mPresenter.getAllClaimsApiCall();
     super.initState();
   }
@@ -81,6 +84,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
       body: Padding(
         padding: const EdgeInsetsDirectional.fromSTEB(16, 60, 16, 0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
@@ -92,47 +96,47 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                   Consumer<ClaimsProvider>(
                     builder: (context, pr, child) => Container(
                       height: 110,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: cardTitles.length,
-                        itemBuilder: (context, pageIndex) {
-                          return GestureDetector(
-                            onTap: () {
-                              pr.selectedIndex = pageIndex;
-                            },
-                            child: Card(
-                              elevation: 0.5,
-                              color: pr.selectedIndex == pageIndex ? MColors.primary_color : Colors.white,
-                              child: SizedBox(
-                                width: 25.w,
-                                height: 96,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      ImageUtils.getSVGPath(cardImages[pageIndex]),
-                                      color: pr.selectedIndex == pageIndex ? Colors.white : MColors.primary_color,
-                                    ),
-                                    SizedBox(
-                                      width: pr.selectedIndex == pageIndex ? 70 : 80,
-                                      child: Text(
-                                        cardTitles[pageIndex],
-                                        style: MTextStyles.textMainLight14.copyWith(
-                                            color:
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: cardTitles.length,
+                            itemBuilder: (context, pageIndex) {
+                              return GestureDetector(
+                                onTap: () {
+                                  pr.selectedIndex = pageIndex;
+                                },
+                                child: Card(
+                                  elevation: 0.5,
+                                  color: pr.selectedIndex == pageIndex ? MColors.primary_color : Colors.white,
+                                  child: SizedBox(
+                                    width: 25.w,
+                                    height: 96,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                          ImageUtils.getSVGPath(cardImages[pageIndex]),
+                                          color: pr.selectedIndex == pageIndex ? Colors.white : MColors.primary_color,
+                                        ),
+                                        SizedBox(
+                                          width: pr.selectedIndex == pageIndex ? 70 : 80,
+                                          child: Text(
+                                            cardTitles[pageIndex],
+                                            style: MTextStyles.textMainLight14.copyWith(
+                                                color:
                                                 pr.selectedIndex == pageIndex ? Colors.white : MColors.light_text_color,
-                                            fontSize: pr.selectedIndex == pageIndex ? 14 : 12),
-                                        textAlign: TextAlign.center,
-                                      ),
+                                                fontSize: pr.selectedIndex == pageIndex ? 14 : 12),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                              );
+                            },
+                          ),
+                        ),
                   )
                 ],
               ),
@@ -140,7 +144,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
             Gaps.vGap12,
             Container(
               decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-              padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
+              padding: EdgeInsets.all(12),
               child: Row(
                 children: [
                   Expanded(
@@ -186,189 +190,317 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
             Expanded(
               child: Consumer<ClaimsProvider>(
                 builder: (context, pr, child) {
-                  return PageView(
-                    children: [
-                      pr.selectedIndex == 0
-                          ? pr.isStepsFinished
-                              ? Container(
-                                  padding: EdgeInsets.symmetric(vertical: 2.w, horizontal: 4.w),
-                                  margin: EdgeInsets.symmetric(vertical: 2.w),
-                                  decoration:
-                                      BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                                  child: ListView(
-                                    // crossAxisAlignment: CrossAxisAlignment.start,
+                  return pr.selectedIndex == 0
+                      ? pr.isStepsFinished
+                          ? Container(
+                              padding: EdgeInsets.symmetric(vertical: 2.w, horizontal: 4.w),
+                              margin: EdgeInsets.symmetric(vertical: 2.w),
+                              decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
+                              child: ListView(
+                                // crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(S.of(context).newClaimsDetails, style: MTextStyles.textMain18),
-                                        ],
-                                      ),
-                                      Gaps.vGap12,
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(S.of(context).yourBuilding,
-                                              style: MTextStyles.textMain16.copyWith(
-                                                color: MColors.black,
-                                              )),
-                                          Gaps.vGap8,
-                                          Text(selectedBuilding ?? "",
-                                              style: MTextStyles.textMain14.copyWith(
-                                                color: MColors.black,
-                                                fontWeight: FontWeight.w400,
-                                              )),
-                                        ],
-                                      ),
-                                      Gaps.vGap12,
-                                      Gaps.vGap12,
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(S.of(context).yourUnit,
-                                              style: MTextStyles.textMain16.copyWith(
-                                                color: MColors.black,
-                                              )),
-                                          Gaps.vGap8,
-                                          Text(selectedUnit ?? "",
-                                              style: MTextStyles.textMain14.copyWith(
-                                                color: MColors.black,
-                                                fontWeight: FontWeight.w400,
-                                              )),
-                                        ],
-                                      ),
-                                      Gaps.vGap12,
-                                      Gaps.vGap12,
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(S.of(context).claimCategory,
-                                              style: MTextStyles.textMain16.copyWith(
-                                                color: MColors.black,
-                                              )),
-                                          Gaps.vGap8,
-                                          Text(selectedCategory ?? "",
-                                              style: MTextStyles.textMain14.copyWith(
-                                                color: MColors.black,
-                                                fontWeight: FontWeight.w400,
-                                              )),
-                                        ],
-                                      ),
-                                      Gaps.vGap12,
-                                      Gaps.vGap12,
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(S.of(context).claimSubCategory,
-                                              style: MTextStyles.textMain16.copyWith(
-                                                color: MColors.black,
-                                              )),
-                                          Gaps.vGap8,
-                                          Text(selectedSubCategory ?? "",
-                                              style: MTextStyles.textMain14.copyWith(
-                                                color: MColors.black,
-                                                fontWeight: FontWeight.w400,
-                                              )),
-                                        ],
-                                      ),
-                                      Gaps.vGap12,
-                                      Gaps.vGap12,
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(S.of(context).claimType,
-                                              style: MTextStyles.textMain16.copyWith(
-                                                color: MColors.black,
-                                              )),
-                                          Gaps.vGap8,
-                                          Text(selectedType ?? "",
-                                              style: MTextStyles.textMain14.copyWith(
-                                                color: MColors.black,
-                                                fontWeight: FontWeight.w400,
-                                              )),
-                                        ],
-                                      ),
-                                      Gaps.vGap12,
-                                      Gaps.vGap12,
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(S.of(context).availableTime,
-                                              style: MTextStyles.textMain16.copyWith(
-                                                color: MColors.black,
-                                              )),
-                                          Gaps.vGap8,
-                                          Text(
-                                              "${languageProvider.locale == Locale("en") ? _dateFormatEN.format(pr.selectedDate) : _dateFormatAR.format(pr.selectedDate)} ${S.of(context).from} ${TimeFormatUtil.formatTimeOfDay(pr.selectedTime)}",
-                                              style: MTextStyles.textMain14.copyWith(
-                                                color: MColors.black,
-                                                fontWeight: FontWeight.w400,
-                                              )),
-                                        ],
-                                      ),
-                                      Gaps.vGap30,
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            width: 30.w,
-                                            margin: EdgeInsets.symmetric(vertical: 3.w),
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                pr.isStepsFinished = !pr.isStepsFinished;
-                                              },
-                                              child: Text(
-                                                S.of(context).back,
-                                                style: MTextStyles.textMain14.copyWith(fontWeight: FontWeight.w700),
-                                              ),
-                                              style: ButtonStyle(
-                                                  backgroundColor: MaterialStateProperty.all<Color>(MColors.white),
-                                                  elevation: MaterialStatePropertyAll(0),
-                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                      RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                          side: BorderSide(color: MColors.primary_color))),
-                                                  padding: MaterialStateProperty.all<EdgeInsets>(
-                                                      EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
-                                            ),
+                                      Text(S.of(context).newClaimsDetails, style: MTextStyles.textMain18),
+                                    ],
+                                  ),
+                                  Gaps.vGap12,
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(S.of(context).yourBuilding,
+                                          style: MTextStyles.textMain16.copyWith(
+                                            color: MColors.black,
+                                          )),
+                                      Gaps.vGap8,
+                                      Text(selectedBuilding ?? "",
+                                          style: MTextStyles.textMain14.copyWith(
+                                            color: MColors.black,
+                                            fontWeight: FontWeight.w400,
+                                          )),
+                                    ],
+                                  ),
+                                  Gaps.vGap12,
+                                  Gaps.vGap12,
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(S.of(context).yourUnit,
+                                          style: MTextStyles.textMain16.copyWith(
+                                            color: MColors.black,
+                                          )),
+                                      Gaps.vGap8,
+                                      Text(selectedUnit ?? "",
+                                          style: MTextStyles.textMain14.copyWith(
+                                            color: MColors.black,
+                                            fontWeight: FontWeight.w400,
+                                          )),
+                                    ],
+                                  ),
+                                  Gaps.vGap12,
+                                  Gaps.vGap12,
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(S.of(context).claimCategory,
+                                          style: MTextStyles.textMain16.copyWith(
+                                            color: MColors.black,
+                                          )),
+                                      Gaps.vGap8,
+                                      Text(selectedCategory ?? "",
+                                          style: MTextStyles.textMain14.copyWith(
+                                            color: MColors.black,
+                                            fontWeight: FontWeight.w400,
+                                          )),
+                                    ],
+                                  ),
+                                  Gaps.vGap12,
+                                  Gaps.vGap12,
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(S.of(context).claimSubCategory,
+                                          style: MTextStyles.textMain16.copyWith(
+                                            color: MColors.black,
+                                          )),
+                                      Gaps.vGap8,
+                                      Text(selectedSubCategory ?? "",
+                                          style: MTextStyles.textMain14.copyWith(
+                                            color: MColors.black,
+                                            fontWeight: FontWeight.w400,
+                                          )),
+                                    ],
+                                  ),
+                                  Gaps.vGap12,
+                                  Gaps.vGap12,
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(S.of(context).claimType,
+                                          style: MTextStyles.textMain16.copyWith(
+                                            color: MColors.black,
+                                          )),
+                                      Gaps.vGap8,
+                                      Text(selectedType ?? "",
+                                          style: MTextStyles.textMain14.copyWith(
+                                            color: MColors.black,
+                                            fontWeight: FontWeight.w400,
+                                          )),
+                                    ],
+                                  ),
+                                  Gaps.vGap12,
+                                  Gaps.vGap12,
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(S.of(context).availableTime,
+                                          style: MTextStyles.textMain16.copyWith(
+                                            color: MColors.black,
+                                          )),
+                                      Gaps.vGap8,
+                                      Text(
+                                          "${languageProvider.locale == Locale("en") ? _dateFormatEN.format(pr.selectedDate) : _dateFormatAR.format(pr.selectedDate)} ${S.of(context).from} ${TimeFormatUtil.formatTimeOfDay(pr.selectedTime)}",
+                                          style: MTextStyles.textMain14.copyWith(
+                                            color: MColors.black,
+                                            fontWeight: FontWeight.w400,
+                                          )),
+                                    ],
+                                  ),
+                                  Gaps.vGap30,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        width: 30.w,
+                                        margin: EdgeInsets.symmetric(vertical: 3.w),
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            pr.isStepsFinished = !pr.isStepsFinished;
+                                          },
+                                          child: Text(
+                                            S.of(context).back,
+                                            style: MTextStyles.textMain14.copyWith(fontWeight: FontWeight.w700),
                                           ),
-                                          Container(
-                                            width: 30.w,
-                                            margin: EdgeInsets.symmetric(vertical: 3.w),
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (context) => AlertDialog(
-                                                    backgroundColor: MColors.whiteE,
-                                                    elevation: 0,
-                                                    contentPadding:
-                                                        EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
-                                                    content: Column(
-                                                      mainAxisSize: MainAxisSize.min,
-                                                      children: [
-                                                        SvgPicture.asset(ImageUtils.getSVGPath("done")),
-                                                        Gaps.vGap16,
-                                                        Text(S.of(context).confirmation,
-                                                            style: MTextStyles.textMain16.copyWith(
-                                                              color: MColors.black,
-                                                            )),
-                                                        Gaps.vGap8,
-                                                        Text(
-                                                          S
-                                                              .of(context)
-                                                              .thankYouForSubmittingYourRequestOneOfOurCustomerservices,
-                                                          style: MTextStyles.textSubtitle,
-                                                          textAlign: TextAlign.center,
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all<Color>(MColors.white),
+                                              elevation: MaterialStatePropertyAll(0),
+                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(8),
+                                                      side: BorderSide(color: MColors.primary_color))),
+                                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                                  EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 30.w,
+                                        margin: EdgeInsets.symmetric(vertical: 3.w),
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                backgroundColor: MColors.whiteE,
+                                                elevation: 0,
+                                                contentPadding: EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
+                                                content: Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    SvgPicture.asset(ImageUtils.getSVGPath("done")),
+                                                    Gaps.vGap16,
+                                                    Text(S.of(context).confirmation,
+                                                        style: MTextStyles.textMain16.copyWith(
+                                                          color: MColors.black,
+                                                        )),
+                                                    Gaps.vGap8,
+                                                    Text(
+                                                      S
+                                                          .of(context)
+                                                          .thankYouForSubmittingYourRequestOneOfOurCustomerservices,
+                                                      style: MTextStyles.textSubtitle,
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                    Gaps.vGap30,
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        pr.isStepsFinished = !pr.isStepsFinished;
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text(
+                                                        S.of(context).backToHome,
+                                                        style: MTextStyles.textWhite14
+                                                            .copyWith(fontWeight: FontWeight.w700),
+                                                      ),
+                                                      style: ButtonStyle(
+                                                          backgroundColor:
+                                                              MaterialStateProperty.all<Color>(MColors.primary_color),
+                                                          elevation: MaterialStatePropertyAll(0),
+                                                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                              RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          )),
+                                                          padding: MaterialStateProperty.all<EdgeInsets>(
+                                                              EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            S.of(context).confirm,
+                                            style: MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                          ),
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all<Color>(MColors.primary_color),
+                                              elevation: MaterialStatePropertyAll(0),
+                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(8),
+                                              )),
+                                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                                  EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            )
+                          : Container(
+                              padding: EdgeInsets.symmetric(vertical: 20),
+                              margin: EdgeInsets.symmetric(vertical: 2.w),
+                              decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
+                              child: Column(
+                                children: [
+                                  Text(S.of(context).addNewClaim, style: MTextStyles.textMain18),
+                                  Gaps.vGap12,
+                                  Expanded(
+                                    child: Theme(
+                                      data: ThemeData(
+                                          canvasColor: Colors.white,
+                                          colorScheme: ColorScheme.light(primary: MColors.primary_color)),
+                                      child: appStepper.Stepper(
+                                          elevation: 0,
+                                          type: appStepper.StepperType.horizontal,
+                                          physics: BouncingScrollPhysics(),
+                                          currentStep: pr.currentStep,
+                                          controlsBuilder: (context, details) {
+                                            return pr.currentStep != 5
+                                                ? Row(
+                                                    children: [
+                                                      Container(
+                                                        width: 30.w,
+                                                        margin: EdgeInsetsDirectional.only(
+                                                          top: 6.w,
                                                         ),
-                                                        Gaps.vGap30,
-                                                        ElevatedButton(
+                                                        child: ElevatedButton(
                                                           onPressed: () {
-                                                            pr.isStepsFinished = !pr.isStepsFinished;
-                                                            Navigator.pop(context);
+                                                            pr.currentStep > 0 ? pr.currentStep -= 1 : null;
                                                           },
                                                           child: Text(
-                                                            S.of(context).backToHome,
+                                                            S.of(context).back,
+                                                            style: MTextStyles.textMain14
+                                                                .copyWith(fontWeight: FontWeight.w700),
+                                                          ),
+                                                          style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty.all<Color>(MColors.white),
+                                                              elevation: MaterialStatePropertyAll(0),
+                                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                  RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(8),
+                                                                      side: BorderSide(color: MColors.primary_color))),
+                                                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                                                  EdgeInsets.symmetric(
+                                                                      horizontal: 4.w, vertical: 3.w))),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                    children: [
+                                                      Container(
+                                                        width: 30.w,
+                                                        margin: EdgeInsets.symmetric(vertical: 3.w),
+                                                        child: ElevatedButton(
+                                                          onPressed: () {
+                                                            pr.currentStep > 0 ? pr.currentStep -= 1 : null;
+                                                          },
+                                                          child: Text(
+                                                            S.of(context).back,
+                                                            style: MTextStyles.textMain14
+                                                                .copyWith(fontWeight: FontWeight.w700),
+                                                          ),
+                                                          style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty.all<Color>(MColors.white),
+                                                              elevation: MaterialStatePropertyAll(0),
+                                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                  RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(8),
+                                                                      side: BorderSide(color: MColors.primary_color))),
+                                                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                                                  EdgeInsets.symmetric(
+                                                                      horizontal: 4.w, vertical: 3.w))),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 30.w,
+                                                        margin: EdgeInsets.symmetric(vertical: 3.w),
+                                                        child: ElevatedButton(
+                                                          onPressed: () {
+                                                            if (pr.selectedDate == null && pr.selectedTime == null) {
+                                                              showWarningToasts(
+                                                                  S.of(context).youShouldSelectDateAndTime);
+                                                            } else {
+                                                              pr.isStepsFinished = !pr.isStepsFinished;
+                                                            }
+                                                          },
+                                                          child: Text(
+                                                            S.of(context).confirm,
                                                             style: MTextStyles.textWhite14
                                                                 .copyWith(fontWeight: FontWeight.w700),
                                                           ),
@@ -383,741 +515,365 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                               padding: MaterialStateProperty.all<EdgeInsets>(
                                                                   EdgeInsets.symmetric(
                                                                       horizontal: 4.w, vertical: 3.w))),
-                                                        )
-                                                      ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                          },
+                                          onStepTapped: (step) {
+                                            pr.currentStep = step;
+                                          },
+                                          onStepContinue: () {
+                                            pr.currentStep < 2 ? pr.currentStep += 1 : null;
+                                          },
+                                          onStepCancel: () {
+                                            pr.currentStep > 0 ? pr.currentStep -= 1 : null;
+                                          },
+                                          steps: [
+                                            appStepper.Step(
+                                              title: new Text(''),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
+                                                      Container(
+                                                        width: 1.w,
+                                                        height: 5.w,
+                                                        margin: EdgeInsetsDirectional.only(end: 3.w),
+                                                        decoration: BoxDecoration(
+                                                            color: MColors.primary_verticalHeader,
+                                                            borderRadius: BorderRadius.circular(4)),
+                                                      ),
+                                                      SvgPicture.asset(
+                                                        ImageUtils.getSVGPath("buildings"),
+                                                        color: MColors.primary_color,
+                                                      ),
+                                                      Gaps.hGap8,
+                                                      Text(S.of(context).selectBuilding, style: MTextStyles.textMain16),
+                                                    ],
+                                                  ),
+                                                  GridView.builder(
+                                                    itemCount: _unitItems.length,
+                                                    shrinkWrap: true,
+                                                    physics: NeverScrollableScrollPhysics(),
+                                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 3,
+                                                      childAspectRatio: 1.0,
+                                                      crossAxisSpacing: 8.0,
+                                                      mainAxisSpacing: 8.0,
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                              child: Text(
-                                                S.of(context).confirm,
-                                                style: MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
-                                              ),
-                                              style: ButtonStyle(
-                                                  backgroundColor:
-                                                      MaterialStateProperty.all<Color>(MColors.primary_color),
-                                                  elevation: MaterialStatePropertyAll(0),
-                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                      RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                  )),
-                                                  padding: MaterialStateProperty.all<EdgeInsets>(
-                                                      EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                )
-                              : Container(
-                                  padding: EdgeInsets.symmetric(vertical: 20),
-                                  margin: EdgeInsets.symmetric(vertical: 2.w),
-                                  decoration:
-                                      BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                                  child: Column(
-                                    children: [
-                                      Text(S.of(context).addNewClaim, style: MTextStyles.textMain18),
-                                      Gaps.vGap12,
-                                      Expanded(
-                                        child: Theme(
-                                          data: ThemeData(
-                                              canvasColor: Colors.white,
-                                              colorScheme: ColorScheme.light(primary: MColors.primary_color)),
-                                          child: Stepper(
-                                              elevation: 0,
-                                              type: StepperType.horizontal,
-                                              physics: BouncingScrollPhysics(),
-                                              currentStep: pr.currentStep,
-                                              controlsBuilder: (context, details) {
-                                                return pr.currentStep != 5
-                                                    ? Row(
-                                                        children: [
-                                                          Container(
-                                                            width: 30.w,
-                                                            margin: EdgeInsetsDirectional.only(
-                                                              top: 6.w,
-                                                            ),
-                                                            child: ElevatedButton(
-                                                              onPressed: () {
-                                                                pr.currentStep > 0 ? pr.currentStep -= 1 : null;
-                                                              },
-                                                              child: Text(
-                                                                S.of(context).back,
-                                                                style: MTextStyles.textMain14
-                                                                    .copyWith(fontWeight: FontWeight.w700),
+                                                    itemBuilder: (BuildContext context, int index) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          pr.selectedBuildingIndex = index;
+                                                          selectedBuilding = _unitItems[index];
+                                                          Future.delayed(Duration(seconds: 0));
+                                                          pr.currentStep < 2 ? pr.currentStep += 1 : null;
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: pr.selectedBuildingIndex == index
+                                                                  ? MColors.primary_color
+                                                                  : Colors.white,
+                                                              borderRadius: BorderRadius.circular(8),
+                                                              border: Border.all(
+                                                                  color: MColors.dividerColor.withOpacity(.6),
+                                                                  width: 2)),
+                                                          child: Center(
+                                                            child: Text(
+                                                              _unitItems[index],
+                                                              style: TextStyle(
+                                                                fontSize: 16.0,
+                                                                color: pr.selectedBuildingIndex == index
+                                                                    ? Colors.white
+                                                                    : Colors.black,
                                                               ),
-                                                              style: ButtonStyle(
-                                                                  backgroundColor:
-                                                                      MaterialStateProperty.all<Color>(MColors.white),
-                                                                  elevation: MaterialStatePropertyAll(0),
-                                                                  shape:
-                                                                      MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                                          RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(8),
-                                                                              side: BorderSide(
-                                                                                  color: MColors.primary_color))),
-                                                                  padding: MaterialStateProperty.all<EdgeInsets>(
-                                                                      EdgeInsets.symmetric(
-                                                                          horizontal: 4.w, vertical: 3.w))),
                                                             ),
                                                           ),
-                                                        ],
-                                                      )
-                                                    : Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                        children: [
-                                                          Container(
-                                                            width: 30.w,
-                                                            margin: EdgeInsets.symmetric(vertical: 3.w),
-                                                            child: ElevatedButton(
-                                                              onPressed: () {
-                                                                pr.currentStep > 0 ? pr.currentStep -= 1 : null;
-                                                              },
-                                                              child: Text(
-                                                                S.of(context).back,
-                                                                style: MTextStyles.textMain14
-                                                                    .copyWith(fontWeight: FontWeight.w700),
-                                                              ),
-                                                              style: ButtonStyle(
-                                                                  backgroundColor:
-                                                                      MaterialStateProperty.all<Color>(MColors.white),
-                                                                  elevation: MaterialStatePropertyAll(0),
-                                                                  shape:
-                                                                      MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                                          RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(8),
-                                                                              side: BorderSide(
-                                                                                  color: MColors.primary_color))),
-                                                                  padding: MaterialStateProperty.all<EdgeInsets>(
-                                                                      EdgeInsets.symmetric(
-                                                                          horizontal: 4.w, vertical: 3.w))),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            width: 30.w,
-                                                            margin: EdgeInsets.symmetric(vertical: 3.w),
-                                                            child: ElevatedButton(
-                                                              onPressed: () {
-                                                                if (pr.selectedDate == null &&
-                                                                    pr.selectedTime == null) {
-                                                                  showWarningToasts(
-                                                                      S.of(context).youShouldSelectDateAndTime);
-                                                                } else {
-                                                                  pr.isStepsFinished = !pr.isStepsFinished;
-                                                                }
-                                                              },
-                                                              child: Text(
-                                                                S.of(context).confirm,
-                                                                style: MTextStyles.textWhite14
-                                                                    .copyWith(fontWeight: FontWeight.w700),
-                                                              ),
-                                                              style: ButtonStyle(
-                                                                  backgroundColor: MaterialStateProperty.all<Color>(
-                                                                      MColors.primary_color),
-                                                                  elevation: MaterialStatePropertyAll(0),
-                                                                  shape:
-                                                                      MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                                          RoundedRectangleBorder(
-                                                                    borderRadius: BorderRadius.circular(8),
-                                                                  )),
-                                                                  padding: MaterialStateProperty.all<EdgeInsets>(
-                                                                      EdgeInsets.symmetric(
-                                                                          horizontal: 4.w, vertical: 3.w))),
-                                                            ),
-                                                          ),
-                                                        ],
+                                                        ),
                                                       );
-                                              },
-                                              onStepTapped: (step) {
-                                                pr.currentStep = step;
-                                              },
-                                              onStepContinue: () {
-                                                pr.currentStep < 2 ? pr.currentStep += 1 : null;
-                                              },
-                                              onStepCancel: () {
-                                                pr.currentStep > 0 ? pr.currentStep -= 1 : null;
-                                              },
-                                              steps: [
-                                                Step(
-                                                  title: new Text(''),
-                                                  content: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                      Row(
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                                        children: [
-                                                          Container(
-                                                            width: 1.w,
-                                                            height: 5.w,
-                                                            margin: EdgeInsetsDirectional.only(end: 3.w),
-                                                            decoration: BoxDecoration(
-                                                                color: MColors.primary_verticalHeader,
-                                                                borderRadius: BorderRadius.circular(4)),
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                              isActive: pr.currentStep >= 0,
+                                              state: pr.currentStep >= 1
+                                                  ? appStepper.StepState.complete
+                                                  : appStepper.StepState.disabled,
+                                            ),
+                                            appStepper.Step(
+                                              title: new Text(''),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  AppHeadline(title: S.of(context).selectUnit),
+                                                  GridView.builder(
+                                                    itemCount: _unitItems.length,
+                                                    shrinkWrap: true,
+                                                    physics: NeverScrollableScrollPhysics(),
+                                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 3,
+                                                      childAspectRatio: 1.0,
+                                                      crossAxisSpacing: 8.0,
+                                                      mainAxisSpacing: 8.0,
+                                                    ),
+                                                    itemBuilder: (BuildContext context, int index) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          pr.selectedUnitIndex = index;
+                                                          selectedUnit = _unitItems[index];
+                                                          pr.currentStep < 3 ? pr.currentStep += 1 : null;
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: pr.selectedUnitIndex == index
+                                                                  ? MColors.primary_color
+                                                                  : Colors.white,
+                                                              borderRadius: BorderRadius.circular(8),
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                    color: MColors.coolGrey.withOpacity(0.1),
+                                                                    spreadRadius: 1,
+                                                                    blurRadius: 5,
+                                                                    offset: Offset(1, 4))
+                                                              ]),
+                                                          child: Center(
+                                                            child: Text(
+                                                              _unitItems[index],
+                                                              style: TextStyle(
+                                                                fontSize: 16.0,
+                                                                color: pr.selectedUnitIndex == index
+                                                                    ? Colors.white
+                                                                    : Colors.black,
+                                                              ),
+                                                            ),
                                                           ),
-                                                          SvgPicture.asset(
-                                                            ImageUtils.getSVGPath("buildings"),
-                                                            color: MColors.primary_color,
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                              isActive: pr.currentStep >= 0,
+                                              state: pr.currentStep >= 2
+                                                  ? appStepper.StepState.complete
+                                                  : appStepper.StepState.disabled,
+                                            ),
+                                            appStepper.Step(
+                                              title: new Text(''),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  AppHeadline(title: S.of(context).selectClaimCategory),
+                                                  GridView.builder(
+                                                    itemCount: _unitItems.length,
+                                                    shrinkWrap: true,
+                                                    physics: NeverScrollableScrollPhysics(),
+                                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 3,
+                                                      childAspectRatio: 1.0,
+                                                      crossAxisSpacing: 8.0,
+                                                      mainAxisSpacing: 8.0,
+                                                    ),
+                                                    itemBuilder: (BuildContext context, int index) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          pr.selectedClaimCategoryIndex = index;
+                                                          selectedCategory = _unitItems[index];
+                                                          pr.currentStep < 4 ? pr.currentStep += 1 : null;
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: pr.selectedClaimCategoryIndex == index
+                                                                  ? MColors.primary_color
+                                                                  : Colors.white,
+                                                              borderRadius: BorderRadius.circular(8),
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                    color: MColors.coolGrey.withOpacity(0.1),
+                                                                    spreadRadius: 1,
+                                                                    blurRadius: 5,
+                                                                    offset: Offset(1, 4))
+                                                              ]),
+                                                          child: Center(
+                                                            child: Text(
+                                                              _unitItems[index],
+                                                              style: TextStyle(
+                                                                fontSize: 16.0,
+                                                                color: pr.selectedClaimCategoryIndex == index
+                                                                    ? Colors.white
+                                                                    : Colors.black,
+                                                              ),
+                                                            ),
                                                           ),
-                                                          Gaps.hGap8,
-                                                          Text(S.of(context).selectBuilding,
-                                                              style: MTextStyles.textMain16),
-                                                        ],
-                                                      ),
-                                                      GridView.builder(
-                                                        itemCount: _unitItems.length,
-                                                        shrinkWrap: true,
-                                                        physics: NeverScrollableScrollPhysics(),
-                                                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                          crossAxisCount: 3,
-                                                          childAspectRatio: 1.0,
-                                                          crossAxisSpacing: 8.0,
-                                                          mainAxisSpacing: 8.0,
                                                         ),
-                                                        itemBuilder: (BuildContext context, int index) {
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              pr.selectedBuildingIndex = index;
-                                                              selectedBuilding = _unitItems[index];
-                                                              Future.delayed(Duration(seconds: 0));
-                                                              pr.currentStep < 2 ? pr.currentStep += 1 : null;
-                                                            },
-                                                            child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  color: pr.selectedBuildingIndex == index
-                                                                      ? MColors.primary_color
-                                                                      : Colors.white,
-                                                                  borderRadius: BorderRadius.circular(8),
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                        color: MColors.coolGrey.withOpacity(0.1),
-                                                                        spreadRadius: 1,
-                                                                        blurRadius: 5,
-                                                                        offset: Offset(1, 4))
-                                                                  ]),
-                                                              child: Center(
-                                                                child: Text(
-                                                                  _unitItems[index],
-                                                                  style: TextStyle(
-                                                                    fontSize: 16.0,
-                                                                    color: pr.selectedBuildingIndex == index
-                                                                        ? Colors.white
-                                                                        : Colors.black,
-                                                                  ),
-                                                                ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                              isActive: pr.currentStep >= 0,
+                                              state: pr.currentStep >= 3
+                                                  ? appStepper.StepState.complete
+                                                  : appStepper.StepState.disabled,
+                                            ),
+                                            appStepper.Step(
+                                              title: new Text(''),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  AppHeadline(title: S.of(context).selectClaimSubcategory),
+                                                  GridView.builder(
+                                                    itemCount: _unitItems.length,
+                                                    shrinkWrap: true,
+                                                    physics: NeverScrollableScrollPhysics(),
+                                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 3,
+                                                      childAspectRatio: 1.0,
+                                                      crossAxisSpacing: 8.0,
+                                                      mainAxisSpacing: 8.0,
+                                                    ),
+                                                    itemBuilder: (BuildContext context, int index) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          pr.selectedClaimSubCategoryIndex = index;
+                                                          selectedSubCategory = _unitItems[index];
+                                                          pr.currentStep < 5 ? pr.currentStep += 1 : null;
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: pr.selectedClaimSubCategoryIndex == index
+                                                                  ? MColors.primary_color
+                                                                  : Colors.white,
+                                                              borderRadius: BorderRadius.circular(8),
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                    color: MColors.coolGrey.withOpacity(0.1),
+                                                                    spreadRadius: 1,
+                                                                    blurRadius: 5,
+                                                                    offset: Offset(1, 4))
+                                                              ]),
+                                                          child: Center(
+                                                            child: Text(
+                                                              _unitItems[index],
+                                                              style: TextStyle(
+                                                                fontSize: 16.0,
+                                                                color: pr.selectedClaimSubCategoryIndex == index
+                                                                    ? Colors.white
+                                                                    : Colors.black,
                                                               ),
                                                             ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  isActive: pr.currentStep >= 0,
-                                                  state: pr.currentStep >= 1 ? StepState.complete : StepState.disabled,
-                                                ),
-                                                Step(
-                                                  title: new Text(''),
-                                                  content: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                      AppHeadline(title: S.of(context).selectUnit),
-                                                      GridView.builder(
-                                                        itemCount: _unitItems.length,
-                                                        shrinkWrap: true,
-                                                        physics: NeverScrollableScrollPhysics(),
-                                                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                          crossAxisCount: 3,
-                                                          childAspectRatio: 1.0,
-                                                          crossAxisSpacing: 8.0,
-                                                          mainAxisSpacing: 8.0,
+                                                          ),
                                                         ),
-                                                        itemBuilder: (BuildContext context, int index) {
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              pr.selectedUnitIndex = index;
-                                                              selectedUnit = _unitItems[index];
-                                                              pr.currentStep < 3 ? pr.currentStep += 1 : null;
-                                                            },
-                                                            child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  color: pr.selectedUnitIndex == index
-                                                                      ? MColors.primary_color
-                                                                      : Colors.white,
-                                                                  borderRadius: BorderRadius.circular(8),
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                        color: MColors.coolGrey.withOpacity(0.1),
-                                                                        spreadRadius: 1,
-                                                                        blurRadius: 5,
-                                                                        offset: Offset(1, 4))
-                                                                  ]),
-                                                              child: Center(
-                                                                child: Text(
-                                                                  _unitItems[index],
-                                                                  style: TextStyle(
-                                                                    fontSize: 16.0,
-                                                                    color: pr.selectedUnitIndex == index
-                                                                        ? Colors.white
-                                                                        : Colors.black,
-                                                                  ),
-                                                                ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                              isActive: pr.currentStep >= 0,
+                                              state: pr.currentStep >= 4
+                                                  ? appStepper.StepState.complete
+                                                  : appStepper.StepState.disabled,
+                                            ),
+                                            appStepper.Step(
+                                              title: new Text(''),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  AppHeadline(title: S.of(context).selectClaimType),
+                                                  GridView.builder(
+                                                    itemCount: _unitItems.length,
+                                                    shrinkWrap: true,
+                                                    physics: NeverScrollableScrollPhysics(),
+                                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 3,
+                                                      childAspectRatio: 1.0,
+                                                      crossAxisSpacing: 8.0,
+                                                      mainAxisSpacing: 8.0,
+                                                    ),
+                                                    itemBuilder: (BuildContext context, int index) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          pr.selectedClaimTypeIndex = index;
+                                                          selectedType = _unitItems[index];
+                                                          pr.currentStep < 6 ? pr.currentStep += 1 : null;
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color: pr.selectedClaimTypeIndex == index
+                                                                  ? MColors.primary_color
+                                                                  : Colors.white,
+                                                              borderRadius: BorderRadius.circular(8),
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                    color: MColors.coolGrey.withOpacity(0.1),
+                                                                    spreadRadius: 1,
+                                                                    blurRadius: 5,
+                                                                    offset: Offset(1, 4))
+                                                              ]),
+                                                          child: Center(
+                                                            child: Text(
+                                                              _unitItems[index],
+                                                              style: TextStyle(
+                                                                fontSize: 16.0,
+                                                                color: pr.selectedClaimTypeIndex == index
+                                                                    ? Colors.white
+                                                                    : Colors.black,
                                                               ),
                                                             ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  isActive: pr.currentStep >= 0,
-                                                  state: pr.currentStep >= 2 ? StepState.complete : StepState.disabled,
-                                                ),
-                                                Step(
-                                                  title: new Text(''),
-                                                  content: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                      AppHeadline(title: S.of(context).selectClaimCategory),
-                                                      GridView.builder(
-                                                        itemCount: _unitItems.length,
-                                                        shrinkWrap: true,
-                                                        physics: NeverScrollableScrollPhysics(),
-                                                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                          crossAxisCount: 3,
-                                                          childAspectRatio: 1.0,
-                                                          crossAxisSpacing: 8.0,
-                                                          mainAxisSpacing: 8.0,
+                                                          ),
                                                         ),
-                                                        itemBuilder: (BuildContext context, int index) {
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              pr.selectedClaimCategoryIndex = index;
-                                                              selectedCategory = _unitItems[index];
-                                                              pr.currentStep < 4 ? pr.currentStep += 1 : null;
-                                                            },
-                                                            child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  color: pr.selectedClaimCategoryIndex == index
-                                                                      ? MColors.primary_color
-                                                                      : Colors.white,
-                                                                  borderRadius: BorderRadius.circular(8),
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                        color: MColors.coolGrey.withOpacity(0.1),
-                                                                        spreadRadius: 1,
-                                                                        blurRadius: 5,
-                                                                        offset: Offset(1, 4))
-                                                                  ]),
-                                                              child: Center(
-                                                                child: Text(
-                                                                  _unitItems[index],
-                                                                  style: TextStyle(
-                                                                    fontSize: 16.0,
-                                                                    color: pr.selectedClaimCategoryIndex == index
-                                                                        ? Colors.white
-                                                                        : Colors.black,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
+                                                      );
+                                                    },
                                                   ),
-                                                  isActive: pr.currentStep >= 0,
-                                                  state: pr.currentStep >= 3 ? StepState.complete : StepState.disabled,
-                                                ),
-                                                Step(
-                                                  title: new Text(''),
-                                                  content: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                      AppHeadline(title: S.of(context).selectClaimSubcategory),
-                                                      GridView.builder(
-                                                        itemCount: _unitItems.length,
-                                                        shrinkWrap: true,
-                                                        physics: NeverScrollableScrollPhysics(),
-                                                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                          crossAxisCount: 3,
-                                                          childAspectRatio: 1.0,
-                                                          crossAxisSpacing: 8.0,
-                                                          mainAxisSpacing: 8.0,
-                                                        ),
-                                                        itemBuilder: (BuildContext context, int index) {
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              pr.selectedClaimSubCategoryIndex = index;
-                                                              selectedSubCategory = _unitItems[index];
-                                                              pr.currentStep < 5 ? pr.currentStep += 1 : null;
-                                                            },
-                                                            child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  color: pr.selectedClaimSubCategoryIndex == index
-                                                                      ? MColors.primary_color
-                                                                      : Colors.white,
-                                                                  borderRadius: BorderRadius.circular(8),
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                        color: MColors.coolGrey.withOpacity(0.1),
-                                                                        spreadRadius: 1,
-                                                                        blurRadius: 5,
-                                                                        offset: Offset(1, 4))
-                                                                  ]),
-                                                              child: Center(
-                                                                child: Text(
-                                                                  _unitItems[index],
-                                                                  style: TextStyle(
-                                                                    fontSize: 16.0,
-                                                                    color: pr.selectedClaimSubCategoryIndex == index
-                                                                        ? Colors.white
-                                                                        : Colors.black,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
+                                                ],
+                                              ),
+                                              isActive: pr.currentStep >= 0,
+                                              state: pr.currentStep >= 5
+                                                  ? appStepper.StepState.complete
+                                                  : appStepper.StepState.disabled,
+                                            ),
+                                            appStepper.Step(
+                                              title: new Text(''),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  AppHeadline(title: S.of(context).selectAvailableTime),
+                                                  Gaps.vGap10,
+                                                  Gaps.vGap12,
+                                                  BuildDatePicker(
+                                                    provider: pr,
                                                   ),
-                                                  isActive: pr.currentStep >= 0,
-                                                  state: pr.currentStep >= 4 ? StepState.complete : StepState.disabled,
-                                                ),
-                                                Step(
-                                                  title: new Text(''),
-                                                  content: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                      AppHeadline(title: S.of(context).selectClaimType),
-                                                      GridView.builder(
-                                                        itemCount: _unitItems.length,
-                                                        shrinkWrap: true,
-                                                        physics: NeverScrollableScrollPhysics(),
-                                                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                                          crossAxisCount: 3,
-                                                          childAspectRatio: 1.0,
-                                                          crossAxisSpacing: 8.0,
-                                                          mainAxisSpacing: 8.0,
-                                                        ),
-                                                        itemBuilder: (BuildContext context, int index) {
-                                                          return GestureDetector(
-                                                            onTap: () {
-                                                              pr.selectedClaimTypeIndex = index;
-                                                              selectedType = _unitItems[index];
-                                                              pr.currentStep < 6 ? pr.currentStep += 1 : null;
-                                                            },
-                                                            child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  color: pr.selectedClaimTypeIndex == index
-                                                                      ? MColors.primary_color
-                                                                      : Colors.white,
-                                                                  borderRadius: BorderRadius.circular(8),
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                        color: MColors.coolGrey.withOpacity(0.1),
-                                                                        spreadRadius: 1,
-                                                                        blurRadius: 5,
-                                                                        offset: Offset(1, 4))
-                                                                  ]),
-                                                              child: Center(
-                                                                child: Text(
-                                                                  _unitItems[index],
-                                                                  style: TextStyle(
-                                                                    fontSize: 16.0,
-                                                                    color: pr.selectedClaimTypeIndex == index
-                                                                        ? Colors.white
-                                                                        : Colors.black,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
+                                                  Gaps.vGap8,
+                                                  BuildTimeDropDown(
+                                                    provider: pr,
                                                   ),
-                                                  isActive: pr.currentStep >= 0,
-                                                  state: pr.currentStep >= 5 ? StepState.complete : StepState.disabled,
-                                                ),
-                                                Step(
-                                                  title: new Text(''),
-                                                  content: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                      AppHeadline(title: S.of(context).selectAvailableTime),
-                                                      Gaps.vGap10,
-                                                      Gaps.vGap12,
-                                                      BuildDatePicker(
-                                                        provider: provider,
-                                                      ),
-                                                      Gaps.vGap8,
-                                                      BuildTimeDropDown(
-                                                        provider: provider,
-                                                      ),
-                                                      Gaps.vGap8,
-                                                      BuildDescriptionField(
-                                                        provider: provider,
-                                                      ),
-                                                      Gaps.vGap8,
-                                                      BuildFilePicker(
-                                                        provider: provider,
-                                                      )
-                                                    ],
+                                                  Gaps.vGap8,
+                                                  BuildDescriptionField(
+                                                    provider: pr,
                                                   ),
-                                                  isActive: pr.currentStep >= 0,
-                                                  state: pr.currentStep >= 6 ? StepState.complete : StepState.disabled,
-                                                ),
-                                              ]),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                          : pr.selectedIndex == 1
-                              ? ListView.builder(
-                                  itemCount: pr.claimsList.length,
-                                  itemBuilder: (context, index) => Container(
-                                    decoration:
-                                        BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
-                                    margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Falcon Tower A5 - Owned",
-                                                  style: MTextStyles.textBoldDark16,
-                                                ),
-                                                Text(
-                                                  S.of(context).requestCode + " #123-45-567",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
+                                                  Gaps.vGap8,
+                                                  BuildFilePicker(
+                                                    provider: pr,
+                                                  )
+                                                ],
+                                              ),
+                                              isActive: pr.currentStep >= 0,
+                                              state: pr.currentStep >= 6
+                                                  ? appStepper.StepState.complete
+                                                  : appStepper.StepState.disabled,
                                             ),
-                                            Container(
-                                                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xff44A4F2).withOpacity(0.08),
-                                                  borderRadius: BorderRadius.circular(32),
-                                                ),
-                                                child: Text(provider?.claimsList[index]?.status ?? '',
-                                                    style: MTextStyles.textDark12.copyWith(
-                                                        color: MColors.blueButtonColor, fontWeight: FontWeight.w600)))
-                                          ],
-                                        ),
-                                        buildDivider(),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).unitName,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "2023-10-14",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).unitName,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "Falacon unit",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).clientId,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "345567890",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).startAt,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "2023-10-14",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).endAt,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "2023-10-14",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        )
-                                      ],
+                                          ]),
                                     ),
                                   ),
-                                )
-                              : ListView.builder(
-                                  itemCount: 5,
-                                  itemBuilder: (context, index) => Container(
-                                    decoration:
-                                        BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
-                                    margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Falcon Tower A5 - Owned",
-                                                  style: MTextStyles.textBoldDark16,
-                                                ),
-                                                Text(
-                                                  S.of(context).requestCode + " #123-45-567",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Container(
-                                                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xff44A4F2).withOpacity(0.08),
-                                                  borderRadius: BorderRadius.circular(32),
-                                                ),
-                                                child: Text("New" ?? '',
-                                                    style: MTextStyles.textDark12.copyWith(
-                                                        color: MColors.blueButtonColor, fontWeight: FontWeight.w600)))
-                                          ],
-                                        ),
-                                        buildDivider(),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).unitName,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "2023-10-14",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).unitName,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "Falacon unit",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).clientId,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "345567890",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).startAt,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "2023-10-14",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).endAt,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "2023-10-14",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                    ],
-                  );
+                                ],
+                              ),
+                            )
+                      : pr.selectedIndex == 1
+                          ? AllClaims()
+                          : ClaimsRequests();
                 },
               ),
             )
@@ -1145,7 +901,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
   }
 
   @override
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive => false;
 }
 
 class SearchField extends StatelessWidget {

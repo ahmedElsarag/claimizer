@@ -1,18 +1,28 @@
-import 'package:Cliamizer/base/provider/base_provider.dart';
 import 'package:flutter/material.dart';
 
 import '../../network/models/claims_response.dart';
 
-class ClaimsProvider<T> extends BaseProvider<T> {
+class ClaimsProvider extends ChangeNotifier {
   int _selectedIndex = 1;
   DateTime _selectedDate;
   TimeOfDay _selectedTime;
-  List<String> _times = ['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM'];
+  List<String> _times = [
+    '9:00 AM',
+    '10:00 AM',
+    '11:00 AM',
+    '12:00 PM',
+    '1:00 PM',
+    '2:00 PM',
+    '3:00 PM',
+    '4:00 PM',
+    '5:00 PM',
+    '6:00 PM'
+  ];
   String _selectedTimeValue;
   String _description;
   String _fileName = "";
   int _currentStep = 0;
-  bool _isStepsFinished =false;
+  bool _isStepsFinished = false;
 
   bool get isStepsFinished => _isStepsFinished;
 
