@@ -132,7 +132,7 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
             AppHeadline(title: S.of(context).rememberThat,padding: const EdgeInsets.symmetric(horizontal: 20)),
             const SizedBox(height: 18),
             Container(
-              height: 130,
+              height: 16.h,
               child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (_, index) => RememberThatItem(index: index),

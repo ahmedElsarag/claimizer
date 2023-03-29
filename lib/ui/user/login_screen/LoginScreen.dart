@@ -19,6 +19,7 @@ import '../../../generated/l10n.dart';
 import '../../../network/models/LoginResponse.dart';
 import '../../../res/colors.dart';
 import '../../../res/setting.dart';
+import '../../../res/styles.dart';
 import '../forgot_password_screen/ForgotPasswordScreen.dart';
 import '../register_screen/RegisterScreen.dart';
 import 'LoginPresenter.dart';
@@ -164,11 +165,16 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                               duration: Duration(seconds: 1),
                               child: Container(
                                 width: 100.w,
-                                margin: EdgeInsets.only(bottom: 15),
+                                margin: EdgeInsets.only(left:6.w,right:6.w
+                                    ,bottom: 15),
+                                padding: EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                    color: Color(0xffDA1414).withOpacity(0.12),
+                                    borderRadius: BorderRadius.circular(8)),
                                 alignment: Alignment.center,
                                 child: Text(
                                   provider.errorMessage,
-                                  style: TextStyle(fontSize: 10.sp, color: MColors.dart_red),
+                                  style:  MTextStyles.textMain14,
                                 ),
                               ),
                             ),

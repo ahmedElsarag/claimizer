@@ -2,6 +2,7 @@ import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/res/gaps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
@@ -13,9 +14,9 @@ class RememberThatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 320,
-      height: 130,
-      padding: EdgeInsets.all(20),
+      width: 85.w,
+      height: 20.h,
+      padding: EdgeInsets.all(16),
       margin: EdgeInsetsDirectional.only(start: index == 0 ? 20 : 0),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white),
       child: Column(
@@ -39,7 +40,7 @@ class RememberThatItem extends StatelessWidget {
                   child: Text(
                     S.of(context).youNeedToRenewTheContract,
                 maxLines: 2,
-                style: TextStyle(color: Colors.black.withOpacity(.8), fontSize: 14, fontWeight: FontWeight.w500),
+                style: TextStyle(color: Colors.black.withOpacity(.8), fontSize: 10.sp, fontWeight: FontWeight.w500),
               )),
               SvgPicture.asset(
                 ImageUtils.getSVGPath('alert'),
@@ -48,16 +49,16 @@ class RememberThatItem extends StatelessWidget {
               )
             ],
           ),
-          Gaps.vGap12,
+          Gaps.vGap5,
           Divider(
             color: MColors.dividerColor,
           ),
-          Gaps.vGap8,
+          Gaps.vGap5,
           Text(S.of(context).youNeedToRenewTheContractYouNeedToRenew,
               maxLines: 2,
               style: TextStyle(
                 color: Colors.black54,
-                fontSize: 12,
+                fontSize: 9.sp,
               )),
         ],
       ),
