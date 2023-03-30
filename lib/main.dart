@@ -22,7 +22,6 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import 'CommonUtils/LanguageProvider.dart';
-import 'app_widgets/NoDataFound.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -92,7 +91,7 @@ class _MyAppState extends State<MyApp> {
                 debugShowCheckedModeBanner: false,
                 title: "Claimizer",
                 theme: LightStyles.lightTheme(context),
-                home: NoDataWidget(),
+                home: SplashScreen(),
               );
             },
           );
