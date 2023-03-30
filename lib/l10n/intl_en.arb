@@ -114,5 +114,8 @@
   "buildingName": "Building Name",
   "companyName": "Company Name",
   "contractNo": "Contract No",
-  "youShouldSelectDateAndTime": "You should select date and time"
+  "youShouldSelectDateAndTime": "You should select date and time",
+  "na": "N/A",
+  "createdAt": "Created At",
+  "priority": "Priority"
 }

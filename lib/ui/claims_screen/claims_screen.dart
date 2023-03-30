@@ -6,7 +6,6 @@ import 'package:Cliamizer/ui/claims_screen/widgets/build_date_picker.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/build_description_field.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/build_drop_time.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/build_file_picker.dart';
-import 'package:Cliamizer/ui/claims_screen/widgets/claims_requests.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -724,17 +723,19 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                       ],
                                     ),
                                     isActive: pr.currentStep >= 0,
-                                    state: pr.currentStep >= 6
-                                        ? appStepper.StepState.complete
-                                        : appStepper.StepState.disabled,
+                                              state: pr.currentStep >= 6
+                                                  ? appStepper.StepState.complete
+                                                  : appStepper.StepState.disabled,
+                                            ),
+                                          ]),
+                                    ),
                                   ),
-                                ]),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                      : AllClaims();
+                                ],
+                              ),
+                            )
+                      : AllClaims(
+                          presenter: mPresenter,
+                        );
                 },
               ),
             )

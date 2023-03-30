@@ -113,5 +113,8 @@
   "buildingName": "اسم المبني",
   "companyName": "اسم الشركة",
   "contractNo": "رقم العقد",
-  "youShouldSelectDateAndTime": "يجب عليك تحديد التاريخ و الوقت"
+  "youShouldSelectDateAndTime": "يجب عليك تحديد التاريخ و الوقت",
+  "na": "N/A",
+  "createdAt": "Created At",
+  "priority": "Priority"
 }

@@ -1,4 +1,6 @@
+import 'package:Cliamizer/ui/claims_screen/ClaimsPresenter.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
+import 'package:Cliamizer/ui/claims_screen/widgets/claim_card_data_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +10,9 @@ import '../../../res/gaps.dart';
 import '../../../res/styles.dart';
 
 class AllClaims extends StatelessWidget {
-  const AllClaims({Key key}) : super(key: key);
+  const AllClaims({Key key, this.presenter}) : super(key: key);
+
+  final ClaimsPresenter presenter;
 
   @override
   Widget build(BuildContext context) {
@@ -20,125 +24,87 @@ class AllClaims extends StatelessWidget {
           shrinkWrap: true,
           itemCount: pr.claimsList.length,
           itemBuilder: (context, index) {
-            return Container(
-              decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-              margin: EdgeInsets.only(top: index == 0 ? 20 : 0, bottom: index == pr.claimsList.length - 1 ? 20 : 0),
-              padding: EdgeInsets.all(20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                return Container(
+                  decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
+                  margin: EdgeInsets.only(top: index == 0 ? 20 : 0, bottom: index == pr.claimsList.length - 1 ? 20 : 0),
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Falcon Tower A5 - Owned",
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                pr?.claimsList[index]?.unit?.building ?? S.current.na,
                             style: MTextStyles.textBoldDark16,
                           ),
-                          Text(
-                            S.of(context).requestCode + " #123-45-567",
+                              Text(
+                                S.of(context).requestCode + " ${pr?.claimsList[index]?.referenceId}",
                             style: MTextStyles.textSubtitle,
                           ),
+                            ],
+                          ),
+                          Container(
+                              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: Color(0xff44A4F2).withOpacity(0.08),
+                                borderRadius: BorderRadius.circular(32),
+                              ),
+                              child: Text(pr?.claimsList[index]?.status ?? '',
+                                  style: MTextStyles.textDark12
+                                      .copyWith(color: MColors.blueButtonColor, fontWeight: FontWeight.w600)))
                         ],
                       ),
-                      Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: Color(0xff44A4F2).withOpacity(0.08),
-                            borderRadius: BorderRadius.circular(32),
-                          ),
-                          child: Text(pr?.claimsList[index]?.status ?? '',
-                              style: MTextStyles.textDark12
-                                  .copyWith(color: MColors.blueButtonColor, fontWeight: FontWeight.w600)))
+                      buildDivider(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                      ClaimCardDataItem(
+                        title: S.of(context).priority,
+                        data: pr?.claimsList[index]?.priority,
+                      ),
+                      ClaimCardDataItem(
+                        title: S.of(context).unitName,
+                        data: pr?.claimsList[index]?.unit?.name,
+                      ),
+                      ClaimCardDataItem(
+                        title: S.of(context).claimCategory,
+                        data: pr?.claimsList[index]?.category?.name,
+                      ),
+                      ClaimCardDataItem(
+                        title: S.of(context).claimSubCategory,
+                        data: pr?.claimsList[index]?.subCategory?.name,
+                      ),
+                      ClaimCardDataItem(
+                        title: S.of(context).claimType,
+                        data: pr?.claimsList[index]?.type?.name,
+                      ),
+                      ClaimCardDataItem(
+                        title: S.of(context).createdAt,
+                        data: presenter.formatDate(pr?.claimsList[index]?.createdAt),
+                      ),
+                      ClaimCardDataItem(
+                        isLast: true,
+                        title: S.of(context).availableTime,
+                        data: pr?.claimsList[index]?.availableDate.toString() +
+                            ' - ' +
+                            pr?.claimsList[index]?.availableTime,
+                      ),
+                    ],
+                      )
                     ],
                   ),
-                  buildDivider(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            S.of(context).unitName,
-                            style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                          ),
-                          Text(
-                            "2023-10-14",
-                            style: MTextStyles.textSubtitle,
-                          ),
-                        ],
-                      ),
-                      Gaps.vGap8,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            S.of(context).unitName,
-                            style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                          ),
-                          Text(
-                            "Falacon unit",
-                            style: MTextStyles.textSubtitle,
-                          ),
-                        ],
-                      ),
-                      Gaps.vGap8,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            S.of(context).clientId,
-                            style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                          ),
-                          Text(
-                            "345567890",
-                            style: MTextStyles.textSubtitle,
-                          ),
-                        ],
-                      ),
-                      Gaps.vGap8,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            S.of(context).startAt,
-                            style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                          ),
-                          Text(
-                            "2023-10-14",
-                            style: MTextStyles.textSubtitle,
-                          ),
-                        ],
-                      ),
-                      Gaps.vGap8,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            S.of(context).endAt,
-                            style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                          ),
-                          Text(
-                            "2023-10-14",
-                            style: MTextStyles.textSubtitle,
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                ],
+                );
+              },
+              separatorBuilder: (context, index) => SizedBox(
+                height: 20,
               ),
-            );
-          },
-          separatorBuilder: (context, index) => SizedBox(
-            height: 20,
+            ),
           ),
-        ),
-      ),
     );
   }
 

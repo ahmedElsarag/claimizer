@@ -1,6 +1,7 @@
 import 'package:Cliamizer/base/presenter/base_presenter.dart';
 import 'package:Cliamizer/network/models/claims_response.dart';
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 
 import '../../CommonUtils/preference/Prefs.dart';
 import '../../network/api/network_api.dart';
@@ -24,5 +25,10 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     }, onError: (code, msg) {
       view.closeProgress();
     });
+  }
+
+  formatDate(String date) {
+    if (date != null || date.isNotEmpty) return DateFormat('yyyy-MM-dd').format(DateTime.parse(date));
+    return null;
   }
 }
