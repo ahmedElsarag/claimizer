@@ -113,5 +113,13 @@
   "buildingName": "اسم المبني",
   "companyName": "اسم الشركة",
   "contractNo": "رقم العقد",
-  "youShouldSelectDateAndTime": "يجب عليك تحديد التاريخ و الوقت"
+  "youShouldSelectDateAndTime": "يجب عليك تحديد التاريخ و الوقت",
+  "claimDetails": "Claim Details",
+  "createdAt": "Created At",
+  "description": "Description",
+  "allFiles": "All Files",
+  "comments": "Comments",
+  "topUpdates": "Top Updates",
+  "noResults": "No Results",
+  "sorryThereAreNoResultsForThisSearchPleaseTry": "Sorry, there are no results for this search. Please try another phrase"
 }

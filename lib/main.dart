@@ -2,10 +2,13 @@ import 'package:Cliamizer/res/setting.dart';
 import 'package:Cliamizer/route/application.dart';
 import 'package:Cliamizer/route/routers.dart';
 import 'package:Cliamizer/styles/light_theme_style.dart';
+import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsProvider.dart';
+import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsScreen.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
 import 'package:Cliamizer/ui/intro/IntroProvider.dart';
 import 'package:Cliamizer/ui/main_screens/MainProvider.dart';
+import 'package:Cliamizer/ui/notification_screen/NotificationProvider.dart';
 import 'package:Cliamizer/ui/splash_screen/SplashScreen.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -19,6 +22,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import 'CommonUtils/LanguageProvider.dart';
+import 'app_widgets/NoDataFound.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -66,7 +70,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => LanguageProvider()),
         ChangeNotifierProvider(create: (context) => HomeProvider()),
         ChangeNotifierProvider(create: (context) => ClaimsProvider()),
+        ChangeNotifierProvider(create: (context) => ClaimsDetailsProvider()),
         ChangeNotifierProvider(create: (context) => UnitProvider()),
+        ChangeNotifierProvider(create: (context) => NotificationProvider()),
       ],
       child: ValueListenableBuilder(
         valueListenable: Setting.mobileLanguage,
@@ -86,7 +92,7 @@ class _MyAppState extends State<MyApp> {
                 debugShowCheckedModeBanner: false,
                 title: "Claimizer",
                 theme: LightStyles.lightTheme(context),
-                home: SplashScreen(),
+                home: NoDataWidget(),
               );
             },
           );

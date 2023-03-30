@@ -114,5 +114,13 @@
   "buildingName": "Building Name",
   "companyName": "Company Name",
   "contractNo": "Contract No",
-  "youShouldSelectDateAndTime": "You should select date and time"
+  "youShouldSelectDateAndTime": "You should select date and time",
+  "claimDetails": "Claim Details",
+  "createdAt": "Created At",
+  "description": "Description",
+  "allFiles": "All Files",
+  "comments": "Comments",
+  "topUpdates": "Top Updates",
+  "noResults": "No Results",
+  "sorryThereAreNoResultsForThisSearchPleaseTry": "Sorry, there are no results for this search. Please try another phrase"
 }

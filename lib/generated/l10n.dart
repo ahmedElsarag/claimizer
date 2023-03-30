@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -1191,6 +1190,86 @@ class S {
     return Intl.message(
       'You should select date and time',
       name: 'youShouldSelectDateAndTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Claim Details`
+  String get claimDetails {
+    return Intl.message(
+      'Claim Details',
+      name: 'claimDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Created At`
+  String get createdAt {
+    return Intl.message(
+      'Created At',
+      name: 'createdAt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message(
+      'Description',
+      name: 'description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All Files`
+  String get allFiles {
+    return Intl.message(
+      'All Files',
+      name: 'allFiles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Comments`
+  String get comments {
+    return Intl.message(
+      'Comments',
+      name: 'comments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Top Updates`
+  String get topUpdates {
+    return Intl.message(
+      'Top Updates',
+      name: 'topUpdates',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Results`
+  String get noResults {
+    return Intl.message(
+      'No Results',
+      name: 'noResults',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry, there are no results for this search. Please try another phrase`
+  String get sorryThereAreNoResultsForThisSearchPleaseTry {
+    return Intl.message(
+      'Sorry, there are no results for this search. Please try another phrase',
+      name: 'sorryThereAreNoResultsForThisSearchPleaseTry',
       desc: '',
       args: [],
     );
