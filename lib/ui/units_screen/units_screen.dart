@@ -6,7 +6,11 @@ import 'package:Cliamizer/ui/units_screen/widgets/build_qrcode_field.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/build_start_end_date_picker_fields.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/building_name_field.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/company_name_field.dart';
+import 'package:Cliamizer/ui/units_screen/widgets/complete_new_unit.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/contract_number_field.dart';
+import 'package:Cliamizer/ui/units_screen/widgets/existing_unit_list.dart';
+import 'package:Cliamizer/ui/units_screen/widgets/search_qr_code_view.dart';
+import 'package:Cliamizer/ui/units_screen/widgets/unit_link_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -69,7 +73,9 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
         child: Column(
           children: [
             Container(
-              decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(
+                  color: MColors.whiteE,
+                  borderRadius: BorderRadius.circular(8)),
               padding: EdgeInsets.all(20),
               child: Column(
                 children: [
@@ -79,9 +85,12 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                         width: 1.w,
                         height: 5.w,
                         margin: EdgeInsetsDirectional.only(end: 2.w),
-                        decoration: BoxDecoration(color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
+                        decoration: BoxDecoration(
+                            color: MColors.primary_color,
+                            borderRadius: BorderRadius.circular(4)),
                       ),
-                      Text(S.of(context).unitsProperty, style: MTextStyles.textMain18),
+                      Text(S.of(context).unitsProperty,
+                          style: MTextStyles.textMain18),
                     ],
                   ),
                   Gaps.vGap16,
@@ -98,26 +107,42 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                             },
                             child: Card(
                               elevation: 0.5,
-                              color: pr.selectedIndex == pageIndex ? MColors.primary_color : Colors.white,
+                              color: pr.selectedIndex == pageIndex
+                                  ? MColors.primary_color
+                                  : Colors.white,
                               child: SizedBox(
                                 width: 25.w,
                                 height: 96,
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SvgPicture.asset(
-                                      ImageUtils.getSVGPath(cardImages[pageIndex]),
-                                      color: pr.selectedIndex == pageIndex ? Colors.white : MColors.primary_color,
+                                      ImageUtils.getSVGPath(
+                                          cardImages[pageIndex]),
+                                      color: pr.selectedIndex == pageIndex
+                                          ? Colors.white
+                                          : MColors.primary_color,
                                     ),
                                     SizedBox(
-                                      width: pr.selectedIndex == pageIndex ? 70 : 80,
+                                      width: pr.selectedIndex == pageIndex
+                                          ? 70
+                                          : 80,
                                       child: Text(
                                         cardTitles[pageIndex],
-                                        style: MTextStyles.textMainLight14.copyWith(
-                                            color:
-                                                pr.selectedIndex == pageIndex ? Colors.white : MColors.light_text_color,
-                                            fontSize: pr.selectedIndex == pageIndex ? 14 : 12),
+                                        style: MTextStyles.textMainLight14
+                                            .copyWith(
+                                                color:
+                                                    pr.selectedIndex ==
+                                                            pageIndex
+                                                        ? Colors.white
+                                                        : MColors
+                                                            .light_text_color,
+                                                fontSize: pr.selectedIndex ==
+                                                        pageIndex
+                                                    ? 14
+                                                    : 12),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
@@ -135,7 +160,8 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
             ),
             Gaps.vGap12,
             Container(
-              decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(
+                  color: MColors.white, borderRadius: BorderRadius.circular(8)),
               padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
               child: Row(
                 children: [
@@ -186,501 +212,15 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                     children: [
                       pr.selectedIndex == 0
                           ? !pr.isQrCodeValid
-                              ? Container(
-                                  padding: EdgeInsets.symmetric(vertical: 4.w, horizontal: 8.w),
-                                  margin: EdgeInsets.symmetric(vertical: 2.w),
-                                  decoration:
-                                      BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                                  child: ListView(
-                                    // mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Center(child: Text(S.current.newLinkRequest, style: MTextStyles.textMain18)),
-                                      Gaps.vGap8,
-                                      Gaps.vGap8,
-                                      Gaps.vGap8,
-                                      Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 1.w,
-                                            height: 5.w,
-                                            margin: EdgeInsetsDirectional.only(end: 3.w),
-                                            decoration: BoxDecoration(
-                                                color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
-                                          ),
-                                          Text(S.of(context).unitQuery, style: MTextStyles.textMain16),
-                                        ],
-                                      ),
-                                      Gaps.vGap8,
-                                      Gaps.vGap12,
-                                      BuildQRCodeField(
-                                        provider: provider,
-                                      ),
-                                      Container(
-                                        width: 100.w,
-                                        margin: EdgeInsetsDirectional.only(
-                                          top: 6.w,
-                                        ),
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            if(pr.qrCode.text == "12345678"){
-                                              pr.isQrCodeValid = !pr.isQrCodeValid;
-                                            }else if(pr.qrCode.text =="1234"){
-                                              pr.qrCodeValid=true;
-                                            }else{
-                                              pr.qrCodeValid =false;
-                                            }
-                                          },
-                                          child: Text(
-                                            S.of(context).search,
-                                            style: MTextStyles.textMain14
-                                                .copyWith(fontWeight: FontWeight.w700, color: MColors.white),
-                                          ),
-                                          style: ButtonStyle(
-                                              backgroundColor: MaterialStateProperty.all<Color>(MColors.primary_color),
-                                              elevation: MaterialStatePropertyAll(0),
-                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                  RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(8),
-                                              )),
-                                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                                  EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
-                                        ),
-                                      ),
-                                      Gaps.vGap8,
-                                     Visibility(
-                                       visible: pr.qrCodeValid == false,
-                                       child: Container(
-                                          padding: EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                              color: Color(0xffDA1414).withOpacity(0.12),
-                                              borderRadius: BorderRadius.circular(8)),
-                                          child: Text(
-                                            S.of(context).theQrCodeIsIncorrect,
-                                            style: MTextStyles.textMain14.copyWith(fontSize: 9.sp),
-                                          ),
-                                        ),
-                                     ),
-                                      Visibility(
-                                        visible:pr.qrCodeValid == true,
-                                        child: Container(
-                                          padding: EdgeInsets.all(8),
-                                          decoration: BoxDecoration(
-                                              color: Color(0xff44A4F2).withOpacity(0.12),
-                                              borderRadius: BorderRadius.circular(8)),
-                                          child: Text(
-                                            S.of(context).theUnitIsReserved,
-                                            style:
-                                                MTextStyles.textMain14.copyWith(fontSize: 9.sp, color: Color(0xff44A4F2)),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                              ? SearchAboutUnitByQR(
+                                  provider: provider,
                                 )
-                              : Container(
-                                  padding: EdgeInsets.symmetric(vertical: 2.w, horizontal: 4.w),
-                                  margin: EdgeInsets.symmetric(vertical: 2.w),
-                                  decoration:
-                                      BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                                  child: ListView(
-                                    // crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(S.current.newLinkRequest, style: MTextStyles.textMain18),
-                                        ],
-                                      ),
-                                      Gaps.vGap8,
-                                      Gaps.vGap8,
-                                      Gaps.vGap8,
-                                      Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 1.w,
-                                            height: 5.w,
-                                            margin: EdgeInsetsDirectional.only(end: 3.w),
-                                            decoration: BoxDecoration(
-                                                color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
-                                          ),
-                                          Text(S.current.unitQuery, style: MTextStyles.textMain16),
-                                        ],
-                                      ),
-                                      Gaps.vGap8,
-                                      Gaps.vGap12,
-                                      BuildingNameField(
-                                        provider: provider,
-                                      ),
-                                      Gaps.vGap8,
-                                      CompanyNameField(
-                                        provider: provider,
-                                      ),
-                                      Gaps.vGap8,
-                                      ContractField(
-                                        provider: provider,
-                                      ),
-                                      Gaps.vGap8,
-                                      StartEndDatePickerField(),
-                                      Gaps.vGap8,
-                                      BuildFilePicker(provider: provider),
-                                      Gaps.vGap8,
-                                      BuildDescriptionField(
-                                        provider: provider,
-                                      ),
-                                      Gaps.vGap12,
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            width: MediaQuery.of(context).size.width * .4,
-                                            margin: EdgeInsets.symmetric(vertical: 3.w),
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                pr.isQrCodeValid = !pr.isQrCodeValid;
-                                              },
-                                              child: Text(
-                                                S.of(context).back,
-                                                style: MTextStyles.textMain14.copyWith(fontWeight: FontWeight.w700),
-                                              ),
-                                              style: ButtonStyle(
-                                                  backgroundColor: MaterialStateProperty.all<Color>(MColors.white),
-                                                  elevation: MaterialStatePropertyAll(0),
-                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                      RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                          side: BorderSide(color: MColors.primary_color))),
-                                                  padding: MaterialStateProperty.all<EdgeInsets>(
-                                                      EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: MediaQuery.of(context).size.width * .4,
-                                            margin: EdgeInsets.symmetric(vertical: 3.w),
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (context) => AlertDialog(
-                                                    backgroundColor: MColors.whiteE,
-                                                    elevation: 0,
-                                                    contentPadding:
-                                                        EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
-                                                    content: Column(
-                                                      mainAxisSize: MainAxisSize.min,
-                                                      children: [
-                                                        SvgPicture.asset(ImageUtils.getSVGPath("done")),
-                                                        Gaps.vGap16,
-                                                        Text(S.current.confirmation,
-                                                            style: MTextStyles.textMain16.copyWith(
-                                                              color: MColors.black,
-                                                            )),
-                                                        Gaps.vGap8,
-                                                        Text(
-                                                          S.current.thankYouForSubmittingYourRequestOneOfOurCustomerservices,
-                                                          style: MTextStyles.textSubtitle,
-                                                          textAlign: TextAlign.center,
-                                                        ),
-                                                        Gaps.vGap30,
-                                                        ElevatedButton(
-                                                          onPressed: () {
-                                                            pr.isQrCodeValid = !pr.isQrCodeValid;
-                                                            pr.qrCode.clear();
-                                                            pr.contractNo.clear();
-                                                            pr.companyName.clear();
-                                                            pr.buildingName.clear();
-                                                            pr.description.clear();
-                                                            pr.fileName = "";
-                                                            pr.qrCodeValid = !pr.qrCodeValid;
-                                                            Navigator.pop(context);
-                                                          },
-                                                          child: Text(
-                                                            S.of(context).backToHome,
-                                                            style: MTextStyles.textWhite14
-                                                                .copyWith(fontWeight: FontWeight.w700),
-                                                          ),
-                                                          style: ButtonStyle(
-                                                              backgroundColor: MaterialStateProperty.all<Color>(
-                                                                  MColors.primary_color),
-                                                              elevation: MaterialStatePropertyAll(0),
-                                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius: BorderRadius.circular(8),
-                                                              )),
-                                                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                                                  EdgeInsets.symmetric(
-                                                                      horizontal: 4.w, vertical: 3.w))),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                              child: Text(
-                                                S.of(context).confirm,
-                                                style: MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
-                                              ),
-                                              style: ButtonStyle(
-                                                  backgroundColor:
-                                                      MaterialStateProperty.all<Color>(MColors.primary_color),
-                                                  elevation: MaterialStatePropertyAll(0),
-                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                      RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                  )),
-                                                  padding: MaterialStateProperty.all<EdgeInsets>(
-                                                      EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
+                              : CompleteNewUnit(
+                                  provider: provider,
                                 )
                           : pr.selectedIndex == 1
-                              ? ListView.builder(
-                                  itemCount: 5,
-                                  itemBuilder: (context, index) => Container(
-                                    decoration:
-                                        BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
-                                    margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Falcon Tower A5 - Owned",
-                                                  style: MTextStyles.textBoldDark16,
-                                                ),
-                                                Text(
-                                                  S.of(context).requestCode + " #123-45-567",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Container(
-                                                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xff44A4F2).withOpacity(0.08),
-                                                  borderRadius: BorderRadius.circular(32),
-                                                ),
-                                                child: Text("New" ?? '',
-                                                    style: MTextStyles.textDark12.copyWith(
-                                                        color: MColors.blueButtonColor, fontWeight: FontWeight.w600)))
-                                          ],
-                                        ),
-                                        buildDivider(),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).unitName,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "2023-10-14",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).unitName,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "Falacon unit",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).clientId,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "345567890",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).startAt,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "2023-10-14",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).endAt,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "2023-10-14",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              : ListView.builder(
-                                  itemCount: 5,
-                                  itemBuilder: (context, index) => Container(
-                                    decoration:
-                                        BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
-                                    margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Falcon Tower A5 - Owned",
-                                                  style: MTextStyles.textBoldDark16,
-                                                ),
-                                                Text(
-                                                  S.of(context).requestCode + " #123-45-567",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Container(
-                                                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xff44A4F2).withOpacity(0.08),
-                                                  borderRadius: BorderRadius.circular(32),
-                                                ),
-                                                child: Text("New" ?? '',
-                                                    style: MTextStyles.textDark12.copyWith(
-                                                        color: MColors.blueButtonColor, fontWeight: FontWeight.w600)))
-                                          ],
-                                        ),
-                                        buildDivider(),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).unitName,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "2023-10-14",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).unitName,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "Falacon unit",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).clientId,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "345567890",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).startAt,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "2023-10-14",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                            Gaps.vGap8,
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  S.of(context).endAt,
-                                                  style: MTextStyles.textBoldDark12
-                                                      .copyWith(color: MColors.subtitlesColor),
-                                                ),
-                                                Text(
-                                                  "2023-10-14",
-                                                  style: MTextStyles.textSubtitle,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                              ? ExistingUnitList()
+                              : UnitLinkRequest(),
                     ],
                   );
                 },
@@ -727,7 +267,9 @@ class SearchField extends StatelessWidget {
             Icons.search_rounded,
             color: MColors.primary_light_color,
           ),
-          border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(8)),
+          border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(8)),
           contentPadding: EdgeInsets.zero,
           filled: true,
           fillColor: Color(0xffF7F7F7),

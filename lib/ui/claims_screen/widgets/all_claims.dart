@@ -20,7 +20,7 @@ class AllClaims extends StatelessWidget {
         context: context,
         child: ListView.separated(
           shrinkWrap: true,
-          itemCount: pr.claimsList.length,
+          itemCount: 5/*pr.claimsList.length*/,
           itemBuilder: (context, index) {
             return InkWell(
               onTap: (){
@@ -55,7 +55,7 @@ class AllClaims extends StatelessWidget {
                               color: Color(0xff44A4F2).withOpacity(0.08),
                               borderRadius: BorderRadius.circular(32),
                             ),
-                            child: Text(pr?.claimsList[index]?.status ?? '',
+                            child: Text("Complete"/*pr?.claimsList[index]?.status ?? ''*/,
                                 style: MTextStyles.textDark12
                                     .copyWith(color: MColors.blueButtonColor, fontWeight: FontWeight.w600)))
                       ],
@@ -69,12 +69,14 @@ class AllClaims extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              S.of(context).unitName,
+                              S.of(context).priority,
                               style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                             ),
                             Text(
-                              "2023-10-14",
-                              style: MTextStyles.textSubtitle,
+                              "High",
+                              style: MTextStyles.textSubtitle.copyWith(
+                                color: MColors.primary_color
+                              ),
                             ),
                           ],
                         ),
@@ -87,7 +89,7 @@ class AllClaims extends StatelessWidget {
                               style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                             ),
                             Text(
-                              "Falacon unit",
+                              "omnis",
                               style: MTextStyles.textSubtitle,
                             ),
                           ],
@@ -97,11 +99,11 @@ class AllClaims extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              S.of(context).clientId,
+                              S.current.claimCategory,
                               style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                             ),
                             Text(
-                              "345567890",
+                              "Falcon Tower A5 - Owned",
                               style: MTextStyles.textSubtitle,
                             ),
                           ],
@@ -111,11 +113,11 @@ class AllClaims extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              S.of(context).startAt,
+                              S.of(context).claimSubCategory,
                               style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                             ),
                             Text(
-                              "2023-10-14",
+                              "Falcon Tower A5 - Owned",
                               style: MTextStyles.textSubtitle,
                             ),
                           ],
@@ -125,11 +127,39 @@ class AllClaims extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              S.of(context).endAt,
+                              S.of(context).claimType,
                               style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                             ),
                             Text(
-                              "2023-10-14",
+                              "qui",
+                              style: MTextStyles.textSubtitle,
+                            ),
+                          ],
+                        ),
+                        Gaps.vGap8,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              S.of(context).createdAt,
+                              style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                            ),
+                            Text(
+                              "2023-03-03",
+                              style: MTextStyles.textSubtitle,
+                            ),
+                          ],
+                        ),
+                        Gaps.vGap8,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              S.of(context).availableTime,
+                              style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                            ),
+                            Text(
+                              "From 10 AM to 12 PM - 23/2/2023 ",
                               style: MTextStyles.textSubtitle,
                             ),
                           ],

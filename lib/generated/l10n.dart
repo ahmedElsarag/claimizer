@@ -625,10 +625,10 @@ class S {
     );
   }
 
-  /// `account created`
+  /// `Account Created`
   String get accountCreated {
     return Intl.message(
-      'account created',
+      'Account Created',
       name: 'accountCreated',
       desc: '',
       args: [],
@@ -665,40 +665,40 @@ class S {
     );
   }
 
-  /// `claim category`
+  /// `Claim category`
   String get claimCategory {
     return Intl.message(
-      'claim category',
+      'Claim category',
       name: 'claimCategory',
       desc: '',
       args: [],
     );
   }
 
-  /// `claim sub category`
+  /// `Claim sub category`
   String get claimSubCategory {
     return Intl.message(
-      'claim sub category',
+      'Claim sub category',
       name: 'claimSubCategory',
       desc: '',
       args: [],
     );
   }
 
-  /// `claim type`
+  /// `Claim type`
   String get claimType {
     return Intl.message(
-      'claim type',
+      'Claim type',
       name: 'claimType',
       desc: '',
       args: [],
     );
   }
 
-  /// `available time`
+  /// `Available time`
   String get availableTime {
     return Intl.message(
-      'available time',
+      'Available time',
       name: 'availableTime',
       desc: '',
       args: [],
@@ -865,10 +865,10 @@ class S {
     );
   }
 
-  /// `Unit Name`
+  /// `Unit`
   String get unitName {
     return Intl.message(
-      'Unit Name',
+      'Unit',
       name: 'unitName',
       desc: '',
       args: [],
@@ -905,10 +905,10 @@ class S {
     );
   }
 
-  /// `Request Code:`
+  /// `Claim Code:`
   String get requestCode {
     return Intl.message(
-      'Request Code:',
+      'Claim Code:',
       name: 'requestCode',
       desc: '',
       args: [],
@@ -1270,6 +1270,16 @@ class S {
     return Intl.message(
       'Sorry, there are no results for this search. Please try another phrase',
       name: 'sorryThereAreNoResultsForThisSearchPleaseTry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Priority`
+  String get priority {
+    return Intl.message(
+      'Priority',
+      name: 'priority',
       desc: '',
       args: [],
     );
