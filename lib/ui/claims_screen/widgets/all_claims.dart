@@ -20,7 +20,7 @@ class AllClaims extends StatelessWidget {
         context: context,
         child: ListView.separated(
           shrinkWrap: true,
-          itemCount: 5/*pr.claimsList.length*/,
+          itemCount: pr.claimsList.length,
           itemBuilder: (context, index) {
             return InkWell(
               onTap: (){
@@ -55,7 +55,7 @@ class AllClaims extends StatelessWidget {
                               color: Color(0xff44A4F2).withOpacity(0.08),
                               borderRadius: BorderRadius.circular(32),
                             ),
-                            child: Text("Complete"/*pr?.claimsList[index]?.status ?? ''*/,
+                            child: Text(pr?.claimsList[index]?.status ?? '',
                                 style: MTextStyles.textDark12
                                     .copyWith(color: MColors.blueButtonColor, fontWeight: FontWeight.w600)))
                       ],
