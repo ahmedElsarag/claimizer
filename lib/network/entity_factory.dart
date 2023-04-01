@@ -4,6 +4,7 @@ import 'package:Cliamizer/network/models/general_response.dart';
 import 'models/StatisticsResponse.dart';
 import 'models/buildings_response.dart';
 import 'models/categories_response.dart';
+import 'models/claim_available_time_response.dart';
 import 'models/claim_type_response.dart';
 import 'models/claims_response.dart';
 import 'models/units_response.dart';
@@ -34,6 +35,9 @@ class EntityFactory {
         break;
       case "ClaimTypeResponse":
         return ClaimTypeResponse.fromJson(json) as T;
+        break;
+      case "ClaimAvailableTimeDataBean":
+        return ClaimAvailableTimeDataBean.fromJson(json) as T;
         break;
       default:
         return null;

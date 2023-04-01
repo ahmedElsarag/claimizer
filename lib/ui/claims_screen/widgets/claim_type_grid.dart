@@ -1,6 +1,7 @@
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../app_widgets/app_headline.dart';
 import '../../../generated/l10n.dart';
@@ -36,17 +37,18 @@ class ClaimTypeGrid extends StatelessWidget {
                         pr.currentStep < 6 ? pr.currentStep += 1 : null;
                       },
                       child: Container(
+                        padding: EdgeInsets.all(8),
+                        alignment: Alignment.center,
                         decoration: BoxDecoration(
                             color: pr.selectedClaimTypeIndex == index ? MColors.primary_color : Colors.white,
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: MColors.dividerColor.withOpacity(.6), width: 2)),
-                        child: Center(
-                          child: Text(
-                            pr.claimTypeList[index].name,
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: pr.selectedClaimTypeIndex == index ? Colors.white : Colors.black,
-                            ),
+                        child: Text(
+                          pr.claimTypeList[index].name,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 9.sp,
+                            color: pr.selectedClaimTypeIndex == index ? Colors.white : Colors.black,
                           ),
                         ),
                       ),

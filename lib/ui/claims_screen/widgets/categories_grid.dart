@@ -1,6 +1,7 @@
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../app_widgets/app_headline.dart';
 import '../../../generated/l10n.dart';
@@ -46,7 +47,7 @@ class CategoriesGrid extends StatelessWidget {
                           pr.categoriesList[index]?.name,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 9.sp,
                             color: pr.selectedClaimCategoryIndex == index ? Colors.white : Colors.black,
                           ),
                         ),

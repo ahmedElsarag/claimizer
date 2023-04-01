@@ -15,4 +15,5 @@ class Api {
   static const String unitsApiCall = "units";
   static const String categoriesApiCall = "claims/categories";
   static const String claimTypeApiCall = "claims/claim-types";
+  static const String claimAvailableTimeApiCall = "claims/available-times";
 }

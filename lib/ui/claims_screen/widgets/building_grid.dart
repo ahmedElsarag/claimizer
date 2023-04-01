@@ -68,7 +68,7 @@ class BuildingGrid extends StatelessWidget {
                     pr.buildingsList[index].name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 9.sp,
                       color: pr.selectedBuildingIndex == index ? Colors.white : Colors.black,
                     ),
                   ),

@@ -1,5 +1,6 @@
 import 'package:Cliamizer/network/models/buildings_response.dart';
 import 'package:Cliamizer/network/models/categories_response.dart';
+import 'package:Cliamizer/network/models/claim_available_time_response.dart';
 import 'package:Cliamizer/network/models/claim_type_response.dart';
 import 'package:Cliamizer/network/models/units_response.dart';
 import 'package:flutter/material.dart';
@@ -127,6 +128,15 @@ class ClaimsProvider extends ChangeNotifier {
 
   set claimTypeList(List<ClaimTypeDataBean> value) {
     _claimTypeList = value;
+    notifyListeners();
+  }
+
+  List<ClaimAvailableTimeDataBean> _claimAvailableTimeList = [];
+
+  List<ClaimAvailableTimeDataBean> get claimAvailableTimeList => _claimAvailableTimeList;
+
+  set claimAvailableTimeList(List<ClaimAvailableTimeDataBean> value) {
+    _claimAvailableTimeList = value;
     notifyListeners();
   }
 

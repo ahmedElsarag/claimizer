@@ -1,6 +1,7 @@
 import 'package:Cliamizer/base/presenter/base_presenter.dart';
 import 'package:Cliamizer/network/models/buildings_response.dart';
 import 'package:Cliamizer/network/models/categories_response.dart';
+import 'package:Cliamizer/network/models/claim_available_time_response.dart';
 import 'package:Cliamizer/network/models/claims_response.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
@@ -98,12 +99,31 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     });
     view.showProgress(isDismiss: false);
     await requestFutureData<ClaimTypeResponse>(Method.get,
-        queryParams: {'property_unit_id': subCategoryId, 'per_page': 1000},
+        queryParams: {'subcategory_id': subCategoryId, 'per_page': 1000},
         options: Options(headers: header),
         endPoint: Api.claimTypeApiCall, onSuccess: (data) {
       view.closeProgress();
       if (data != null) {
         view.provider.claimTypeList = data.data;
+      }
+    }, onError: (code, msg) {
+      view.closeProgress();
+    });
+  }
+
+  Future getClaimAvailableTimeApiCall(int subCategoryId) async {
+    Map<String, dynamic> header = Map();
+    await Prefs.getUserToken.then((token) {
+      header['Authorization'] = "Bearer $token";
+    });
+    view.showProgress(isDismiss: false);
+    await requestFutureData<ClaimAvailableTimeResponse>(Method.get,
+        queryParams: {'company_id': 22},
+        options: Options(headers: header),
+        endPoint: Api.claimTypeApiCall, onSuccess: (data) {
+      view.closeProgress();
+      if (data != null) {
+        view.provider.claimAvailableTimeList = data.data;
       }
     }, onError: (code, msg) {
       view.closeProgress();
