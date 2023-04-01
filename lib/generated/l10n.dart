@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -626,10 +625,10 @@ class S {
     );
   }
 
-  /// `account created`
+  /// `Account Created`
   String get accountCreated {
     return Intl.message(
-      'account created',
+      'Account Created',
       name: 'accountCreated',
       desc: '',
       args: [],
@@ -666,40 +665,40 @@ class S {
     );
   }
 
-  /// `claim category`
+  /// `Claim category`
   String get claimCategory {
     return Intl.message(
-      'claim category',
+      'Claim category',
       name: 'claimCategory',
       desc: '',
       args: [],
     );
   }
 
-  /// `claim sub category`
+  /// `Claim sub category`
   String get claimSubCategory {
     return Intl.message(
-      'claim sub category',
+      'Claim sub category',
       name: 'claimSubCategory',
       desc: '',
       args: [],
     );
   }
 
-  /// `claim type`
+  /// `Claim type`
   String get claimType {
     return Intl.message(
-      'claim type',
+      'Claim type',
       name: 'claimType',
       desc: '',
       args: [],
     );
   }
 
-  /// `available time`
+  /// `Available time`
   String get availableTime {
     return Intl.message(
-      'available time',
+      'Available time',
       name: 'availableTime',
       desc: '',
       args: [],
@@ -866,10 +865,10 @@ class S {
     );
   }
 
-  /// `Unit Name`
+  /// `Unit`
   String get unitName {
     return Intl.message(
-      'Unit Name',
+      'Unit',
       name: 'unitName',
       desc: '',
       args: [],
@@ -906,10 +905,10 @@ class S {
     );
   }
 
-  /// `Request Code:`
+  /// `Claim Code:`
   String get requestCode {
     return Intl.message(
-      'Request Code:',
+      'Claim Code:',
       name: 'requestCode',
       desc: '',
       args: [],
@@ -1206,11 +1205,81 @@ class S {
     );
   }
 
+  /// `Claim Details`
+  String get claimDetails {
+    return Intl.message(
+      'Claim Details',
+      name: 'claimDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Created At`
   String get createdAt {
     return Intl.message(
       'Created At',
       name: 'createdAt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message(
+      'Description',
+      name: 'description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All Files`
+  String get allFiles {
+    return Intl.message(
+      'All Files',
+      name: 'allFiles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Comments`
+  String get comments {
+    return Intl.message(
+      'Comments',
+      name: 'comments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Top Updates`
+  String get topUpdates {
+    return Intl.message(
+      'Top Updates',
+      name: 'topUpdates',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Results`
+  String get noResults {
+    return Intl.message(
+      'No Results',
+      name: 'noResults',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry, there are no results for this search. Please try another phrase`
+  String get sorryThereAreNoResultsForThisSearchPleaseTry {
+    return Intl.message(
+      'Sorry, there are no results for this search. Please try another phrase',
+      name: 'sorryThereAreNoResultsForThisSearchPleaseTry',
       desc: '',
       args: [],
     );

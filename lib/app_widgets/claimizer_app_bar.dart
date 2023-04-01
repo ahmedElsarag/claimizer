@@ -39,7 +39,7 @@ class ClaimizerAppBar extends StatelessWidget {
           child: Center(
             child: Text(
               title,
-              style: GoogleFonts.montserrat(fontSize: 16.sp, fontWeight: FontWeight.w700, color: MColors.dark_text_color),
+              style: GoogleFonts.montserrat(fontSize: 14.sp, fontWeight: FontWeight.w700, color: MColors.dark_text_color),
             ),
           ),
         )
