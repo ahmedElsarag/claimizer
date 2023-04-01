@@ -11,4 +11,8 @@ class Api {
   static const String registerApiCall = "register";
   static const String statisticsApiCall = "statistics";
   static const String claimsApiCall = "claims";
+  static const String buildingsApiCall = "buildings";
+  static const String unitsApiCall = "units";
+  static const String categoriesApiCall = "claims/categories";
+  static const String claimTypeApiCall = "claims/claim-types";
 }

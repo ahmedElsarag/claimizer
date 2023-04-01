@@ -2,7 +2,11 @@ import 'package:Cliamizer/network/models/LoginResponse.dart';
 import 'package:Cliamizer/network/models/general_response.dart';
 
 import 'models/StatisticsResponse.dart';
+import 'models/buildings_response.dart';
+import 'models/categories_response.dart';
+import 'models/claim_type_response.dart';
 import 'models/claims_response.dart';
+import 'models/units_response.dart';
 
 class EntityFactory {
   static T generateOBJ<T>(json) {
@@ -18,6 +22,18 @@ class EntityFactory {
         break;
       case "ClaimsResponse":
         return ClaimsResponse.fromJson(json) as T;
+        break;
+      case "BuildingsResponse":
+        return BuildingsResponse.fromJson(json) as T;
+        break;
+      case "UnitsResponse":
+        return UnitsResponse.fromJson(json) as T;
+        break;
+      case "CategoriesResponse":
+        return CategoriesResponse.fromJson(json) as T;
+        break;
+      case "ClaimTypeResponse":
+        return ClaimTypeResponse.fromJson(json) as T;
         break;
       default:
         return null;
