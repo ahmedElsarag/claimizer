@@ -61,7 +61,7 @@ class ExistingUnitList extends StatelessWidget {
                           .copyWith(color: MColors.subtitlesColor),
                     ),
                     Text(
-                      "2023-10-14",
+                      "title",
                       style: MTextStyles.textSubtitle,
                     ),
                   ],
@@ -71,7 +71,7 @@ class ExistingUnitList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      S.of(context).unitName,
+                      S.of(context).buildingName,
                       style: MTextStyles.textBoldDark12
                           .copyWith(color: MColors.subtitlesColor),
                     ),
@@ -86,7 +86,37 @@ class ExistingUnitList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      S.of(context).clientId,
+                      S.of(context).unitType,
+                      style: MTextStyles.textBoldDark12
+                          .copyWith(color: MColors.subtitlesColor),
+                    ),
+                    Text(
+                      "test",
+                      style: MTextStyles.textSubtitle,
+                    ),
+                  ],
+                ),
+                Gaps.vGap8,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      S.of(context).company,
+                      style: MTextStyles.textBoldDark12
+                          .copyWith(color: MColors.subtitlesColor),
+                    ),
+                    Text(
+                      "Tech",
+                      style: MTextStyles.textSubtitle,
+                    ),
+                  ],
+                ),
+                Gaps.vGap8,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      S.of(context).contractNo,
                       style: MTextStyles.textBoldDark12
                           .copyWith(color: MColors.subtitlesColor),
                     ),

@@ -83,8 +83,8 @@
   "more": "المزيد",
   "unitName": "الوحدة",
   "clientId": "رقم هوية العميل",
-  "startAt": "تبدأ في",
-  "endAt": "تنتهي قي",
+  "startAt": "تاريخ البداية",
+  "endAt": "تاريخ النهاية",
   "requestCode": "كود المطالبة:",
   "confirm": "تأكيد",
   "confirmation": "تأكيد",
@@ -122,5 +122,10 @@
   "topUpdates": "اخر التحديثات",
   "noResults": "لا توجد نتائج",
   "sorryThereAreNoResultsForThisSearchPleaseTry": "لللأسف, لا توجد نتائج لهذا البحث. جرب جملة اخري",
-  "priority": "الاولوية"
+  "priority": "الاولوية",
+  "allAttachment": "All Attachment",
+  "unitType": "Unit Type",
+  "company": "Company",
+  "comment": "Comment",
+  "reply": "Reply"
 }

@@ -4,6 +4,7 @@ import 'package:Cliamizer/route/routers.dart';
 import 'package:Cliamizer/styles/light_theme_style.dart';
 import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsProvider.dart';
 import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsScreen.dart';
+import 'package:Cliamizer/ui/claims_details_screen/widgets/comments_widget.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
 import 'package:Cliamizer/ui/intro/IntroProvider.dart';

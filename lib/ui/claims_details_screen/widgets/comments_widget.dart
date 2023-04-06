@@ -41,25 +41,25 @@ class CommentsWidget extends StatelessWidget {
                       ),
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Image.asset(ImageUtils.getImagePath(userImage),height: 48,width: 48,))),
+                          child: Image.asset(ImageUtils.getImagePath(userImage??"img"),height: 48,width: 48,))),
                   Gaps.hGap12,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(userName,
+                      Text(userName??"",
                           style: MTextStyles.textMain14.copyWith(
                             color: MColors.black,
                           )),
                       Gaps.vGap4,
                       Container(
                         width: 50.w,
-                        child: Text(comment,
+                        child: Text(comment??"",
                             style: MTextStyles.textGray12.copyWith(
                               color: MColors.primary_light_color,
                             )),
                       ),
                       Gaps.vGap4,
-                      Text(commentDate,
+                      Text(commentDate??"",
                           style: MTextStyles.textGray10.copyWith(
                             color: MColors.black,
                           )),
@@ -68,7 +68,7 @@ class CommentsWidget extends StatelessWidget {
                   ),
                   Spacer(),
                   InkWell(
-                      onTap: deleteComment,
+                      onTap: deleteComment??(){},
                       child: SvgPicture.asset(ImageUtils.getSVGPath("trash")))
                 ],
               ),

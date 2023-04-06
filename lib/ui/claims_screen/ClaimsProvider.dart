@@ -18,6 +18,22 @@ class ClaimsProvider extends ChangeNotifier {
     '5:00 PM',
     '6:00 PM'
   ];
+  List<String> _unitItems = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+    'Item 6'
+  ];
+
+  List<String> get unitItems => _unitItems;
+
+  set unitItems(List<String> value) {
+    _unitItems = value;
+    notifyListeners();
+  }
+
   String _selectedTimeValue;
   String _description;
   String _fileName = "";
@@ -36,6 +52,23 @@ class ClaimsProvider extends ChangeNotifier {
   int _selectedClaimCategoryIndex;
   int _selectedClaimSubCategoryIndex;
   int _selectedClaimTypeIndex ;
+
+  ScrollController _scrollController = ScrollController();
+  double _scrollPosition = 0.0;
+
+  double get scrollPosition => _scrollPosition;
+
+  set scrollPosition(double value) {
+    _scrollPosition = value;
+    notifyListeners();
+  }
+
+  ScrollController get scrollController => _scrollController;
+
+  set scrollController(ScrollController value) {
+    _scrollController = value;
+    notifyListeners();
+  }
 
   DateTime get selectedDate => _selectedDate;
 

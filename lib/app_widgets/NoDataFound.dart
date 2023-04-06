@@ -13,8 +13,12 @@ class NoDataWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      color: MColors.white,
+      padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 20),
+      margin: EdgeInsets.symmetric(vertical: 20),
+      decoration: BoxDecoration(
+        color: MColors.white,
+        borderRadius: BorderRadius.circular(8)
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
