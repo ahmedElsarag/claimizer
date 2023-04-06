@@ -128,5 +128,12 @@
   "unitType": "Unit Type",
   "company": "Company",
   "comment": "Comment",
-  "reply": "Reply"
+  "reply": "Reply",
+  "youMustLogin": "You Must Login",
+  "personalProfile": "Personal Profile",
+  "emailNotifications": "Email Notifications",
+  "enable": "Enable",
+  "disable": "Disable",
+  "updateSecondaryEmail": "Update secondary email",
+  "passwordChangedSuccessfully": "Password Changed Successfully"
 }

@@ -6,8 +6,10 @@ import '../CommonUtils/image_utils.dart';
 
 class ImageLoader extends StatefulWidget {
  final String imageUrl;
+ final double height;
+ final double width;
 
-  const ImageLoader({Key key, this.imageUrl}) : super(key: key);
+  const ImageLoader({Key key, this.imageUrl, this.height, this.width}) : super(key: key);
 
   @override
   State<ImageLoader> createState() => ImageLoaderState();
@@ -44,9 +46,8 @@ class ImageLoaderState extends State<ImageLoader> with TickerProviderStateMixin{
         double width: double.infinity}) {
     return CachedNetworkImage(
       imageUrl: widget.imageUrl,
-      height: height,
-      width: width,
-
+      height:widget.height ?? height,
+      width: widget.width ?? width,
       fit: fit,
       placeholder: (context, url) => Container(
         color: Theme.of(context).primaryColor,

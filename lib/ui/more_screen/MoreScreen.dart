@@ -1,4 +1,5 @@
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
+import 'package:Cliamizer/app_widgets/image_loader.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/res/styles.dart';
 import 'package:Cliamizer/ui/edit_profile_screen/EditProfileScreen.dart';
@@ -9,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/LanguageProvider.dart';
+import '../../CommonUtils/preference/Prefs.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
@@ -27,36 +29,35 @@ class MoreScreen extends StatefulWidget {
   State<MoreScreen> createState() => MoreScreenState();
 }
 
-class MoreScreenState extends BaseState<MoreScreen, MorePresenter> with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
+class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
+    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   MoreProvider provider = MoreProvider();
 
   @override
   void initState() {
     super.initState();
+    mPresenter.getProfileData();
   }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<MoreProvider>(
       create: (context) => provider,
-      builder: (context, child) =>
-          Consumer<MoreProvider>(
-            builder: (context, value, child) =>
-                Scaffold(
-                  backgroundColor: MColors.page_background,
-                  body: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(16, 60, 16, 0),
-                    child: Column(
-                      children: [profileWidget(), Gaps.vGap12, settingsWidget(), Gaps.vGap12, Gaps.vGap8, accountWidget()],
-                    ),
-                  ),
-                ),
-          ),
+      builder: (context, child) => Consumer<MoreProvider>(
+        builder: (context, value, child) => Scaffold(
+          backgroundColor: MColors.page_background,
+          body: provider.instance!=null ?Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 60, 16, 0),
+            child: Column(
+              children: [profileWidget(), Gaps.vGap12, settingsWidget(), Gaps.vGap12, Gaps.vGap8, accountWidget()],
+            ),
+          ) : mPresenter.showProgress(),
+        ),
+      ),
     );
   }
 
-  Widget profileWidget() =>
-      Container(
+  Widget profileWidget() => Container(
         decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
         padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.w),
         child: Column(
@@ -77,20 +78,15 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter> with Automati
             Gaps.vGap16,
             Row(
               children: [
-                Image.asset(
-                  ImageUtils.getImagePath('profileImage'),
-                  fit: BoxFit.cover,
-                  height: 16.w,
-                  width: 16.w,
-                ),
+                ImageLoader(imageUrl: provider.instance.avatar,width: 16.w,height: 16.w,),
                 Gaps.hGap12,
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 10, top: 6),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Ahmed Mohamed", style: MTextStyles.textGray16),
-                      Text("ahmed@gmail.com", style: MTextStyles.textLabelSmall),
+                      Text(provider.instance.name, style: MTextStyles.textGray16),
+                      Text(provider.instance.email, style: MTextStyles.textLabelSmall),
                     ],
                   ),
                 )
@@ -100,8 +96,7 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter> with Automati
         ),
       );
 
-  Widget editProfileButton() =>
-      InkWell(
+  Widget editProfileButton() => InkWell(
         onTap: () {
           Navigator.push(context, CupertinoPageRoute(builder: (_) => EditProfileScreen()));
         },
@@ -109,7 +104,8 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter> with Automati
           width: 8.w,
           height: 8.w,
           padding: EdgeInsets.all(6),
-          decoration: BoxDecoration(border: Border.all(color: MColors.primary_color), borderRadius: BorderRadius.circular(8)),
+          decoration:
+              BoxDecoration(border: Border.all(color: MColors.primary_color), borderRadius: BorderRadius.circular(8)),
           child: SvgPicture.asset(
             ImageUtils.getSVGPath('edit-2'),
             fit: BoxFit.fitWidth,
@@ -132,9 +128,7 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter> with Automati
                 fit: BoxFit.fitWidth,
               ),
               Gaps.hGap12,
-              Text(S
-                  .of(context)
-                  .language, style: MTextStyles.textMainLight16),
+              Text(S.of(context).language, style: MTextStyles.textMainLight16),
               Spacer(),
               Transform.scale(
                   scale: 0.2.w,
@@ -160,9 +154,7 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter> with Automati
                 fit: BoxFit.fitWidth,
               ),
               Gaps.hGap12,
-              Text(S
-                  .of(context)
-                  .help, style: MTextStyles.textMainLight16),
+              Text(S.of(context).help, style: MTextStyles.textMainLight16),
             ],
           ),
           divider(),
@@ -174,9 +166,7 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter> with Automati
                 fit: BoxFit.fitWidth,
               ),
               Gaps.hGap12,
-              Text(S
-                  .of(context)
-                  .support, style: MTextStyles.textMainLight16),
+              Text(S.of(context).support, style: MTextStyles.textMainLight16),
             ],
           ),
           divider(),
@@ -188,9 +178,7 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter> with Automati
                 fit: BoxFit.fitWidth,
               ),
               Gaps.hGap12,
-              Text(S
-                  .of(context)
-                  .privacyAndPolicy, style: MTextStyles.textMainLight16),
+              Text(S.of(context).privacyAndPolicy, style: MTextStyles.textMainLight16),
             ],
           ),
         ],
@@ -212,9 +200,7 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter> with Automati
                 fit: BoxFit.fitWidth,
               ),
               Gaps.hGap12,
-              Text(S
-                  .of(context)
-                  .notification, style: MTextStyles.textMainLight16),
+              Text(S.of(context).notification, style: MTextStyles.textMainLight16),
               Spacer(),
               Transform.scale(
                   scale: 0.2.w,
@@ -231,7 +217,8 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter> with Automati
           // logout
           InkWell(
             onTap: () {
-              Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (_) => LoginScreen()), (route) => false);
+              Navigator.pushAndRemoveUntil(
+                  context, CupertinoPageRoute(builder: (_) => LoginScreen()), (route) => false);
             },
             child: Row(
               children: [
@@ -240,9 +227,7 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter> with Automati
                   fit: BoxFit.fitWidth,
                 ),
                 Gaps.hGap12,
-                Text(S
-                    .of(context)
-                    .logOut, style: MTextStyles.textMainLight16),
+                Text(S.of(context).logOut, style: MTextStyles.textMainLight16),
               ],
             ),
           ),

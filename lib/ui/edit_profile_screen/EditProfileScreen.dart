@@ -2,17 +2,22 @@ import 'dart:io';
 
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../CommonUtils/utils.dart';
 import '../../app_widgets/CustomTextField.dart';
+import '../../app_widgets/app_headline.dart';
 import '../../app_widgets/claimizer_app_bar.dart';
+import '../../app_widgets/image_loader.dart';
 import '../../generated/l10n.dart';
+import '../../network/models/ProfileResponse.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
 import '../../res/styles.dart';
@@ -44,9 +49,13 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
   final picker = ImagePicker();
   bool _isNotificationEnabled = true;
 
+  TabController _tabController;
+
   @override
   void initState() {
     super.initState();
+    mPresenter.getProfileData();
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   Future getImageFromCamera() async {
@@ -78,143 +87,163 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
     return ChangeNotifierProvider<EditProfileProvider>(
       create: (context) => provider,
       builder: (context, child) => Consumer<EditProfileProvider>(
-          builder: (context, value, child) => Scaffold(
-                backgroundColor: MColors.page_background,
-                body: SafeArea(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Container(
-                            margin: EdgeInsets.symmetric(horizontal: 4.w,vertical: 4.w),
-                            child: ClaimizerAppBar(title: S.current.editProfile)),
-                        Gaps.vGap12,
-                        Gaps.vGap8,
-                        Container(
-                          color: MColors.page_background,
-                          padding: EdgeInsets.symmetric(horizontal: 6.w),
-                          child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                            Stack(
-                              children: [
-                                Container(
-                                  height: 30.w,
-                                  width: 30.w,
-                                  decoration: BoxDecoration(color: MColors.page_background, borderRadius: BorderRadius.circular(100)),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: _image != null
-                                        ? Image.file(_image)
-                                        : Image.asset(
-                                            ImageUtils.getImagePath("img"),
-                                          ),
-                                  ),
-                                ),
-                                PositionedDirectional(
-                                  bottom: 2.w,
-                                  end: 0,
-                                  child: InkWell(
-                                      onTap: () {
-                                        showDialog(context: context, builder: (_) => buildPickImageDialog(context));
-                                      },
-                                      child: SvgPicture.asset(ImageUtils.getSVGPath("edit_photo"))),
-                                )
-                              ],
-                            ),
-                            Gaps.vGap16,
-                            Gaps.vGap12,
-                            Form(
-                              key: _formKey,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  buildNameField(context),
-                                  Gaps.vGap12,
-                                  Gaps.vGap8,
-                                  buildEmailField(context),
-                                  Gaps.vGap8,
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 4.w),
-                                    child: InkWell(
-                                      onTap: (){},
-                                      child: Row(
-                                        children: [
-                                          SvgPicture.asset(ImageUtils.getSVGPath("plus_icon")),
-                                          Gaps.hGap8,
-                                          Text("Update secondary email", style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Gaps.vGap12,
-                                  Gaps.vGap8,
-                                  buildPhoneField(context),
-                                  Gaps.vGap12,
-                                  Gaps.vGap8,
-                                  buildOldPasswordField(context),
-                                  Gaps.vGap12,
-                                  Gaps.vGap8,
-                                  buildPasswordField(context),
-                                  Gaps.vGap12,
-                                  Gaps.vGap8,
-                                  buildConfirmPasswordField(context),
-                                  Gaps.vGap12,
-                                  Gaps.vGap8,
-                                  Text('Email Notifications',style: Theme.of(context).textTheme.labelMedium,),
-                                  Gaps.vGap12,
-                                  Row(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Radio(
-                                            value: true,
-                                            groupValue: _isNotificationEnabled,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _isNotificationEnabled = value;
-                                              });
+          builder: (context, value, child) => DefaultTabController(
+                length: 2,
+                initialIndex: 0,
+                child: Scaffold(
+                  backgroundColor: MColors.page_background,
+                  body: provider.instance != null
+                      ? SafeArea(
+                          child: ListView(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.w),
+                                  child: ClaimizerAppBar(title: S.current.editProfile)),
+                              Gaps.vGap12,
+                              Gaps.vGap8,
+                              Container(
+                                color: MColors.page_background,
+                                padding: EdgeInsets.symmetric(horizontal: 6.w),
+                                child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                                  Container(
+                                    decoration:
+                                        BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
+                                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                                    child: Column(
+                                      children: [
+                                        AppHeadline(title: S.of(context).personalProfile),
+                                        Gaps.vGap15,
+                                        Stack(
+                                          children: [
+                                            Container(
+                                              height: 30.w,
+                                              width: 30.w,
+                                              decoration: BoxDecoration(
+                                                  color: MColors.page_background,
+                                                  borderRadius: BorderRadius.circular(100)),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(100),
+                                                child: _image != null
+                                                    ? Image.file(_image)
+                                                    : ImageLoader(
+                                                        imageUrl: provider.instance.avatar,
+                                                      ),
+                                              ),
+                                            ),
+                                            PositionedDirectional(
+                                              bottom: 2.w,
+                                              end: 0,
+                                              child: InkWell(
+                                                  onTap: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (_) => buildPickImageDialog(context));
+                                                  },
+                                                  child: SvgPicture.asset(ImageUtils.getSVGPath("edit_photo"))),
+                                            )
+                                          ],
+                                        ),
+                                        Gaps.vGap12,
+                                        Material(
+                                          color: MColors.primary_color.withOpacity(.08),
+                                          borderRadius: BorderRadius.circular(30),
+                                          child: TabBar(
+                                            indicator: BoxDecoration(
+                                              color: MColors.primary_color,
+                                              borderRadius: BorderRadius.circular(30),
+                                            ),
+                                            indicatorPadding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.w),
+                                            labelColor: MColors.white,
+                                            indicatorSize: TabBarIndicatorSize.tab,
+                                            onTap: (index) {
+                                              provider.selectedTabIndex = index;
                                             },
+                                            tabs: [
+                                              Tab(text: 'Basic Info'),
+                                              Tab(text: 'Update Password'),
+                                            ],
                                           ),
-                                          Text('Enable'),
-                                        ],
-                                      ),
-                                      SizedBox(width: 16.0),
-                                      Radio(
-                                        value: false,
-                                        groupValue: _isNotificationEnabled,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _isNotificationEnabled = value;
-                                          });
-                                        },
-                                      ),
-                                      Text('Disable'),
-                                    ],
-                                  ),
-                                  SizedBox(height: 32.0),
-                                  ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all<Color>(MColors.primary_color),
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8)
-                                        )),
-                                      fixedSize: MaterialStateProperty.all<Size>(
-                                        Size(100.w, 50),
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                    onPressed: () {
-                                    },
-                                    child: Text("Save Changes",style: MTextStyles.textWhite14,),
                                   ),
-                                  SizedBox(height: 32.0),
-                                ],
+                                  Gaps.vGap16,
+                                  Gaps.vGap12,
+                                  Container(
+                                    child: provider.selectedTabIndex == 0
+                                        ? _buildBasicInfoContent()
+                                        : _buildUpdatePasswordContent(),
+                                  ),
+                                ]),
                               ),
-                            ),
-                          ]),
-                        ),
-                      ],
-                    ),
-                  ),
+                            ],
+                          ),
+                        )
+                      : mPresenter.showProgress(),
                 ),
               )),
+    );
+  }
+
+  Column buildNotificationToggle(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          S.of(context).emailNotifications,
+          style: Theme.of(context).textTheme.labelMedium,
+        ),
+        Gaps.vGap12,
+        Row(
+          children: [
+            Row(
+              children: [
+                Radio(
+                  fillColor: MaterialStateProperty.all<Color>(MColors.text_button_color),
+                  value: true,
+                  groupValue: _isNotificationEnabled,
+                  onChanged: (value) {
+                    setState(() {
+                      _isNotificationEnabled = value;
+                    });
+                  },
+                ),
+                Text(S.of(context).enable),
+              ],
+            ),
+            SizedBox(width: 16.0),
+            Radio(
+              fillColor: MaterialStateProperty.all<Color>(MColors.text_button_color),
+              value: false,
+              groupValue: _isNotificationEnabled,
+              onChanged: (value) {
+                setState(() {
+                  _isNotificationEnabled = value;
+                });
+              },
+            ),
+            Text(S.of(context).disable),
+          ],
+        ),
+      ],
+    );
+  }
+
+  ElevatedButton buildEditProfileButton({Function onTap}) {
+    return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(MColors.primary_color),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+        fixedSize: MaterialStateProperty.all<Size>(
+          Size(100.w, 50),
+        ),
+      ),
+      onPressed: onTap ?? () {},
+      child: Text(
+        "Save Changes",
+        style: MTextStyles.textWhite14,
+      ),
     );
   }
 
@@ -228,7 +257,8 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             child: ElevatedButton.icon(
               onPressed: getImageFromCamera,
               icon: Icon(Icons.camera_alt, color: MColors.text_button_color),
-              label: Text(S.of(context).takePhoto, style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
+              label: Text(S.of(context).takePhoto,
+                  style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
             ),
           ),
           SizedBox(height: 8),
@@ -264,18 +294,19 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             style: Theme.of(context).textTheme.bodySmall,
             dividerColor: Theme.of(context).dividerColor,
             decoration: InputDecoration(
-              hintText: "Name",
+              hintText: provider.instance.name,
               errorStyle: Theme.of(context).textTheme.bodySmall.copyWith(color: Colors.redAccent),
               contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              enabledBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              errorBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-              focusedErrorBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-              focusedBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
               counterText: "",
               hintStyle: Theme.of(context).textTheme.displaySmall,
             ),
@@ -321,18 +352,19 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             style: Theme.of(context).textTheme.bodySmall,
             dividerColor: Theme.of(context).dividerColor,
             decoration: InputDecoration(
-              hintText: "Name@mail.com",
+              hintText: provider.instance.email,
               errorStyle: Theme.of(context).textTheme.bodySmall.copyWith(color: Colors.redAccent),
               contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              enabledBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              errorBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-              focusedErrorBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-              focusedBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
               counterText: "",
               hintStyle: Theme.of(context).textTheme.displaySmall,
             ),
@@ -381,15 +413,16 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
               counterText: "",
               errorStyle: Theme.of(context).textTheme.bodySmall.copyWith(color: Colors.redAccent),
               contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              enabledBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              errorBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-              focusedErrorBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-              focusedBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
             ),
             showCountryFlag: false,
             controller: phoneNumberController,
@@ -402,7 +435,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             onCountryChanged: (country) {
               print('Country changed to: ' + country.name);
             },
-            onSubmitted: (p0) =>  FocusScope.of(context).nextFocus(),
+            onSubmitted: (p0) => FocusScope.of(context).nextFocus(),
           ),
         ],
       ),
@@ -436,20 +469,20 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: SvgPicture.asset(
-                      ImageUtils.getSVGPath(provider.obscureTextPassword ?"eye_password" : 'hide_eye'),
+                      ImageUtils.getSVGPath(provider.obscureTextPassword ? "eye_password" : 'hide_eye'),
                       color: MColors.blueButtonColor,
                     ),
-                  )
-              ),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              enabledBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              errorBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-              focusedErrorBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-              focusedBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
+                  )),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
               counterText: "",
               hintStyle: Theme.of(context).textTheme.displaySmall,
             ),
@@ -472,7 +505,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
       ),
     );
   }
-  
+
   Widget buildPasswordField(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * .872,
@@ -500,20 +533,20 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: SvgPicture.asset(
-                      ImageUtils.getSVGPath(provider.obscureTextPassword ?"eye_password" : 'hide_eye'),
+                      ImageUtils.getSVGPath(provider.obscureTextPassword ? "eye_password" : 'hide_eye'),
                       color: MColors.blueButtonColor,
                     ),
-                  )
-              ),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              enabledBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              errorBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-              focusedErrorBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-              focusedBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
+                  )),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
               counterText: "",
               hintStyle: Theme.of(context).textTheme.displaySmall,
             ),
@@ -570,21 +603,22 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: SvgPicture.asset(
-                      ImageUtils.getSVGPath(provider.obscureTextPassword ?"eye_password" : 'hide_eye'),
+                      ImageUtils.getSVGPath(provider.obscureTextPassword ? "eye_password" : 'hide_eye'),
                       color: MColors.blueButtonColor,
                     ),
                   )
-                // Icon(_obscureTextPassword ? Icons.visibility : Icons.visibility_off, color: MColors.primary_color),
-              ),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              enabledBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-              errorBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-              focusedErrorBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-              focusedBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
+                  // Icon(_obscureTextPassword ? Icons.visibility : Icons.visibility_off, color: MColors.primary_color),
+                  ),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
               counterText: "",
               hintStyle: Theme.of(context).textTheme.displaySmall,
             ),
@@ -616,6 +650,107 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildBasicInfoContent() {
+    return Container(
+      decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildNameField(context),
+            Gaps.vGap12,
+            Gaps.vGap8,
+            buildEmailField(context),
+            Gaps.vGap8,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
+              child: InkWell(
+                onTap: () {},
+                child: Row(
+                  children: [
+                    SvgPicture.asset(ImageUtils.getSVGPath("plus_icon")),
+                    Gaps.hGap8,
+                    Text(S.of(context).updateSecondaryEmail,
+                        style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color))
+                  ],
+                ),
+              ),
+            ),
+            Gaps.vGap12,
+            Gaps.vGap8,
+            buildPhoneField(context),
+            Gaps.vGap12,
+            Gaps.vGap8,
+            buildNotificationToggle(context),
+            Gaps.vGap12,
+            Gaps.vGap8,
+            buildEditProfileButton(onTap: () {
+              editProfile();
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void editProfile() async {
+    FormData formData = new FormData.fromMap({
+      // "image": await MultipartFile.fromFile(
+      //   _image.path,
+      //   contentType: new MediaType('image', 'jpg'),
+      // ),
+      "email": emailController.text,
+      "phone": phoneNumberController.text,
+      "name": nameController.text,
+    });
+      mPresenter.doEditBasicInfoApiCall(formData);
+    if (!noDataChanged())
+      mPresenter.doEditBasicInfoApiCall(formData);
+    else if (noDataChanged() && _image == null) showToasts('no data changed');
+  }
+
+  bool noDataChanged() {
+    if (emailController.text == provider.instance.email &&
+        phoneNumberController.text == provider.instance.profile.mobile &&
+        nameController.text == provider.instance.name &&
+        _image == provider.instance.avatar) return true;
+    return false;
+  }
+
+  Widget _buildUpdatePasswordContent() {
+    return Container(
+      decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildOldPasswordField(context),
+            Gaps.vGap12,
+            Gaps.vGap8,
+            buildPasswordField(context),
+            Gaps.vGap12,
+            Gaps.vGap8,
+            buildConfirmPasswordField(context),
+            Gaps.vGap12,
+            Gaps.vGap8,
+            buildEditProfileButton(onTap: () {
+              mPresenter.doEditPassword({
+                "old_password": oldPasswordController.text,
+                "password": passwordController.text,
+                "password_confirmation": confirmPasswordController.text,
+              });
+              print("edit password");
+            }),
+          ],
+        ),
       ),
     );
   }

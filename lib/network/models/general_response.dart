@@ -1,6 +1,6 @@
 class GeneralResponse {
   dynamic data;
-  int status;
+  dynamic status;
   String message;
 
   GeneralResponse({this.data, this.status, this.message});

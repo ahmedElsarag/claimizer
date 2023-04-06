@@ -1,6 +1,7 @@
 import 'package:Cliamizer/network/models/LoginResponse.dart';
 import 'package:Cliamizer/network/models/general_response.dart';
 
+import 'models/ProfileResponse.dart';
 import 'models/StatisticsResponse.dart';
 import 'models/claims_response.dart';
 
@@ -18,6 +19,9 @@ class EntityFactory {
         break;
       case "ClaimsResponse":
         return ClaimsResponse.fromJson(json) as T;
+        break;
+      case "ProfileResponse":
+        return ProfileResponse.fromJson(json) as T;
         break;
       default:
         return null;

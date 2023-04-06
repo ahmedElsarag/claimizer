@@ -1334,6 +1334,76 @@ class S {
       args: [],
     );
   }
+
+  /// `You Must Login`
+  String get youMustLogin {
+    return Intl.message(
+      'You Must Login',
+      name: 'youMustLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personal Profile`
+  String get personalProfile {
+    return Intl.message(
+      'Personal Profile',
+      name: 'personalProfile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email Notifications`
+  String get emailNotifications {
+    return Intl.message(
+      'Email Notifications',
+      name: 'emailNotifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable`
+  String get enable {
+    return Intl.message(
+      'Enable',
+      name: 'enable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Disable`
+  String get disable {
+    return Intl.message(
+      'Disable',
+      name: 'disable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update secondary email`
+  String get updateSecondaryEmail {
+    return Intl.message(
+      'Update secondary email',
+      name: 'updateSecondaryEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password Changed Successfully`
+  String get passwordChangedSuccessfully {
+    return Intl.message(
+      'Password Changed Successfully',
+      name: 'passwordChangedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
