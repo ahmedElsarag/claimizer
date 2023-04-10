@@ -1,3 +1,8 @@
+import 'package:Cliamizer/network/models/buildings_response.dart';
+import 'package:Cliamizer/network/models/categories_response.dart';
+import 'package:Cliamizer/network/models/claim_available_time_response.dart';
+import 'package:Cliamizer/network/models/claim_type_response.dart';
+import 'package:Cliamizer/network/models/units_response.dart';
 import 'package:flutter/material.dart';
 
 import '../../network/models/claims_response.dart';
@@ -111,6 +116,60 @@ class ClaimsProvider extends ChangeNotifier {
 
   set claimsList(List<ClaimsDataBean> value) {
     _claimsList = value;
+    notifyListeners();
+  }
+
+  List<BuildingsDataBean> _buildingsList = [];
+
+  List<BuildingsDataBean> get buildingsList => _buildingsList;
+
+  set buildingsList(List<BuildingsDataBean> value) {
+    _buildingsList = value;
+    notifyListeners();
+  }
+
+  List<UnitsDataBean> _unitsList = [];
+
+  List<UnitsDataBean> get unitsList => _unitsList;
+
+  set unitsList(List<UnitsDataBean> value) {
+    _unitsList = value;
+    notifyListeners();
+  }
+
+  List<CategoryDataBean> _categoriesList = [];
+
+  List<CategoryDataBean> get categoriesList => _categoriesList;
+
+  set categoriesList(List<CategoryDataBean> value) {
+    _categoriesList = value;
+    notifyListeners();
+  }
+
+  List<SubCategoryDataBean> _subCategoryList = [];
+
+  List<SubCategoryDataBean> get subCategoryList => _subCategoryList;
+
+  set subCategoryList(List<SubCategoryDataBean> value) {
+    _subCategoryList = value;
+    notifyListeners();
+  }
+
+  List<ClaimTypeDataBean> _claimTypeList = [];
+
+  List<ClaimTypeDataBean> get claimTypeList => _claimTypeList;
+
+  set claimTypeList(List<ClaimTypeDataBean> value) {
+    _claimTypeList = value;
+    notifyListeners();
+  }
+
+  List<ClaimAvailableTimeDataBean> _claimAvailableTimeList = [];
+
+  List<ClaimAvailableTimeDataBean> get claimAvailableTimeList => _claimAvailableTimeList;
+
+  set claimAvailableTimeList(List<ClaimAvailableTimeDataBean> value) {
+    _claimAvailableTimeList = value;
     notifyListeners();
   }
 

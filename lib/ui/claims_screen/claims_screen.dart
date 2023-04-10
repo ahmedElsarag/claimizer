@@ -6,9 +6,11 @@ import 'package:Cliamizer/ui/claims_screen/widgets/build_date_picker.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/build_description_field.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/build_drop_time.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/build_file_picker.dart';
-import 'package:Cliamizer/ui/claims_screen/widgets/claims_requests.dart';
-import 'package:Cliamizer/ui/claims_screen/widgets/files_widgets.dart';
-import 'package:Cliamizer/ui/claims_screen/widgets/grid_view_item.dart';
+import 'package:Cliamizer/ui/claims_screen/widgets/building_grid.dart';
+import 'package:Cliamizer/ui/claims_screen/widgets/categories_grid.dart';
+import 'package:Cliamizer/ui/claims_screen/widgets/claim_type_grid.dart';
+import 'package:Cliamizer/ui/claims_screen/widgets/subcategory_grid.dart';
+import 'package:Cliamizer/ui/claims_screen/widgets/units_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -23,7 +25,6 @@ import '../../generated/l10n.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
 import '../../res/styles.dart';
-import '../main_screens/MainProvider.dart';
 import 'ClaimsPresenter.dart';
 
 class ClaimsScreen extends StatefulWidget {
@@ -61,11 +62,11 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
     'Item 10'
   ];
 
-  String selectedBuilding;
-  String selectedUnit;
-  String selectedCategory;
-  String selectedSubCategory;
-  String selectedType;
+  int selectedBuilding;
+  int selectedUnit;
+  int selectedCategory;
+  int selectedSubCategory;
+  int selectedType;
 
   ClaimsProvider provider;
 
@@ -73,25 +74,8 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
   void initState() {
     provider = context.read<ClaimsProvider>();
     mPresenter.getAllClaimsApiCall();
+    mPresenter.getBuildingsApiCall();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    provider.scrollController.dispose();
-    super.dispose();
-  }
-
-  void _saveScrollPosition() {
-    provider.scrollPosition = provider.scrollController.position.pixels;
-  }
-
-  void _scrollToTop() {
-    provider.scrollController.animateTo(
-      0.0,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
   }
 
   @override
@@ -328,28 +312,6 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                           )),
                                     ],
                                   ),
-                                  Gaps.vGap12,
-                                  Gaps.vGap12,
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(S.of(context).description,
-                                          style: MTextStyles.textMain16.copyWith(
-                                            color: MColors.black,
-                                          )),
-                                      Gaps.vGap8,
-                                      Text(pr.description ?? "",
-                                          style: MTextStyles.textMain14.copyWith(
-                                            color: MColors.black,
-                                            fontWeight: FontWeight.w400,
-                                          )),
-                                    ],
-                                  ),
-                                  Gaps.vGap12,
-                                  Gaps.vGap12,
-                                  FilesWidget(
-                                    value: ImageUtils.getImagePath("img"),
-                                  ),
                                   Gaps.vGap30,
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -383,66 +345,52 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                           onPressed: () {
                                             showDialog(
                                               context: context,
-                                              builder: (context) {
-                                                final mainProvider = Provider.of<MainProvider>(context);
-                                                return AlertDialog(
-                                                  backgroundColor: MColors.whiteE,
-                                                  elevation: 0,
-                                                  contentPadding:
-                                                      EdgeInsets.symmetric(vertical: 8.w, horizontal: 4.5.w),
-                                                  content: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                      SvgPicture.asset(ImageUtils.getSVGPath("done")),
-                                                      Gaps.vGap16,
-                                                      Text(S.of(context).confirmation,
-                                                          style: MTextStyles.textMain16.copyWith(
-                                                            color: MColors.black,
-                                                          )),
-                                                      Gaps.vGap8,
-                                                      Text("${S.of(context).requestCode} 564132165",
-                                                          style: MTextStyles.textMain12.copyWith(
-                                                            color: MColors.black,
-                                                          )),
-                                                      Gaps.vGap8,
-                                                      Text(
-                                                        S
-                                                            .of(context)
-                                                            .thankYouForSubmittingYourRequestOneOfOurCustomerservices,
-                                                        style: MTextStyles.textSubtitle,
-                                                        textAlign: TextAlign.center,
+                                              builder: (context) => AlertDialog(
+                                                backgroundColor: MColors.whiteE,
+                                                elevation: 0,
+                                                contentPadding: EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
+                                                content: Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    SvgPicture.asset(ImageUtils.getSVGPath("done")),
+                                                    Gaps.vGap16,
+                                                    Text(S.of(context).confirmation,
+                                                        style: MTextStyles.textMain16.copyWith(
+                                                          color: MColors.black,
+                                                        )),
+                                                    Gaps.vGap8,
+                                                    Text(
+                                                      S
+                                                          .of(context)
+                                                          .thankYouForSubmittingYourRequestOneOfOurCustomerservices,
+                                                      style: MTextStyles.textSubtitle,
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                    Gaps.vGap30,
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        pr.isStepsFinished = !pr.isStepsFinished;
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text(
+                                                        S.of(context).backToHome,
+                                                        style: MTextStyles.textWhite14
+                                                            .copyWith(fontWeight: FontWeight.w700),
                                                       ),
-                                                      Gaps.vGap30,
-                                                      ElevatedButton(
-                                                        onPressed: () {
-                                                          // pr.isStepsFinished =
-                                                          // !pr.isStepsFinished;
-                                                          Navigator.pop(context);
-                                                          final mainProvider =
-                                                              Provider.of<MainProvider>(context, listen: false);
-                                                          mainProvider.changeTabScreen(0);
-                                                          // Navigator.of(context).pop();
-                                                        },
-                                                        child: Text(
-                                                          S.of(context).backToHome,
-                                                          style: MTextStyles.textWhite14
-                                                              .copyWith(fontWeight: FontWeight.w700),
-                                                        ),
-                                                        style: ButtonStyle(
-                                                            backgroundColor:
-                                                                MaterialStateProperty.all<Color>(MColors.primary_color),
-                                                            elevation: MaterialStatePropertyAll(0),
-                                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                                RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius.circular(8),
-                                                            )),
-                                                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                                                EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
-                                                      )
-                                                    ],
-                                                  ),
-                                                );
-                                              },
+                                                      style: ButtonStyle(
+                                                          backgroundColor:
+                                                              MaterialStateProperty.all<Color>(MColors.primary_color),
+                                                          elevation: MaterialStatePropertyAll(0),
+                                                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                              RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          )),
+                                                          padding: MaterialStateProperty.all<EdgeInsets>(
+                                                              EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
                                             );
                                           },
                                           child: Text(
@@ -484,131 +432,115 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                           physics: BouncingScrollPhysics(),
                                           currentStep: pr.currentStep,
                                           controlsBuilder: (context, details) {
-                                            return pr.currentStep == 0
-                                                ? SizedBox.shrink()
-                                                : pr.currentStep != 5
-                                                    ? Row(
-                                                        children: [
-                                                          Container(
-                                                            width: 30.w,
-                                                            margin: EdgeInsetsDirectional.only(
-                                                              top: 6.w,
-                                                            ),
-                                                            child: ElevatedButton(
-                                                              onPressed: () {
-                                                                pr.currentStep > 0 ? pr.currentStep -= 1 : null;
-                                                              },
-                                                              child: Text(
-                                                                S.of(context).back,
-                                                                style: MTextStyles.textMain14
-                                                                    .copyWith(fontWeight: FontWeight.w700),
-                                                              ),
-                                                              style: ButtonStyle(
-                                                                  backgroundColor:
-                                                                      MaterialStateProperty.all<Color>(MColors.white),
-                                                                  elevation: MaterialStatePropertyAll(0),
-                                                                  shape:
-                                                                      MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                                          RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(8),
-                                                                              side: BorderSide(
-                                                                                  color: MColors.primary_color))),
-                                                                  padding: MaterialStateProperty.all<EdgeInsets>(
-                                                                      EdgeInsets.symmetric(
-                                                                          horizontal: 4.w, vertical: 3.w))),
-                                                            ),
+                                            return pr.currentStep != 5
+                                                ? Row(
+                                                    children: [
+                                                      Container(
+                                                        width: 30.w,
+                                                        margin: EdgeInsetsDirectional.only(
+                                                          top: 6.w,
+                                                        ),
+                                                        child: ElevatedButton(
+                                                          onPressed: () {
+                                                            pr.currentStep > 0 ? pr.currentStep -= 1 : null;
+                                                          },
+                                                          child: Text(
+                                                            S.of(context).back,
+                                                            style: MTextStyles.textMain14
+                                                                .copyWith(fontWeight: FontWeight.w700),
                                                           ),
-                                                        ],
-                                                      )
-                                                    : Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                        children: [
-                                                          Container(
-                                                            width: 30.w,
-                                                            margin: EdgeInsets.symmetric(vertical: 3.w),
-                                                            child: ElevatedButton(
-                                                              onPressed: () {
-                                                                pr.currentStep > 0 ? pr.currentStep -= 1 : null;
-                                                              },
-                                                              child: Text(
-                                                                S.of(context).back,
-                                                                style: MTextStyles.textMain14
-                                                                    .copyWith(fontWeight: FontWeight.w700),
-                                                              ),
-                                                              style: ButtonStyle(
-                                                                  backgroundColor:
-                                                                      MaterialStateProperty.all<Color>(MColors.white),
-                                                                  elevation: MaterialStatePropertyAll(0),
-                                                                  shape:
-                                                                      MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                                          RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(8),
-                                                                              side: BorderSide(
-                                                                                  color: MColors.primary_color))),
-                                                                  padding: MaterialStateProperty.all<EdgeInsets>(
-                                                                      EdgeInsets.symmetric(
-                                                                          horizontal: 4.w, vertical: 3.w))),
-                                                            ),
+                                                          style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty.all<Color>(MColors.white),
+                                                              elevation: MaterialStatePropertyAll(0),
+                                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                  RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(8),
+                                                                      side: BorderSide(color: MColors.primary_color))),
+                                                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                                                  EdgeInsets.symmetric(
+                                                                      horizontal: 4.w, vertical: 3.w))),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                    children: [
+                                                      Container(
+                                                        width: 30.w,
+                                                        margin: EdgeInsets.symmetric(vertical: 3.w),
+                                                        child: ElevatedButton(
+                                                          onPressed: () {
+                                                            pr.currentStep > 0 ? pr.currentStep -= 1 : null;
+                                                          },
+                                                          child: Text(
+                                                            S.of(context).back,
+                                                            style: MTextStyles.textMain14
+                                                                .copyWith(fontWeight: FontWeight.w700),
                                                           ),
-                                                          Container(
-                                                            width: 30.w,
-                                                            margin: EdgeInsets.symmetric(vertical: 3.w),
-                                                            child: ElevatedButton(
-                                                              onPressed: () {
-                                                                if (pr.selectedDate == null &&
-                                                                    pr.selectedTime == null) {
-                                                                  showWarningToasts(
-                                                                      S.of(context).youShouldSelectDateAndTime);
-                                                                } else {
-                                                                  pr.isStepsFinished = !pr.isStepsFinished;
-                                                                }
-                                                              },
-                                                              child: Text(
-                                                                S.of(context).confirm,
-                                                                style: MTextStyles.textWhite14
-                                                                    .copyWith(fontWeight: FontWeight.w700),
-                                                              ),
-                                                              style: ButtonStyle(
-                                                                  backgroundColor: MaterialStateProperty.all<Color>(
-                                                                      MColors.primary_color),
-                                                                  elevation: MaterialStatePropertyAll(0),
-                                                                  shape:
-                                                                      MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                                          RoundedRectangleBorder(
-                                                                    borderRadius: BorderRadius.circular(8),
-                                                                  )),
-                                                                  padding: MaterialStateProperty.all<EdgeInsets>(
-                                                                      EdgeInsets.symmetric(
-                                                                          horizontal: 4.w, vertical: 3.w))),
-                                                            ),
+                                                          style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty.all<Color>(MColors.white),
+                                                              elevation: MaterialStatePropertyAll(0),
+                                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                  RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(8),
+                                                                      side: BorderSide(color: MColors.primary_color))),
+                                                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                                                  EdgeInsets.symmetric(
+                                                                      horizontal: 4.w, vertical: 3.w))),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 30.w,
+                                                        margin: EdgeInsets.symmetric(vertical: 3.w),
+                                                        child: ElevatedButton(
+                                                          onPressed: () {
+                                                            if (pr.selectedDate == null && pr.selectedTime == null) {
+                                                              showWarningToasts(
+                                                                  S.of(context).youShouldSelectDateAndTime);
+                                                            } else {
+                                                              pr.isStepsFinished = !pr.isStepsFinished;
+                                                            }
+                                                          },
+                                                          child: Text(
+                                                            S.of(context).confirm,
+                                                            style: MTextStyles.textWhite14
+                                                                .copyWith(fontWeight: FontWeight.w700),
                                                           ),
-                                                        ],
-                                                      );
+                                                          style: ButtonStyle(
+                                                              backgroundColor: MaterialStateProperty.all<Color>(
+                                                                  MColors.primary_color),
+                                                              elevation: MaterialStatePropertyAll(0),
+                                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius: BorderRadius.circular(8),
+                                                              )),
+                                                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                                                  EdgeInsets.symmetric(
+                                                                      horizontal: 4.w, vertical: 3.w))),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
                                           },
                                           onStepTapped: (step) {
                                             pr.currentStep = step;
                                           },
                                           onStepContinue: () {
                                             pr.currentStep < 2 ? pr.currentStep += 1 : null;
-                                            _saveScrollPosition();
                                           },
                                           onStepCancel: () {
                                             pr.currentStep > 0 ? pr.currentStep -= 1 : null;
-                                            _scrollToTop();
                                           },
                                           steps: [
                                             appStepper.Step(
                                               title: new Text(''),
-                                              content: buildBuildingsGrid(context, pr),
-                                              /*StepWidget(
-                                      unitItems: pr.unitItems,
-                                      selectedItemIndex: pr
-                                          .selectedBuildingIndex,
-                                      selectedItem: selectedBuilding,
-                                      currentStep: 3,
-                                      stepCount: 1,
-                                      stepCountCompare: 2,
-                                    ),*/
+                                              content: BuildingGrid(onSelected: (id) {
+                                                selectedBuilding = id;
+                                                mPresenter.getUnitsApiCall(id);
+                                              }),
                                               isActive: pr.currentStep >= 0,
                                               state: pr.currentStep >= 1
                                                   ? appStepper.StepState.complete
@@ -616,32 +548,45 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                             ),
                                             appStepper.Step(
                                               title: new Text(''),
-                                              content: buildClaimsUnitsGrid(context, pr),
-                                              isActive: pr.currentStep >= 1,
+                                              content: UnitsGrid(onSelected: (id) {
+                                                selectedUnit = id;
+                                                mPresenter.getCategoryApiCall(id);
+                                              }),
+                                              isActive: pr.currentStep >= 0,
                                               state: pr.currentStep >= 2
                                                   ? appStepper.StepState.complete
                                                   : appStepper.StepState.disabled,
                                             ),
                                             appStepper.Step(
                                               title: new Text(''),
-                                              content: buildClaimCategoryGrid(context, pr),
-                                              isActive: pr.currentStep >= 2,
+                                              content: CategoriesGrid(onSelected: (index) {
+                                                selectedCategory = pr.categoriesList[index].id;
+                                                pr.subCategoryList = pr.categoriesList[index].subCategory.data;
+                                              }),
+                                              isActive: pr.currentStep >= 0,
                                               state: pr.currentStep >= 3
                                                   ? appStepper.StepState.complete
                                                   : appStepper.StepState.disabled,
                                             ),
                                             appStepper.Step(
                                               title: new Text(''),
-                                              content: buildClaimsSubCategoryItems(context, pr),
-                                              isActive: pr.currentStep >= 3,
+                                              content: SubcategoryGrid(
+                                                onSelected: (id) {
+                                                  selectedSubCategory = id;
+                                                  mPresenter.getClaimTypeApiCall(id);
+                                                },
+                                              ),
+                                              isActive: pr.currentStep >= 0,
                                               state: pr.currentStep >= 4
                                                   ? appStepper.StepState.complete
                                                   : appStepper.StepState.disabled,
                                             ),
                                             appStepper.Step(
                                               title: new Text(''),
-                                              content: buildClaimsTypeGrid(context, pr),
-                                              isActive: pr.currentStep >= 4,
+                                              content: ClaimTypeGrid(onSelected: (id) {
+                                                selectedType = id;
+                                              }),
+                                              isActive: pr.currentStep >= 0,
                                               state: pr.currentStep >= 5
                                                   ? appStepper.StepState.complete
                                                   : appStepper.StepState.disabled,
@@ -671,7 +616,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                   )
                                                 ],
                                               ),
-                                              isActive: pr.currentStep >= 5,
+                                              isActive: pr.currentStep >= 0,
                                               state: pr.currentStep >= 6
                                                   ? appStepper.StepState.complete
                                                   : appStepper.StepState.disabled,
@@ -682,295 +627,15 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 ],
                               ),
                             )
-                      : AllClaims();
+                      : AllClaims(
+                          presenter: mPresenter,
+                        );
                 },
               ),
             )
           ],
         ),
       ),
-    );
-  }
-
-  Column buildBuildingsGrid(BuildContext context, ClaimsProvider pr) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: 1.w,
-              height: 5.w,
-              margin: EdgeInsetsDirectional.only(end: 3.w),
-              decoration: BoxDecoration(color: MColors.primary_verticalHeader, borderRadius: BorderRadius.circular(4)),
-            ),
-            SvgPicture.asset(
-              ImageUtils.getSVGPath("buildings"),
-              color: MColors.primary_color,
-            ),
-            Gaps.hGap8,
-            Text(S.of(context).selectBuilding, style: MTextStyles.textMain16),
-          ],
-        ),
-        GridView.builder(
-          controller: pr.scrollController,
-          itemCount: _unitItems.length,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 1.0,
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-              onTap: () {
-                pr.selectedBuildingIndex = index;
-                selectedBuilding = _unitItems[index];
-                Future.delayed(Duration(seconds: 0));
-                pr.currentStep < 2 ? pr.currentStep += 1 : null;
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: pr.selectedBuildingIndex == index ? MColors.primary_color : Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: MColors.dividerColor.withOpacity(.6), width: 2)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      ImageUtils.getSVGPath("unlink_2_fill"),
-                      color: pr.selectedBuildingIndex == index ? Colors.white : MColors.primary_color,
-                    ),
-                    Gaps.vGap8,
-                    Text(
-                      _unitItems[index],
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: pr.selectedBuildingIndex == index ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ],
-    );
-  }
-
-  Column buildClaimsUnitsGrid(BuildContext context, ClaimsProvider pr) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        AppHeadline(title: S.of(context).selectUnit),
-        GridView.builder(
-          controller: pr.scrollController,
-          itemCount: _unitItems.length,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 1.0,
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-              onTap: () {
-                pr.selectedUnitIndex = index;
-                selectedUnit = _unitItems[index];
-                pr.currentStep < 3 ? pr.currentStep += 1 : null;
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: pr.selectedUnitIndex == index ? MColors.primary_color : Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: MColors.dividerColor.withOpacity(.6), width: 2)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      ImageUtils.getSVGPath("unlink_2_fill"),
-                      color: pr.selectedUnitIndex == index ? Colors.white : MColors.primary_color,
-                    ),
-                    Gaps.vGap8,
-                    Text(
-                      _unitItems[index],
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: pr.selectedUnitIndex == index ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ],
-    );
-  }
-
-  Column buildClaimCategoryGrid(BuildContext context, ClaimsProvider pr) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        AppHeadline(title: S.of(context).selectClaimCategory),
-        GridView.builder(
-          controller: pr.scrollController,
-          itemCount: _unitItems.length,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 1.0,
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-              onTap: () {
-                pr.selectedClaimCategoryIndex = index;
-                selectedCategory = _unitItems[index];
-                pr.currentStep < 4 ? pr.currentStep += 1 : null;
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: pr.selectedClaimCategoryIndex == index ? MColors.primary_color : Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: MColors.dividerColor.withOpacity(.6), width: 2)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      ImageUtils.getSVGPath("unlink_2_fill"),
-                      color: pr.selectedClaimCategoryIndex == index ? Colors.white : MColors.primary_color,
-                    ),
-                    Gaps.vGap8,
-                    Text(
-                      _unitItems[index],
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: pr.selectedClaimCategoryIndex == index ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ],
-    );
-  }
-
-  Column buildClaimsSubCategoryItems(BuildContext context, ClaimsProvider pr) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        AppHeadline(title: S.of(context).selectClaimSubcategory),
-        GridView.builder(
-          controller: pr.scrollController,
-          itemCount: _unitItems.length,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 1.0,
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-              onTap: () {
-                pr.selectedClaimSubCategoryIndex = index;
-                selectedSubCategory = _unitItems[index];
-                pr.currentStep < 5 ? pr.currentStep += 1 : null;
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: pr.selectedClaimSubCategoryIndex == index ? MColors.primary_color : Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: MColors.dividerColor.withOpacity(.6), width: 2)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      ImageUtils.getSVGPath("unlink_2_fill"),
-                      color: pr.selectedClaimSubCategoryIndex == index ? Colors.white : MColors.primary_color,
-                    ),
-                    Gaps.vGap8,
-                    Text(
-                      _unitItems[index],
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: pr.selectedClaimSubCategoryIndex == index ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ],
-    );
-  }
-
-  Column buildClaimsTypeGrid(BuildContext context, ClaimsProvider pr) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        AppHeadline(title: S.of(context).selectClaimType),
-        GridView.builder(
-          controller: pr.scrollController,
-          itemCount: _unitItems.length,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 1.0,
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-              onTap: () {
-                pr.selectedClaimTypeIndex = index;
-                selectedType = _unitItems[index];
-                pr.currentStep < 6 ? pr.currentStep += 1 : null;
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: pr.selectedClaimTypeIndex == index ? MColors.primary_color : Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: MColors.dividerColor.withOpacity(.6), width: 2)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      ImageUtils.getSVGPath("unlink_2_fill"),
-                      color: pr.selectedClaimTypeIndex == index ? Colors.white : MColors.primary_color,
-                    ),
-                    Gaps.vGap8,
-                    Text(
-                      _unitItems[index],
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: pr.selectedClaimTypeIndex == index ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ],
     );
   }
 

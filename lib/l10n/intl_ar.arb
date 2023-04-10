@@ -113,6 +113,7 @@
   "buildingName": "اسم المبني",
   "companyName": "اسم الشركة",
   "contractNo": "رقم العقد",
+  "na": "N/A",
   "youShouldSelectDateAndTime": "يجب عليك تحديد التاريخ و الوقت",
   "claimDetails": "تفاصيل المطالبة",
   "createdAt": "انشئ في",

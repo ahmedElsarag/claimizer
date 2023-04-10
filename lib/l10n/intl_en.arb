@@ -115,6 +115,7 @@
   "companyName": "Company Name",
   "contractNo": "Contract No",
   "youShouldSelectDateAndTime": "You should select date and time",
+  "na": "N/A",
   "claimDetails": "Claim Details",
   "createdAt": "Created At",
   "description": "Description",

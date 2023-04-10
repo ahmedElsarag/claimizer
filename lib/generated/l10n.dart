@@ -1195,6 +1195,16 @@ class S {
     );
   }
 
+  /// `N/A`
+  String get na {
+    return Intl.message(
+      'N/A',
+      name: 'na',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Claim Details`
   String get claimDetails {
     return Intl.message(

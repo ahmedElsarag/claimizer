@@ -5,21 +5,21 @@ class ClaimsResponse {
   ClaimsResponse({this.data, this.meta});
 
   ClaimsResponse.fromJson(Map<String, dynamic> json) {
-    if (json['data'] != dynamic) {
+    if (json['data'] != null) {
       data = new List<ClaimsDataBean>();
       json['data'].forEach((v) {
         data.add(new ClaimsDataBean.fromJson(v));
       });
     }
-    meta = json['meta'] != dynamic ? new Meta.fromJson(json['meta']) : dynamic;
+    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.data != dynamic) {
+    if (this.data != null) {
       data['data'] = this.data.map((v) => v.toJson()).toList();
     }
-    if (this.meta != dynamic) {
+    if (this.meta != null) {
       data['meta'] = this.meta.toJson();
     }
     return data;
@@ -29,112 +29,140 @@ class ClaimsResponse {
 class ClaimsDataBean {
   int id;
   String referenceId;
-  dynamic acceptedTime;
   String description;
   String availableDate;
   String availableTime;
-  dynamic startAt;
-  dynamic endAt;
-  dynamic startDate;
-  dynamic endDate;
-  dynamic acceptedBy;
-  dynamic employeeId;
-  int categoryId;
-  int subCategoryId;
-  int propertyId;
-  int createdBy;
-  int companyId;
+  String employeeId;
+  String startDate;
+  String endDate;
+  String createdBy;
   String priority;
   String status;
-  int boardColumnId;
-  dynamic completedOn;
   String createdAt;
-  int claimTypeId;
-  dynamic rate;
-  dynamic feedback;
+  Unit unit;
+  Category category;
+  Category subCategory;
+  Category type;
 
   ClaimsDataBean(
       {this.id,
       this.referenceId,
-      this.acceptedTime,
       this.description,
       this.availableDate,
       this.availableTime,
-      this.startAt,
-      this.endAt,
+      this.employeeId,
       this.startDate,
       this.endDate,
-      this.acceptedBy,
-      this.employeeId,
-      this.categoryId,
-      this.subCategoryId,
-      this.propertyId,
       this.createdBy,
-      this.companyId,
       this.priority,
       this.status,
-      this.boardColumnId,
-      this.completedOn,
       this.createdAt,
-      this.claimTypeId,
-      this.rate,
-      this.feedback});
+      this.unit,
+      this.category,
+      this.subCategory,
+      this.type});
 
   ClaimsDataBean.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     referenceId = json['reference_id'];
-    acceptedTime = json['accepted_time'];
     description = json['description'];
     availableDate = json['available_date'];
     availableTime = json['available_time'];
-    startAt = json['start_at'];
-    endAt = json['end_at'];
+    employeeId = json['employee_id'];
     startDate = json['start_date'];
     endDate = json['end_date'];
-    acceptedBy = json['accepted_by'];
-    employeeId = json['employee_id'];
-    categoryId = json['category_id'];
-    subCategoryId = json['sub_category_id'];
-    propertyId = json['property_id'];
     createdBy = json['created_by'];
-    companyId = json['company_id'];
     priority = json['priority'];
     status = json['status'];
-    boardColumnId = json['board_column_id'];
-    completedOn = json['completed_on'];
     createdAt = json['created_at'];
-    claimTypeId = json['claim_type_id'];
-    rate = json['rate'];
-    feedback = json['feedback'];
+    unit = json['unit'] != null ? new Unit.fromJson(json['unit']) : null;
+    category = json['category'] != null ? new Category.fromJson(json['category']) : null;
+    subCategory = json['subCategory'] != null ? new Category.fromJson(json['subCategory']) : null;
+    type = json['type'] != null ? new Category.fromJson(json['type']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['reference_id'] = this.referenceId;
-    data['accepted_time'] = this.acceptedTime;
     data['description'] = this.description;
     data['available_date'] = this.availableDate;
     data['available_time'] = this.availableTime;
-    data['start_at'] = this.startAt;
-    data['end_at'] = this.endAt;
+    data['employee_id'] = this.employeeId;
     data['start_date'] = this.startDate;
     data['end_date'] = this.endDate;
-    data['accepted_by'] = this.acceptedBy;
-    data['employee_id'] = this.employeeId;
-    data['category_id'] = this.categoryId;
-    data['sub_category_id'] = this.subCategoryId;
-    data['property_id'] = this.propertyId;
     data['created_by'] = this.createdBy;
-    data['company_id'] = this.companyId;
     data['priority'] = this.priority;
     data['status'] = this.status;
-    data['board_column_id'] = this.boardColumnId;
-    data['completed_on'] = this.completedOn;
     data['created_at'] = this.createdAt;
-    data['claim_type_id'] = this.claimTypeId;
-    data['rate'] = this.rate;
-    data['feedback'] = this.feedback;
+    if (this.unit != null) {
+      data['unit'] = this.unit.toJson();
+    }
+    if (this.category != null) {
+      data['category'] = this.category.toJson();
+    }
+    if (this.subCategory != null) {
+      data['subCategory'] = this.subCategory.toJson();
+    }
+    if (this.type != null) {
+      data['type'] = this.type.toJson();
+    }
+    return data;
+  }
+}
+
+class Unit {
+  int id;
+  String code;
+  String name;
+  String type;
+  String building;
+  String startAt;
+  String endAt;
+
+  Unit({this.id, this.code, this.name, this.type, this.building, this.startAt, this.endAt});
+
+  Unit.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    code = json['code'];
+    name = json['name'];
+    type = json['type'];
+    building = json['building'];
+    startAt = json['start_at'];
+    endAt = json['end_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['code'] = this.code;
+    data['name'] = this.name;
+    data['type'] = this.type;
+    data['building'] = this.building;
+    data['start_at'] = this.startAt;
+    data['end_at'] = this.endAt;
+    return data;
+  }
+}
+
+class Category {
+  int id;
+  String code;
+  String name;
+
+  Category({this.id, this.code, this.name});
+
+  Category.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    code = json['code'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['code'] = this.code;
+    data['name'] = this.name;
     return data;
   }
 }
@@ -145,12 +173,12 @@ class Meta {
   Meta({this.pagination});
 
   Meta.fromJson(Map<String, dynamic> json) {
-    pagination = json['pagination'] != dynamic ? new Pagination.fromJson(json['pagination']) : dynamic;
+    pagination = json['pagination'] != null ? new Pagination.fromJson(json['pagination']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.pagination != dynamic) {
+    if (this.pagination != null) {
       data['pagination'] = this.pagination.toJson();
     }
     return data;
@@ -181,6 +209,99 @@ class Pagination {
     data['per_page'] = this.perPage;
     data['current_page'] = this.currentPage;
     data['total_pages'] = this.totalPages;
+    return data;
+  }
+}
+
+class Data {
+  int id;
+  String referenceId;
+  String description;
+  String availableDate;
+  String availableTime;
+  String employeeId;
+  String startDate;
+  String endDate;
+  String createdBy;
+  String priority;
+  String status;
+  Null rate;
+  Null feedback;
+  String createdAt;
+  Unit unit;
+  Category category;
+  Category subCategory;
+  Category type;
+
+  Data(
+      {this.id,
+      this.referenceId,
+      this.description,
+      this.availableDate,
+      this.availableTime,
+      this.employeeId,
+      this.startDate,
+      this.endDate,
+      this.createdBy,
+      this.priority,
+      this.status,
+      this.rate,
+      this.feedback,
+      this.createdAt,
+      this.unit,
+      this.category,
+      this.subCategory,
+      this.type});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    referenceId = json['reference_id'];
+    description = json['description'];
+    availableDate = json['available_date'];
+    availableTime = json['available_time'];
+    employeeId = json['employee_id'];
+    startDate = json['start_date'];
+    endDate = json['end_date'];
+    createdBy = json['created_by'];
+    priority = json['priority'];
+    status = json['status'];
+    rate = json['rate'];
+    feedback = json['feedback'];
+    createdAt = json['created_at'];
+    unit = json['unit'] != null ? new Unit.fromJson(json['unit']) : null;
+    category = json['category'] != null ? new Category.fromJson(json['category']) : null;
+    subCategory = json['subCategory'] != null ? new Category.fromJson(json['subCategory']) : null;
+    type = json['type'] != null ? new Category.fromJson(json['type']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['reference_id'] = this.referenceId;
+    data['description'] = this.description;
+    data['available_date'] = this.availableDate;
+    data['available_time'] = this.availableTime;
+    data['employee_id'] = this.employeeId;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+    data['created_by'] = this.createdBy;
+    data['priority'] = this.priority;
+    data['status'] = this.status;
+    data['rate'] = this.rate;
+    data['feedback'] = this.feedback;
+    data['created_at'] = this.createdAt;
+    if (this.unit != null) {
+      data['unit'] = this.unit.toJson();
+    }
+    if (this.category != null) {
+      data['category'] = this.category.toJson();
+    }
+    if (this.subCategory != null) {
+      data['subCategory'] = this.subCategory.toJson();
+    }
+    if (this.type != null) {
+      data['type'] = this.type.toJson();
+    }
     return data;
   }
 }
