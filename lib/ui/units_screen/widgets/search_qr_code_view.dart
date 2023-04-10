@@ -1,3 +1,4 @@
+import 'package:Cliamizer/ui/units_screen/units_presenter.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,8 +11,9 @@ import '../../../res/styles.dart';
 import 'build_qrcode_field.dart';
 
 class SearchAboutUnitByQR extends StatelessWidget {
-  const SearchAboutUnitByQR({Key key, this.provider}) : super(key: key);
+  const SearchAboutUnitByQR({Key key, this.provider, this.presenter}) : super(key: key);
   final UnitProvider provider;
+  final UnitPresenter presenter;
   @override
   Widget build(BuildContext context) {
     return Consumer<UnitProvider>(
@@ -52,13 +54,10 @@ class SearchAboutUnitByQR extends StatelessWidget {
               ),
               child: ElevatedButton(
                 onPressed: () {
-                  if(pr.qrCode.text == "12345678"){
-                    pr.isQrCodeValid = !pr.isQrCodeValid;
-                  }else if(pr.qrCode.text =="1234"){
-                    pr.qrCodeValid=true;
-                  }else{
-                    pr.qrCodeValid =false;
-                  }
+                  presenter.doCheckUnitQrCodeApiCall({
+                    "qr_code":pr.qrCode.text,
+                    // "validated":pr.isQrCodeValid
+                  });
                 },
                 child: Text(
                   S.of(context).search,

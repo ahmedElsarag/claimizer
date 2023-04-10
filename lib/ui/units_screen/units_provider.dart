@@ -1,7 +1,10 @@
 import 'package:Cliamizer/base/provider/base_provider.dart';
+import 'package:Cliamizer/network/models/units_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
+import '../../network/models/NewLinkRequestResponse.dart';
+import '../../network/models/UnitRequestResponse.dart';
 import '../../network/models/claims_response.dart';
 
 class UnitProvider<T> extends BaseProvider<T> {
@@ -9,6 +12,14 @@ class UnitProvider<T> extends BaseProvider<T> {
   TextEditingController _buildingName = TextEditingController();
   TextEditingController _qrCode = TextEditingController();
   bool _qrCodeValid;
+  String _message;
+
+  String get message => _message;
+
+  set message(String value) {
+    _message = value;
+    notifyListeners();
+  }
 
   bool get qrCodeValid => _qrCodeValid;
 
@@ -54,12 +65,30 @@ class UnitProvider<T> extends BaseProvider<T> {
     notifyListeners();
   }
 
-  List<ClaimsDataBean> _claimsList = [];
+  NewLinkRequestDataBean _newLinkRequestDataBean;
 
-  List<ClaimsDataBean> get claimsList => _claimsList;
+  NewLinkRequestDataBean get newLinkRequestDataBean => _newLinkRequestDataBean;
 
-  set claimsList(List<ClaimsDataBean> value) {
-    _claimsList = value;
+  set newLinkRequestDataBean(NewLinkRequestDataBean value) {
+    _newLinkRequestDataBean = value;
+    notifyListeners();
+  }
+
+  List<UnitsDataBean> _unitsList = [];
+
+  List<UnitsDataBean> get unitsList => _unitsList;
+
+  set unitsList(List<UnitsDataBean> value) {
+    _unitsList = value;
+    notifyListeners();
+  }
+
+  List<UnitRequestDataBean> _unitsRequestList = [];
+
+  List<UnitRequestDataBean> get unitsRequestList => _unitsRequestList;
+
+  set unitsRequestList(List<UnitRequestDataBean> value) {
+    _unitsRequestList = value;
     notifyListeners();
   }
 

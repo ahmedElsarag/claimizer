@@ -48,7 +48,7 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
           backgroundColor: MColors.page_background,
           body: provider.instance!=null ?Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(16, 60, 16, 0),
-            child: Column(
+            child: ListView(
               children: [profileWidget(), Gaps.vGap12, settingsWidget(), Gaps.vGap12, Gaps.vGap8, accountWidget()],
             ),
           ) : mPresenter.showProgress(),

@@ -1,8 +1,10 @@
 import 'package:Cliamizer/network/models/LoginResponse.dart';
 import 'package:Cliamizer/network/models/general_response.dart';
 
+import 'models/NewLinkRequestResponse.dart';
 import 'models/ProfileResponse.dart';
 import 'models/StatisticsResponse.dart';
+import 'models/UnitRequestResponse.dart';
 import 'models/buildings_response.dart';
 import 'models/categories_response.dart';
 import 'models/claim_available_time_response.dart';
@@ -42,6 +44,12 @@ class EntityFactory {
         break;
       case "ClaimAvailableTimeDataBean":
         return ClaimAvailableTimeDataBean.fromJson(json) as T;
+        break;
+      case "UnitRequestsResponse":
+        return UnitRequestsResponse.fromJson(json) as T;
+        break;
+      case "NewLinkRequestResponse":
+        return NewLinkRequestResponse.fromJson(json) as T;
         break;
       default:
         return null;

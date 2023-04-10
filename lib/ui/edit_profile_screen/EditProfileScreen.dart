@@ -13,6 +13,7 @@ import 'package:sizer/sizer.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../CommonUtils/utils.dart';
 import '../../app_widgets/CustomTextField.dart';
+import '../../app_widgets/CustomTextFormField.dart';
 import '../../app_widgets/app_headline.dart';
 import '../../app_widgets/claimizer_app_bar.dart';
 import '../../app_widgets/image_loader.dart';
@@ -88,100 +89,100 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
       create: (context) => provider,
       builder: (context, child) => Consumer<EditProfileProvider>(
           builder: (context, value, child) => DefaultTabController(
-                length: 2,
-                initialIndex: 0,
-                child: Scaffold(
-                  backgroundColor: MColors.page_background,
-                  body: provider.instance != null
-                      ? SafeArea(
-                          child: ListView(
+            length: 2,
+            initialIndex: 0,
+            child: Scaffold(
+              backgroundColor: MColors.page_background,
+              body: provider.instance != null
+                  ? SafeArea(
+                child: ListView(
+                  children: [
+                    Container(
+                        margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.w),
+                        child: ClaimizerAppBar(title: S.current.editProfile)),
+                    Gaps.vGap12,
+                    Gaps.vGap8,
+                    Container(
+                      color: MColors.page_background,
+                      padding: EdgeInsets.symmetric(horizontal: 6.w),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                        Container(
+                          decoration:
+                          BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
+                          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                          child: Column(
                             children: [
-                              Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.w),
-                                  child: ClaimizerAppBar(title: S.current.editProfile)),
-                              Gaps.vGap12,
-                              Gaps.vGap8,
-                              Container(
-                                color: MColors.page_background,
-                                padding: EdgeInsets.symmetric(horizontal: 6.w),
-                                child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                              AppHeadline(title: S.of(context).personalProfile),
+                              Gaps.vGap15,
+                              Stack(
+                                children: [
                                   Container(
-                                    decoration:
-                                        BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
-                                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                                    child: Column(
-                                      children: [
-                                        AppHeadline(title: S.of(context).personalProfile),
-                                        Gaps.vGap15,
-                                        Stack(
-                                          children: [
-                                            Container(
-                                              height: 30.w,
-                                              width: 30.w,
-                                              decoration: BoxDecoration(
-                                                  color: MColors.page_background,
-                                                  borderRadius: BorderRadius.circular(100)),
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(100),
-                                                child: _image != null
-                                                    ? Image.file(_image)
-                                                    : ImageLoader(
-                                                        imageUrl: provider.instance.avatar,
-                                                      ),
-                                              ),
-                                            ),
-                                            PositionedDirectional(
-                                              bottom: 2.w,
-                                              end: 0,
-                                              child: InkWell(
-                                                  onTap: () {
-                                                    showDialog(
-                                                        context: context,
-                                                        builder: (_) => buildPickImageDialog(context));
-                                                  },
-                                                  child: SvgPicture.asset(ImageUtils.getSVGPath("edit_photo"))),
-                                            )
-                                          ],
-                                        ),
-                                        Gaps.vGap12,
-                                        Material(
-                                          color: MColors.primary_color.withOpacity(.08),
-                                          borderRadius: BorderRadius.circular(30),
-                                          child: TabBar(
-                                            indicator: BoxDecoration(
-                                              color: MColors.primary_color,
-                                              borderRadius: BorderRadius.circular(30),
-                                            ),
-                                            indicatorPadding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.w),
-                                            labelColor: MColors.white,
-                                            indicatorSize: TabBarIndicatorSize.tab,
-                                            onTap: (index) {
-                                              provider.selectedTabIndex = index;
-                                            },
-                                            tabs: [
-                                              Tab(text: 'Basic Info'),
-                                              Tab(text: 'Update Password'),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
+                                    height: 30.w,
+                                    width: 30.w,
+                                    decoration: BoxDecoration(
+                                        color: MColors.page_background,
+                                        borderRadius: BorderRadius.circular(100)),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: _image != null
+                                          ? Image.file(_image)
+                                          : ImageLoader(
+                                        imageUrl: provider.instance.avatar,
+                                      ),
                                     ),
                                   ),
-                                  Gaps.vGap16,
-                                  Gaps.vGap12,
-                                  Container(
-                                    child: provider.selectedTabIndex == 0
-                                        ? _buildBasicInfoContent()
-                                        : _buildUpdatePasswordContent(),
+                                  PositionedDirectional(
+                                    bottom: 2.w,
+                                    end: 0,
+                                    child: InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (_) => buildPickImageDialog(context));
+                                        },
+                                        child: SvgPicture.asset(ImageUtils.getSVGPath("edit_photo"))),
+                                  )
+                                ],
+                              ),
+                              Gaps.vGap12,
+                              Material(
+                                color: MColors.primary_color.withOpacity(.08),
+                                borderRadius: BorderRadius.circular(30),
+                                child: TabBar(
+                                  indicator: BoxDecoration(
+                                    color: MColors.primary_color,
+                                    borderRadius: BorderRadius.circular(30),
                                   ),
-                                ]),
+                                  indicatorPadding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.w),
+                                  labelColor: MColors.white,
+                                  indicatorSize: TabBarIndicatorSize.tab,
+                                  onTap: (index) {
+                                    provider.selectedTabIndex = index;
+                                  },
+                                  tabs: [
+                                    Tab(text: 'Basic Info'),
+                                    Tab(text: 'Update Password'),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                        )
-                      : mPresenter.showProgress(),
+                        ),
+                        Gaps.vGap16,
+                        Gaps.vGap12,
+                        Container(
+                          child: provider.selectedTabIndex == 0
+                              ? _buildBasicInfoContent()
+                              : _buildUpdatePasswordContent(),
+                        ),
+                      ]),
+                    ),
+                  ],
                 ),
-              )),
+              )
+                  : mPresenter.showProgress(),
+            ),
+          )),
     );
   }
 
@@ -200,7 +201,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
               children: [
                 Radio(
                   fillColor: MaterialStateProperty.all<Color>(MColors.text_button_color),
-                  value: true,
+                  value: provider.instance.profile.emailNotifications == 1,
                   groupValue: _isNotificationEnabled,
                   onChanged: (value) {
                     setState(() {
@@ -214,7 +215,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             SizedBox(width: 16.0),
             Radio(
               fillColor: MaterialStateProperty.all<Color>(MColors.text_button_color),
-              value: false,
+              value: provider.instance.profile.emailNotifications == 1,
               groupValue: _isNotificationEnabled,
               onChanged: (value) {
                 setState(() {
@@ -312,12 +313,12 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             ),
             inputFormatters: [
               LengthLimitingTextInputFormatter(50),
-              FilteringTextInputFormatter.allow(RegExp("[a-zA-Zأ-ي]")),
+              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z أ-ي]")),
             ],
             maxLength: 50,
             maxLengthEnforced: false,
             keyboardType: TextInputType.name,
-            controller: nameController,
+            controller: TextEditingController(text: provider.instance.name),
             validator: (name) {
               if (name.isEmpty) {
                 return "Name is required";
@@ -372,7 +373,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             maxLength: 50,
             maxLengthEnforced: false,
             keyboardType: TextInputType.emailAddress,
-            controller: emailController,
+            controller: TextEditingController(text: provider.instance.email),
             validator: (email) {
               if (email.isEmpty) {
                 return S.of(context).emailisrequired;
@@ -425,7 +426,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                   borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
             ),
             showCountryFlag: false,
-            controller: phoneNumberController,
+            controller: TextEditingController(text: provider.instance.profile.mobile),
             keyboardType: TextInputType.phone,
             showDropdownIcon: false,
             initialCountryCode: 'SA',
@@ -607,8 +608,8 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                       color: MColors.blueButtonColor,
                     ),
                   )
-                  // Icon(_obscureTextPassword ? Icons.visibility : Icons.visibility_off, color: MColors.primary_color),
-                  ),
+                // Icon(_obscureTextPassword ? Icons.visibility : Icons.visibility_off, color: MColors.primary_color),
+              ),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
               enabledBorder: OutlineInputBorder(
@@ -692,6 +693,21 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             Gaps.vGap8,
             buildEditProfileButton(onTap: () {
               editProfile();
+              // if (provider.formKey.currentState.validate()) {
+              //   FocusScope.of(context).unfocus();
+              //   if (provider.email.isEmpty ||
+              //       provider.name.isEmpty) {
+              //     showToasts(
+              //         S.current.enterAllData);
+              //   } else {
+              //     // profileProvider.formKey.currentState.save();
+              //     FocusScope.of(context).unfocus();
+              //     editProfile();
+              //   }
+              // } else {
+              //   showToasts(
+              //       S.of(context).enterAllData);
+              // }
             }),
           ],
         ),
@@ -700,19 +716,27 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
   }
 
   void editProfile() async {
-    FormData formData = new FormData.fromMap({
-      // "image": await MultipartFile.fromFile(
-      //   _image.path,
-      //   contentType: new MediaType('image', 'jpg'),
-      // ),
-      "email": emailController.text,
-      "phone": phoneNumberController.text,
-      "name": nameController.text,
-    });
-      mPresenter.doEditBasicInfoApiCall(formData);
-    if (!noDataChanged())
-      mPresenter.doEditBasicInfoApiCall(formData);
-    else if (noDataChanged() && _image == null) showToasts('no data changed');
+    // provider.formKey.currentState.save();
+    if (_image != null) {
+      FormData formData = new FormData.fromMap({
+        "image": await MultipartFile.fromFile(
+          _image.path,
+          contentType: new MediaType('image', 'jpg'),
+        ),
+        "mobile":provider.mobile,
+        "name":provider.name,
+        "email":provider.email
+      });
+      mPresenter.editProfileApiCall(formData);
+    }
+    else{
+      print('#######################################');
+      Map<String, dynamic> params = Map();
+      params['mobile'] = provider.mobile;
+      params['name'] = provider.name;
+      params['email'] = provider.email;
+      mPresenter.editProfileApiCall(params);
+    }
   }
 
   bool noDataChanged() {

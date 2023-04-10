@@ -33,7 +33,7 @@ class UnitsScreen extends StatefulWidget {
 
 class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  UnitProvider provider = UnitProvider();
+  UnitProvider provider;
   List<String> cardTitles = [
     S.current.newLinkRequest,
     S.current.existingUnit,
@@ -44,22 +44,12 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
     'existing_unit',
     'unit_link_request',
   ];
-  List<String> _unitItems = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-  ];
-  String selectedBuilding;
-  String selectedUnit;
-  String selectedCategory;
-  String selectedSubCategory;
-  String selectedType;
 
   @override
   void initState() {
-    // mPresenter.getAllClaimsApiCall();
+    provider = context.read<UnitProvider>();
+    mPresenter.getExistingUnitsApiCall();
+    mPresenter.getUnitRequestsApiCall();
     super.initState();
   }
 
@@ -73,9 +63,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
         child: Column(
           children: [
             Container(
-              decoration: BoxDecoration(
-                  color: MColors.whiteE,
-                  borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
               padding: EdgeInsets.all(20),
               child: Column(
                 children: [
@@ -85,12 +73,9 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                         width: 1.w,
                         height: 5.w,
                         margin: EdgeInsetsDirectional.only(end: 2.w),
-                        decoration: BoxDecoration(
-                            color: MColors.primary_color,
-                            borderRadius: BorderRadius.circular(4)),
+                        decoration: BoxDecoration(color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
                       ),
-                      Text(S.of(context).unitsProperty,
-                          style: MTextStyles.textMain18),
+                      Text(S.of(context).unitsProperty, style: MTextStyles.textMain18),
                     ],
                   ),
                   Gaps.vGap16,
@@ -107,42 +92,26 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                             },
                             child: Card(
                               elevation: 0.5,
-                              color: pr.selectedIndex == pageIndex
-                                  ? MColors.primary_color
-                                  : Colors.white,
+                              color: pr.selectedIndex == pageIndex ? MColors.primary_color : Colors.white,
                               child: SizedBox(
                                 width: 25.w,
                                 height: 96,
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SvgPicture.asset(
-                                      ImageUtils.getSVGPath(
-                                          cardImages[pageIndex]),
-                                      color: pr.selectedIndex == pageIndex
-                                          ? Colors.white
-                                          : MColors.primary_color,
+                                      ImageUtils.getSVGPath(cardImages[pageIndex]),
+                                      color: pr.selectedIndex == pageIndex ? Colors.white : MColors.primary_color,
                                     ),
                                     SizedBox(
-                                      width: pr.selectedIndex == pageIndex
-                                          ? 70
-                                          : 80,
+                                      width: pr.selectedIndex == pageIndex ? 70 : 80,
                                       child: Text(
                                         cardTitles[pageIndex],
-                                        style: MTextStyles.textMainLight14
-                                            .copyWith(
-                                                color:
-                                                    pr.selectedIndex ==
-                                                            pageIndex
-                                                        ? Colors.white
-                                                        : MColors
-                                                            .light_text_color,
-                                                fontSize: pr.selectedIndex ==
-                                                        pageIndex
-                                                    ? 14
-                                                    : 12),
+                                        style: MTextStyles.textMainLight14.copyWith(
+                                            color:
+                                                pr.selectedIndex == pageIndex ? Colors.white : MColors.light_text_color,
+                                            fontSize: pr.selectedIndex == pageIndex ? 14 : 12),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
@@ -160,8 +129,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
             ),
             Gaps.vGap12,
             Container(
-              decoration: BoxDecoration(
-                  color: MColors.white, borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
               padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
               child: Row(
                 children: [
@@ -214,9 +182,11 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                           ? !pr.isQrCodeValid
                               ? SearchAboutUnitByQR(
                                   provider: provider,
+                                  presenter: mPresenter,
                                 )
                               : CompleteNewUnit(
                                   provider: provider,
+                                  presenter: mPresenter,
                                 )
                           : pr.selectedIndex == 1
                               ? ExistingUnitList()
@@ -267,9 +237,7 @@ class SearchField extends StatelessWidget {
             Icons.search_rounded,
             color: MColors.primary_light_color,
           ),
-          border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(8)),
+          border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(8)),
           contentPadding: EdgeInsets.zero,
           filled: true,
           fillColor: Color(0xffF7F7F7),

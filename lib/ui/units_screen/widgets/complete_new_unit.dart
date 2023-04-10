@@ -1,3 +1,4 @@
+import 'package:Cliamizer/ui/units_screen/units_presenter.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/build_description_field.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/build_file_picker.dart';
@@ -18,8 +19,9 @@ import 'company_name_field.dart';
 import 'contract_number_field.dart';
 
 class CompleteNewUnit extends StatelessWidget {
-  const CompleteNewUnit({Key key, this.provider}) : super(key: key);
+  const CompleteNewUnit({Key key, this.provider, this.presenter}) : super(key: key);
   final UnitProvider provider;
+  final UnitPresenter presenter;
   @override
   Widget build(BuildContext context) {
     return Consumer<UnitProvider>(
@@ -105,62 +107,68 @@ class CompleteNewUnit extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: 3.w),
                   child: ElevatedButton(
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          backgroundColor: MColors.whiteE,
-                          elevation: 0,
-                          contentPadding:
-                          EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SvgPicture.asset(ImageUtils.getSVGPath("done")),
-                              Gaps.vGap16,
-                              Text(S.current.confirmation,
-                                  style: MTextStyles.textMain16.copyWith(
-                                    color: MColors.black,
-                                  )),
-                              Gaps.vGap8,
-                              Text(
-                                S.current.thankYouForSubmittingYourRequestOneOfOurCustomerservices,
-                                style: MTextStyles.textSubtitle,
-                                textAlign: TextAlign.center,
-                              ),
-                              Gaps.vGap30,
-                              ElevatedButton(
-                                onPressed: () {
-                                  pr.isQrCodeValid = !pr.isQrCodeValid;
-                                  pr.qrCode.clear();
-                                  pr.contractNo.clear();
-                                  pr.companyName.clear();
-                                  pr.buildingName.clear();
-                                  pr.description.clear();
-                                  pr.fileName = "";
-                                  pr.qrCodeValid = !pr.qrCodeValid;
-                                  Navigator.pop(context);
-                                },
-                                child: Text(
-                                  S.of(context).backToHome,
-                                  style: MTextStyles.textWhite14
-                                      .copyWith(fontWeight: FontWeight.w700),
-                                ),
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(
-                                        MColors.primary_color),
-                                    elevation: MaterialStatePropertyAll(0),
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8),
-                                        )),
-                                    padding: MaterialStateProperty.all<EdgeInsets>(
-                                        EdgeInsets.symmetric(
-                                            horizontal: 4.w, vertical: 3.w))),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
+                      presenter.completeLinkRequestApiCall({
+                        "unit_code":pr.qrCode.text,
+                        "contract_number":pr.contractNo.text,
+                        "start_at":pr.startDate.toString(),
+                        "end_at":pr.endDate.toString(),
+                      });
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (context) => AlertDialog(
+                      //     backgroundColor: MColors.whiteE,
+                      //     elevation: 0,
+                      //     contentPadding:
+                      //     EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
+                      //     content: Column(
+                      //       mainAxisSize: MainAxisSize.min,
+                      //       children: [
+                      //         SvgPicture.asset(ImageUtils.getSVGPath("done")),
+                      //         Gaps.vGap16,
+                      //         Text(S.current.confirmation,
+                      //             style: MTextStyles.textMain16.copyWith(
+                      //               color: MColors.black,
+                      //             )),
+                      //         Gaps.vGap8,
+                      //         Text(
+                      //           S.current.thankYouForSubmittingYourRequestOneOfOurCustomerservices,
+                      //           style: MTextStyles.textSubtitle,
+                      //           textAlign: TextAlign.center,
+                      //         ),
+                      //         Gaps.vGap30,
+                      //         ElevatedButton(
+                      //           onPressed: () {
+                      //             pr.isQrCodeValid = !pr.isQrCodeValid;
+                      //             pr.qrCode.clear();
+                      //             pr.contractNo.clear();
+                      //             pr.companyName.clear();
+                      //             pr.buildingName.clear();
+                      //             pr.description.clear();
+                      //             pr.fileName = "";
+                      //             pr.qrCodeValid = !pr.qrCodeValid;
+                      //             Navigator.pop(context);
+                      //           },
+                      //           child: Text(
+                      //             S.of(context).backToHome,
+                      //             style: MTextStyles.textWhite14
+                      //                 .copyWith(fontWeight: FontWeight.w700),
+                      //           ),
+                      //           style: ButtonStyle(
+                      //               backgroundColor: MaterialStateProperty.all<Color>(
+                      //                   MColors.primary_color),
+                      //               elevation: MaterialStatePropertyAll(0),
+                      //               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      //                   RoundedRectangleBorder(
+                      //                     borderRadius: BorderRadius.circular(8),
+                      //                   )),
+                      //               padding: MaterialStateProperty.all<EdgeInsets>(
+                      //                   EdgeInsets.symmetric(
+                      //                       horizontal: 4.w, vertical: 3.w))),
+                      //         )
+                      //       ],
+                      //     ),
+                      //   ),
+                      // );
                     },
                     child: Text(
                       S.of(context).confirm,

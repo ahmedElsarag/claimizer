@@ -20,31 +20,31 @@ class CustomTextField extends StatelessWidget {
       mHolderController.text = holder;
     }
     return // Rectangle
-        Container(
-      decoration: BoxDecoration(
-        color: MColors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
-        ),
-        border: Border.all(color: const Color(0x1d1f314a), width: 1),
-      ),
-      child: TextField(
-        controller: mHolderController,
-        autofocus: true,
-        decoration: InputDecoration(
-            border: InputBorder.none,
-            hintStyle: TextStyle(color: MColors.coolGrey),
-            labelText: hint,
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            contentPadding: EdgeInsets.all(10)),
-        textInputAction: TextInputAction.next,
-        onEditingComplete: () => FocusScope.of(context).nextFocus(),
-        obscureText: notVisible,
-        onChanged: (text) {
-          callback(text);
-        },
-      ),
-    );
+        TextField(
+          controller: mHolderController,
+          autofocus: true,
+          decoration: InputDecoration(
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
+              errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
+              counterText: "",
+              hintStyle: TextStyle(color: MColors.coolGrey),
+              floatingLabelBehavior: FloatingLabelBehavior.never,
+              contentPadding: EdgeInsets.all(10)),
+          textInputAction: TextInputAction.next,
+          onEditingComplete: () => FocusScope.of(context).nextFocus(),
+          obscureText: notVisible,
+          onChanged: (text) {
+            callback(text);
+          },
+        );
   }
 }
 

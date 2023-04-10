@@ -44,7 +44,7 @@ class CategoriesGrid extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: MColors.dividerColor.withOpacity(.6), width: 2)),
                         child: Text(
-                          pr.categoriesList[index]?.name,
+                          pr.categoriesList[index]?.name??"",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 9.sp,

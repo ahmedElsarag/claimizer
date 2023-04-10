@@ -85,7 +85,7 @@ class AllClaims extends StatelessWidget {
                       ),
                       ClaimCardDataItem(
                         title: S.of(context).createdAt,
-                        data: presenter.formatDate(pr?.claimsList[index]?.createdAt),
+                        data: pr?.claimsList[index]?.createdAt,
                       ),
                       ClaimCardDataItem(
                         isLast: true,

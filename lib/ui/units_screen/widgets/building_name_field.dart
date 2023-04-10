@@ -17,7 +17,9 @@ class BuildingNameField extends StatelessWidget {
       builder: (context, pr, child) => Container(
         height: MediaQuery.of(context).size.height * .06,
         child: TextFormField(
-          controller: pr.buildingName,
+          controller: TextEditingController(text: pr.newLinkRequestDataBean.building??"A"),
+          readOnly: true,
+          style: MTextStyles.textDark14,
           decoration: InputDecoration(
             hintText: S.of(context).buildingName,
             hintStyle: MTextStyles.textMain14.copyWith(color: MColors.light_text_color, fontWeight: FontWeight.w500),

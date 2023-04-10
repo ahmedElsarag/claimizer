@@ -219,7 +219,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                             color: MColors.black,
                                           )),
                                       Gaps.vGap8,
-                                      Text(selectedBuilding ?? "",
+                                      Text(selectedBuilding.toString() ?? "",
                                           style: MTextStyles.textMain14.copyWith(
                                             color: MColors.black,
                                             fontWeight: FontWeight.w400,
@@ -236,7 +236,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                             color: MColors.black,
                                           )),
                                       Gaps.vGap8,
-                                      Text(selectedUnit ?? "",
+                                      Text(selectedUnit.toString() ?? "",
                                           style: MTextStyles.textMain14.copyWith(
                                             color: MColors.black,
                                             fontWeight: FontWeight.w400,
@@ -253,7 +253,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                             color: MColors.black,
                                           )),
                                       Gaps.vGap8,
-                                      Text(selectedCategory ?? "",
+                                      Text(selectedCategory.toString() ?? "",
                                           style: MTextStyles.textMain14.copyWith(
                                             color: MColors.black,
                                             fontWeight: FontWeight.w400,
@@ -270,7 +270,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                             color: MColors.black,
                                           )),
                                       Gaps.vGap8,
-                                      Text(selectedSubCategory ?? "",
+                                      Text(selectedSubCategory.toString() ?? "",
                                           style: MTextStyles.textMain14.copyWith(
                                             color: MColors.black,
                                             fontWeight: FontWeight.w400,
@@ -287,7 +287,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                             color: MColors.black,
                                           )),
                                       Gaps.vGap8,
-                                      Text(selectedType ?? "",
+                                      Text(selectedType.toString() ?? "",
                                           style: MTextStyles.textMain14.copyWith(
                                             color: MColors.black,
                                             fontWeight: FontWeight.w400,

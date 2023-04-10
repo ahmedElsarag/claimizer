@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:Cliamizer/base/presenter/base_presenter.dart';
 import 'package:Cliamizer/network/models/general_response.dart';
 import 'package:dio/dio.dart';
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/log_utils.dart';
+import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
+import '../../CommonUtils/model_eventbus/ProfileEvent.dart';
 import '../../CommonUtils/preference/Prefs.dart';
 import '../../app_widgets/LoginRequiredDialog.dart';
 import '../../generated/l10n.dart';
@@ -71,26 +76,53 @@ class EditProfilePresenter extends BasePresenter<EditProfileScreenState> {
     });
   }
 
-  Future doEditBasicInfoApiCall(FormData formData) async {
-    Map<String, dynamic> header = Map();
-    await Prefs.getUserToken.then((token) {
-      print('@@@@@@@@@@@@@@@@@@@@@$token');
-      header['Authorization'] = "Bearer $token";
-    });
-    view.showProgress(isDismiss: false);
+  Future editProfileApiCall(dynamic bodyParams) async {
+    view.showProgress();
+
+    Map<String,dynamic> header = Map();
+    await Prefs.getUserToken.then((token)  {
+      header['Authorization'] = "Bearer $token";});
+
     await requestFutureData<ProfileResponse>(Method.post,
-        endPoint: Api.editBasicInfo, params: formData, options: Options(headers: header), onSuccess: (data) {
-      view.closeProgress();
-      if (data != null) {
-        Navigator.pop(view.context);
-        view.showToasts(S.current.passwordChangedSuccessfully);
-      }
-    }, onError: (code, msg) {
-      view.closeProgress();
-      if(code == 422){
-        view.showWarningToasts(S.current.anErrorOccurredTryAgainLater,);
-      }
-    });
+        endPoint: Api.editBasicInfo,
+        params: bodyParams,
+        options: Options(headers: header),
+        onSuccess: (data) {
+          view.closeProgress();
+          if (data.profileDataBean != null) {
+            Log.d("onSuccess " + data.toString());
+            // saveUser(bodyParams);
+            saveUser(data);
+            passUserByEventPath(username: data.profileDataBean.name, imageUrl: data.profileDataBean.avatar,email: data.profileDataBean.email);
+            Navigator.pop(view.context);
+            view.showToasts(S.of(view.context).profileUpdatedSuccessfully);
+          } else {
+            view.showToasts("Error");
+          }
+        }, onError: (code, msg) {
+          Log.d(msg);
+          view.closeProgress();
+          if(code == ErrorStatus.UNAUTHORIZED)
+            showDialog( context: view.context,builder: (_)=>
+                LoginRequiredDialog( message: S.of(view.context).sessionTimeoutPleaseLogin),barrierDismissible: false);
+        });
+  }
+
+
+
+  void saveUser(ProfileResponse response) {
+    Prefs.setUserName(response.profileDataBean.name);
+    print("user name ${response.profileDataBean.name}");
+    Prefs.setCurrentUser(jsonEncode(response.toJson()));
+    Prefs.setUserImage(response.profileDataBean.avatar);
+  }
+  void saveUserImage( String image ) {
+    Prefs.setUserImage(image);
+  }
+
+  void passUserByEventPath({String username,String email, String imageUrl}){
+    EventBus eventBus = EventBusUtils.getInstance();
+    eventBus.fire(ProfileEvent(username: username,userEmail: email,userImage: imageUrl));
   }
 
   showProgress() {

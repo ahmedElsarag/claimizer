@@ -1,4 +1,6 @@
 import 'package:Cliamizer/base/provider/base_provider.dart';
+import 'package:Cliamizer/network/models/ProfileResponse.dart';
+import 'package:flutter/material.dart';
 
 class EditProfileProvider<T> extends BaseProvider<T> {
   bool _obscureTextPassword = true;
@@ -19,9 +21,12 @@ class EditProfileProvider<T> extends BaseProvider<T> {
     notifyListeners();
   }
 
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   bool _isDateLoaded = false;
   bool _internetStatus = true;
-
+  String name, email,mobile;
 
   bool get internetStatus => _internetStatus;
 
@@ -34,6 +39,15 @@ class EditProfileProvider<T> extends BaseProvider<T> {
 
   set isDateLoaded(bool value) {
     _isDateLoaded = value;
+    notifyListeners();
+  }
+
+  ProfileResponse _profileData;
+
+  ProfileResponse get profileData => _profileData;
+
+  set profileData(ProfileResponse value) {
+    _profileData = value;
     notifyListeners();
   }
 

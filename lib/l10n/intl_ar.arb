@@ -135,5 +135,6 @@
   "enable": "Enable",
   "disable": "Disable",
   "updateSecondaryEmail": "Update secondary email",
-  "passwordChangedSuccessfully": "Password Changed Successfully"
+  "passwordChangedSuccessfully": "Password Changed Successfully",
+  "profileUpdatedSuccessfully": "Profile Updated Successfully"
 }
