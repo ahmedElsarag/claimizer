@@ -27,11 +27,21 @@ class UnitsDataBean {
   String name;
   String type;
   String company;
+  int companyId;
   String building;
   String startAt;
   String endAt;
 
-  UnitsDataBean({this.id, this.code, this.name, this.type, this.company, this.building, this.startAt, this.endAt});
+  UnitsDataBean(
+      {this.id,
+      this.code,
+      this.name,
+      this.type,
+      this.company,
+      this.companyId,
+      this.building,
+      this.startAt,
+      this.endAt});
 
   UnitsDataBean.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -39,6 +49,7 @@ class UnitsDataBean {
     name = json['name'];
     type = json['type'];
     company = json['company'];
+    companyId = json['company_id'];
     building = json['building'];
     startAt = json['start_at'];
     endAt = json['end_at'];
@@ -51,6 +62,7 @@ class UnitsDataBean {
     data['name'] = this.name;
     data['type'] = this.type;
     data['company'] = this.company;
+    data['company_id'] = this.companyId;
     data['building'] = this.building;
     data['start_at'] = this.startAt;
     data['end_at'] = this.endAt;

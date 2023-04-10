@@ -1,4 +1,3 @@
-import 'package:Cliamizer/CommonUtils/time_format_util.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/all_claims.dart';
@@ -305,7 +304,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                           )),
                                       Gaps.vGap8,
                                       Text(
-                                          "${languageProvider.locale == Locale("en") ? _dateFormatEN.format(pr.selectedDate) : _dateFormatAR.format(pr.selectedDate)} ${S.of(context).from} ${TimeFormatUtil.formatTimeOfDay(pr.selectedTime)}",
+                                          "${languageProvider.locale == Locale("en") ? _dateFormatEN.format(pr.selectedDate) : _dateFormatAR.format(pr.selectedDate)} ${S.of(context).from} ${pr.selectedTimeValue}",
                                           style: MTextStyles.textMain14.copyWith(
                                             color: MColors.black,
                                             fontWeight: FontWeight.w400,
@@ -497,11 +496,13 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                         margin: EdgeInsets.symmetric(vertical: 3.w),
                                                         child: ElevatedButton(
                                                           onPressed: () {
-                                                            if (pr.selectedDate == null && pr.selectedTime == null) {
+                                                            if (pr.selectedDate == null &&
+                                                                pr.selectedTimeValue == null) {
                                                               showWarningToasts(
                                                                   S.of(context).youShouldSelectDateAndTime);
                                                             } else {
                                                               pr.isStepsFinished = !pr.isStepsFinished;
+                                                              mPresenter.postClaimRequestApiCall();
                                                             }
                                                           },
                                                           child: Text(
@@ -585,6 +586,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               title: new Text(''),
                                               content: ClaimTypeGrid(onSelected: (id) {
                                                 selectedType = id;
+                                                mPresenter.getClaimAvailableTimeApiCall();
                                               }),
                                               isActive: pr.currentStep >= 0,
                                               state: pr.currentStep >= 5
@@ -604,7 +606,6 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                   ),
                                                   Gaps.vGap8,
                                                   BuildTimeDropDown(
-                                                    provider: pr,
                                                   ),
                                                   Gaps.vGap8,
                                                   BuildDescriptionField(

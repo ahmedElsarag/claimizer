@@ -34,6 +34,7 @@ class UnitsGrid extends StatelessWidget {
                     return GestureDetector(
                       onTap: () {
                         pr.selectedUnitIndex = index;
+                        pr.companyId = pr.unitsList[index].companyId;
                         onSelected(pr.unitsList[index].id);
                         pr.currentStep < 3 ? pr.currentStep += 1 : null;
                       },

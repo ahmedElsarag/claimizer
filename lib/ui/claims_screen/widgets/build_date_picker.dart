@@ -25,6 +25,7 @@ class BuildDatePicker extends StatelessWidget {
               firstDate: DateTime(1900),
               lastDate: DateTime.now().add(Duration(days: 1000)));
           if (picked != null) {
+            print('@@@@@@@@@@@@${DateFormat('MM/dd/yyyy').format(picked)}');
             pr.selectedDate = picked;
           }
         },
