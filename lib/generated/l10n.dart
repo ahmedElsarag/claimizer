@@ -885,20 +885,20 @@ class S {
     );
   }
 
-  /// `Start AT`
+  /// `Start Date`
   String get startAt {
     return Intl.message(
-      'Start AT',
+      'Start Date',
       name: 'startAt',
       desc: '',
       args: [],
     );
   }
 
-  /// `End AT`
+  /// `End Date`
   String get endAt {
     return Intl.message(
-      'End AT',
+      'End Date',
       name: 'endAt',
       desc: '',
       args: [],
@@ -1290,6 +1290,56 @@ class S {
     return Intl.message(
       'Priority',
       name: 'priority',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All Attachment`
+  String get allAttachment {
+    return Intl.message(
+      'All Attachment',
+      name: 'allAttachment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit Type`
+  String get unitType {
+    return Intl.message(
+      'Unit Type',
+      name: 'unitType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Company`
+  String get company {
+    return Intl.message(
+      'Company',
+      name: 'company',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Comment`
+  String get comment {
+    return Intl.message(
+      'Comment',
+      name: 'comment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reply`
+  String get reply {
+    return Intl.message(
+      'Reply',
+      name: 'reply',
       desc: '',
       args: [],
     );

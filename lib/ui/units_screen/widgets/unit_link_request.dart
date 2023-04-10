@@ -1,4 +1,6 @@
+import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../generated/l10n.dart';
@@ -61,7 +63,7 @@ class UnitLinkRequest extends StatelessWidget {
                           .copyWith(color: MColors.subtitlesColor),
                     ),
                     Text(
-                      "2023-10-14",
+                      "title",
                       style: MTextStyles.textSubtitle,
                     ),
                   ],
@@ -71,7 +73,7 @@ class UnitLinkRequest extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      S.of(context).unitName,
+                      S.of(context).buildingName,
                       style: MTextStyles.textBoldDark12
                           .copyWith(color: MColors.subtitlesColor),
                     ),
@@ -86,7 +88,37 @@ class UnitLinkRequest extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      S.of(context).clientId,
+                      S.of(context).unitType,
+                      style: MTextStyles.textBoldDark12
+                          .copyWith(color: MColors.subtitlesColor),
+                    ),
+                    Text(
+                      "test",
+                      style: MTextStyles.textSubtitle,
+                    ),
+                  ],
+                ),
+                Gaps.vGap8,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      S.of(context).company,
+                      style: MTextStyles.textBoldDark12
+                          .copyWith(color: MColors.subtitlesColor),
+                    ),
+                    Text(
+                      "Tech",
+                      style: MTextStyles.textSubtitle,
+                    ),
+                  ],
+                ),
+                Gaps.vGap8,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      S.of(context).contractNo,
                       style: MTextStyles.textBoldDark12
                           .copyWith(color: MColors.subtitlesColor),
                     ),
@@ -126,6 +158,39 @@ class UnitLinkRequest extends StatelessWidget {
                     ),
                   ],
                 ),
+              ],
+            ),
+            buildDivider(),
+            Row(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                        decoration: BoxDecoration(
+                            color: MColors.primary_color.withOpacity(0.08),
+                            shape: BoxShape.circle
+                        ),
+                        padding: EdgeInsets.all(8),
+                        child: SvgPicture.asset(ImageUtils.getSVGPath("comment"))),
+                    Gaps.hGap8,
+                    Text(S.of(context).comment,style: MTextStyles.textMain14,)
+                  ],
+                ),
+                Gaps.hGap15,
+                Gaps.hGap15,
+                Row(
+                  children: [
+                    Container(
+                        decoration: BoxDecoration(
+                            color: MColors.primary_color.withOpacity(0.08),
+                            shape: BoxShape.circle
+                        ),
+                        padding: EdgeInsets.all(8),
+                        child: SvgPicture.asset(ImageUtils.getSVGPath("reply"))),
+                    Gaps.hGap8,
+                    Text(S.of(context).reply,style: MTextStyles.textMain14,)
+                  ],
+                )
               ],
             )
           ],

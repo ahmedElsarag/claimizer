@@ -84,8 +84,8 @@
   "more": "More",
   "unitName": "Unit",
   "clientId": "Client ID",
-  "startAt": "Start AT",
-  "endAt": "End AT",
+  "startAt": "Start Date",
+  "endAt": "End Date",
   "requestCode": "Claim Code:",
   "confirm": "Confirm",
   "confirmation": "Confirmation",
@@ -124,5 +124,10 @@
   "topUpdates": "Top Updates",
   "noResults": "No Results",
   "sorryThereAreNoResultsForThisSearchPleaseTry": "Sorry, there are no results for this search. Please try another phrase",
-  "priority": "Priority"
+  "priority": "Priority",
+  "allAttachment": "All Attachment",
+  "unitType": "Unit Type",
+  "company": "Company",
+  "comment": "Comment",
+  "reply": "Reply"
 }
