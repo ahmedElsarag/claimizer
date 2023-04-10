@@ -115,17 +115,20 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
-    });
+    }
+    );
     view.showProgress(isDismiss: false);
     await requestFutureData<ClaimAvailableTimeResponse>(Method.get,
         queryParams: {'company_id': 22},
         options: Options(headers: header),
-        endPoint: Api.claimTypeApiCall, onSuccess: (data) {
-      view.closeProgress();
-      if (data != null) {
-        view.provider.claimAvailableTimeList = data.data;
-      }
-    }, onError: (code, msg) {
+        endPoint: Api.claimTypeApiCall,
+        onSuccess: (data) {
+          view.closeProgress();
+          if (data != null) {
+            view.provider.claimAvailableTimeList = data.data;
+          }
+        },
+        onError: (code, msg) {
       view.closeProgress();
     });
   }
