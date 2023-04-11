@@ -66,12 +66,12 @@ class EditProfilePresenter extends BasePresenter<EditProfileScreenState> {
       view.closeProgress();
       if (data != null) {
         Navigator.pop(view.context);
-        view.showToasts(S.current.passwordChangedSuccessfully);
+        view.showToasts(S.current.passwordChangedSuccessfully, 'success');
       }
     }, onError: (code, msg) {
       view.closeProgress();
-      if(code == 422){
-        view.showWarningToasts(S.current.anErrorOccurredTryAgainLater,);
+      if (code == 422) {
+        view.showToasts(S.current.anErrorOccurredTryAgainLater, 'warning');
       }
     });
   }
@@ -79,36 +79,39 @@ class EditProfilePresenter extends BasePresenter<EditProfileScreenState> {
   Future editProfileApiCall(dynamic bodyParams) async {
     view.showProgress();
 
-    Map<String,dynamic> header = Map();
-    await Prefs.getUserToken.then((token)  {
-      header['Authorization'] = "Bearer $token";});
+    Map<String, dynamic> header = Map();
+    await Prefs.getUserToken.then((token) {
+      header['Authorization'] = "Bearer $token";
+    });
 
     await requestFutureData<ProfileResponse>(Method.post,
-        endPoint: Api.editBasicInfo,
-        params: bodyParams,
-        options: Options(headers: header),
-        onSuccess: (data) {
-          view.closeProgress();
-          if (data.profileDataBean != null) {
-            Log.d("onSuccess " + data.toString());
-            // saveUser(bodyParams);
-            saveUser(data);
-            passUserByEventPath(username: data.profileDataBean.name, imageUrl: data.profileDataBean.avatar,email: data.profileDataBean.email);
-            Navigator.pop(view.context);
-            view.showToasts(S.of(view.context).profileUpdatedSuccessfully);
-          } else {
-            view.showToasts("Error");
-          }
-        }, onError: (code, msg) {
-          Log.d(msg);
-          view.closeProgress();
-          if(code == ErrorStatus.UNAUTHORIZED)
-            showDialog( context: view.context,builder: (_)=>
-                LoginRequiredDialog( message: S.of(view.context).sessionTimeoutPleaseLogin),barrierDismissible: false);
-        });
+        endPoint: Api.editBasicInfo, params: bodyParams, options: Options(headers: header), onSuccess: (data) {
+      view.closeProgress();
+      if (data.profileDataBean != null) {
+        Log.d("onSuccess " + data.toString());
+        saveUser(data);
+        passUserByEventPath(
+            username: data.profileDataBean.name,
+            imageUrl: data.profileDataBean.avatar,
+            email: data.profileDataBean.email);
+        Navigator.pop(view.context);
+        view.showToasts(S.of(view.context).profileUpdatedSuccessfully, 'success');
+      } else {
+        view.showToasts("Error", 'error');
+      }
+    }, onError: (code, msg) {
+      Log.d(msg);
+      view.closeProgress();
+      if (code == ErrorStatus.UNAUTHORIZED) {
+        showDialog(
+            context: view.context,
+            builder: (_) => LoginRequiredDialog(message: S.of(view.context).sessionTimeoutPleaseLogin),
+            barrierDismissible: false);
+      } else {
+        view.showToasts("Error", 'error');
+      }
+    });
   }
-
-
 
   void saveUser(ProfileResponse response) {
     Prefs.setUserName(response.profileDataBean.name);
@@ -116,13 +119,14 @@ class EditProfilePresenter extends BasePresenter<EditProfileScreenState> {
     Prefs.setCurrentUser(jsonEncode(response.toJson()));
     Prefs.setUserImage(response.profileDataBean.avatar);
   }
-  void saveUserImage( String image ) {
+
+  void saveUserImage(String image) {
     Prefs.setUserImage(image);
   }
 
-  void passUserByEventPath({String username,String email, String imageUrl}){
+  void passUserByEventPath({String username, String email, String imageUrl}) {
     EventBus eventBus = EventBusUtils.getInstance();
-    eventBus.fire(ProfileEvent(username: username,userEmail: email,userImage: imageUrl));
+    eventBus.fire(ProfileEvent(username: username, userEmail: email, userImage: imageUrl));
   }
 
   showProgress() {

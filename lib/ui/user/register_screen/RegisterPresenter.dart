@@ -18,7 +18,7 @@ class RegisterPresenter extends BasePresenter<RegisterScreenState> {
         onSuccess: (data) {
       view.closeProgress();
       if (data != null) {
-        view.showToasts(S.of(view.context).accountCreated);
+        view.showToasts(S.of(view.context).accountCreated,'success');
         Navigator.pushAndRemoveUntil(
             view.context, CupertinoPageRoute(builder: (context) => MainScreen()), (route) => false);
         saveUser(data);
@@ -33,6 +33,7 @@ class RegisterPresenter extends BasePresenter<RegisterScreenState> {
   void saveUser(LoginResponse response) async {
     Prefs.setCurrentUser(jsonEncode(response.toJson()));
     Prefs.setUserToken(response.data.token);
+    Prefs.setUserName(response.data.name);
     Prefs.setIsLogin(true).then((value) => print("login status $value"));
   }
 

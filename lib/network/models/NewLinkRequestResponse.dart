@@ -1,23 +1,17 @@
 class NewLinkRequestResponse {
   String status;
-  String errorName;
-  String message;
   NewLinkRequestDataBean data;
 
   NewLinkRequestResponse({this.status, this.data});
 
   NewLinkRequestResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    errorName = json['error_name'];
-    message = json['message'];
     data = json['data'] != null ? new NewLinkRequestDataBean.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
-    data['error_name'] = this.errorName;
-    data['message'] = this.message;
     if (this.data != null) {
       data['data'] = this.data.toJson();
     }
@@ -28,6 +22,7 @@ class NewLinkRequestResponse {
 class NewLinkRequestDataBean {
   String building;
   String company;
+  String message;
   Units units;
 
   NewLinkRequestDataBean({this.building, this.company, this.units});
@@ -35,6 +30,7 @@ class NewLinkRequestDataBean {
   NewLinkRequestDataBean.fromJson(Map<String, dynamic> json) {
     building = json['building'];
     company = json['company'];
+    message = json['message'];
     units = json['units'] != null ? new Units.fromJson(json['units']) : null;
   }
 
@@ -42,6 +38,7 @@ class NewLinkRequestDataBean {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['building'] = this.building;
     data['company'] = this.company;
+    data['message'] = this.message;
     if (this.units != null) {
       data['units'] = this.units.toJson();
     }

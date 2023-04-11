@@ -8,6 +8,7 @@ import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'SizeConfig2.dart';
+import 'image_utils.dart';
 
 class Utils {
   static KeyboardActionsConfig getKeyboardActionsConfig(List<FocusNode> list) {
@@ -26,6 +27,12 @@ class Utils {
   static bool isEmailValid(String email) {
     return RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
         .hasMatch(email);
+  }
+
+  String convertDateFormat(String originalDateString) {
+    DateTime originalDate = DateTime.parse(originalDateString.replaceAll('/', '-'));
+    String newDateString = '${originalDate.day.toString().padLeft(2, '0')}-${originalDate.month.toString().padLeft(2, '0')}-${originalDate.year}';
+    return newDateString;
   }
 
   static Future<void> launchInWebViewOrVC(String url) async {
@@ -88,6 +95,82 @@ class Utils {
       },
     );
   }
+
+  static Color getStatusTypeBGColorFromString(String status) {
+    switch (status) {
+      case 'pending':
+      case 'in_progress':
+      case 'Late':
+      case 'draft':
+      case 'warning':
+        return const Color(0xffffcc00);
+      case 'accepted':
+      case 'Present':
+      case 'finished':
+      case 'success':
+      case 'start':
+        return const Color(0xffff9966);
+      case 'rejected':
+      case 'refused':
+      case 'canceled':
+      case 'cancelled':
+      case 'error':
+        return  MColors.error_color;
+      default:
+        return MColors.textFieldBorder;
+    }
+  }
+
+  static Color getStatusTypeColorFromString(String status) {
+    switch (status) {
+      case 'pending':
+      case 'in_progress':
+      case 'Late':
+      case 'draft':
+      case 'warning':
+        return MColors.text_dark;
+      case 'accepted':
+      case 'Present':
+      case 'finished':
+      case 'success':
+      case 'start':
+        return MColors.text_dark;
+      case 'rejected':
+      case 'refused':
+      case 'canceled':
+      case 'cancelled':
+      case 'error':
+        return MColors.white;
+      default:
+        return MColors.black;
+    }
+  }
+
+  static Widget getStatusTypeIconFromString(String status) {
+    switch (status) {
+      case 'pending':
+      case 'in_progress':
+      case 'Late':
+      case 'draft':
+      case 'warning':
+        return Icon(Icons.warning_amber_rounded,color: getStatusTypeColorFromString(status),size: 28.sp,);
+      case 'accepted':
+      case 'Present':
+      case 'finished':
+      case 'success':
+      case 'start':
+        return Icon(Icons.done_all_rounded,color: getStatusTypeColorFromString(status),size: 28.sp,);
+      case 'rejected':
+      case 'refused':
+      case 'canceled':
+      case 'cancelled':
+      case 'error':
+        return Icon(Icons.error_outline_rounded,color: getStatusTypeColorFromString(status),size: 28.sp,);
+      default:
+        return Image.asset(ImageUtils.getImagePath("logo"),width: 12.w,height: 12.w,);
+    }
+  }
+
 
 }
 

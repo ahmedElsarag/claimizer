@@ -1,3 +1,4 @@
+import 'package:Cliamizer/app_widgets/NoDataFound.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,7 @@ class ExistingUnitList extends StatelessWidget {
     return Consumer<UnitProvider>(
       builder: (context, pr, child) {
         print("@@@@@@@@@@@@@@@@@@@ : ${pr.unitsList.length}");
-        return ListView.builder(
+        return pr.unitsList.isNotEmpty? ListView.builder(
         itemCount: pr.unitsList.length,
         itemBuilder: (context, index) => Container(
           decoration:
@@ -166,7 +167,7 @@ class ExistingUnitList extends StatelessWidget {
             ],
           ),
         ),
-      );
+      ) : NoDataWidget();
       },
     );
   }

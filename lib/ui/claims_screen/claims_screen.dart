@@ -498,8 +498,8 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                         child: ElevatedButton(
                                                           onPressed: () {
                                                             if (pr.selectedDate == null && pr.selectedTime == null) {
-                                                              showWarningToasts(
-                                                                  S.of(context).youShouldSelectDateAndTime);
+                                                              showToasts(
+                                                                  S.of(context).youShouldSelectDateAndTime,'warning');
                                                             } else {
                                                               pr.isStepsFinished = !pr.isStepsFinished;
                                                             }

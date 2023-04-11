@@ -9,4 +9,22 @@ class HomeProvider extends ChangeNotifier {
     _claimsStatistics = value;
     notifyListeners();
   }
+
+  String _name;
+
+  String get name => _name;
+
+  set name(String value) {
+    _name = value;
+    notifyListeners();
+  }
+
+  String _avatar;
+
+  String get avatar => _avatar;
+
+  set avatar(String value) {
+    _avatar = value;
+    notifyListeners();
+  }
 }

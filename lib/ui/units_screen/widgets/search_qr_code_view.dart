@@ -14,14 +14,14 @@ class SearchAboutUnitByQR extends StatelessWidget {
   const SearchAboutUnitByQR({Key key, this.provider, this.presenter}) : super(key: key);
   final UnitProvider provider;
   final UnitPresenter presenter;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<UnitProvider>(
       builder: (context, pr, child) => Container(
         padding: EdgeInsets.symmetric(vertical: 4.w, horizontal: 8.w),
         margin: EdgeInsets.symmetric(vertical: 2.w),
-        decoration:
-        BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
+        decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
         child: ListView(
           // mainAxisSize: MainAxisSize.min,
           children: [
@@ -36,8 +36,7 @@ class SearchAboutUnitByQR extends StatelessWidget {
                   width: 1.w,
                   height: 5.w,
                   margin: EdgeInsetsDirectional.only(end: 3.w),
-                  decoration: BoxDecoration(
-                      color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
+                  decoration: BoxDecoration(color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
                 ),
                 Text(S.of(context).unitQuery, style: MTextStyles.textMain16),
               ],
@@ -54,55 +53,55 @@ class SearchAboutUnitByQR extends StatelessWidget {
               ),
               child: ElevatedButton(
                 onPressed: () {
-                  presenter.doCheckUnitQrCodeApiCall({
-                    "qr_code":pr.qrCode.text,
-                    // "validated":pr.isQrCodeValid
-                  });
+                  if (pr.qrCode.text.isEmpty) {
+                    presenter.view.showToasts(S.of(context).pleaseEnterQrCode,'warning');
+                  } else {
+                    presenter.doCheckUnitQrCodeApiCall({
+                      "qr_code": pr.qrCode.text,
+                      // "validated":pr.isQrCodeValid
+                    });
+                    print("QRCODE = ${pr.qrCode.text}");
+                  }
                 },
                 child: Text(
                   S.of(context).search,
-                  style: MTextStyles.textMain14
-                      .copyWith(fontWeight: FontWeight.w700, color: MColors.white),
+                  style: MTextStyles.textMain14.copyWith(fontWeight: FontWeight.w700, color: MColors.white),
                 ),
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(MColors.primary_color),
                     elevation: MaterialStatePropertyAll(0),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        )),
-                    padding: MaterialStateProperty.all<EdgeInsets>(
-                        EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    )),
+                    padding:
+                        MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
               ),
             ),
             Gaps.vGap8,
             Visibility(
-              visible: pr.qrCodeValid == false,
+              visible: pr.message != null,
               child: Container(
                 padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    color: Color(0xffDA1414).withOpacity(0.12),
-                    borderRadius: BorderRadius.circular(8)),
+                decoration:
+                    BoxDecoration(color: Color(0xffDA1414).withOpacity(0.12), borderRadius: BorderRadius.circular(8)),
                 child: Text(
-                  S.of(context).theQrCodeIsIncorrect,
+                  pr.message??"",
                   style: MTextStyles.textMain14.copyWith(fontSize: 9.sp),
                 ),
               ),
             ),
-            Visibility(
-              visible:pr.qrCodeValid == true,
-              child: Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    color: Color(0xff44A4F2).withOpacity(0.12),
-                    borderRadius: BorderRadius.circular(8)),
-                child: Text(
-                  S.of(context).theUnitIsReserved,
-                  style:
-                  MTextStyles.textMain14.copyWith(fontSize: 9.sp, color: Color(0xff44A4F2)),
-                ),
-              ),
-            ),
+            // Visibility(
+            //   visible: pr.message == "s",
+            //   child: Container(
+            //     padding: EdgeInsets.all(8),
+            //     decoration:
+            //         BoxDecoration(color: Color(0xff44A4F2).withOpacity(0.12), borderRadius: BorderRadius.circular(8)),
+            //     child: Text(
+            //       S.of(context).theUnitIsReserved,
+            //       style: MTextStyles.textMain14.copyWith(fontSize: 9.sp, color: Color(0xff44A4F2)),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:Cliamizer/base/provider/base_provider.dart';
 
 class LoginProvider<T> extends BaseProvider<T> {
-  String _language;
+
   bool _isRememberMe = false;
   bool _obscureTextPassword = true;
 
@@ -19,7 +19,7 @@ class LoginProvider<T> extends BaseProvider<T> {
     _isRememberMe = value;
     notifyListeners();
   }
-
+  String _language;
   String get language => _language;
 
   set language(String value) {

@@ -9,4 +9,12 @@ class SplashProvider extends BaseProvider {
     } else
     notifyListeners();
   }
+
+  String _language;
+  String get language => _language;
+
+  set language(String value) {
+    _language = value;
+    notifyListeners();
+  }
 }

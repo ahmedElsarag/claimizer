@@ -29,4 +29,12 @@ class MoreProvider<T> extends BaseProvider<T> {
     notifyListeners();
   }
 
+  String _language;
+  String get language => _language;
+
+  set language(String value) {
+    _language = value;
+    notifyListeners();
+  }
+
 }

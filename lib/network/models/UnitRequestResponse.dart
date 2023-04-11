@@ -31,13 +31,17 @@ class UnitRequestDataBean {
   String refCode;
   int userId;
   int unitId;
+  String unitName;
+  String buildingName;
+  String unitType;
+  String company;
   String startAt;
   String endAt;
   String contractNumber;
   String contractAttach;
   String clientGovId;
   String status;
-  dynamic userRemarks;
+  Null userRemarks;
   String adminRemarks;
   String createdAt;
 
@@ -46,6 +50,10 @@ class UnitRequestDataBean {
         this.refCode,
         this.userId,
         this.unitId,
+        this.unitName,
+        this.buildingName,
+        this.unitType,
+        this.company,
         this.startAt,
         this.endAt,
         this.contractNumber,
@@ -61,6 +69,10 @@ class UnitRequestDataBean {
     refCode = json['ref_code'];
     userId = json['user_id'];
     unitId = json['unit_id'];
+    unitName = json['unit_name'];
+    buildingName = json['building_name'];
+    unitType = json['unit_type'];
+    company = json['company'];
     startAt = json['start_at'];
     endAt = json['end_at'];
     contractNumber = json['contract_number'];
@@ -78,6 +90,10 @@ class UnitRequestDataBean {
     data['ref_code'] = this.refCode;
     data['user_id'] = this.userId;
     data['unit_id'] = this.unitId;
+    data['unit_name'] = this.unitName;
+    data['building_name'] = this.buildingName;
+    data['unit_type'] = this.unitType;
+    data['company'] = this.company;
     data['start_at'] = this.startAt;
     data['end_at'] = this.endAt;
     data['contract_number'] = this.contractNumber;

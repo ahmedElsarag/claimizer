@@ -15,8 +15,8 @@ class Api {
   static const String editPasswordApiCall = "change-password";
   static const String editBasicInfo = "profile";
   static const String buildingsApiCall = "buildings";
-  static const String unitsApiCall = "units";
-  static const String unitRequestApiCall = "requests";
+  static const String unitsApiCall = "units?per_page=1000";
+  static const String unitRequestApiCall = "requests?per_page=1000";
   static const String newLinkRequestApiCall = "requests";
   static const String completeLinkRequestApiCall = "requests/joinUnit";
   static const String categoriesApiCall = "claims/categories";

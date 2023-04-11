@@ -3,12 +3,11 @@ import 'package:Cliamizer/route/application.dart';
 import 'package:Cliamizer/route/routers.dart';
 import 'package:Cliamizer/styles/light_theme_style.dart';
 import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsProvider.dart';
-import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsScreen.dart';
-import 'package:Cliamizer/ui/claims_details_screen/widgets/comments_widget.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
 import 'package:Cliamizer/ui/intro/IntroProvider.dart';
 import 'package:Cliamizer/ui/main_screens/MainProvider.dart';
+import 'package:Cliamizer/ui/more_screen/MoreProvider.dart';
 import 'package:Cliamizer/ui/notification_screen/NotificationProvider.dart';
 import 'package:Cliamizer/ui/splash_screen/SplashScreen.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
@@ -68,6 +67,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => IntroProvider()),
         ChangeNotifierProvider(create: (context) => MainProvider()),
         ChangeNotifierProvider(create: (context) => LanguageProvider()),
+        ChangeNotifierProvider(create: (context) => MoreProvider()),
         ChangeNotifierProvider(create: (context) => HomeProvider()),
         ChangeNotifierProvider(create: (context) => ClaimsProvider()),
         ChangeNotifierProvider(create: (context) => ClaimsDetailsProvider()),
@@ -77,11 +77,10 @@ class _MyAppState extends State<MyApp> {
       child: ValueListenableBuilder(
         valueListenable: Setting.mobileLanguage,
         builder: (context, Locale local, _) {
-          final languageProvider = Provider.of<LanguageProvider>(context);
           return Sizer(
             builder: (context, orientation, deviceType) {
               return MaterialApp(
-                locale: languageProvider.locale,
+                locale: local,
                 localizationsDelegates: [
                   S.delegate,
                   GlobalCupertinoLocalizations.delegate,

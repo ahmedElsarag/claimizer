@@ -8,6 +8,19 @@ import '../../network/models/StatisticsResponse.dart';
 import '../../network/network_util.dart';
 
 class HomePresenter extends BasePresenter<HomeScreenState> {
+  void getUserName() async {
+    await Prefs.getUserName.then((value) {
+      print("response$value");
+      view.provider.name = value;
+    });
+  }
+  void getUserImage() async {
+    await Prefs.getUserImage.then((value) {
+      print("response$value");
+      view.provider.avatar = value;
+    });
+  }
+
   Future getStatisticsApiCall() async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {

@@ -18,6 +18,7 @@ class ContractField extends StatelessWidget {
         height: MediaQuery.of(context).size.height * .06,
         child: TextFormField(
           controller: pr.contractNo,
+          style: MTextStyles.textDark14,
           decoration: InputDecoration(
             hintText: S.of(context).contractNo,
             hintStyle: MTextStyles.textMain14.copyWith(color: MColors.light_text_color, fontWeight: FontWeight.w500),

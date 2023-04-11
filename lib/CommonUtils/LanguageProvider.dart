@@ -7,7 +7,7 @@ class LanguageProvider extends ChangeNotifier {
   Locale _locale = Locale('en');
 
   LanguageProvider() {
-    _loadSelectedLanguage();
+    loadSelectedLanguage();
   }
   Locale get locale => _locale;
 
@@ -18,7 +18,7 @@ class LanguageProvider extends ChangeNotifier {
     await prefs.setString(_selectedLanguageKey, locale.languageCode);
   }
 
-  void _loadSelectedLanguage() async {
+  void loadSelectedLanguage() async {
     final prefs = await SharedPreferences.getInstance();
     final languageCode = prefs.getString(_selectedLanguageKey);
     if (languageCode != null) {

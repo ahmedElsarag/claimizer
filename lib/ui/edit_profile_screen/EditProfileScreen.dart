@@ -160,8 +160,8 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                                     provider.selectedTabIndex = index;
                                   },
                                   tabs: [
-                                    Tab(text: 'Basic Info'),
-                                    Tab(text: 'Update Password'),
+                                    Tab(text: S.of(context).basicInfo),
+                                    Tab(text: S.of(context).updatePassword),
                                   ],
                                 ),
                               ),
@@ -202,7 +202,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                 Radio(
                   fillColor: MaterialStateProperty.all<Color>(MColors.text_button_color),
                   value: provider.instance.profile.emailNotifications == 1,
-                  groupValue: _isNotificationEnabled,
+                  groupValue: true,
                   onChanged: (value) {
                     setState(() {
                       _isNotificationEnabled = value;
@@ -216,7 +216,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             Radio(
               fillColor: MaterialStateProperty.all<Color>(MColors.text_button_color),
               value: provider.instance.profile.emailNotifications == 1,
-              groupValue: _isNotificationEnabled,
+              groupValue: false,
               onChanged: (value) {
                 setState(() {
                   _isNotificationEnabled = value;
@@ -717,26 +717,27 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
 
   void editProfile() async {
     // provider.formKey.currentState.save();
-    if (_image != null) {
-      FormData formData = new FormData.fromMap({
-        "image": await MultipartFile.fromFile(
-          _image.path,
-          contentType: new MediaType('image', 'jpg'),
-        ),
-        "mobile":provider.mobile,
-        "name":provider.name,
-        "email":provider.email
-      });
-      mPresenter.editProfileApiCall(formData);
-    }
-    else{
+    // if (_image != null) {
+    //   FormData formData = new FormData.fromMap({
+    //     "image": await MultipartFile.fromFile(
+    //       _image.path,
+    //       contentType: new MediaType('image', 'jpg'),
+    //     ),
+    //     "mobile":provider.mobile,
+    //     "name":provider.name,
+    //     "email":provider.email
+    //   });
+    //   mPresenter.editProfileApiCall(formData);
+    // }
+    // else{
       print('#######################################');
       Map<String, dynamic> params = Map();
       params['mobile'] = provider.mobile;
       params['name'] = provider.name;
       params['email'] = provider.email;
       mPresenter.editProfileApiCall(params);
-    }
+      print('#######################################');
+    // }
   }
 
   bool noDataChanged() {

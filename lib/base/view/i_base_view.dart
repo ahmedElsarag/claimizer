@@ -7,9 +7,7 @@ abstract class IBaseView {
 
   void closeProgress();
 
-  void showToasts(String msg);
-
-  void showWarningToasts(String msg);
+  void showToasts(String msg,String status);
 
   double sWidth(double w);
   double sHeight(double h);

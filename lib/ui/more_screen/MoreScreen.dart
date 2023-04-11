@@ -10,10 +10,12 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/LanguageProvider.dart';
+import '../../CommonUtils/log_utils.dart';
 import '../../CommonUtils/preference/Prefs.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
+import '../../res/setting.dart';
 import '../user/login_screen/LoginScreen.dart';
 import 'MorePresenter.dart';
 import 'MoreProvider.dart';
@@ -31,29 +33,36 @@ class MoreScreen extends StatefulWidget {
 
 class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  MoreProvider provider = MoreProvider();
+  MoreProvider provider;
 
   @override
   void initState() {
     super.initState();
+    provider = context.read<MoreProvider>();
     mPresenter.getProfileData();
+    Prefs.getAppLocal.then((value) => {
+      if (value != null)
+        {
+          setState(() {
+            setSelected(value);
+            print('###### $value');
+            provider.language = value;
+          }),
+          // provider.isArabic == "ar",
+        }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MoreProvider>(
-      create: (context) => provider,
-      builder: (context, child) => Consumer<MoreProvider>(
-        builder: (context, value, child) => Scaffold(
-          backgroundColor: MColors.page_background,
-          body: provider.instance!=null ?Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16, 60, 16, 0),
-            child: ListView(
-              children: [profileWidget(), Gaps.vGap12, settingsWidget(), Gaps.vGap12, Gaps.vGap8, accountWidget()],
-            ),
-          ) : mPresenter.showProgress(),
+    return Scaffold(
+      backgroundColor: MColors.page_background,
+      body: provider.instance!=null ?Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(16, 60, 16, 0),
+        child: ListView(
+          children: [profileWidget(), Gaps.vGap12, settingsWidget(), Gaps.vGap12, Gaps.vGap8, accountWidget()],
         ),
-      ),
+      ) : mPresenter.showProgress(),
     );
   }
 
@@ -114,7 +123,6 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
       );
 
   Widget settingsWidget() {
-    final languageProvider = Provider.of<LanguageProvider>(context);
     return Container(
       decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
       padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.w),
@@ -132,17 +140,19 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
               Spacer(),
               Transform.scale(
                   scale: 0.2.w,
-                  child: CupertinoSwitch(
-                      activeColor: Color(0xff44A4F2),
-                      value: languageProvider.locale.languageCode == 'en',
-                      onChanged: (value) {
-                        if (value) {
-                          languageProvider.setLocale(Locale('en'));
-                        } else {
-                          languageProvider.setLocale(Locale('ar'));
-                        }
-                        print(languageProvider.locale.languageCode);
-                      })),
+                  child: Consumer<MoreProvider>(
+                    builder: (context, pr, child) =>  CupertinoSwitch(
+                        activeColor: Color(0xff44A4F2),
+                        value: Setting.mobileLanguage.value == Locale('en'),
+                        onChanged: (value) {
+                          if (value) {
+                            setSelected("en");
+                          } else {
+                            setSelected("ar");
+                          }
+                          print("!@##@!@!#!@!# "+pr.language);
+                        }),
+                  )),
             ],
           ),
           divider(),
@@ -184,6 +194,14 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
         ],
       ),
     );
+  }
+  void setSelected(String s) {
+    if (s == 'en' || s == 'null')
+      Setting.mobileLanguage.value = new Locale('en');
+    else
+      Setting.mobileLanguage.value = new Locale('ar');
+    Prefs.setAppLocal(s);
+    Log.d(s);
   }
 
   Widget accountWidget() {

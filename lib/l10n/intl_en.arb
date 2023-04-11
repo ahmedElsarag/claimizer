@@ -137,5 +137,8 @@
   "disable": "Disable",
   "updateSecondaryEmail": "Update secondary email",
   "passwordChangedSuccessfully": "Password Changed Successfully",
-  "profileUpdatedSuccessfully": "Profile Updated Successfully"
+  "profileUpdatedSuccessfully": "Profile Updated Successfully",
+  "pleaseEnterQrCode": "Please enter QR Code",
+  "basicInfo": "Basic Info",
+  "updatePassword": "Update Password"
 }

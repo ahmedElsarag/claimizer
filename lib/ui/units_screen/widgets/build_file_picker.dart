@@ -30,6 +30,7 @@ class BuildFilePicker extends StatelessWidget {
     return Consumer<UnitProvider>(
       builder: (context, pr, child) => TextFormField(
         controller: TextEditingController(text: pr.fileName),
+        style: MTextStyles.textDark14,
         readOnly: true,
         decoration: InputDecoration(
             hintText: S.of(context).uploadAnyFiles,
@@ -45,6 +46,15 @@ class BuildFilePicker extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: MColors.textFieldBorder),
+            ),
+            suffixIcon:  InkWell(
+              onTap: () async {
+               pr.fileName = null;
+              },
+              child:Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Icon(Icons.close),
+              ),
             ),
             prefixIcon: InkWell(
               onTap: () async {

@@ -1,4 +1,5 @@
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
+import 'package:Cliamizer/app_widgets/NoDataFound.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,7 +17,7 @@ class UnitLinkRequest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<UnitProvider>(
-      builder: (context, pr, child) =>  ListView.builder(
+      builder: (context, pr, child) =>  pr.unitsRequestList.isNotEmpty? ListView.builder(
         itemCount: pr.unitsRequestList.length,
         itemBuilder: (context, index) => Container(
           decoration:
@@ -32,11 +33,11 @@ class UnitLinkRequest extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        pr.unitsRequestList[index].id.toString()??"",
+                        pr.unitsRequestList[index].unitName??"",
                         style: MTextStyles.textBoldDark16,
                       ),
                       Text(
-                        S.of(context).requestCode + pr.unitsRequestList[index].refCode,
+                        S.of(context).requestCode + " "+pr.unitsRequestList[index].refCode,
                         style: MTextStyles.textSubtitle,
                       ),
                     ],
@@ -66,7 +67,7 @@ class UnitLinkRequest extends StatelessWidget {
                             .copyWith(color: MColors.subtitlesColor),
                       ),
                       Text(
-                        pr.unitsRequestList[index].unitId.toString()??"",
+                        pr.unitsRequestList[index].unitName??"",
                         style: MTextStyles.textSubtitle,
                       ),
                     ],
@@ -81,7 +82,7 @@ class UnitLinkRequest extends StatelessWidget {
                             .copyWith(color: MColors.subtitlesColor),
                       ),
                       Text(
-                        pr.unitsRequestList[index].refCode??"",
+                        pr.unitsRequestList[index].buildingName??"",
                         style: MTextStyles.textSubtitle,
                       ),
                     ],
@@ -96,7 +97,7 @@ class UnitLinkRequest extends StatelessWidget {
                             .copyWith(color: MColors.subtitlesColor),
                       ),
                       Text(
-                        pr.unitsRequestList[index].clientGovId??"",
+                        pr.unitsRequestList[index].unitType??"",
                         style: MTextStyles.textSubtitle,
                       ),
                     ],
@@ -111,7 +112,7 @@ class UnitLinkRequest extends StatelessWidget {
                             .copyWith(color: MColors.subtitlesColor),
                       ),
                       Text(
-                        pr.unitsRequestList[index].refCode??"",
+                        pr.unitsRequestList[index].company??"",
                         style: MTextStyles.textSubtitle,
                       ),
                     ],
@@ -126,7 +127,7 @@ class UnitLinkRequest extends StatelessWidget {
                             .copyWith(color: MColors.subtitlesColor),
                       ),
                       Text(
-                        pr.unitsRequestList[index].contractNumber??"",
+                        pr.unitsRequestList[index].contractNumber ?? S.current.na,
                         style: MTextStyles.textSubtitle,
                       ),
                     ],
@@ -199,7 +200,8 @@ class UnitLinkRequest extends StatelessWidget {
             ],
           ),
         ),
-      ),
+      )
+    : NoDataWidget()
     );
   }
 

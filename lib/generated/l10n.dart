@@ -1424,6 +1424,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Please enter QR Code`
+  String get pleaseEnterQrCode {
+    return Intl.message(
+      'Please enter QR Code',
+      name: 'pleaseEnterQrCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Basic Info`
+  String get basicInfo {
+    return Intl.message(
+      'Basic Info',
+      name: 'basicInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update Password`
+  String get updatePassword {
+    return Intl.message(
+      'Update Password',
+      name: 'updatePassword',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

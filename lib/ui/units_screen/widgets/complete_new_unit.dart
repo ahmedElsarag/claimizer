@@ -4,6 +4,7 @@ import 'package:Cliamizer/ui/units_screen/widgets/build_description_field.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/build_file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -22,14 +23,14 @@ class CompleteNewUnit extends StatelessWidget {
   const CompleteNewUnit({Key key, this.provider, this.presenter}) : super(key: key);
   final UnitProvider provider;
   final UnitPresenter presenter;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<UnitProvider>(
       builder: (context, pr, child) => Container(
         padding: EdgeInsets.symmetric(vertical: 2.w, horizontal: 4.w),
         margin: EdgeInsets.symmetric(vertical: 2.w),
-        decoration:
-        BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
+        decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
         child: ListView(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -49,8 +50,7 @@ class CompleteNewUnit extends StatelessWidget {
                   width: 1.w,
                   height: 5.w,
                   margin: EdgeInsetsDirectional.only(end: 3.w),
-                  decoration: BoxDecoration(
-                      color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
+                  decoration: BoxDecoration(color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
                 ),
                 Text(S.current.unitQuery, style: MTextStyles.textMain16),
               ],
@@ -86,6 +86,13 @@ class CompleteNewUnit extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       pr.isQrCodeValid = !pr.isQrCodeValid;
+                      pr.contractNo.clear();
+                      pr.companyName.clear();
+                      pr.buildingName.clear();
+                      pr.description.clear();
+                      pr.startDate = null;
+                      pr.endDate = null;
+                      pr.fileName = "";
                     },
                     child: Text(
                       S.of(context).back,
@@ -94,10 +101,8 @@ class CompleteNewUnit extends StatelessWidget {
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(MColors.white),
                         elevation: MaterialStatePropertyAll(0),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                side: BorderSide(color: MColors.primary_color))),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8), side: BorderSide(color: MColors.primary_color))),
                         padding: MaterialStateProperty.all<EdgeInsets>(
                             EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
                   ),
@@ -107,81 +112,28 @@ class CompleteNewUnit extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: 3.w),
                   child: ElevatedButton(
                     onPressed: () {
-                      presenter.completeLinkRequestApiCall({
-                        "unit_code":pr.qrCode.text,
-                        "contract_number":pr.contractNo.text,
-                        "start_at":pr.startDate.toString(),
-                        "end_at":pr.endDate.toString(),
-                      });
-                      // showDialog(
-                      //   context: context,
-                      //   builder: (context) => AlertDialog(
-                      //     backgroundColor: MColors.whiteE,
-                      //     elevation: 0,
-                      //     contentPadding:
-                      //     EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
-                      //     content: Column(
-                      //       mainAxisSize: MainAxisSize.min,
-                      //       children: [
-                      //         SvgPicture.asset(ImageUtils.getSVGPath("done")),
-                      //         Gaps.vGap16,
-                      //         Text(S.current.confirmation,
-                      //             style: MTextStyles.textMain16.copyWith(
-                      //               color: MColors.black,
-                      //             )),
-                      //         Gaps.vGap8,
-                      //         Text(
-                      //           S.current.thankYouForSubmittingYourRequestOneOfOurCustomerservices,
-                      //           style: MTextStyles.textSubtitle,
-                      //           textAlign: TextAlign.center,
-                      //         ),
-                      //         Gaps.vGap30,
-                      //         ElevatedButton(
-                      //           onPressed: () {
-                      //             pr.isQrCodeValid = !pr.isQrCodeValid;
-                      //             pr.qrCode.clear();
-                      //             pr.contractNo.clear();
-                      //             pr.companyName.clear();
-                      //             pr.buildingName.clear();
-                      //             pr.description.clear();
-                      //             pr.fileName = "";
-                      //             pr.qrCodeValid = !pr.qrCodeValid;
-                      //             Navigator.pop(context);
-                      //           },
-                      //           child: Text(
-                      //             S.of(context).backToHome,
-                      //             style: MTextStyles.textWhite14
-                      //                 .copyWith(fontWeight: FontWeight.w700),
-                      //           ),
-                      //           style: ButtonStyle(
-                      //               backgroundColor: MaterialStateProperty.all<Color>(
-                      //                   MColors.primary_color),
-                      //               elevation: MaterialStatePropertyAll(0),
-                      //               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      //                   RoundedRectangleBorder(
-                      //                     borderRadius: BorderRadius.circular(8),
-                      //                   )),
-                      //               padding: MaterialStateProperty.all<EdgeInsets>(
-                      //                   EdgeInsets.symmetric(
-                      //                       horizontal: 4.w, vertical: 3.w))),
-                      //         )
-                      //       ],
-                      //     ),
-                      //   ),
-                      // );
+                      if (pr.contractNo.text.isEmpty && pr.startDate == null && pr.endDate == null) {
+                        presenter.view.showSnackBar("msg");
+                      } else {
+                        print("@@@@@@@@@@@@@@@@data ${pr.qrCode.text}");
+                        presenter.completeLinkRequestApiCall({
+                          "unit_code": pr.qrCode.text,
+                          "contract_number": pr.contractNo.text,
+                          "start_at": pr.startDate.toString(),
+                          "end_at": pr.endDate.toString(),
+                        });
+                      }
                     },
                     child: Text(
                       S.of(context).confirm,
                       style: MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
                     ),
                     style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all<Color>(MColors.primary_color),
+                        backgroundColor: MaterialStateProperty.all<Color>(MColors.primary_color),
                         elevation: MaterialStatePropertyAll(0),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            )),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        )),
                         padding: MaterialStateProperty.all<EdgeInsets>(
                             EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
                   ),

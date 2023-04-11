@@ -14,7 +14,7 @@ class StartEndDatePickerField extends StatefulWidget {
 class _StartEndDatePickerFieldState extends State<StartEndDatePickerField> {
   DateTime _startDate;
   DateTime _endDate;
-  final DateFormat _dateFormat = DateFormat('dd/MM/yyyy',"en");
+  final DateFormat _dateFormat = DateFormat('yyyy-MM-dd',"en");
 
   Future<void> _selectStartDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(

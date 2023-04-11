@@ -50,14 +50,10 @@ class ImageLoaderState extends State<ImageLoader> with TickerProviderStateMixin{
       width: widget.width ?? width,
       fit: fit,
       placeholder: (context, url) => Container(
-        color: Theme.of(context).primaryColor,
         padding: EdgeInsets.all(6.sp),
-        child: FadeTransition(
-          opacity: animation,
-          child: Image.asset(
-            ImageUtils.getImagePath("logo"),
-            fit: BoxFit.contain,
-          ),
+        child: Image.asset(
+          ImageUtils.getImagePath("logo"),
+          fit: BoxFit.contain,
         ),
       ),
       errorWidget: (context, url, error) => Container(

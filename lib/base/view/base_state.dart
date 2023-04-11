@@ -4,10 +4,12 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:Cliamizer/res/colors.dart';
 import 'package:Cliamizer/route/fluro_navigator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import 'package:toast/toast.dart';
 
+import '../../CommonUtils/utils.dart';
 import '../presenter/base_presenter.dart';
 import 'i_base_view.dart';
 
@@ -78,28 +80,33 @@ abstract class BaseState<T extends StatefulWidget, P extends BasePresenter>
 
 
   @override
-  void showToasts(String msg) {
-    Toast.show(
-        msg,
-        context,
-        backgroundColor: MColors.black.withOpacity(0.6),
-        textColor: MColors.white,
-        duration: Toast.LENGTH_LONG,
-        gravity: Toast.BOTTOM,
-    );
+  void showToasts(String msg, String status) {
+    print("Show Toassttttts");
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      content: Row(
+        children: <Widget>[
+          Text(
+            msg,
+            style:GoogleFonts.montserrat(
+                color: Utils.getStatusTypeColorFromString(status),
+              fontSize: 12.sp,
+            ),
+          ),
+          Spacer(),
+          Utils.getStatusTypeIconFromString(status),
+        ],
+      ),
+      duration: Duration(seconds: 3),
+      margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.w),
+      backgroundColor: Utils.getStatusTypeBGColorFromString(status),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 1,
+      padding: EdgeInsets.all(12),
+      behavior: SnackBarBehavior.floating,
+    ));
   }
 
-  @override
-  void showWarningToasts(String msg) {
-    Toast.show(
-      msg,
-      context,
-      backgroundColor: Colors.red.withOpacity(0.9),
-      textColor: MColors.white,
-      duration: Toast.LENGTH_LONG,
-      gravity: Toast.BOTTOM,
-    );
-  }
 
   void showSnackBar(String message){
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
