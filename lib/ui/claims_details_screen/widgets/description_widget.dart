@@ -20,6 +20,7 @@ class DescriptionWidget extends StatelessWidget {
             )),
         Gaps.vGap8,
         Container(
+          width: double.infinity,
           decoration: BoxDecoration(
             border: Border.all(
               color: MColors.outlineBorderLight

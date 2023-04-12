@@ -4,43 +4,40 @@ import 'package:Cliamizer/ui/claims_details_screen/widgets/comments_widget.dart'
 import 'package:Cliamizer/ui/claims_details_screen/widgets/description_widget.dart';
 import 'package:Cliamizer/ui/claims_details_screen/widgets/files_widgets.dart';
 import 'package:Cliamizer/ui/claims_details_screen/widgets/item_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../CommonUtils/LanguageProvider.dart';
-import '../../CommonUtils/time_format_util.dart';
-import '../../app_widgets/CustomTextField.dart';
 import '../../app_widgets/app_headline.dart';
 import '../../app_widgets/claimizer_app_bar.dart';
 import '../../generated/l10n.dart';
+import '../../network/models/claims_response.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
 import '../../res/styles.dart';
-import '../edit_profile_screen/EditProfileScreen.dart';
 import 'ClaimsDetailsPresenter.dart';
 import 'ClaimsDetailsProvider.dart';
 
 class ClaimsDetailsScreen extends StatefulWidget {
   static const String TAG = "/ClaimsDetailsScreen";
   final int id;
+  final ClaimsDataBean claimsDataBean;
+
   ClaimsDetailsScreen({
-    Key key, this.id,
+    Key key,
+    this.id,
+    this.claimsDataBean,
   }) : super(key: key);
 
   @override
   State<ClaimsDetailsScreen> createState() => ClaimsDetailsScreenState();
 }
 
-class ClaimsDetailsScreenState
-    extends BaseState<ClaimsDetailsScreen, ClaimsDetailsPresenter>
+class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDetailsPresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   ClaimsDetailsProvider provider = ClaimsDetailsProvider();
-  final DateFormat _dateFormatEN = DateFormat('dd/MM/yyyy', 'en');
-  final DateFormat _dateFormatAR = DateFormat('yyyy/MM/dd', 'ar');
 
   @override
   void initState() {
@@ -49,7 +46,6 @@ class ClaimsDetailsScreenState
 
   @override
   Widget build(BuildContext context) {
-    final languageProvider = Provider.of<LanguageProvider>(context);
     super.build(context);
     return Consumer<ClaimsDetailsProvider>(
         builder: (context, pr, child) => Scaffold(
@@ -63,50 +59,46 @@ class ClaimsDetailsScreenState
                         ClaimizerAppBar(title: S.of(context).claimDetails),
                         Gaps.vGap12,
                         Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 8.w, horizontal: 6.w),
+                          padding: EdgeInsets.symmetric(vertical: 8.w, horizontal: 6.w),
                           margin: EdgeInsets.symmetric(vertical: 2.w),
-                          decoration: BoxDecoration(
-                              color: MColors.white,
-                              borderRadius: BorderRadius.circular(8)),
+                          decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AppHeadline(title: "Falcon Tower A5 - Owned"),
+                              AppHeadline(title: widget.claimsDataBean.unit.building ?? S.current.na),
                               Gaps.vGap30,
                               ItemWidget(
                                 title: S.current.yourBuilding,
-                                value: "repudiandae molestias facilis",
+                                value: widget.claimsDataBean.unit.building ?? S.current.na,
                               ),
                               ItemWidget(
                                 title: S.current.yourUnit,
-                                value: "repudiandae molestias facilis",
+                                value: widget.claimsDataBean.unit.name ?? S.current.na,
                               ),
                               ItemWidget(
                                 title: S.current.claimCategory,
-                                value: "repudiandae molestias facilis",
+                                value: widget.claimsDataBean.category.name ?? S.current.na,
                               ),
                               ItemWidget(
                                 title: S.current.claimSubCategory,
-                                value: "repudiandae molestias facilis",
+                                value: widget.claimsDataBean.subCategory.name ?? S.current.na,
                               ),
                               ItemWidget(
                                 title: S.current.claimType,
-                                value: "repudiandae molestias facilis",
+                                value: widget.claimsDataBean.type.name ?? S.current.na,
                               ),
                               ItemWidget(
                                 title: S.current.availableTime,
                                 value:
-                                    "${languageProvider.locale == Locale("en") ? _dateFormatEN.format(DateTime.now()) : _dateFormatAR.format(DateTime.now())} ${S.of(context).from} ${TimeFormatUtil.formatTimeOfDay(TimeOfDay.now())}",
+                                "${widget.claimsDataBean?.availableDate.toString()??S.current.na} - ${widget.claimsDataBean?.availableTime??S.current.na}",
                               ),
                               ItemWidget(
                                 title: S.current.createdAt,
-                                value: "22-1815-060323-152",
+                                value: widget.claimsDataBean?.createdAt,
                                 valueColor: MColors.primary_light_color,
                               ),
                               DescriptionWidget(
-                                value:
-                                    "Minus aut a id. Tempore sequi laborum et provident eligendi quidem doloremque rerum. Quisquam laboriosam tempora minima. Odio et ea suscipit consequatur.",
+                                value:widget.claimsDataBean?.description
                               ),
                               FilesWidget(
                                 value: ImageUtils.getImagePath("logo"),
@@ -117,12 +109,11 @@ class ClaimsDetailsScreenState
                                 comment: "Claim Set Employee : mohammad",
                                 commentDate: "23-03-2023 10:20",
                                 deleteComment: () {
-                                  print(
-                                      "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@comment deleted");
+                                  print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@comment deleted");
                                 },
                               ),
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   print("@@@@@@@@@@@@@@@@@@@@@@ Updated");
                                 },
                                 child: Row(

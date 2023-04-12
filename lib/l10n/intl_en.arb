@@ -86,7 +86,7 @@
   "clientId": "Client ID",
   "startAt": "Start Date",
   "endAt": "End Date",
-  "requestCode": "Claim Code:",
+  "requestCode": "Claim Code: ",
   "confirm": "Confirm",
   "confirmation": "Confirmation",
   "thankYouForSubmittingYourRequestOneOfOurCustomerservices": "Thank you for submitting your request. one of our customerservices representatives will contact you shortly,",

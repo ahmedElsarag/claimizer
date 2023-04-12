@@ -905,10 +905,10 @@ class S {
     );
   }
 
-  /// `Claim Code:`
+  /// `Claim Code: `
   String get requestCode {
     return Intl.message(
-      'Claim Code:',
+      'Claim Code: ',
       name: 'requestCode',
       desc: '',
       args: [],

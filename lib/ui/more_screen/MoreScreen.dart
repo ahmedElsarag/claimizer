@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../CommonUtils/LanguageProvider.dart';
 import '../../CommonUtils/log_utils.dart';
 import '../../CommonUtils/preference/Prefs.dart';
 import '../../generated/l10n.dart';

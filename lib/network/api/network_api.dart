@@ -10,7 +10,7 @@ class Api {
   static const String loginApiCall = "login";
   static const String registerApiCall = "register";
   static const String statisticsApiCall = "statistics";
-  static const String claimsApiCall = "claims";
+  static const String claimsApiCall = "claims?per_page=1000";
   static const String profileApiCall = "profile";
   static const String editPasswordApiCall = "change-password";
   static const String editBasicInfo = "profile";

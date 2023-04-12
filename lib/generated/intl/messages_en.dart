@@ -119,7 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "rememberMe" : MessageLookupByLibrary.simpleMessage("Remember Me"),
     "rememberThat" : MessageLookupByLibrary.simpleMessage("Remember That"),
     "reply" : MessageLookupByLibrary.simpleMessage("Reply"),
-    "requestCode" : MessageLookupByLibrary.simpleMessage("Claim Code:"),
+    "requestCode" : MessageLookupByLibrary.simpleMessage("Claim Code: "),
     "search" : MessageLookupByLibrary.simpleMessage("Search"),
     "selectAvailableTime" : MessageLookupByLibrary.simpleMessage("Select Available Time"),
     "selectBuilding" : MessageLookupByLibrary.simpleMessage("Select Building"),

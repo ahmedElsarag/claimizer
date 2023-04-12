@@ -85,7 +85,7 @@
   "clientId": "رقم هوية العميل",
   "startAt": "تاريخ البداية",
   "endAt": "تاريخ النهاية",
-  "requestCode": "كود المطالبة:",
+  "requestCode": "كود المطالبة: ",
   "confirm": "تأكيد",
   "confirmation": "تأكيد",
   "thankYouForSubmittingYourRequestOneOfOurCustomerservices": "شكرا لتقديم طلبك. سيتصل بك أحد ممثلي خدمة العملاء لدينا قريبًا ،",

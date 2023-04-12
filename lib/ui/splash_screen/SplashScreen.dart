@@ -7,8 +7,6 @@ import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../CommonUtils/LanguageProvider.dart';
 import '../../CommonUtils/SizeConfig2.dart';
 import '../../CommonUtils/image_utils.dart';
 import '../../CommonUtils/log_utils.dart';
@@ -64,7 +62,6 @@ class SplashScreenState extends BaseState<SplashScreen, SplashPresenter> with Au
     Log.d(s);
   }
 
-  LanguageProvider languageProvider;
   @override
   void initState() {
     Prefs.getAppLocal.then((value) => {

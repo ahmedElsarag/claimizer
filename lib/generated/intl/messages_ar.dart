@@ -117,7 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "rememberMe" : MessageLookupByLibrary.simpleMessage("تذكرني"),
     "rememberThat" : MessageLookupByLibrary.simpleMessage("تذكر ذلك"),
     "reply" : MessageLookupByLibrary.simpleMessage("رد"),
-    "requestCode" : MessageLookupByLibrary.simpleMessage("كود المطالبة:"),
+    "requestCode" : MessageLookupByLibrary.simpleMessage("كود المطالبة: "),
     "search" : MessageLookupByLibrary.simpleMessage("بحث"),
     "selectAvailableTime" : MessageLookupByLibrary.simpleMessage("اختر الوقت المتاح"),
     "selectBuilding" : MessageLookupByLibrary.simpleMessage("اختر المبني"),

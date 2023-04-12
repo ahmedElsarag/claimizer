@@ -20,8 +20,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
-import 'CommonUtils/LanguageProvider.dart';
 import 'generated/l10n.dart';
 
 void main() async {
@@ -66,7 +64,6 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (context) => IntroProvider()),
         ChangeNotifierProvider(create: (context) => MainProvider()),
-        ChangeNotifierProvider(create: (context) => LanguageProvider()),
         ChangeNotifierProvider(create: (context) => MoreProvider()),
         ChangeNotifierProvider(create: (context) => HomeProvider()),
         ChangeNotifierProvider(create: (context) => ClaimsProvider()),

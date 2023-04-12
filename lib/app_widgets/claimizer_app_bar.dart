@@ -1,10 +1,8 @@
+import 'package:Cliamizer/res/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
-import '../CommonUtils/LanguageProvider.dart';
 import '../CommonUtils/image_utils.dart';
 import '../res/colors.dart';
 
@@ -18,14 +16,13 @@ class ClaimizerAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final languageProvider = Provider.of<LanguageProvider>(context);
     return Row(
       children: [
         InkWell(
             onTap: () {
               Navigator.pop(context);
             },
-            child: languageProvider.locale != Locale("en")
+            child: Setting.mobileLanguage.value != Locale("en")
                 ? RotatedBox(
                     quarterTurns: 2,
                     child: SvgPicture.asset(
