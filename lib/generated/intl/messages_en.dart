@@ -152,6 +152,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "updatePassword" : MessageLookupByLibrary.simpleMessage("Update Password"),
     "updateSecondaryEmail" : MessageLookupByLibrary.simpleMessage("Update secondary email"),
     "uploadAnyFiles" : MessageLookupByLibrary.simpleMessage("Upload any files"),
+    "uploadContractImage" : MessageLookupByLibrary.simpleMessage("Contract Image"),
+    "uploadIdentityImage" : MessageLookupByLibrary.simpleMessage("Identity Image"),
     "welcome" : MessageLookupByLibrary.simpleMessage("Welcome"),
     "welcomeBackToClimizer" : MessageLookupByLibrary.simpleMessage("Welcome Back To Climizer"),
     "welcomeToClimizer" : MessageLookupByLibrary.simpleMessage("Welcome To Climizer"),

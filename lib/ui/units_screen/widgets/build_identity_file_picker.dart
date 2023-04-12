@@ -13,27 +13,19 @@ import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/styles.dart';
 
-class BuildFilePicker extends StatelessWidget {
-  const BuildFilePicker({Key key, this.provider}) : super(key: key);
+class BuildIdentityFilePicker extends StatelessWidget {
+  const BuildIdentityFilePicker({Key key, this.provider}) : super(key: key);
   final UnitProvider provider;
-
-  Future<void> _pickFile(String fileName) async {
-    FilePickerResult result = await FilePicker.platform.pickFiles();
-    if (result != null) {
-      File file = File(result.files.single.path);
-      fileName = path.basename(file.path);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<UnitProvider>(
       builder: (context, pr, child) => TextFormField(
-        controller: TextEditingController(text: pr.fileName),
+        controller: TextEditingController(text: pr?.identityImg?.path),
         style: MTextStyles.textDark14,
         readOnly: true,
         decoration: InputDecoration(
-            hintText: S.of(context).uploadAnyFiles,
+            hintText: S.of(context).uploadIdentityImage,
             hintStyle: MTextStyles.textMain14,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
@@ -49,7 +41,7 @@ class BuildFilePicker extends StatelessWidget {
             ),
             suffixIcon:  InkWell(
               onTap: () async {
-               pr.fileName = null;
+               pr.updateIdentityImg(null);
               },
               child:Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -58,10 +50,10 @@ class BuildFilePicker extends StatelessWidget {
             ),
             prefixIcon: InkWell(
               onTap: () async {
-                FilePickerResult result = await FilePicker.platform.pickFiles();
+                final result = await FilePicker.platform.pickFiles();
                 if (result != null) {
-                  File file = File(result.files.single.path);
-                  pr.fileName = path.basename(file.path);
+                  final file = File(result.files.single.path);
+                  pr.updateIdentityImg(file);
                 }
               },
               child:Padding(

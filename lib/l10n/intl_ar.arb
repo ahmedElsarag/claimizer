@@ -139,5 +139,7 @@
   "profileUpdatedSuccessfully": "تم تعديل الملف الشخصي بنجاح",
   "pleaseEnterQrCode": "من فضلك ادخل رمز الاستجابة السريعة",
   "basicInfo": "معلومات اساسية",
-  "updatePassword": "تعديل كلمة المرور"
+  "updatePassword": "تعديل كلمة المرور",
+  "uploadContractImage": "صورة العقد",
+  "uploadIdentityImage": "صورة الهوية"
 }

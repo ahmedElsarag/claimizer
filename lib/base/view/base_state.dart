@@ -81,7 +81,6 @@ abstract class BaseState<T extends StatefulWidget, P extends BasePresenter>
 
   @override
   void showToasts(String msg, String status) {
-    print("Show Toassttttts");
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       content: Row(
@@ -98,7 +97,7 @@ abstract class BaseState<T extends StatefulWidget, P extends BasePresenter>
         ],
       ),
       duration: Duration(seconds: 3),
-      margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.w),
+      margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.w),
       backgroundColor: Utils.getStatusTypeBGColorFromString(status),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 1,

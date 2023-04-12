@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -1451,6 +1450,26 @@ class S {
     return Intl.message(
       'Update Password',
       name: 'updatePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contract Image`
+  String get uploadContractImage {
+    return Intl.message(
+      'Contract Image',
+      name: 'uploadContractImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Identity Image`
+  String get uploadIdentityImage {
+    return Intl.message(
+      'Identity Image',
+      name: 'uploadIdentityImage',
       desc: '',
       args: [],
     );

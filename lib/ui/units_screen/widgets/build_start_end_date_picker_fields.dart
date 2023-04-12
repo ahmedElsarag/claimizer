@@ -7,6 +7,9 @@ import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 
 class StartEndDatePickerField extends StatefulWidget {
+  final UnitProvider provider;
+
+  const StartEndDatePickerField({Key key, this.provider}) : super(key: key);
   @override
   _StartEndDatePickerFieldState createState() => _StartEndDatePickerFieldState();
 }
@@ -16,32 +19,6 @@ class _StartEndDatePickerFieldState extends State<StartEndDatePickerField> {
   DateTime _endDate;
   final DateFormat _dateFormat = DateFormat('yyyy-MM-dd',"en");
 
-  Future<void> _selectStartDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: _startDate ?? DateTime.now(),
-        firstDate: DateTime(1900),
-        lastDate: DateTime.now());
-    if (picked != null) {
-      setState(() {
-        _startDate = picked;
-      });
-    }
-  }
-
-  Future<void> _selectEndDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: _endDate ?? DateTime.now(),
-        firstDate: DateTime(1900),
-        lastDate: DateTime.now());
-    if (picked != null) {
-      setState(() {
-        _endDate = picked;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<UnitProvider>(
@@ -50,13 +27,15 @@ class _StartEndDatePickerFieldState extends State<StartEndDatePickerField> {
           Expanded(
             child: GestureDetector(
               onTap: () async{
-                final DateTime picked = await showDatePicker(
-                    context: context,
-                    initialDate: pr.startDate ?? DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime.now().add(Duration(days: 1000)));
-                if (picked != null) {
+                if(pr.validated != true) {
+                  final DateTime picked = await showDatePicker(
+                      context: context,
+                      initialDate: pr.startDate ?? DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime.now().add(Duration(days: 1000)));
+                  if (picked != null) {
                     pr.startDate = picked;
+                  }
                 }
               },
               child: Container(
@@ -82,13 +61,17 @@ class _StartEndDatePickerFieldState extends State<StartEndDatePickerField> {
           Expanded(
             child: GestureDetector(
               onTap: () async{
-                final DateTime picked = await showDatePicker(
-                    context: context,
-                    initialDate: pr.endDate ?? DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime.now().add(Duration(days: 1000)));
-                if (picked != null) {
+                if(pr.validated != true) {
+                  final DateTime picked = await showDatePicker(
+                      context: context,
+                      initialDate: pr.endDate ?? DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime.now().add(Duration(days: 1000)));
+                  if (picked != null) {
                     pr.endDate = picked;
+                  }
+                }else{
+                  print("TTTTTTTTTKJ");
                 }
               },
               child: Container(

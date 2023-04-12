@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:Cliamizer/base/provider/base_provider.dart';
 import 'package:Cliamizer/network/models/units_response.dart';
 import 'package:flutter/cupertino.dart';
@@ -55,7 +57,25 @@ class UnitProvider<T> extends BaseProvider<T> {
   TextEditingController _contractNo = TextEditingController();
   DateTime _startDate;
   DateTime _endDate;
-  String _fileName = "";
+  File _contractImg;
+  File _identityImg;
+
+  File get identityImg => _identityImg;
+
+  void updateIdentityImg(File newFile) {
+    _identityImg = newFile;
+    notifyListeners();
+  }
+
+  File get contractImg => _contractImg;
+
+  void updateContractImg(File newFile) {
+    _contractImg = newFile;
+    notifyListeners();
+  }
+
+
+
   bool _isQrCodeValid = false;
 
   bool get isQrCodeValid => _isQrCodeValid;
@@ -99,13 +119,6 @@ class UnitProvider<T> extends BaseProvider<T> {
     notifyListeners();
   }
 
-  String get fileName => _fileName;
-
-  set fileName(String value) {
-    _fileName = value;
-    notifyListeners();
-  }
-
   TextEditingController get companyName => _companyName;
 
   set companyName(TextEditingController value) {
@@ -131,6 +144,15 @@ class UnitProvider<T> extends BaseProvider<T> {
 
   set endDate(DateTime value) {
     _endDate = value;
+    notifyListeners();
+  }
+
+  bool _validated = false;
+
+  bool get validated => _validated;
+
+  set validated(bool value) {
+    _validated = value;
     notifyListeners();
   }
 }

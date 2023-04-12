@@ -140,5 +140,7 @@
   "profileUpdatedSuccessfully": "Profile Updated Successfully",
   "pleaseEnterQrCode": "Please enter QR Code",
   "basicInfo": "Basic Info",
-  "updatePassword": "Update Password"
+  "updatePassword": "Update Password",
+  "uploadContractImage": "Contract Image",
+  "uploadIdentityImage": "Identity Image"
 }

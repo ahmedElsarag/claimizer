@@ -56,10 +56,7 @@ class SearchAboutUnitByQR extends StatelessWidget {
                   if (pr.qrCode.text.isEmpty) {
                     presenter.view.showToasts(S.of(context).pleaseEnterQrCode,'warning');
                   } else {
-                    presenter.doCheckUnitQrCodeApiCall({
-                      "qr_code": pr.qrCode.text,
-                      // "validated":pr.isQrCodeValid
-                    });
+                    presenter.checkLinkHasParams(pr.qrCode.text);
                     print("QRCODE = ${pr.qrCode.text}");
                   }
                 },
@@ -90,18 +87,6 @@ class SearchAboutUnitByQR extends StatelessWidget {
                 ),
               ),
             ),
-            // Visibility(
-            //   visible: pr.message == "s",
-            //   child: Container(
-            //     padding: EdgeInsets.all(8),
-            //     decoration:
-            //         BoxDecoration(color: Color(0xff44A4F2).withOpacity(0.12), borderRadius: BorderRadius.circular(8)),
-            //     child: Text(
-            //       S.of(context).theUnitIsReserved,
-            //       style: MTextStyles.textMain14.copyWith(fontSize: 9.sp, color: Color(0xff44A4F2)),
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),

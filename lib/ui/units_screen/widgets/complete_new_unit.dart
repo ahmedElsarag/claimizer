@@ -1,9 +1,11 @@
 import 'package:Cliamizer/ui/units_screen/units_presenter.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/build_description_field.dart';
-import 'package:Cliamizer/ui/units_screen/widgets/build_file_picker.dart';
+import 'package:Cliamizer/ui/units_screen/widgets/build_contract_file_picker.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -13,6 +15,7 @@ import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
 import '../../../res/styles.dart';
+import 'build_identity_file_picker.dart';
 import 'build_qrcode_field.dart';
 import 'build_start_end_date_picker_fields.dart';
 import 'building_name_field.dart';
@@ -69,9 +72,13 @@ class CompleteNewUnit extends StatelessWidget {
               provider: provider,
             ),
             Gaps.vGap8,
-            StartEndDatePickerField(),
+            StartEndDatePickerField(
+              provider: provider,
+            ),
             Gaps.vGap8,
-            BuildFilePicker(provider: provider),
+            BuildContractFilePicker(provider: provider),
+            Gaps.vGap8,
+            BuildIdentityFilePicker(provider: provider),
             Gaps.vGap8,
             BuildDescriptionField(
               provider: provider,
@@ -92,7 +99,8 @@ class CompleteNewUnit extends StatelessWidget {
                       pr.description.clear();
                       pr.startDate = null;
                       pr.endDate = null;
-                      pr.fileName = "";
+                      pr.updateContractImg(null);
+                      pr.updateIdentityImg(null);
                     },
                     child: Text(
                       S.of(context).back,
@@ -111,17 +119,38 @@ class CompleteNewUnit extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * .4,
                   margin: EdgeInsets.symmetric(vertical: 3.w),
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (pr.contractNo.text.isEmpty && pr.startDate == null && pr.endDate == null) {
                         presenter.view.showSnackBar("msg");
                       } else {
                         print("@@@@@@@@@@@@@@@@data ${pr.qrCode.text}");
-                        presenter.completeLinkRequestApiCall({
+                        FormData formData = new FormData.fromMap({
+                          "contract_attach": await MultipartFile.fromFile(
+                            pr.contractImg.path,
+                            filename: pr.contractImg.path.split('/').last,
+                            contentType: MediaType('application', 'octet-stream'),
+                          ),
+                          "client_gov_id": await MultipartFile.fromFile(
+                            pr.identityImg.path,
+                            filename: pr.identityImg.path.split('/').last,
+                            contentType: MediaType('application', 'octet-stream'),
+                          ),
                           "unit_code": pr.qrCode.text,
                           "contract_number": pr.contractNo.text,
                           "start_at": pr.startDate.toString(),
                           "end_at": pr.endDate.toString(),
+                          "request_remarks": pr.description.text,
                         });
+                        presenter.completeLinkRequestApiCall(formData);
+                        // presenter.completeLinkRequestApiCall({
+                        //   "unit_code": pr.qrCode.text,
+                        //   "contract_number": pr.contractNo.text,
+                        //   "start_at": pr.startDate.toString(),
+                        //   "end_at": pr.endDate.toString(),
+                        //   "contract_attach": pr.contractImg,
+                        //   "client_gov_id": pr.identityImg,
+                        //   "request_remarks": pr.description.text,
+                        // });
                       }
                     },
                     child: Text(

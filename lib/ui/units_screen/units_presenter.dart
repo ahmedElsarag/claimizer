@@ -21,9 +21,9 @@ import 'units_screen.dart';
 
 class UnitPresenter extends BasePresenter<UnitsScreenState> {
   // calculate to verify unit validated or not
-  //   // https://beta.claimizer.com/client/properties?qr_code=U22-98940-10&contract_number=1&
-  //   start_date=01-01-2022&end_date=01-01-2023&m=02024045
+  //   // https://beta.claimizer.com/client/properties?qr_code=U22-98940-10&contract_number=1&start_date=01-01-2022&end_date=01-01-2023&m=02024045
   //   /*
+  //     https://beta.claimizer.com/client/properties?qr_code=U22-18376-1
   //     m = (start date + end date) * contract number
   //     m = (01012022+ 01012023) * 1 = 02024045
   //     validated = true
@@ -63,7 +63,39 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
     });
   }
 
-  Future doCheckUnitQrCodeApiCall(Map<String, dynamic> bodyParams) async {
+  checkLinkHasParams(String link) {
+    Uri myUri = Uri.parse(link);
+    bool hasContractNumber = myUri.queryParameters.containsKey('contract_number');
+    bool hasStartDate = myUri.queryParameters.containsKey('start_date');
+    bool hasEndDate = myUri.queryParameters.containsKey('end_date');
+    String qrCode = myUri.queryParameters['qr_code'];
+    String contractNumber = myUri.queryParameters['contract_number'];
+    String startDate = myUri.queryParameters['start_date'];
+    String endDate = myUri.queryParameters['end_date'];
+    String mLink = myUri.queryParameters['m'];
+    if (hasContractNumber && hasStartDate && hasEndDate) {
+      String formattedStartDate = startDate.replaceAll('-', '');
+      String formattedEndDate = endDate.replaceAll('-', '');
+      String mCalculated;
+      mCalculated = ((int.parse(formattedStartDate) + int.parse(formattedEndDate)) * int.parse(contractNumber)).toString();
+      print("CCCCCCCCCCCCCCCCCCCCCCCC $mCalculated");
+      if(mCalculated == mLink){
+        doCheckUnitQrCodeApiCall({"qr_code": qrCode, "validated": true},qrCode,contractNumber,startDate,endDate);
+        view.provider.validated = true;
+      }else{
+        view.showToasts(S.current.theQrCodeIsIncorrect, "error");
+        view.provider.isQrCodeValid = false;
+      }
+      print("QQQQQQQQQQQQQQQQQQQQQ $qrCode - $contractNumber - $startDate - $endDate");
+    } else {
+      doCheckUnitQrCodeApiCall({"qr_code": qrCode, "validated": false},qrCode,contractNumber,startDate,endDate);
+      view.provider.validated = false;
+      print("QQQQQQQQQQQQQQQQQQQQQ $qrCode");
+
+    }
+  }
+
+  Future doCheckUnitQrCodeApiCall(Map<String, dynamic> bodyParams, String qrCode,String contractNum,String startData,String endDate) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       print('@@@@@@@@@@@@@@@@@@@@@$token');
@@ -77,26 +109,28 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
         if (data.status == "success") {
           view.provider.newLinkRequestDataBean = data.data;
           view.provider.isQrCodeValid = !view.provider.isQrCodeValid;
-          } else if (data.status == "fail") {
+          view.provider.qrCode.text = qrCode??'' ;
+          view.provider.contractNo.text = contractNum??'';
+          view.provider.startDate = DateTime?.parse(startData)??'';
+          view.provider.endDate = DateTime?.parse(endDate)??'';
+        } else if (data.status == "fail") {
           view.provider.message = data.data.message;
-        print("@@@@@@@@@@@@@@@@@################## ${view.provider.message}");
+          print("@@@@@@@@@@@@@@@@@################## ${view.provider.message}");
         }
       }
     }, onError: (code, msg) {
       view.closeProgress();
-      if(code == 404){
+      if (code == 404) {
         view.provider.message = S.current.theQrCodeIsIncorrect;
       }
 
       if (code == 422) {
-        view.showToasts(
-          S.current.anErrorOccurredTryAgainLater,'error'
-        );
+        view.showToasts(S.current.anErrorOccurredTryAgainLater, 'error');
       }
     });
   }
 
-  Future completeLinkRequestApiCall(Map<String, dynamic> bodyParams) async {
+  Future completeLinkRequestApiCall(FormData bodyParams) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       print('@@@@@@@@@@@@@@@@@@@@@$token');
@@ -104,7 +138,9 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
     });
     view.showProgress(isDismiss: false);
     await requestFutureData<GeneralResponse>(Method.post,
-        endPoint: Api.completeLinkRequestApiCall, params: bodyParams, options: Options(headers: header), onSuccess: (data) {
+        endPoint: Api.completeLinkRequestApiCall,
+        params: bodyParams,
+        options: Options(headers: header), onSuccess: (data) {
       view.closeProgress();
       if (data != null) {
         if (data.status == "success") {
@@ -113,8 +149,7 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
             builder: (context) => AlertDialog(
               backgroundColor: MColors.whiteE,
               elevation: 0,
-              contentPadding:
-              EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
+              contentPadding: EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -133,53 +168,46 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
                   Gaps.vGap30,
                   ElevatedButton(
                     onPressed: () {
-                      // view.provider.isQrCodeValid = !view.provider.isQrCodeValid;
+                      view.provider.isQrCodeValid = !view.provider.isQrCodeValid;
                       view.provider.qrCode.clear();
                       view.provider.contractNo.clear();
                       view.provider.companyName.clear();
                       view.provider.buildingName.clear();
                       view.provider.description.clear();
-                      view.provider.startDate=null;
+                      view.provider.startDate = null;
                       view.provider.endDate = null;
-                      view.provider.fileName = "";
+                      view.provider.updateContractImg(null);
+                      view.provider.updateIdentityImg(null);
                       view.provider.qrCodeValid = false;
                       Navigator.pop(context);
                     },
                     child: Text(
                       S.current.backToHome,
-                      style: MTextStyles.textWhite14
-                          .copyWith(fontWeight: FontWeight.w700),
+                      style: MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
                     ),
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            MColors.primary_color),
+                        backgroundColor: MaterialStateProperty.all<Color>(MColors.primary_color),
                         elevation: MaterialStatePropertyAll(0),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            )),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        )),
                         padding: MaterialStateProperty.all<EdgeInsets>(
-                            EdgeInsets.symmetric(
-                                horizontal: 4.w, vertical: 3.w))),
+                            EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
                   )
                 ],
               ),
             ),
           );
         } else if (data.status == "fail") {
-          view.showToasts(data.message,'error');
+          view.showToasts(data.message, 'error');
         }
       }
     }, onError: (code, msg) {
       view.closeProgress();
       if (code == 422) {
-        view.showToasts(
-          S.current.anErrorOccurredTryAgainLater,'warning'
-        );
-      }else{
-        view.showToasts(
-          S.current.anErrorOccurredTryAgainLater,'warning'
-        );
+        view.showToasts(S.current.anErrorOccurredTryAgainLater, 'warning');
+      } else {
+        view.showToasts(S.current.anErrorOccurredTryAgainLater, 'error');
       }
     });
   }
