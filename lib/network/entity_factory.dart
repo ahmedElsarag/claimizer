@@ -8,6 +8,7 @@ import 'models/UnitRequestResponse.dart';
 import 'models/buildings_response.dart';
 import 'models/categories_response.dart';
 import 'models/claim_available_time_response.dart';
+import 'models/claim_request_response.dart';
 import 'models/claim_type_response.dart';
 import 'models/claims_response.dart';
 import 'models/units_response.dart';
@@ -42,14 +43,17 @@ class EntityFactory {
       case "ClaimTypeResponse":
         return ClaimTypeResponse.fromJson(json) as T;
         break;
-      case "ClaimAvailableTimeDataBean":
-        return ClaimAvailableTimeDataBean.fromJson(json) as T;
-        break;
       case "UnitRequestsResponse":
         return UnitRequestsResponse.fromJson(json) as T;
         break;
       case "NewLinkRequestResponse":
         return NewLinkRequestResponse.fromJson(json) as T;
+        break;
+      case "ClaimAvailableTimeResponse":
+        return ClaimAvailableTimeResponse.fromJson(json) as T;
+        break;
+      case "ClaimsRequestResponse":
+        return ClaimsRequestResponse.fromJson(json) as T;
         break;
       default:
         return null;
