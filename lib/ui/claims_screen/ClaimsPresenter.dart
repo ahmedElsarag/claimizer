@@ -157,6 +157,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
       }
     }, onError: (code, msg) {
       view.closeProgress();
+      view.showToasts(msg, "error");
     });
   }
 }
