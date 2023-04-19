@@ -5,6 +5,7 @@ import 'package:Cliamizer/network/models/units_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
+import '../../network/models/NewLinkListRequestResponse.dart';
 import '../../network/models/NewLinkRequestResponse.dart';
 import '../../network/models/UnitRequestResponse.dart';
 import '../../network/models/claims_response.dart';
@@ -44,6 +45,15 @@ class UnitProvider<T> extends BaseProvider<T> {
     notifyListeners();
   }
 
+  bool _isBuilding = false;
+
+  bool get isBuilding => _isBuilding;
+
+  set isBuilding(bool value) {
+    _isBuilding = value;
+    notifyListeners();
+  }
+
   int _selectedIndex = 0;
 
   int get selectedIndex => _selectedIndex;
@@ -74,8 +84,6 @@ class UnitProvider<T> extends BaseProvider<T> {
     notifyListeners();
   }
 
-
-
   bool _isQrCodeValid = false;
 
   bool get isQrCodeValid => _isQrCodeValid;
@@ -91,6 +99,40 @@ class UnitProvider<T> extends BaseProvider<T> {
 
   set newLinkRequestDataBean(NewLinkRequestDataBean value) {
     _newLinkRequestDataBean = value;
+    notifyListeners();
+  }
+
+  String _buildingUnitCode;
+
+  String get buildingUnitCode => _buildingUnitCode;
+
+  set buildingUnitCode(String value) {
+    _buildingUnitCode = value;
+    notifyListeners();
+  }
+
+  NewLinkListRequestDataBean _linkListRequestDataBean;
+
+  NewLinkListRequestDataBean get linkListRequestDataBean => _linkListRequestDataBean;
+
+  set linkListRequestDataBean(NewLinkListRequestDataBean value) {
+    _linkListRequestDataBean = value;
+    notifyListeners();
+  }
+  List<UnitsList> _buildingUnitsList = [];
+
+  List<UnitsList> get buildingUnitsList => _buildingUnitsList;
+
+  set buildingUnitsList(List<UnitsList> value) {
+    _buildingUnitsList = value;
+    notifyListeners();
+  }
+  String _selectedUnit;
+
+  String get selectedUnit => _selectedUnit;
+
+  set selectedUnit(String value) {
+    _selectedUnit = value;
     notifyListeners();
   }
 

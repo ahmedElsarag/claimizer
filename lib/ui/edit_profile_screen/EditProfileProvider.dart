@@ -4,6 +4,22 @@ import 'package:flutter/material.dart';
 
 class EditProfileProvider<T> extends BaseProvider<T> {
   bool _obscureTextPassword = true;
+  bool _isDateLoaded = false;
+  bool _internetStatus = true;
+  TextEditingController nameController= TextEditingController();
+  TextEditingController emailController= TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+  ProfileResponse _profileData;
+  int _selectedTabIndex = 0;
+  int _isNotificationEnabled;
+
+
+  int get isNotificationEnabled => _isNotificationEnabled;
+
+  set isNotificationEnabled(int value) {
+    _isNotificationEnabled = value;
+    notifyListeners();
+  }
 
   bool get obscureTextPassword => _obscureTextPassword;
 
@@ -12,21 +28,7 @@ class EditProfileProvider<T> extends BaseProvider<T> {
     notifyListeners();
   }
 
-  int _selectedValue = 1;
-
-  int get selectedValue => _selectedValue;
-
-  set selectedValue(int value) {
-    _selectedValue = value;
-    notifyListeners();
-  }
-
-
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  bool _isDateLoaded = false;
-  bool _internetStatus = true;
-  String name, email,mobile;
 
   bool get internetStatus => _internetStatus;
 
@@ -42,16 +44,12 @@ class EditProfileProvider<T> extends BaseProvider<T> {
     notifyListeners();
   }
 
-  ProfileResponse _profileData;
-
   ProfileResponse get profileData => _profileData;
 
   set profileData(ProfileResponse value) {
     _profileData = value;
     notifyListeners();
   }
-
-  int _selectedTabIndex = 0;
 
   int get selectedTabIndex => _selectedTabIndex;
 

@@ -122,7 +122,7 @@
   "comments": "التعليقات",
   "topUpdates": "اخر التحديثات",
   "noResults": "لا توجد نتائج",
-  "sorryThereAreNoResultsForThisSearchPleaseTry": "لللأسف, لا توجد نتائج لهذا البحث. جرب جملة اخري",
+  "sorryThereAreNoResultsForThisSearchPleaseTry": "لللأسف, لا توجد نتائج",
   "priority": "الاولوية",
   "allAttachment": "كل الملفات",
   "unitType": "نوع الوحدة",
@@ -141,5 +141,6 @@
   "basicInfo": "معلومات اساسية",
   "updatePassword": "تعديل كلمة المرور",
   "uploadContractImage": "صورة العقد",
-  "uploadIdentityImage": "صورة الهوية"
+  "uploadIdentityImage": "صورة الهوية",
+  "nameIsRequired": "Name is required"
 }

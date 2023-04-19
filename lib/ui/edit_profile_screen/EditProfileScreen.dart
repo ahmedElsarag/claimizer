@@ -38,23 +38,19 @@ class EditProfileScreen extends StatefulWidget {
 
 class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  EditProfileProvider provider = EditProfileProvider();
+  EditProfileProvider provider;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
   TextEditingController oldPasswordController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   File _image;
   final picker = ImagePicker();
-  bool _isNotificationEnabled = true;
-
   TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+    provider = context.read<EditProfileProvider>();
     mPresenter.getProfileData();
     _tabController = TabController(length: 2, vsync: this);
   }
@@ -85,105 +81,105 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<EditProfileProvider>(
-      create: (context) => provider,
-      builder: (context, child) => Consumer<EditProfileProvider>(
-          builder: (context, value, child) => DefaultTabController(
-            length: 2,
-            initialIndex: 0,
-            child: Scaffold(
-              backgroundColor: MColors.page_background,
-              body: provider.instance != null
-                  ? SafeArea(
-                child: ListView(
-                  children: [
-                    Container(
-                        margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.w),
-                        child: ClaimizerAppBar(title: S.current.editProfile)),
-                    Gaps.vGap12,
-                    Gaps.vGap8,
-                    Container(
-                      color: MColors.page_background,
-                      padding: EdgeInsets.symmetric(horizontal: 6.w),
-                      child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                        Container(
-                          decoration:
-                          BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
-                          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                          child: Column(
-                            children: [
-                              AppHeadline(title: S.of(context).personalProfile),
-                              Gaps.vGap15,
-                              Stack(
-                                children: [
-                                  Container(
-                                    height: 30.w,
-                                    width: 30.w,
-                                    decoration: BoxDecoration(
-                                        color: MColors.page_background,
-                                        borderRadius: BorderRadius.circular(100)),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      child: _image != null
-                                          ? Image.file(_image)
-                                          : ImageLoader(
-                                        imageUrl: provider.instance.avatar,
+    return Consumer<EditProfileProvider>(
+        builder: (context, pr, child) => DefaultTabController(
+              length: 2,
+              initialIndex: 0,
+              child: Scaffold(
+                backgroundColor: MColors.page_background,
+                body: pr.isDateLoaded
+                    ? SafeArea(
+                  child: ListView(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.w),
+                          child: ClaimizerAppBar(title: S.current.editProfile)),
+                      Gaps.vGap12,
+                      Gaps.vGap8,
+                      Container(
+                        color: MColors.page_background,
+                        padding: EdgeInsets.symmetric(horizontal: 6.w),
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                          Container(
+                            decoration:
+                            BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
+                            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                            child: Column(
+                              children: [
+                                AppHeadline(title: S.of(context).personalProfile),
+                                Gaps.vGap15,
+                                Stack(
+                                  children: [
+                                    Container(
+                                      height: 30.w,
+                                      width: 30.w,
+                                      decoration: BoxDecoration(
+                                          color: MColors.page_background,
+                                          borderRadius: BorderRadius.circular(100)),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(100),
+                                        child: _image != null
+                                            ? Image.file(_image)
+                                            : ImageLoader(
+                                          imageUrl: provider.instance.avatar,
+                                          fit: BoxFit.contain,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  PositionedDirectional(
-                                    bottom: 2.w,
-                                    end: 0,
-                                    child: InkWell(
-                                        onTap: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (_) => buildPickImageDialog(context));
-                                        },
-                                        child: SvgPicture.asset(ImageUtils.getSVGPath("edit_photo"))),
-                                  )
-                                ],
-                              ),
-                              Gaps.vGap12,
-                              Material(
-                                color: MColors.primary_color.withOpacity(.08),
-                                borderRadius: BorderRadius.circular(30),
-                                child: TabBar(
-                                  indicator: BoxDecoration(
-                                    color: MColors.primary_color,
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  indicatorPadding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.w),
-                                  labelColor: MColors.white,
-                                  indicatorSize: TabBarIndicatorSize.tab,
-                                  onTap: (index) {
-                                    provider.selectedTabIndex = index;
-                                  },
-                                  tabs: [
-                                    Tab(text: S.of(context).basicInfo),
-                                    Tab(text: S.of(context).updatePassword),
+                                    PositionedDirectional(
+                                      bottom: 2.w,
+                                      end: 0,
+                                      child: InkWell(
+                                          onTap: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (_) {
+                                                  return buildPickImageDialog(context);
+                                                });
+                                          },
+                                          child: SvgPicture.asset(ImageUtils.getSVGPath("edit_photo"))),
+                                    )
                                   ],
                                 ),
-                              ),
-                            ],
+                                Gaps.vGap12,
+                                Material(
+                                  color: MColors.primary_color.withOpacity(.08),
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: TabBar(
+                                    indicator: BoxDecoration(
+                                      color: MColors.primary_color,
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    indicatorPadding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.w),
+                                    labelColor: MColors.white,
+                                    indicatorSize: TabBarIndicatorSize.tab,
+                                    onTap: (index) {
+                                      pr.selectedTabIndex = index;
+                                    },
+                                    tabs: [
+                                      Tab(text: S.of(context).basicInfo),
+                                      Tab(text: S.of(context).updatePassword),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Gaps.vGap16,
-                        Gaps.vGap12,
-                        Container(
-                          child: provider.selectedTabIndex == 0
-                              ? _buildBasicInfoContent()
-                              : _buildUpdatePasswordContent(),
-                        ),
-                      ]),
-                    ),
-                  ],
-                ),
+                          Gaps.vGap16,
+                          Gaps.vGap12,
+                          Container(
+                            child: pr.selectedTabIndex == 0
+                                ? _buildBasicInfoContent(pr)
+                                : _buildUpdatePasswordContent(pr),
+                          ),
+                        ]),
+                      ),
+                    ],
+                  ),
+                )
+                    : Center(child: mPresenter.showMessage()),
               )
-                  : mPresenter.showProgress(),
-            ),
-          )),
-    );
+            ));
   }
 
   Column buildNotificationToggle(BuildContext context) {
@@ -201,11 +197,11 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
               children: [
                 Radio(
                   fillColor: MaterialStateProperty.all<Color>(MColors.text_button_color),
-                  value: provider.instance.profile.emailNotifications == 1,
+                  value: provider.isNotificationEnabled,
                   groupValue: true,
                   onChanged: (value) {
                     setState(() {
-                      _isNotificationEnabled = value;
+                      provider.isNotificationEnabled = value;
                     });
                   },
                 ),
@@ -215,11 +211,11 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             SizedBox(width: 16.0),
             Radio(
               fillColor: MaterialStateProperty.all<Color>(MColors.text_button_color),
-              value: provider.instance.profile.emailNotifications == 1,
+              value: provider.isNotificationEnabled,
               groupValue: false,
               onChanged: (value) {
                 setState(() {
-                  _isNotificationEnabled = value;
+                  provider.isNotificationEnabled = value;
                 });
               },
             ),
@@ -295,7 +291,6 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             style: Theme.of(context).textTheme.bodySmall,
             dividerColor: Theme.of(context).dividerColor,
             decoration: InputDecoration(
-              hintText: provider.instance.name,
               errorStyle: Theme.of(context).textTheme.bodySmall.copyWith(color: Colors.redAccent),
               contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
               border: OutlineInputBorder(
@@ -318,20 +313,29 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             maxLength: 50,
             maxLengthEnforced: false,
             keyboardType: TextInputType.name,
-            controller: TextEditingController(text: provider.instance.name),
+            controller: provider.nameController,
             validator: (name) {
               if (name.isEmpty) {
-                return "Name is required";
+                return S.of(context).nameIsRequired;
               }
               return null;
-            },
-            onSaved: (text) {
-              nameController.text = text;
             },
             autofocus: false,
             textInputAction: TextInputAction.next,
             onEditingComplete: () => FocusScope.of(context).nextFocus(),
           ),
+          // CustomTextFormField(
+          //   headLine: S.of(context).name,
+          //   hintText: S.of(context).name,
+          //   controller: TextEditingController(text: provider.instance.name),
+          //   validation: (val) {
+          //     if (val.isEmpty) {
+          //       return S.of(context).nameIsRequired;
+          //     } else {
+          //       provider.name = val;
+          //     }
+          //   },
+          // ),
         ],
       ),
     );
@@ -344,6 +348,20 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // CustomTextFormField(
+          //   headLine: S.of(context).emailAddress,
+          //   hintText: S.of(context).emailAddress,
+          //   controller: TextEditingController(text: provider.instance.email),
+          //   validation: (val) {
+          //     if (val.isEmpty) {
+          //       return S.of(context).emailisrequired;
+          //     } else if (!Utils.isEmailValid(val)) {
+          //       return S.of(context).emailisnotvalid;
+          //     } else {
+          //       provider.email = val;
+          //     }
+          //   },
+          // ),
           Text(
             S.of(context).emailAddress,
             style: Theme.of(context).textTheme.labelMedium,
@@ -353,7 +371,6 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             style: Theme.of(context).textTheme.bodySmall,
             dividerColor: Theme.of(context).dividerColor,
             decoration: InputDecoration(
-              hintText: provider.instance.email,
               errorStyle: Theme.of(context).textTheme.bodySmall.copyWith(color: Colors.redAccent),
               contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
               border: OutlineInputBorder(
@@ -373,7 +390,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             maxLength: 50,
             maxLengthEnforced: false,
             keyboardType: TextInputType.emailAddress,
-            controller: TextEditingController(text: provider.instance.email),
+            controller: provider.emailController,
             validator: (email) {
               if (email.isEmpty) {
                 return S.of(context).emailisrequired;
@@ -381,9 +398,6 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                 return S.of(context).emailisnotvalid;
               }
               return null;
-            },
-            onSaved: (text) {
-              emailController.text = text;
             },
             autofocus: false,
             textInputAction: TextInputAction.next,
@@ -409,7 +423,6 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
           IntlPhoneField(
             style: Theme.of(context).textTheme.bodySmall,
             decoration: InputDecoration(
-              hintText: "123456789",
               hintStyle: Theme.of(context).textTheme.displaySmall,
               counterText: "",
               errorStyle: Theme.of(context).textTheme.bodySmall.copyWith(color: Colors.redAccent),
@@ -426,18 +439,46 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                   borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
             ),
             showCountryFlag: false,
-            controller: TextEditingController(text: provider.instance.profile.mobile),
+            controller: provider.mobileController,
             keyboardType: TextInputType.phone,
             showDropdownIcon: false,
             initialCountryCode: 'SA',
             onChanged: (phone) {
-              print(phone.completeNumber);
+              print("lhgshjklkjhajksjk" + phone.completeNumber);
             },
             onCountryChanged: (country) {
               print('Country changed to: ' + country.name);
             },
-            onSubmitted: (p0) => FocusScope.of(context).nextFocus(),
           ),
+          // IntlPhoneField(
+          //   textAlign: TextAlign.start,
+          //   style: Theme.of(context).textTheme.caption,
+          //   decoration: InputDecoration(
+          //       filled: true,
+          //       fillColor: Theme.of(context).primaryColorLight,
+          //       hintText: S.of(context).phoneNumber,
+          //       hintStyle: Theme.of(context).textTheme.subtitle1.copyWith(fontWeight: FontWeight.w400),
+          //       contentPadding: EdgeInsets.symmetric(horizontal: 4.w),
+          //       border: OutlineInputBorder(
+          //           borderRadius: BorderRadius.circular(12),
+          //           borderSide: BorderSide(color: Theme.of(context).focusColor)),
+          //       focusedBorder: OutlineInputBorder(
+          //           borderRadius: BorderRadius.circular(12),
+          //           borderSide: BorderSide(color: Theme.of(context).focusColor)),
+          //       enabledBorder: OutlineInputBorder(
+          //           borderRadius: BorderRadius.circular(12),
+          //           borderSide: BorderSide(color: Theme.of(context).focusColor))),
+          //   showDropdownIcon: false,
+          //   initialCountryCode: "SA" /*provider.instance.countryIsoCode*/,
+          //   initialValue: provider.instance.profile.mobile,
+          //   onChanged: (phone) {
+          //     print(phone.completeNumber);
+          //     provider.mobile = phone.number.toString();
+          //     // countryIsoCode =
+          //     //     phone.countryISOCode.toString();
+          //     // countryCode = phone.countryCode.toString();
+          //   },
+          // ),
         ],
       ),
     );
@@ -608,8 +649,8 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                       color: MColors.blueButtonColor,
                     ),
                   )
-                // Icon(_obscureTextPassword ? Icons.visibility : Icons.visibility_off, color: MColors.primary_color),
-              ),
+                  // Icon(_obscureTextPassword ? Icons.visibility : Icons.visibility_off, color: MColors.primary_color),
+                  ),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
               enabledBorder: OutlineInputBorder(
@@ -655,12 +696,12 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
     );
   }
 
-  Widget _buildBasicInfoContent() {
+  Widget _buildBasicInfoContent(EditProfileProvider provider) {
     return Container(
       decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Form(
-        key: _formKey,
+        key: provider.formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -692,22 +733,22 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             Gaps.vGap12,
             Gaps.vGap8,
             buildEditProfileButton(onTap: () {
-              editProfile();
-              // if (provider.formKey.currentState.validate()) {
-              //   FocusScope.of(context).unfocus();
-              //   if (provider.email.isEmpty ||
-              //       provider.name.isEmpty) {
-              //     showToasts(
-              //         S.current.enterAllData);
-              //   } else {
-              //     // profileProvider.formKey.currentState.save();
-              //     FocusScope.of(context).unfocus();
-              //     editProfile();
-              //   }
-              // } else {
-              //   showToasts(
-              //       S.of(context).enterAllData);
-              // }
+              // editProfile();
+              if (provider.formKey.currentState.validate()) {
+                FocusScope.of(context).unfocus();
+                if (provider.emailController.text.isEmpty ||
+                    provider.nameController.text.isEmpty) {
+                  showToasts(
+                      S.current.enterAllData,'warning');
+                } else {
+                  // profileProvider.formKey.currentState.save();
+                  FocusScope.of(context).unfocus();
+                  editProfile();
+                }
+              } else {
+                showToasts(
+                    S.of(context).enterAllData,'warning');
+              }
             }),
           ],
         ),
@@ -716,39 +757,37 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
   }
 
   void editProfile() async {
-    // provider.formKey.currentState.save();
-    // if (_image != null) {
-    //   FormData formData = new FormData.fromMap({
-    //     "image": await MultipartFile.fromFile(
-    //       _image.path,
-    //       contentType: new MediaType('image', 'jpg'),
-    //     ),
-    //     "mobile":provider.mobile,
-    //     "name":provider.name,
-    //     "email":provider.email
-    //   });
-    //   mPresenter.editProfileApiCall(formData);
-    // }
-    // else{
+    if (_image != null) {
+      FormData formData = new FormData.fromMap({
+        "image": await MultipartFile.fromFile(
+          _image.path,
+          contentType: new MediaType('image', 'jpg'),
+        ),
+        "mobile": provider.mobileController.text,
+        "name": provider.nameController.text,
+        "email": provider.emailController.text
+      });
+      mPresenter.editProfileApiCall(formData);
+    } else {
       print('#######################################');
       Map<String, dynamic> params = Map();
-      params['mobile'] = provider.mobile;
-      params['name'] = provider.name;
-      params['email'] = provider.email;
+      params['mobile'] = provider.mobileController.text;
+      params['name'] = provider.nameController.text;
+      params['email'] = provider.emailController.text;
       mPresenter.editProfileApiCall(params);
       print('#######################################');
-    // }
+    }
   }
 
-  bool noDataChanged() {
-    if (emailController.text == provider.instance.email &&
-        phoneNumberController.text == provider.instance.profile.mobile &&
-        nameController.text == provider.instance.name &&
-        _image == provider.instance.avatar) return true;
-    return false;
-  }
+  // bool noDataChanged() {
+  //   if (emailController.text == provider.instance.email &&
+  //       phoneNumberController.text == provider.instance.profile.mobile &&
+  //       nameController.text == provider.instance.name &&
+  //       _image == provider.instance.avatar) return true;
+  //   return false;
+  // }
 
-  Widget _buildUpdatePasswordContent() {
+  Widget _buildUpdatePasswordContent(EditProfileProvider provider) {
     return Container(
       decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),

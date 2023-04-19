@@ -15,6 +15,7 @@ import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
 import '../../../res/styles.dart';
+import 'build_building_units_dropdown.dart';
 import 'build_identity_file_picker.dart';
 import 'build_qrcode_field.dart';
 import 'build_start_end_date_picker_fields.dart';
@@ -55,7 +56,7 @@ class CompleteNewUnit extends StatelessWidget {
                   margin: EdgeInsetsDirectional.only(end: 3.w),
                   decoration: BoxDecoration(color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
                 ),
-                Text(S.current.unitQuery, style: MTextStyles.textMain16),
+                Text(pr.isBuilding? "Building Query":S.current.unitQuery, style: MTextStyles.textMain16),
               ],
             ),
             Gaps.vGap8,
@@ -67,6 +68,10 @@ class CompleteNewUnit extends StatelessWidget {
             CompanyNameField(
               provider: provider,
             ),
+            Gaps.vGap8,
+            Visibility(
+                visible: pr.isBuilding,
+                child: BuildBuildingUnitDropDown()),
             Gaps.vGap8,
             ContractField(
               provider: provider,
@@ -135,7 +140,7 @@ class CompleteNewUnit extends StatelessWidget {
                             filename: pr.identityImg.path.split('/').last,
                             contentType: MediaType('application', 'octet-stream'),
                           ),
-                          "unit_code": pr.qrCode.text,
+                          "unit_code": pr.isBuilding ? pr.selectedUnit : pr.qrCode.text,
                           "contract_number": pr.contractNo.text,
                           "start_at": pr.startDate.toString(),
                           "end_at": pr.endDate.toString(),

@@ -4,6 +4,7 @@ import 'package:Cliamizer/route/routers.dart';
 import 'package:Cliamizer/styles/light_theme_style.dart';
 import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsProvider.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
+import 'package:Cliamizer/ui/edit_profile_screen/EditProfileProvider.dart';
 import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
 import 'package:Cliamizer/ui/intro/IntroProvider.dart';
 import 'package:Cliamizer/ui/main_screens/MainProvider.dart';
@@ -68,6 +69,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => HomeProvider()),
         ChangeNotifierProvider(create: (context) => ClaimsProvider()),
         ChangeNotifierProvider(create: (context) => ClaimsDetailsProvider()),
+        ChangeNotifierProvider(create: (context) => EditProfileProvider()),
         ChangeNotifierProvider(create: (context) => UnitProvider()),
         ChangeNotifierProvider(create: (context) => NotificationProvider()),
       ],

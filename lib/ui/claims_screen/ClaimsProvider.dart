@@ -56,7 +56,7 @@ class ClaimsProvider extends ChangeNotifier {
   int _selectedClaimCategoryIndex;
   int _selectedClaimSubCategoryIndex;
   int _selectedClaimTypeIndex ;
-
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   ScrollController _scrollController = ScrollController();
   double _scrollPosition = 0.0;
 

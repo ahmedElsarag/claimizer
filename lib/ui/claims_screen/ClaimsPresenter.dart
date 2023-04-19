@@ -138,6 +138,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
     });
+    print("!@!#!#!@#@#!@# ${view.provider.description}");
     view.showProgress(isDismiss: false);
     await requestFutureData<ClaimsRequestResponse>(Method.post,
         params: {
@@ -146,7 +147,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
           "sub_category_id": view.selectedSubCategory,
           "claim_type_id": view.selectedType,
           "description": view.provider.description,
-          "available_date": DateFormat('MM/dd/yyyy').format(view.provider.selectedDate),
+          "available_date": DateFormat('yyyy-MM-dd','en').format(view.provider.selectedDate),
           "available_time": view.provider.selectedTimeValue
         },
         options: Options(headers: header),

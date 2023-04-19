@@ -41,7 +41,7 @@ class UnitRequestDataBean {
   String contractAttach;
   String clientGovId;
   String status;
-  Null userRemarks;
+  String userRemarks;
   String adminRemarks;
   String createdAt;
 

@@ -17,7 +17,7 @@ class CompanyNameField extends StatelessWidget {
       builder: (context, pr, child) => Container(
         height: MediaQuery.of(context).size.height * .06,
         child: TextFormField(
-          controller: TextEditingController(text: pr.newLinkRequestDataBean.company??"A"),
+          controller: TextEditingController(text: pr.isBuilding? pr.linkListRequestDataBean.company: pr.newLinkRequestDataBean.company??"A"),
           readOnly: true,
           style: MTextStyles.textDark14,
           decoration: InputDecoration(

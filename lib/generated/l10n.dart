@@ -1275,10 +1275,10 @@ class S {
     );
   }
 
-  /// `Sorry, there are no results for this search. Please try another phrase`
+  /// `Sorry, there are no results.`
   String get sorryThereAreNoResultsForThisSearchPleaseTry {
     return Intl.message(
-      'Sorry, there are no results for this search. Please try another phrase',
+      'Sorry, there are no results.',
       name: 'sorryThereAreNoResultsForThisSearchPleaseTry',
       desc: '',
       args: [],
@@ -1470,6 +1470,16 @@ class S {
     return Intl.message(
       'Identity Image',
       name: 'uploadIdentityImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name is required`
+  String get nameIsRequired {
+    return Intl.message(
+      'Name is required',
+      name: 'nameIsRequired',
       desc: '',
       args: [],
     );

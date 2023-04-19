@@ -123,7 +123,7 @@
   "comments": "Comments",
   "topUpdates": "Top Updates",
   "noResults": "No Results",
-  "sorryThereAreNoResultsForThisSearchPleaseTry": "Sorry, there are no results for this search. Please try another phrase",
+  "sorryThereAreNoResultsForThisSearchPleaseTry": "Sorry, there are no results.",
   "priority": "Priority",
   "allAttachment": "All Attachment",
   "unitType": "Unit Type",
@@ -142,5 +142,6 @@
   "basicInfo": "Basic Info",
   "updatePassword": "Update Password",
   "uploadContractImage": "Contract Image",
-  "uploadIdentityImage": "Identity Image"
+  "uploadIdentityImage": "Identity Image",
+  "nameIsRequired": "Name is required"
 }

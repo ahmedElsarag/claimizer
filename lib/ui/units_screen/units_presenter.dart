@@ -1,4 +1,5 @@
 import 'package:Cliamizer/base/presenter/base_presenter.dart';
+import 'package:Cliamizer/network/models/NewLinkListRequestResponse.dart';
 import 'package:Cliamizer/network/models/NewLinkRequestResponse.dart';
 import 'package:Cliamizer/network/models/UnitRequestResponse.dart';
 import 'package:Cliamizer/network/models/claims_response.dart';
@@ -73,29 +74,38 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
     String startDate = myUri.queryParameters['start_date'];
     String endDate = myUri.queryParameters['end_date'];
     String mLink = myUri.queryParameters['m'];
+    RegExp uPattern = RegExp('^U\\d{2}-\\d{5}-\\d');
+    RegExp bPattern = RegExp('^B\\d{2}-\\d{5}-\\d');
     if (hasContractNumber && hasStartDate && hasEndDate) {
       String formattedStartDate = startDate.replaceAll('-', '');
       String formattedEndDate = endDate.replaceAll('-', '');
+      view.provider.isBuilding = false;
       String mCalculated;
-      mCalculated = ((int.parse(formattedStartDate) + int.parse(formattedEndDate)) * int.parse(contractNumber)).toString();
+      mCalculated =
+          ((int.parse(formattedStartDate) + int.parse(formattedEndDate)) * int.parse(contractNumber)).toString();
       print("CCCCCCCCCCCCCCCCCCCCCCCC $mCalculated");
-      if(mCalculated == mLink){
-        doCheckUnitQrCodeApiCall({"qr_code": qrCode, "validated": true},qrCode,contractNumber,startDate,endDate);
+      if (mCalculated == mLink) {
+        doCheckUnitQrCodeApiCall({"qr_code": qrCode, "validated": true}, qrCode, contractNumber, startDate, endDate);
         view.provider.validated = true;
-      }else{
+      } else {
         view.showToasts(S.current.theQrCodeIsIncorrect, "error");
         view.provider.isQrCodeValid = false;
       }
       print("QQQQQQQQQQQQQQQQQQQQQ $qrCode - $contractNumber - $startDate - $endDate");
+    } else if (bPattern.hasMatch(qrCode)) {
+      print("!@!@@!@!@!@!@!@ $qrCode");
+      view.provider.isBuilding = true;
+      doCheckBuildingQrCodeApiCall({"qr_code": qrCode, "validated": false}, qrCode);
     } else {
-      doCheckUnitQrCodeApiCall({"qr_code": qrCode, "validated": false},qrCode,contractNumber,startDate,endDate);
+      view.provider.isBuilding = false;
+      doCheckUnitQrCodeApiCall({"qr_code": qrCode, "validated": false}, qrCode, contractNumber, startDate, endDate);
       view.provider.validated = false;
       print("QQQQQQQQQQQQQQQQQQQQQ $qrCode");
-
     }
   }
 
-  Future doCheckUnitQrCodeApiCall(Map<String, dynamic> bodyParams, String qrCode,String contractNum,String startData,String endDate) async {
+  Future doCheckUnitQrCodeApiCall(
+      Map<String, dynamic> bodyParams, String qrCode, String contractNum, String startData, String endDate) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       print('@@@@@@@@@@@@@@@@@@@@@$token');
@@ -109,12 +119,54 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
         if (data.status == "success") {
           view.provider.newLinkRequestDataBean = data.data;
           view.provider.isQrCodeValid = !view.provider.isQrCodeValid;
-          view.provider.qrCode.text = qrCode??'' ;
-          view.provider.contractNo.text = contractNum??'';
-          view.provider.startDate = DateTime?.parse(startData)??'';
-          view.provider.endDate = DateTime?.parse(endDate)??'';
+          view.provider.qrCode.text = qrCode ?? '';
+          view.provider.contractNo.text = contractNum ?? '';
+          view.provider.startDate = DateTime?.parse(startData) ?? '';
+          view.provider.endDate = DateTime?.parse(endDate) ?? '';
+          print("@@@@@@@@@@@@@@@@@################## ${view.provider.newLinkRequestDataBean}");
+          print("@@@@@@@@@@@@@@@@@################## ${data.data}");
         } else if (data.status == "fail") {
           view.provider.message = data.data.message;
+          print("@@@@@@@@@@@@@@@@@################## ${view.provider.message}");
+        }
+      }
+    }, onError: (code, msg) {
+      view.closeProgress();
+      if (code == 404) {
+        view.provider.message = S.current.theQrCodeIsIncorrect;
+      }
+
+      if (code == 422) {
+        view.showToasts(S.current.anErrorOccurredTryAgainLater, 'error');
+      }
+    });
+  }
+
+  Future doCheckBuildingQrCodeApiCall(
+    Map<String, dynamic> bodyParams,
+    String qrCode,
+  ) async {
+    Map<String, dynamic> header = Map();
+    await Prefs.getUserToken.then((token) {
+      print('@@@@@@@@@@@@@@@@@@@@@$token');
+      header['Authorization'] = "Bearer $token";
+    });
+    view.showProgress(isDismiss: false);
+    await requestFutureData<NewLinkListRequestResponse>(Method.post,
+        endPoint: Api.newLinkRequestApiCall, params: bodyParams, options: Options(headers: header), onSuccess: (data) {
+      view.closeProgress();
+      if (data != null) {
+        if (data.status == "success") {
+          view.provider.buildingUnitsList = data.data.units;
+          view.provider.linkListRequestDataBean = data.data;
+          view.provider.isQrCodeValid = !view.provider.isQrCodeValid;
+          view.provider.qrCode.text = qrCode ?? '';
+          // view.provider.contractNo.text = contractNum ?? '';
+          // view.provider.startDate = DateTime?.parse(startData) ?? '';
+          // view.provider.endDate = DateTime?.parse(endDate) ?? '';
+          print("@@@@@@@@@@@@@@@@@################## ${data.data.units[0].code}");
+        } else if (data.status == "fail") {
+          view.provider.message = data.status;
           print("@@@@@@@@@@@@@@@@@################## ${view.provider.message}");
         }
       }
@@ -198,6 +250,7 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
               ),
             ),
           );
+          view.provider.selectedUnit = null;
         } else if (data.status == "fail") {
           view.showToasts(data.message, 'error');
         }

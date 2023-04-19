@@ -36,8 +36,8 @@ class ClaimsScreen extends StatefulWidget {
 
 class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  final DateFormat _dateFormatEN = DateFormat('dd/MM/yyyy', 'en');
-  final DateFormat _dateFormatAR = DateFormat('yyyy/MM/dd', 'ar');
+  final DateFormat _dateFormatEN = DateFormat('yyyy-MM-dd', 'en');
+  final DateFormat _dateFormatAR = DateFormat('yyyy-MM-dd', 'ar');
 
   List<String> cardTitles = [
     S.current.newClaims,
@@ -482,6 +482,9 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                       margin: EdgeInsets.symmetric(vertical: 3.w),
                                       child: ElevatedButton(
                                         onPressed: () {
+                                          if(!pr.formKey.currentState.validate()){
+                                            return;
+                                          }
                                           if (pr.selectedDate == null &&
                                               pr.selectedTimeValue == null) {
                                             showToasts(
@@ -581,27 +584,30 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 ),
                                 appStepper.Step(
                                   title: new Text(''),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      AppHeadline(title: S.of(context).selectAvailableTime),
-                                      Gaps.vGap10,
-                                      Gaps.vGap12,
-                                      BuildDatePicker(
-                                        provider: pr,
-                                      ),
-                                      Gaps.vGap8,
-                                      BuildTimeDropDown(
-                                      ),
-                                      Gaps.vGap8,
-                                      BuildDescriptionField(
-                                        provider: pr,
-                                      ),
-                                      Gaps.vGap8,
-                                      BuildFilePicker(
-                                        provider: pr,
-                                      )
-                                    ],
+                                  content: Form(
+                                    key: pr.formKey,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        AppHeadline(title: S.of(context).selectAvailableTime),
+                                        Gaps.vGap10,
+                                        Gaps.vGap12,
+                                        BuildDatePicker(
+                                          provider: pr,
+                                        ),
+                                        Gaps.vGap8,
+                                        BuildTimeDropDown(
+                                        ),
+                                        Gaps.vGap8,
+                                        BuildDescriptionField(
+                                          provider: pr,
+                                        ),
+                                        Gaps.vGap8,
+                                        BuildFilePicker(
+                                          provider: pr,
+                                        )
+                                      ],
+                                    ),
                                   ),
                                   isActive: pr.currentStep >= 0,
                                   state: pr.currentStep >= 6

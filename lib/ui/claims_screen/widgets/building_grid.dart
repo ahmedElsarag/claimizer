@@ -1,3 +1,4 @@
+import 'package:Cliamizer/app_widgets/NoDataFound.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../CommonUtils/image_utils.dart';
+import '../../../app_widgets/NoDataFoundGrid.dart';
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
@@ -39,7 +41,7 @@ class BuildingGrid extends StatelessWidget {
               Text(S.of(context).selectBuilding, style: MTextStyles.textMain16),
             ],
           ),
-          GridView.builder(
+          pr.buildingsList.isNotEmpty? GridView.builder(
             itemCount: pr.buildingsList.length,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
@@ -75,7 +77,7 @@ class BuildingGrid extends StatelessWidget {
                 ),
               );
             },
-          ),
+          ) : NoDataWidgetGrid(),
         ],
       ),
     );

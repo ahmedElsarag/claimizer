@@ -8,8 +8,9 @@ class ImageLoader extends StatefulWidget {
  final String imageUrl;
  final double height;
  final double width;
+ final BoxFit fit;
 
-  const ImageLoader({Key key, this.imageUrl, this.height, this.width}) : super(key: key);
+  const ImageLoader({Key key, this.imageUrl, this.height, this.width, this.fit}) : super(key: key);
 
   @override
   State<ImageLoader> createState() => ImageLoaderState();
@@ -41,14 +42,14 @@ class ImageLoaderState extends State<ImageLoader> with TickerProviderStateMixin{
 
    Widget loadDefault(
       {String url,
-        BoxFit fit: BoxFit.cover,
+        BoxFit fit: BoxFit.contain,
         double height: double.infinity,
         double width: double.infinity}) {
     return CachedNetworkImage(
       imageUrl: widget.imageUrl,
       height:widget.height ?? height,
       width: widget.width ?? width,
-      fit: fit,
+      fit: widget.fit??fit,
       placeholder: (context, url) => Container(
         padding: EdgeInsets.all(6.sp),
         child: Image.asset(

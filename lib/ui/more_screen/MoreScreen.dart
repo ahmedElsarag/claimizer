@@ -9,6 +9,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../CommonUtils/log_utils.dart';
+import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
+import '../../CommonUtils/model_eventbus/ProfileEvent.dart';
 import '../../CommonUtils/preference/Prefs.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
@@ -37,6 +39,18 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
   void initState() {
     super.initState();
     provider = context.read<MoreProvider>();
+    EventBusUtils.getInstance().on<ProfileEvent>().listen((event) {
+      if (event.username != null) {
+        provider.instance.name = event.username;
+      }
+      if (event.userEmail != null) {
+        provider.instance.email = event.userEmail;
+      }
+      if (event.userImage != null) {
+        provider.instance.avatar = event.userImage;
+      }
+      setState(() {});
+    });
     mPresenter.getProfileData();
     Prefs.getAppLocal.then((value) => {
       if (value != null)
@@ -85,7 +99,9 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
             Gaps.vGap16,
             Row(
               children: [
-                ImageLoader(imageUrl: provider.instance.avatar,width: 16.w,height: 16.w,),
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: ImageLoader(imageUrl: provider.instance.avatar,width: 16.w,height: 16.w,)),
                 Gaps.hGap12,
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 10, top: 6),

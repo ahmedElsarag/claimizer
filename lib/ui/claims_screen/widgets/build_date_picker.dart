@@ -12,7 +12,7 @@ import '../../../res/styles.dart';
 class BuildDatePicker extends StatelessWidget {
   BuildDatePicker({Key key, this.provider}) : super(key: key);
   final ClaimsProvider provider;
-  final DateFormat _dateFormat = DateFormat('dd/MM/yyyy');
+  final DateFormat _dateFormat = DateFormat('yyyy-MM-dd','en');
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class BuildDatePicker extends StatelessWidget {
               firstDate: DateTime(1900),
               lastDate: DateTime.now().add(Duration(days: 1000)));
           if (picked != null) {
-            print('@@@@@@@@@@@@${DateFormat('MM/dd/yyyy').format(picked)}');
+            print('@@@@@@@@@@@@${DateFormat('yyyy-MM-dd','en').format(picked)}');
             pr.selectedDate = picked;
           }
         },

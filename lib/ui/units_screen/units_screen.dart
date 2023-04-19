@@ -1,19 +1,11 @@
 import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
-import 'package:Cliamizer/ui/units_screen/widgets/build_description_field.dart';
-import 'package:Cliamizer/ui/units_screen/widgets/build_contract_file_picker.dart';
-import 'package:Cliamizer/ui/units_screen/widgets/build_qrcode_field.dart';
-import 'package:Cliamizer/ui/units_screen/widgets/build_start_end_date_picker_fields.dart';
-import 'package:Cliamizer/ui/units_screen/widgets/building_name_field.dart';
-import 'package:Cliamizer/ui/units_screen/widgets/company_name_field.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/complete_new_unit.dart';
-import 'package:Cliamizer/ui/units_screen/widgets/contract_number_field.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/existing_unit_list.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/search_qr_code_view.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/unit_link_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../CommonUtils/image_utils.dart';
@@ -60,7 +52,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
     return Scaffold(
       backgroundColor: MColors.page_background,
       body: Consumer<UnitProvider>(
-        builder: (context, pr, child) =>  Padding(
+        builder: (context, pr, child) => Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16, 60, 16, 0),
           child: Column(
             children: [
@@ -75,7 +67,8 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                           width: 1.w,
                           height: 5.w,
                           margin: EdgeInsetsDirectional.only(end: 2.w),
-                          decoration: BoxDecoration(color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
+                          decoration:
+                              BoxDecoration(color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
                         ),
                         Text(S.of(context).unitsProperty, style: MTextStyles.textMain18),
                       ],
@@ -111,8 +104,9 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                         child: Text(
                                           cardTitles[pageIndex],
                                           style: MTextStyles.textMainLight14.copyWith(
-                                              color:
-                                                  pr.selectedIndex == pageIndex ? Colors.white : MColors.light_text_color,
+                                              color: pr.selectedIndex == pageIndex
+                                                  ? Colors.white
+                                                  : MColors.light_text_color,
                                               fontSize: pr.selectedIndex == pageIndex ? 14 : 12),
                                           textAlign: TextAlign.center,
                                         ),
@@ -131,7 +125,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
               ),
               Gaps.vGap12,
               Visibility(
-                visible:  pr.selectedIndex != 0,
+                visible: pr.selectedIndex != 0,
                 child: Container(
                   decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
                   padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
@@ -192,8 +186,12 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                 presenter: mPresenter,
                               )
                         : pr.selectedIndex == 1
-                            ? ExistingUnitList()
-                            : UnitLinkRequest(),
+                            ? ExistingUnitList(
+                                presenter: mPresenter,
+                              )
+                            : UnitLinkRequest(
+                                presenter: mPresenter,
+                              ),
                   ],
                 ),
               )

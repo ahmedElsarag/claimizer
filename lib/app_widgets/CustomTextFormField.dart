@@ -15,48 +15,59 @@ class CustomTextFormField extends StatelessWidget {
   final Function (String) onSaved;
   CustomTextFormField(
       {this.headLine,
-      this.inputType,
-      this.hintText,
-      this.validation,
-      this.controller, this.onChanged, this.onSaved, this.inputFormater});
+        this.inputType,
+        this.hintText,
+        this.validation,
+        this.controller, this.onChanged, this.onSaved, this.inputFormater});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextFormField(
-          inputFormatters: inputFormater,
-          validator: validation ?? (val) {},
-          onSaved: onSaved ?? (val) {},
-          onChanged: onChanged ?? (val) {},
-          keyboardType: inputType ?? TextInputType.text,
-          textInputAction: TextInputAction.next,
-          controller: controller,
-          style: Theme.of(context).textTheme.caption,
-          // autovalidateMode: AutovalidateMode.always,
-          decoration: InputDecoration(
-              filled: true,
-              fillColor: Theme.of(context).primaryColorLight,
-              hintText: hintText,
-              hintStyle: Theme.of(context)
-                  .textTheme
-                  .subtitle1
-                  .copyWith(fontWeight: FontWeight.w400),
-              contentPadding: EdgeInsets.symmetric(horizontal: 4.w),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
-            errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-            focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.rejected_color)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
-            counterText: "",
+        Text(
+          headLine,
+          style: Theme.of(context)
+              .textTheme
+              .headline1
+              .copyWith(color: MColors.black),
         ),
-        )],
+        Container(
+          margin: EdgeInsets.only(top: 1.h, bottom: 3.h),
+          child: TextFormField(
+            inputFormatters: inputFormater,
+            validator: validation ?? (val) {},
+            onSaved: onSaved ?? (val) {},
+            onChanged: onChanged ?? (val) {},
+            keyboardType: inputType ?? TextInputType.text,
+            textInputAction: TextInputAction.next,
+            controller: controller,
+            style: Theme.of(context).textTheme.caption,
+            // autovalidateMode: AutovalidateMode.always,
+            decoration: InputDecoration(
+                filled: true,
+                fillColor: Theme.of(context).primaryColorLight,
+                hintText: hintText,
+                hintStyle: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    .copyWith(fontWeight: FontWeight.w400),
+                contentPadding: EdgeInsets.symmetric(horizontal: 4.w),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide:
+                    BorderSide(color: Theme.of(context).focusColor)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide:
+                    BorderSide(color: Theme.of(context).focusColor)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide:
+                    BorderSide(color: Theme.of(context).focusColor))),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -70,10 +81,10 @@ class CustomPasswordTextFormField extends StatelessWidget {
 
   CustomPasswordTextFormField(
       {this.headLine,
-      this.hintText,
-      this.suffix,
-      this.obscurePass,
-      this.validation});
+        this.hintText,
+        this.suffix,
+        this.obscurePass,
+        this.validation});
 
   @override
   Widget build(BuildContext context) {
@@ -101,15 +112,15 @@ class CustomPasswordTextFormField extends StatelessWidget {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide:
-                        BorderSide(color: Theme.of(context).focusColor)),
+                    BorderSide(color: Theme.of(context).focusColor)),
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide:
-                        BorderSide(color: Theme.of(context).focusColor)),
+                    BorderSide(color: Theme.of(context).focusColor)),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide:
-                        BorderSide(color: Theme.of(context).focusColor))),
+                    BorderSide(color: Theme.of(context).focusColor))),
           ),
         ),
       ],

@@ -15,7 +15,6 @@ class BuildDescriptionField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ClaimsProvider>(
       builder: (context, pr, child) =>  TextFormField(
-        controller: TextEditingController(text:pr.description),
         maxLines: null,
         style: MTextStyles.textDark14,
         decoration: InputDecoration(
@@ -36,6 +35,15 @@ class BuildDescriptionField extends StatelessWidget {
             borderSide: BorderSide(color: MColors.textFieldBorder),
           ),
         ),
+        onChanged: (text){
+          pr.description = text;
+          print("@!@!@!@!@ ${pr.description}");
+        },
+        validator: (text){
+          if(text.isEmpty){
+            return "enter Description";
+          }
+        },
       ),
     );
   }

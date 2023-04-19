@@ -13,6 +13,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
+import '../../CommonUtils/model_eventbus/ProfileEvent.dart';
 import '../../app_widgets/image_loader.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
@@ -61,6 +63,15 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
   @override
   void initState() {
     provider = context.read<HomeProvider>();
+    EventBusUtils.getInstance().on<ProfileEvent>().listen((event) {
+      if (event.username != null) {
+        provider.name = event.username;
+      }
+      if (event.userImage != null) {
+        provider.avatar = event.userImage;
+      }
+      setState(() {});
+    });
     mPresenter.getStatisticsApiCall();
     mPresenter.getUserName();
     mPresenter.getUserImage();
@@ -101,7 +112,9 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
                           width: 40,
                           height: 40,
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(200),),
-                          child: ImageLoader(imageUrl: provider.avatar, width: 16.w, height: 16.w,),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(200),
+                              child: ImageLoader(imageUrl: provider.avatar, width: 16.w, height: 16.w,)),
                       )
                     ],
                   ),
