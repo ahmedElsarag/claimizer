@@ -371,18 +371,20 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                         physics: BouncingScrollPhysics(),
                                         currentStep: pr.currentStep,
                                         controlsBuilder: (context, details) {
-                                          return pr.currentStep != 5
-                                              ? Row(
-                                                  children: [
-                                                    Container(
-                                                      width: 30.w,
-                                      margin: EdgeInsetsDirectional.only(
-                                        top: 6.w,
-                                      ),
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          pr.currentStep > 0 ? pr.currentStep -= 1 : null;
-                                        },
+                                          return pr.currentStep == 0
+                                              ? SizedBox.shrink()
+                                              : pr.currentStep != 5
+                                                  ? Row(
+                                                      children: [
+                                                        Container(
+                                                          width: 30.w,
+                                                          margin: EdgeInsetsDirectional.only(
+                                                            top: 6.w,
+                                                          ),
+                                                          child: ElevatedButton(
+                                                            onPressed: () {
+                                                              pr.currentStep > 0 ? --pr.currentStep : null;
+                                                            },
                                         child: Text(
                                           S.of(context).back,
                                           style: MTextStyles.textMain14
