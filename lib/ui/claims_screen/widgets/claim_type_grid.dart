@@ -34,6 +34,7 @@ class ClaimTypeGrid extends StatelessWidget {
                       onTap: () {
                         pr.selectedClaimTypeIndex = index;
                         onSelected(pr.claimTypeList[index].id);
+                        pr.selectedType = pr.claimTypeList[index].name;
                         pr.currentStep < 6 ? pr.currentStep += 1 : null;
                       },
                       child: Container(

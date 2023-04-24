@@ -34,6 +34,7 @@ class SubcategoryGrid extends StatelessWidget {
                       onTap: () {
                         pr.selectedClaimSubCategoryIndex = index;
                         onSelected(pr.subCategoryList[index].id);
+                        pr.selectedSubCategory = pr.subCategoryList[index].name;
                         pr.currentStep < 5 ? pr.currentStep += 1 : null;
                       },
                       child: Container(

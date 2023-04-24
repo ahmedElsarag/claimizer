@@ -40,6 +40,8 @@ class EditProfilePresenter extends BasePresenter<EditProfileScreenState> {
             view.provider.emailController?.text = data.profileDataBean.email;
             view.provider.mobileController?.text = data.profileDataBean.profile.mobile;
             view.provider.isNotificationEnabled = data.profileDataBean.profile.emailNotifications;
+            print(
+                '@@@@@@@@@########${data.profileDataBean.profile.emailNotifications} ${view.provider.isNotificationEnabled}');
             view.provider.isDateLoaded = true;
             view.closeProgress();
           }else{

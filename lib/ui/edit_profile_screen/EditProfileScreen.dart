@@ -7,18 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:image_picker/image_picker.dart';
+
 import '../../CommonUtils/utils.dart';
 import '../../app_widgets/CustomTextField.dart';
-import '../../app_widgets/CustomTextFormField.dart';
 import '../../app_widgets/app_headline.dart';
 import '../../app_widgets/claimizer_app_bar.dart';
 import '../../app_widgets/image_loader.dart';
 import '../../generated/l10n.dart';
-import '../../network/models/ProfileResponse.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
 import '../../res/styles.dart';
@@ -172,57 +171,58 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                                 ? _buildBasicInfoContent(pr)
                                 : _buildUpdatePasswordContent(pr),
                           ),
-                        ]),
+                            ]),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                )
-                    : Center(child: mPresenter.showMessage()),
-              )
-            ));
+                    )
+                  : Center(child: mPresenter.showMessage()),
+            )));
   }
 
-  Column buildNotificationToggle(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          S.of(context).emailNotifications,
-          style: Theme.of(context).textTheme.labelMedium,
-        ),
-        Gaps.vGap12,
-        Row(
-          children: [
-            Row(
-              children: [
-                Radio(
-                  fillColor: MaterialStateProperty.all<Color>(MColors.text_button_color),
-                  value: provider.isNotificationEnabled,
-                  groupValue: true,
-                  onChanged: (value) {
-                    setState(() {
-                      provider.isNotificationEnabled = value;
-                    });
-                  },
-                ),
-                Text(S.of(context).enable),
-              ],
-            ),
-            SizedBox(width: 16.0),
-            Radio(
-              fillColor: MaterialStateProperty.all<Color>(MColors.text_button_color),
-              value: provider.isNotificationEnabled,
-              groupValue: false,
-              onChanged: (value) {
-                setState(() {
-                  provider.isNotificationEnabled = value;
-                });
-              },
-            ),
-            Text(S.of(context).disable),
-          ],
-        ),
-      ],
+  Widget buildNotificationToggle(BuildContext context) {
+    return Consumer<EditProfileProvider>(
+      builder: (ctx, pr, w) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            S.of(context).emailNotifications,
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
+          Gaps.vGap12,
+          Row(
+            children: [
+              Row(
+                children: [
+                  Radio(
+                    fillColor: MaterialStateProperty.all<Color>(MColors.text_button_color),
+                    value: 1,
+                    groupValue: pr.isNotificationEnabled,
+                    onChanged: (value) {
+                      setState(() {
+                        pr.isNotificationEnabled = value;
+                      });
+                    },
+                  ),
+                  Text(S.of(context).enable),
+                ],
+              ),
+              SizedBox(width: 16.0),
+              Radio(
+                fillColor: MaterialStateProperty.all<Color>(MColors.text_button_color),
+                value: 0,
+                groupValue: pr.isNotificationEnabled,
+                onChanged: (value) {
+                  setState(() {
+                    pr.isNotificationEnabled = value;
+                  });
+                },
+              ),
+              Text(S.of(context).disable),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -765,7 +765,8 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
         ),
         "mobile": provider.mobileController.text,
         "name": provider.nameController.text,
-        "email": provider.emailController.text
+        "email": provider.emailController.text,
+        "email_notifications": provider.isNotificationEnabled
       });
       mPresenter.editProfileApiCall(formData);
     } else {
@@ -774,6 +775,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
       params['mobile'] = provider.mobileController.text;
       params['name'] = provider.nameController.text;
       params['email'] = provider.emailController.text;
+      params['email_notifications'] = provider.isNotificationEnabled;
       mPresenter.editProfileApiCall(params);
       print('#######################################');
     }

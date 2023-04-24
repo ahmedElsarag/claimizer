@@ -34,6 +34,7 @@ class CategoriesGrid extends StatelessWidget {
                       onTap: () {
                         pr.selectedClaimCategoryIndex = index;
                         onSelected(index);
+                        pr.selectedCategory = pr.categoriesList[index].name;
                         pr.currentStep < 4 ? pr.currentStep += 1 : null;
                       },
                       child: Container(

@@ -10,31 +10,6 @@ import '../../network/models/claims_response.dart';
 class ClaimsProvider extends ChangeNotifier {
   int _selectedIndex = 1;
   DateTime _selectedDate;
-  List<String> _times = [
-    '9:00 AM',
-    '10:00 AM',
-    '11:00 AM',
-    '12:00 PM',
-    '1:00 PM',
-    '2:00 PM',
-    '3:00 PM',
-    '4:00 PM',
-    '5:00 PM',
-    '6:00 PM'
-  ];
-  List<String> _unitItems = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5', 'Item 6'];
-
-  List<String> get unitItems => _unitItems;
-
-  set unitItems(List<String> value) {
-    _unitItems = value;
-    notifyListeners();
-  }
 
   int companyId;
 
@@ -194,13 +169,6 @@ class ClaimsProvider extends ChangeNotifier {
   }
 
 
-  List<String> get times => _times;
-
-  set times(List<String> value) {
-    _times = value;
-    notifyListeners();
-  }
-
   String get selectedTimeValue => _selectedTimeValue;
 
   set selectedTimeValue(String value) {
@@ -221,4 +189,10 @@ class ClaimsProvider extends ChangeNotifier {
     _fileName = value;
     notifyListeners();
   }
+
+  String selectedBuilding;
+  String selectedUnit;
+  String selectedCategory;
+  String selectedSubCategory;
+  String selectedType;
 }

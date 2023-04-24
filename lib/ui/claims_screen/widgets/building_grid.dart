@@ -1,4 +1,3 @@
-import 'package:Cliamizer/app_widgets/NoDataFound.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -55,10 +54,11 @@ class BuildingGrid extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   pr.selectedBuildingIndex = index;
-                  onSelected(pr.buildingsList[index].id);
-                  Future.delayed(Duration(seconds: 0));
-                  pr.currentStep < 2 ? pr.currentStep += 1 : null;
-                },
+                        onSelected(pr.buildingsList[index].id);
+                        pr.selectedBuilding = pr.buildingsList[index].name;
+                        Future.delayed(Duration(seconds: 0));
+                        pr.currentStep < 2 ? pr.currentStep += 1 : null;
+                      },
                 child: Container(
                   padding: EdgeInsets.all(8),
                   alignment: Alignment.center,

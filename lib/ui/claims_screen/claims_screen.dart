@@ -48,11 +48,11 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
     'allclaims',
   ];
 
-  int selectedBuilding;
-  int selectedUnit;
-  int selectedCategory;
-  int selectedSubCategory;
-  int selectedType;
+  int selectedBuildingId;
+  int selectedUnitId;
+  int selectedCategoryId;
+  int selectedSubCategoryId;
+  int selectedTypeId;
 
   ClaimsProvider provider;
 
@@ -204,11 +204,11 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 color: MColors.black,
                               )),
                           Gaps.vGap8,
-                          Text(selectedBuilding.toString() ?? "",
-                              style: MTextStyles.textMain14.copyWith(
-                                color: MColors.black,
-                                fontWeight: FontWeight.w400,
-                              )),
+                          Text(pr.selectedBuilding ?? "",
+                                        style: MTextStyles.textMain14.copyWith(
+                                          color: MColors.black,
+                                          fontWeight: FontWeight.w400,
+                                        )),
                         ],
                       ),
                       Gaps.vGap12,
@@ -221,11 +221,11 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 color: MColors.black,
                               )),
                           Gaps.vGap8,
-                          Text(selectedUnit.toString() ?? "",
-                              style: MTextStyles.textMain14.copyWith(
-                                color: MColors.black,
-                                fontWeight: FontWeight.w400,
-                              )),
+                          Text(pr.selectedUnit ?? "",
+                                        style: MTextStyles.textMain14.copyWith(
+                                          color: MColors.black,
+                                          fontWeight: FontWeight.w400,
+                                        )),
                         ],
                       ),
                       Gaps.vGap12,
@@ -238,11 +238,11 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 color: MColors.black,
                               )),
                           Gaps.vGap8,
-                          Text(selectedCategory.toString() ?? "",
-                              style: MTextStyles.textMain14.copyWith(
-                                color: MColors.black,
-                                fontWeight: FontWeight.w400,
-                              )),
+                          Text(pr.selectedCategory ?? "",
+                                        style: MTextStyles.textMain14.copyWith(
+                                          color: MColors.black,
+                                          fontWeight: FontWeight.w400,
+                                        )),
                         ],
                       ),
                       Gaps.vGap12,
@@ -255,11 +255,11 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 color: MColors.black,
                               )),
                           Gaps.vGap8,
-                          Text(selectedSubCategory.toString() ?? "",
-                              style: MTextStyles.textMain14.copyWith(
-                                color: MColors.black,
-                                fontWeight: FontWeight.w400,
-                              )),
+                          Text(pr.selectedSubCategory ?? "",
+                                        style: MTextStyles.textMain14.copyWith(
+                                          color: MColors.black,
+                                          fontWeight: FontWeight.w400,
+                                        )),
                         ],
                       ),
                       Gaps.vGap12,
@@ -272,11 +272,11 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 color: MColors.black,
                               )),
                           Gaps.vGap8,
-                          Text(selectedType.toString() ?? "",
-                              style: MTextStyles.textMain14.copyWith(
-                                color: MColors.black,
-                                fontWeight: FontWeight.w400,
-                              )),
+                          Text(pr.selectedType ?? "",
+                                        style: MTextStyles.textMain14.copyWith(
+                                          color: MColors.black,
+                                          fontWeight: FontWeight.w400,
+                                        )),
                         ],
                       ),
                       Gaps.vGap12,
@@ -328,56 +328,8 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                             margin: EdgeInsets.symmetric(vertical: 3.w),
                             child: ElevatedButton(
                               onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    backgroundColor: MColors.whiteE,
-                                    elevation: 0,
-                                    contentPadding: EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        SvgPicture.asset(ImageUtils.getSVGPath("done")),
-                                        Gaps.vGap16,
-                                        Text(S.of(context).confirmation,
-                                            style: MTextStyles.textMain16.copyWith(
-                                              color: MColors.black,
-                                            )),
-                                        Gaps.vGap8,
-                                        Text(
-                                          S
-                                              .of(context)
-                                              .thankYouForSubmittingYourRequestOneOfOurCustomerservices,
-                                          style: MTextStyles.textSubtitle,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Gaps.vGap30,
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            pr.isStepsFinished = !pr.isStepsFinished;
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text(
-                                            S.of(context).backToHome,
-                                            style: MTextStyles.textWhite14
-                                                .copyWith(fontWeight: FontWeight.w700),
-                                          ),
-                                          style: ButtonStyle(
-                                              backgroundColor:
-                                              MaterialStateProperty.all<Color>(MColors.primary_color),
-                                              elevation: MaterialStatePropertyAll(0),
-                                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                  RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                  )),
-                                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                                  EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
+                                mPresenter.postClaimRequestApiCall();
+                                        },
                               child: Text(
                                 S.of(context).confirm,
                                 style: MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
@@ -491,8 +443,8 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                 S.of(context).youShouldSelectDateAndTime,"warning");
                                           } else {
                                             pr.isStepsFinished = !pr.isStepsFinished;
-                                            mPresenter.postClaimRequestApiCall();
-                                          }
+                                            // mPresenter.postClaimRequestApiCall();
+                                                          }
                                         },
                                         child: Text(
                                           S.of(context).confirm,
@@ -528,9 +480,9 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 appStepper.Step(
                                   title: new Text(''),
                                   content: BuildingGrid(onSelected: (id) {
-                                    selectedBuilding = id;
-                                    mPresenter.getUnitsApiCall(id);
-                                  }),
+                                    selectedBuildingId = id;
+                                              mPresenter.getUnitsApiCall(id);
+                                            }),
                                   isActive: pr.currentStep >= 0,
                                   state: pr.currentStep >= 1
                                       ? appStepper.StepState.complete
@@ -539,9 +491,9 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 appStepper.Step(
                                   title: new Text(''),
                                   content: UnitsGrid(onSelected: (id) {
-                                    selectedUnit = id;
-                                    mPresenter.getCategoryApiCall(id);
-                                  }),
+                                    selectedUnitId = id;
+                                              mPresenter.getCategoryApiCall(id);
+                                            }),
                                   isActive: pr.currentStep >= 0,
                                   state: pr.currentStep >= 2
                                       ? appStepper.StepState.complete
@@ -550,9 +502,9 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 appStepper.Step(
                                   title: new Text(''),
                                   content: CategoriesGrid(onSelected: (index) {
-                                    selectedCategory = pr.categoriesList[index].id;
-                                    pr.subCategoryList = pr.categoriesList[index].subCategory.data;
-                                  }),
+                                    selectedCategoryId = pr.categoriesList[index].id;
+                                              pr.subCategoryList = pr.categoriesList[index].subCategory.data;
+                                            }),
                                   isActive: pr.currentStep >= 0,
                                   state: pr.currentStep >= 3
                                       ? appStepper.StepState.complete
@@ -562,9 +514,9 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                   title: new Text(''),
                                   content: SubcategoryGrid(
                                     onSelected: (id) {
-                                      selectedSubCategory = id;
-                                      mPresenter.getClaimTypeApiCall(id);
-                                    },
+                                      selectedSubCategoryId = id;
+                                                mPresenter.getClaimTypeApiCall(id);
+                                              },
                                   ),
                                   isActive: pr.currentStep >= 0,
                                   state: pr.currentStep >= 4
@@ -574,9 +526,9 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 appStepper.Step(
                                   title: new Text(''),
                                   content: ClaimTypeGrid(onSelected: (id) {
-                                    selectedType = id;
-                                    mPresenter.getClaimAvailableTimeApiCall();
-                                  }),
+                                    selectedTypeId = id;
+                                              mPresenter.getClaimAvailableTimeApiCall();
+                                            }),
                                   isActive: pr.currentStep >= 0,
                                   state: pr.currentStep >= 5
                                       ? appStepper.StepState.complete

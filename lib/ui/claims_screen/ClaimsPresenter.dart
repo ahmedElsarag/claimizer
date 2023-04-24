@@ -4,7 +4,9 @@ import 'package:Cliamizer/network/models/categories_response.dart';
 import 'package:Cliamizer/network/models/claim_available_time_response.dart';
 import 'package:Cliamizer/network/models/claim_request_response.dart';
 import 'package:Cliamizer/network/models/claims_response.dart';
+import 'package:Cliamizer/ui/claims_screen/widgets/success_dialog.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../CommonUtils/preference/Prefs.dart';
@@ -123,10 +125,8 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
         options: Options(headers: header),
         endPoint: Api.claimAvailableTimeApiCall, onSuccess: (data) {
       view.closeProgress();
-      print('@!@!@!@!@!${data}');
       if (data != null) {
         view.provider.claimAvailableTimeList = data.data;
-        print('@!@!@!@!@!${view.provider.claimAvailableTimeList.length}');
       }
     }, onError: (code, msg) {
       view.closeProgress();
@@ -142,19 +142,22 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     view.showProgress(isDismiss: false);
     await requestFutureData<ClaimsRequestResponse>(Method.post,
         params: {
-          "unit_id": view.selectedUnit,
-          "category_id": view.selectedCategory,
-          "sub_category_id": view.selectedSubCategory,
-          "claim_type_id": view.selectedType,
+          "unit_id": view.selectedUnitId,
+          "category_id": view.selectedCategoryId,
+          "sub_category_id": view.selectedSubCategoryId,
+          "claim_type_id": view.selectedTypeId,
           "description": view.provider.description,
-          "available_date": DateFormat('yyyy-MM-dd','en').format(view.provider.selectedDate),
+          "available_date": DateFormat('yyyy-MM-dd', 'en').format(view.provider.selectedDate),
           "available_time": view.provider.selectedTimeValue
         },
         options: Options(headers: header),
         endPoint: Api.claimsApiCall, onSuccess: (data) {
       view.closeProgress();
       if (data != null) {
-        print('@!@!@!@!@!${data}');
+        showDialog(
+          context: view.context,
+          builder: (context) => ClaimCreatedDialog(),
+        );
       }
     }, onError: (code, msg) {
       view.closeProgress();

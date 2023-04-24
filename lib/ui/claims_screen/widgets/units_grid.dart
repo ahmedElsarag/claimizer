@@ -36,6 +36,7 @@ class UnitsGrid extends StatelessWidget {
                         pr.selectedUnitIndex = index;
                         pr.companyId = pr.unitsList[index].companyId;
                         onSelected(pr.unitsList[index].id);
+                        pr.selectedUnit = pr.unitsList[index].name;
                         pr.currentStep < 3 ? pr.currentStep += 1 : null;
                       },
                       child: Container(
