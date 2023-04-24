@@ -34,6 +34,23 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     });
   }
 
+  Future getfilteredClaimsApiCall(Map<String, dynamic> params) async {
+    Map<String, dynamic> header = Map();
+    await Prefs.getUserToken.then((token) {
+      header['Authorization'] = "Bearer $token";
+    });
+    view.showProgress(isDismiss: false);
+    await requestFutureData<ClaimsResponse>(Method.get, options: Options(headers: header),queryParams: params, endPoint: Api.claimsApiCall,
+        onSuccess: (data) {
+          if (data != null) {
+            view.provider.claimsList = data.data;
+          }
+          view.closeProgress();
+        }, onError: (code, msg) {
+          view.closeProgress();
+        });
+  }
+
   formatDate(String date) {
     if (date != null || date.isNotEmpty) return DateFormat('yyyy-MM-dd').format(DateTime.parse(date));
     return null;

@@ -56,6 +56,16 @@ class ClaimsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+  String _searchValue = '';
+
+  String get searchValue => _searchValue;
+
+  set searchValue(String value) {
+    _searchValue = value;
+    notifyListeners();
+  }
+
   set selectedIndex(int value) {
     _selectedIndex = value;
     notifyListeners();
