@@ -357,11 +357,39 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                   decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
                   child: Column(
                     children: [
-                      Text(S.of(context).addNewClaim, style: MTextStyles.textMain18),
-                      Gaps.vGap12,
-                      Expanded(
-                        child: Theme(
-                          data: ThemeData(
+                                Padding(
+                                  padding: EdgeInsetsDirectional.only(start: 20),
+                                  child: Row(
+                                    children: [
+                                      Visibility(
+                                        visible: pr.currentStep != 0,
+                                        child: InkWell(
+                                            onTap: () {
+                                              pr.currentStep > 0 ? --pr.currentStep : null;
+                                            },
+                                            child: Setting.mobileLanguage.value != Locale("en")
+                                                ? RotatedBox(
+                                                    quarterTurns: 2,
+                                                    child: SvgPicture.asset(
+                                                      ImageUtils.getSVGPath("back_icon"),
+                                                      width: 30,
+                                                    ),
+                                                  )
+                                                : SvgPicture.asset(
+                                                    ImageUtils.getSVGPath("back_icon"),
+                                                    width: 30,
+                                                  )),
+                                      ),
+                                      Expanded(
+                                          child: Center(
+                                              child: Text(S.of(context).addNewClaim, style: MTextStyles.textMain18))),
+                                    ],
+                                  ),
+                                ),
+                                Gaps.vGap12,
+                                Expanded(
+                                  child: Theme(
+                                    data: ThemeData(
                                         canvasColor: Colors.white,
                                         colorScheme:
                                             ColorScheme.light(primary: MColors.primary_color, secondary: Colors.teal)),
@@ -371,80 +399,18 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                         physics: BouncingScrollPhysics(),
                                         currentStep: pr.currentStep,
                                         controlsBuilder: (context, details) {
-                                          return pr.currentStep == 0
+                                          return pr.currentStep != 5
                                               ? SizedBox.shrink()
-                                              : pr.currentStep != 5
-                                                  ? Row(
-                                                      children: [
-                                                        Container(
-                                                          width: 30.w,
-                                                          margin: EdgeInsetsDirectional.only(
-                                                            top: 6.w,
-                                                          ),
-                                                          child: ElevatedButton(
-                                                            onPressed: () {
-                                                              pr.currentStep > 0 ? --pr.currentStep : null;
-                                                            },
-                                        child: Text(
-                                          S.of(context).back,
-                                          style: MTextStyles.textMain14
-                                              .copyWith(fontWeight: FontWeight.w700),
-                                        ),
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                            MaterialStateProperty.all<Color>(MColors.white),
-                                            elevation: MaterialStatePropertyAll(0),
-                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                    side: BorderSide(color: MColors.primary_color))),
-                                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                                EdgeInsets.symmetric(
-                                                    horizontal: 4.w, vertical: 3.w))),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                                    : Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Container(
-                                      width: 30.w,
-                                      margin: EdgeInsets.symmetric(vertical: 3.w),
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          pr.currentStep > 0 ? pr.currentStep -= 1 : null;
-                                        },
-                                        child: Text(
-                                          S.of(context).back,
-                                          style: MTextStyles.textMain14
-                                              .copyWith(fontWeight: FontWeight.w700),
-                                        ),
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                            MaterialStateProperty.all<Color>(MColors.white),
-                                            elevation: MaterialStatePropertyAll(0),
-                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                    side: BorderSide(color: MColors.primary_color))),
-                                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                                EdgeInsets.symmetric(
-                                                    horizontal: 4.w, vertical: 3.w))),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 30.w,
-                                      margin: EdgeInsets.symmetric(vertical: 3.w),
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          if(!pr.formKey.currentState.validate()){
-                                            return;
-                                          }
-                                          if (pr.selectedDate == null &&
-                                              pr.selectedTimeValue == null) {
-                                            showToasts(
-                                                S.of(context).youShouldSelectDateAndTime,"warning");
+                                              : Container(
+                                                  width: 30.w,
+                                                  margin: EdgeInsets.symmetric(vertical: 3.w),
+                                                  child: ElevatedButton(
+                                                    onPressed: () {
+                                                      if (!pr.formKey.currentState.validate()) {
+                                                        return;
+                                                      }
+                                                      if (pr.selectedDate == null && pr.selectedTimeValue == null) {
+                                                        showToasts(S.of(context).youShouldSelectDateAndTime,"warning");
                                           } else {
                                             pr.isStepsFinished = !pr.isStepsFinished;
                                             // mPresenter.postClaimRequestApiCall();
@@ -456,21 +422,17 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               .copyWith(fontWeight: FontWeight.w700),
                                         ),
                                         style: ButtonStyle(
-                                            backgroundColor: MaterialStateProperty.all<Color>(
-                                                MColors.primary_color),
-                                            elevation: MaterialStatePropertyAll(0),
-                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                )),
-                                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                                EdgeInsets.symmetric(
-                                                    horizontal: 4.w, vertical: 3.w))),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
+                                            backgroundColor: MaterialStateProperty.all<Color>(MColors.primary_color),
+                                                        elevation: MaterialStatePropertyAll(0),
+                                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                            RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        )),
+                                                        padding: MaterialStateProperty.all<EdgeInsets>(
+                                                            EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                                  ),
+                                                );
+                                        },
                               onStepTapped: (step) {
                                 pr.currentStep = step;
                               },
