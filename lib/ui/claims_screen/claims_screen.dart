@@ -15,6 +15,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+
 import '../../CommonUtils/image_utils.dart';
 import '../../app_widgets/app_headline.dart';
 import '../../app_widgets/custom_stepper.dart' as appStepper;
@@ -361,19 +362,20 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                       Expanded(
                         child: Theme(
                           data: ThemeData(
-                              canvasColor: Colors.white,
-                              colorScheme: ColorScheme.light(primary: MColors.primary_color)),
-                          child: appStepper.Stepper(
-                              elevation: 0,
-                              type: appStepper.StepperType.horizontal,
-                              physics: BouncingScrollPhysics(),
-                              currentStep: pr.currentStep,
-                              controlsBuilder: (context, details) {
-                                return pr.currentStep != 5
-                                    ? Row(
-                                  children: [
-                                    Container(
-                                      width: 30.w,
+                                        canvasColor: Colors.white,
+                                        colorScheme:
+                                            ColorScheme.light(primary: MColors.primary_color, secondary: Colors.teal)),
+                                    child: appStepper.Stepper(
+                                        elevation: 0,
+                                        type: appStepper.StepperType.horizontal,
+                                        physics: BouncingScrollPhysics(),
+                                        currentStep: pr.currentStep,
+                                        controlsBuilder: (context, details) {
+                                          return pr.currentStep != 5
+                                              ? Row(
+                                                  children: [
+                                                    Container(
+                                                      width: 30.w,
                                       margin: EdgeInsetsDirectional.only(
                                         top: 6.w,
                                       ),
@@ -476,64 +478,74 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                               onStepCancel: () {
                                 pr.currentStep > 0 ? pr.currentStep -= 1 : null;
                               },
-                              steps: [
+                                        steps: [
                                 appStepper.Step(
                                   title: new Text(''),
-                                  content: BuildingGrid(onSelected: (id) {
-                                    selectedBuildingId = id;
+                                            content: BuildingGrid(onSelected: (id) {
+                                              selectedBuildingId = id;
                                               mPresenter.getUnitsApiCall(id);
                                             }),
-                                  isActive: pr.currentStep >= 0,
-                                  state: pr.currentStep >= 1
-                                      ? appStepper.StepState.complete
-                                      : appStepper.StepState.disabled,
-                                ),
+                                            isActive: pr.currentStep == 0,
+                                            state: pr.currentStep == 0
+                                                ? appStepper.StepState.indexed
+                                                : pr.currentStep > 0
+                                                    ? appStepper.StepState.complete
+                                                    : appStepper.StepState.disabled,
+                                          ),
                                 appStepper.Step(
                                   title: new Text(''),
-                                  content: UnitsGrid(onSelected: (id) {
-                                    selectedUnitId = id;
+                                            content: UnitsGrid(onSelected: (id) {
+                                              selectedUnitId = id;
                                               mPresenter.getCategoryApiCall(id);
                                             }),
-                                  isActive: pr.currentStep >= 0,
-                                  state: pr.currentStep >= 2
-                                      ? appStepper.StepState.complete
-                                      : appStepper.StepState.disabled,
-                                ),
+                                            isActive: pr.currentStep == 1,
+                                            state: pr.currentStep == 1
+                                                ? appStepper.StepState.indexed
+                                                : pr.currentStep > 1
+                                                    ? appStepper.StepState.complete
+                                                    : appStepper.StepState.disabled,
+                                          ),
                                 appStepper.Step(
                                   title: new Text(''),
-                                  content: CategoriesGrid(onSelected: (index) {
-                                    selectedCategoryId = pr.categoriesList[index].id;
+                                            content: CategoriesGrid(onSelected: (index) {
+                                              selectedCategoryId = pr.categoriesList[index].id;
                                               pr.subCategoryList = pr.categoriesList[index].subCategory.data;
                                             }),
-                                  isActive: pr.currentStep >= 0,
-                                  state: pr.currentStep >= 3
-                                      ? appStepper.StepState.complete
-                                      : appStepper.StepState.disabled,
-                                ),
+                                            isActive: pr.currentStep == 2,
+                                            state: pr.currentStep == 2
+                                                ? appStepper.StepState.indexed
+                                                : pr.currentStep > 2
+                                                    ? appStepper.StepState.complete
+                                                    : appStepper.StepState.disabled,
+                                          ),
                                 appStepper.Step(
                                   title: new Text(''),
-                                  content: SubcategoryGrid(
-                                    onSelected: (id) {
-                                      selectedSubCategoryId = id;
+                                            content: SubcategoryGrid(
+                                              onSelected: (id) {
+                                                selectedSubCategoryId = id;
                                                 mPresenter.getClaimTypeApiCall(id);
                                               },
-                                  ),
-                                  isActive: pr.currentStep >= 0,
-                                  state: pr.currentStep >= 4
-                                      ? appStepper.StepState.complete
-                                      : appStepper.StepState.disabled,
-                                ),
+                                            ),
+                                            isActive: pr.currentStep == 3,
+                                            state: pr.currentStep == 3
+                                                ? appStepper.StepState.indexed
+                                                : pr.currentStep > 3
+                                                    ? appStepper.StepState.complete
+                                                    : appStepper.StepState.disabled,
+                                          ),
                                 appStepper.Step(
                                   title: new Text(''),
-                                  content: ClaimTypeGrid(onSelected: (id) {
-                                    selectedTypeId = id;
+                                            content: ClaimTypeGrid(onSelected: (id) {
+                                              selectedTypeId = id;
                                               mPresenter.getClaimAvailableTimeApiCall();
                                             }),
-                                  isActive: pr.currentStep >= 0,
-                                  state: pr.currentStep >= 5
-                                      ? appStepper.StepState.complete
-                                      : appStepper.StepState.disabled,
-                                ),
+                                            isActive: pr.currentStep == 4,
+                                            state: pr.currentStep == 4
+                                                ? appStepper.StepState.indexed
+                                                : pr.currentStep > 4
+                                                    ? appStepper.StepState.complete
+                                                    : appStepper.StepState.disabled,
+                                          ),
                                 appStepper.Step(
                                   title: new Text(''),
                                   content: Form(
@@ -551,21 +563,23 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                         BuildTimeDropDown(
                                         ),
                                         Gaps.vGap8,
-                                        BuildDescriptionField(
-                                          provider: pr,
-                                        ),
-                                        Gaps.vGap8,
-                                        BuildFilePicker(
-                                          provider: pr,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  isActive: pr.currentStep >= 0,
-                                  state: pr.currentStep >= 6
-                                      ? appStepper.StepState.complete
-                                      : appStepper.StepState.disabled,
-                                ),
+                                                  BuildDescriptionField(
+                                                    provider: pr,
+                                                  ),
+                                                  Gaps.vGap8,
+                                                  BuildFilePicker(
+                                                    provider: pr,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            isActive: pr.currentStep == 5,
+                                            state: pr.currentStep == 5
+                                                ? appStepper.StepState.indexed
+                                                : pr.currentStep > 5
+                                                    ? appStepper.StepState.complete
+                                                    : appStepper.StepState.disabled,
+                                          ),
                               ]),
                         ),
                       ),

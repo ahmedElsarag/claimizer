@@ -25,11 +25,10 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     view.showProgress(isDismiss: false);
     await requestFutureData<ClaimsResponse>(Method.get, options: Options(headers: header), endPoint: Api.claimsApiCall,
         onSuccess: (data) {
-      view.closeProgress();
       if (data != null) {
-        print('########${data.data.length}');
         view.provider.claimsList = data.data;
       }
+      view.closeProgress();
     }, onError: (code, msg) {
       view.closeProgress();
     });

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../app_widgets/NoDataFoundGrid.dart';
 import '../../../app_widgets/app_headline.dart';
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
@@ -58,7 +59,7 @@ class UnitsGrid extends StatelessWidget {
                     );
                   },
                 )
-              : SizedBox.shrink(),
+              : NoDataWidgetGrid(),
         ],
       ),
     );
