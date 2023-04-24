@@ -62,10 +62,10 @@ class Profile {
   String gender;
   String locale;
   String status;
-  int emailNotifications;
+  dynamic emailNotifications;
   bool emailVerified;
-  Null secondaryEmail;
-  int secondaryEmailVerified;
+  dynamic secondaryEmail;
+  dynamic secondaryEmailVerified;
 
   Profile(
       {this.timezone,

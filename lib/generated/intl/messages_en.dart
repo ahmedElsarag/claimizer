@@ -121,6 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "rememberThat" : MessageLookupByLibrary.simpleMessage("Remember That"),
     "reply" : MessageLookupByLibrary.simpleMessage("Reply"),
     "requestCode" : MessageLookupByLibrary.simpleMessage("Claim Code: "),
+    "saveChanges" : MessageLookupByLibrary.simpleMessage("Save Changes"),
     "search" : MessageLookupByLibrary.simpleMessage("Search"),
     "selectAvailableTime" : MessageLookupByLibrary.simpleMessage("Select Available Time"),
     "selectBuilding" : MessageLookupByLibrary.simpleMessage("Select Building"),

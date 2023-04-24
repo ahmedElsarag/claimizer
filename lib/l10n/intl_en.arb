@@ -143,5 +143,6 @@
   "updatePassword": "Update Password",
   "uploadContractImage": "Contract Image",
   "uploadIdentityImage": "Identity Image",
-  "nameIsRequired": "Name is required"
+  "nameIsRequired": "Name is required",
+  "saveChanges": "Save Changes"
 }

@@ -3,6 +3,7 @@ import 'package:Cliamizer/network/models/general_response.dart';
 
 import 'models/NewLinkListRequestResponse.dart';
 import 'models/NewLinkRequestResponse.dart';
+import 'models/NotificationResponse.dart';
 import 'models/ProfileResponse.dart';
 import 'models/StatisticsResponse.dart';
 import 'models/UnitRequestResponse.dart';
@@ -58,6 +59,9 @@ class EntityFactory {
         break;
       case "NewLinkListRequestResponse":
         return NewLinkListRequestResponse.fromJson(json) as T;
+        break;
+      case "NotificationResponse":
+        return NotificationResponse.fromJson(json) as T;
         break;
       default:
         return null;

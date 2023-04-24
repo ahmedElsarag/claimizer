@@ -142,5 +142,6 @@
   "updatePassword": "تعديل كلمة المرور",
   "uploadContractImage": "صورة العقد",
   "uploadIdentityImage": "صورة الهوية",
-  "nameIsRequired": "Name is required"
+  "nameIsRequired": "الاسم مطلوب",
+  "saveChanges": "حفظ التغييرات"
 }

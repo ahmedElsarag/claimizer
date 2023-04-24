@@ -52,6 +52,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
     provider = context.read<EditProfileProvider>();
     mPresenter.getProfileData();
     _tabController = TabController(length: 2, vsync: this);
+    provider.selectedTabIndex = 0;
   }
 
   Future getImageFromCamera() async {
@@ -238,7 +239,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
       ),
       onPressed: onTap ?? () {},
       child: Text(
-        "Save Changes",
+        S.of(context).saveChanges,
         style: MTextStyles.textWhite14,
       ),
     );
@@ -442,7 +443,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             controller: provider.mobileController,
             keyboardType: TextInputType.phone,
             showDropdownIcon: false,
-            initialCountryCode: 'SA',
+            initialCountryCode: 'AE',
             onChanged: (phone) {
               print("lhgshjklkjhajksjk" + phone.completeNumber);
             },
@@ -450,35 +451,6 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
               print('Country changed to: ' + country.name);
             },
           ),
-          // IntlPhoneField(
-          //   textAlign: TextAlign.start,
-          //   style: Theme.of(context).textTheme.caption,
-          //   decoration: InputDecoration(
-          //       filled: true,
-          //       fillColor: Theme.of(context).primaryColorLight,
-          //       hintText: S.of(context).phoneNumber,
-          //       hintStyle: Theme.of(context).textTheme.subtitle1.copyWith(fontWeight: FontWeight.w400),
-          //       contentPadding: EdgeInsets.symmetric(horizontal: 4.w),
-          //       border: OutlineInputBorder(
-          //           borderRadius: BorderRadius.circular(12),
-          //           borderSide: BorderSide(color: Theme.of(context).focusColor)),
-          //       focusedBorder: OutlineInputBorder(
-          //           borderRadius: BorderRadius.circular(12),
-          //           borderSide: BorderSide(color: Theme.of(context).focusColor)),
-          //       enabledBorder: OutlineInputBorder(
-          //           borderRadius: BorderRadius.circular(12),
-          //           borderSide: BorderSide(color: Theme.of(context).focusColor))),
-          //   showDropdownIcon: false,
-          //   initialCountryCode: "SA" /*provider.instance.countryIsoCode*/,
-          //   initialValue: provider.instance.profile.mobile,
-          //   onChanged: (phone) {
-          //     print(phone.completeNumber);
-          //     provider.mobile = phone.number.toString();
-          //     // countryIsoCode =
-          //     //     phone.countryISOCode.toString();
-          //     // countryCode = phone.countryCode.toString();
-          //   },
-          // ),
         ],
       ),
     );
@@ -709,21 +681,21 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             Gaps.vGap12,
             Gaps.vGap8,
             buildEmailField(context),
-            Gaps.vGap8,
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.w),
-              child: InkWell(
-                onTap: () {},
-                child: Row(
-                  children: [
-                    SvgPicture.asset(ImageUtils.getSVGPath("plus_icon")),
-                    Gaps.hGap8,
-                    Text(S.of(context).updateSecondaryEmail,
-                        style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color))
-                  ],
-                ),
-              ),
-            ),
+            // Gaps.vGap8,
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 4.w),
+            //   child: InkWell(
+            //     onTap: () {},
+            //     child: Row(
+            //       children: [
+            //         SvgPicture.asset(ImageUtils.getSVGPath("plus_icon")),
+            //         Gaps.hGap8,
+            //         Text(S.of(context).updateSecondaryEmail,
+            //             style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color))
+            //       ],
+            //     ),
+            //   ),
+            // ),
             Gaps.vGap12,
             Gaps.vGap8,
             buildPhoneField(context),
@@ -827,5 +799,5 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
   }
 
   @override
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive => false;
 }

@@ -225,27 +225,27 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
       child: Column(
         children: [
           // notification
-          Row(
-            children: [
-              SvgPicture.asset(
-                ImageUtils.getSVGPath('notification-bing'),
-                fit: BoxFit.fitWidth,
-              ),
-              Gaps.hGap12,
-              Text(S.of(context).notification, style: MTextStyles.textMainLight16),
-              Spacer(),
-              Transform.scale(
-                  scale: 0.2.w,
-                  child: CupertinoSwitch(
-                      activeColor: Color(0xff44A4F2),
-                      value: provider.receiveNotification,
-                      onChanged: (value) {
-                        provider.receiveNotification = value;
-                        print(provider.receiveNotification);
-                      }))
-            ],
-          ),
-          divider(),
+          // Row(
+          //   children: [
+          //     SvgPicture.asset(
+          //       ImageUtils.getSVGPath('notification-bing'),
+          //       fit: BoxFit.fitWidth,
+          //     ),
+          //     Gaps.hGap12,
+          //     Text(S.of(context).notification, style: MTextStyles.textMainLight16),
+          //     Spacer(),
+          //     Transform.scale(
+          //         scale: 0.2.w,
+          //         child: CupertinoSwitch(
+          //             activeColor: Color(0xff44A4F2),
+          //             value: provider.receiveNotification,
+          //             onChanged: (value) {
+          //               provider.receiveNotification = value;
+          //               print(provider.receiveNotification);
+          //             }))
+          //   ],
+          // ),
+          // divider(),
           // logout
           InkWell(
             onTap: () {

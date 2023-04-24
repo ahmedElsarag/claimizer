@@ -354,7 +354,7 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
             controller: phoneNumberController,
             keyboardType: TextInputType.phone,
             showDropdownIcon: false,
-            initialCountryCode: 'SA',
+            initialCountryCode: 'AE',
             onChanged: (phone) {
               print(phone.completeNumber);
             },
