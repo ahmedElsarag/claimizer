@@ -1,4 +1,5 @@
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
+import 'package:Cliamizer/ui/claims_screen/widgets/claims_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -59,7 +60,9 @@ class UnitsGrid extends StatelessWidget {
                     );
                   },
                 )
-              : NoDataWidgetGrid(),
+              : pr.dataLoaded
+                  ? NoDataWidgetGrid()
+                  : ClaimsLoading(),
         ],
       ),
     );

@@ -7,6 +7,7 @@ import '../../../app_widgets/NoDataFoundGrid.dart';
 import '../../../app_widgets/app_headline.dart';
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
+import 'claims_loading.dart';
 
 class ClaimTypeGrid extends StatelessWidget {
   const ClaimTypeGrid({Key key, this.onSelected}) : super(key: key);
@@ -58,7 +59,9 @@ class ClaimTypeGrid extends StatelessWidget {
                           );
                         },
                       )
-                    : NoDataWidgetGrid(),
+                    : pr.dataLoaded
+                        ? NoDataWidgetGrid()
+                        : ClaimsLoading(),
               ],
             ));
   }

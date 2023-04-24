@@ -40,76 +40,80 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
   }
 
   Future getBuildingsApiCall() async {
+    view.provider.dataLoaded = false;
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
     });
-    view.showProgress(isDismiss: false);
     await requestFutureData<BuildingsResponse>(Method.get,
         options: Options(headers: header), endPoint: Api.buildingsApiCall, onSuccess: (data) {
-      view.closeProgress();
+      view.provider.dataLoaded = true;
       if (data != null) {
         view.provider.buildingsList = data.data;
       }
     }, onError: (code, msg) {
-      view.closeProgress();
+          view.provider.dataLoaded = true;
     });
   }
 
   Future getUnitsApiCall(int buildingId) async {
+    view.provider.dataLoaded = false;
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
     });
-    view.showProgress(isDismiss: false);
+    view.provider.clearUnitsList();
     await requestFutureData<UnitsResponse>(Method.get,
         queryParams: {'building': buildingId},
         options: Options(headers: header),
         endPoint: Api.unitsApiCall, onSuccess: (data) {
-      view.closeProgress();
+      view.provider.dataLoaded = true;
       if (data != null) {
         view.provider.unitsList = data.data;
       }
     }, onError: (code, msg) {
-      view.closeProgress();
+      view.provider.dataLoaded = true;
     });
   }
 
   Future getCategoryApiCall(int unitId) async {
+    view.provider.dataLoaded = false;
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
     });
-    view.showProgress(isDismiss: false);
+    view.provider.clearCategoryList();
     await requestFutureData<CategoriesResponse>(Method.get,
         queryParams: {'property_unit_id': unitId, 'per_page': 1000},
         options: Options(headers: header),
         endPoint: Api.categoriesApiCall, onSuccess: (data) {
-      view.closeProgress();
+      view.provider.dataLoaded = true;
       if (data != null) {
         view.provider.categoriesList = data.data;
       }
     }, onError: (code, msg) {
-      view.closeProgress();
+      view.provider.dataLoaded = true;
     });
   }
 
   Future getClaimTypeApiCall(int subCategoryId) async {
+    view.provider.dataLoaded = false;
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
     });
-    view.showProgress(isDismiss: false);
+    view.provider.clearTypeList();
     await requestFutureData<ClaimTypeResponse>(Method.get,
         queryParams: {'subcategory_id': subCategoryId, 'per_page': 1000},
         options: Options(headers: header),
         endPoint: Api.claimTypeApiCall, onSuccess: (data) {
-      view.closeProgress();
+      view.provider.dataLoaded = true;
+
       if (data != null) {
         view.provider.claimTypeList = data.data;
       }
     }, onError: (code, msg) {
-      view.closeProgress();
+      view.provider.dataLoaded = true;
     });
   }
 

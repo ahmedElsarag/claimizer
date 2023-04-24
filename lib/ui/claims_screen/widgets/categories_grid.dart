@@ -7,6 +7,7 @@ import '../../../app_widgets/NoDataFoundGrid.dart';
 import '../../../app_widgets/app_headline.dart';
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
+import 'claims_loading.dart';
 
 class CategoriesGrid extends StatelessWidget {
   const CategoriesGrid({Key key, this.onSelected}) : super(key: key);
@@ -58,7 +59,9 @@ class CategoriesGrid extends StatelessWidget {
                           );
                         },
                       )
-                    : NoDataWidgetGrid(),
+                    : pr.dataLoaded
+                        ? NoDataWidgetGrid()
+                        : ClaimsLoading(),
               ],
             ));
   }

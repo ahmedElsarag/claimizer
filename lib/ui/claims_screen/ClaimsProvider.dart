@@ -111,12 +111,22 @@ class ClaimsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearUnitsList() {
+    _unitsList.clear();
+    notifyListeners();
+  }
+
   List<CategoryDataBean> _categoriesList = [];
 
   List<CategoryDataBean> get categoriesList => _categoriesList;
 
   set categoriesList(List<CategoryDataBean> value) {
     _categoriesList = value;
+    notifyListeners();
+  }
+
+  void clearCategoryList() {
+    _categoriesList.clear();
     notifyListeners();
   }
 
@@ -129,12 +139,22 @@ class ClaimsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearSubCategoryList() {
+    _subCategoryList.clear();
+    notifyListeners();
+  }
+
   List<ClaimTypeDataBean> _claimTypeList = [];
 
   List<ClaimTypeDataBean> get claimTypeList => _claimTypeList;
 
   set claimTypeList(List<ClaimTypeDataBean> value) {
     _claimTypeList = value;
+    notifyListeners();
+  }
+
+  void clearTypeList() {
+    _claimTypeList.clear();
     notifyListeners();
   }
 
@@ -187,6 +207,15 @@ class ClaimsProvider extends ChangeNotifier {
 
   set fileName(String value) {
     _fileName = value;
+    notifyListeners();
+  }
+
+  bool _dataLoaded = false;
+
+  bool get dataLoaded => _dataLoaded;
+
+  set dataLoaded(bool value) {
+    _dataLoaded = value;
     notifyListeners();
   }
 
