@@ -37,11 +37,14 @@ class ClaimsDetailsScreen extends StatefulWidget {
 
 class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDetailsPresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  ClaimsDetailsProvider provider = ClaimsDetailsProvider();
+  ClaimsDetailsProvider provider;
 
   @override
   void initState() {
     super.initState();
+    provider = context.read<ClaimsDetailsProvider>();
+    print("################################ ${widget.claimsDataBean.referenceId}");
+    mPresenter.getClaimDetailsDataApiCall(widget.claimsDataBean.referenceId);
   }
 
   @override
@@ -54,7 +57,6 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.w),
                   child: ListView(
-                      // crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ClaimizerAppBar(title: S.of(context).claimDetails),
                         Gaps.vGap12,
@@ -65,49 +67,46 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AppHeadline(title: widget.claimsDataBean.unit.building ?? S.current.na),
+                              AppHeadline(title: pr.instance.unit.building ?? S.current.na),
                               Gaps.vGap30,
                               ItemWidget(
                                 title: S.current.yourBuilding,
-                                value: widget.claimsDataBean.unit.building ?? S.current.na,
+                                value: pr.instance.unit.building ?? S.current.na,
                               ),
                               ItemWidget(
                                 title: S.current.yourUnit,
-                                value: widget.claimsDataBean.unit.name ?? S.current.na,
+                                value: pr.instance.unit.name ?? S.current.na,
                               ),
                               ItemWidget(
                                 title: S.current.claimCategory,
-                                value: widget.claimsDataBean.category.name ?? S.current.na,
+                                value: pr.instance.category.name ?? S.current.na,
                               ),
                               ItemWidget(
                                 title: S.current.claimSubCategory,
-                                value: widget.claimsDataBean.subCategory.name ?? S.current.na,
+                                value: pr.instance.subCategory.name ?? S.current.na,
                               ),
                               ItemWidget(
                                 title: S.current.claimType,
-                                value: widget.claimsDataBean.type.name ?? S.current.na,
+                                value: pr.instance.type.name ?? S.current.na,
                               ),
                               ItemWidget(
                                 title: S.current.availableTime,
                                 value:
-                                "${widget.claimsDataBean?.availableDate.toString()??S.current.na} - ${widget.claimsDataBean?.availableTime??S.current.na}",
+                                "${pr.instance.availableDate.toString()??S.current.na} - ${widget.claimsDataBean?.availableTime??S.current.na}",
                               ),
                               ItemWidget(
                                 title: S.current.createdAt,
-                                value: widget.claimsDataBean?.createdAt,
+                                value: pr.instance.createdAt,
                                 valueColor: MColors.primary_light_color,
                               ),
                               DescriptionWidget(
-                                value:widget.claimsDataBean?.description
+                                value:pr.instance.description
                               ),
                               FilesWidget(
                                 value: ImageUtils.getImagePath("logo"),
                               ),
                               CommentsWidget(
-                                userName: "Ahmed Mohamed",
-                                userImage: "img",
-                                comment: "Claim Set Employee : mohammad",
-                                commentDate: "23-03-2023 10:20",
+                                commentsData: pr.instance.comments,
                                 deleteComment: () {
                                   print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@comment deleted");
                                 },

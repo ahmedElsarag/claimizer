@@ -23,4 +23,5 @@ class Api {
   static const String claimTypeApiCall = "claims/claim-types";
   static const String claimAvailableTimeApiCall = "claims/available-times";
   static const String getNotificationApiCall = "show-client-notifications";
+  static String getClaimDetailsApiCall(String id) => "claim/$id";
 }
