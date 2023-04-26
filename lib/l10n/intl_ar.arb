@@ -143,5 +143,10 @@
   "uploadContractImage": "صورة العقد",
   "uploadIdentityImage": "صورة الهوية",
   "nameIsRequired": "الاسم مطلوب",
-  "saveChanges": "حفظ التغييرات"
+  "saveChanges": "حفظ التغييرات",
+  "update": "Update",
+  "addComment": "Add Comment",
+  "commentAdded": "Comment Added",
+  "deleteClaim": "Delete Claim",
+  "claimDeleted": "Claim Deleted"
 }

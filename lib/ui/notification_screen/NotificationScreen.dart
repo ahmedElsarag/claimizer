@@ -32,85 +32,15 @@ class NotificationScreenState extends BaseState<NotificationScreen, Notification
   @override
   void initState() {
     super.initState();
-    // mPresenter.getNotificationApiCall();
+    mPresenter.getNotificationApiCall();
   }
-
-  final List<Map<String, dynamic>> data = [
-    {
-      "date": "Today -  10,June,2023",
-      "items": [
-        {
-          "id": 1,
-          "title": "Message head",
-          "description": "Your serial is successfully added in app list. Serial number is 25 you before 15 minutes",
-          "time": "since 2 weeks"
-        },
-        {
-          "id": 2,
-          "title": "Message head",
-          "description": "Your serial is successfully added in app list. Serial number is 25 you before 15 minutes",
-          "time": "since 2 weeks"
-        }
-      ]
-    },
-    {
-      "date": "Yesterday -  9,June,2023",
-      "items": [
-        {
-          "id": 3,
-          "title": "Message head",
-          "description": "Your serial is successfully added in app list. Serial number is 25 you before 15 minutes",
-          "time": "since 2 weeks"
-        }
-      ]
-    },
-    {
-      "date": "Monday -  6,June,2023",
-      "items": [
-        {
-          "id": 4,
-          "title": "Message head",
-          "description": "Your serial is successfully added in app list. Serial number is 25 you before 15 minutes",
-          "time": "since 2 weeks"
-        },
-        {
-          "id": 5,
-          "title": "Message head",
-          "description": "Your serial is successfully added in app list. Serial number is 25 you before 15 minutes",
-          "time": "since 2 weeks"
-        },
-        {
-          "id": 6,
-          "title": "Message head",
-          "description": "Your serial is successfully added in app list. Serial number is 25 you before 15 minutes",
-          "time": "since 2 weeks"
-        }
-      ]
-    }
-  ];
-  List _elements = [
-    {'name': 'John', 'group': 'Today -  10,June,2023'},
-    {'name': 'John', 'group': 'Today -  10,June,2023'},
-    {'name': 'John', 'group': 'Today -  10,June,2023'},
-    {'name': 'John', 'group': 'Today -  10,June,2023'},
-    {'name': 'Will', 'group': 'Today -  11,June,2023'},
-    {'name': 'Beth', 'group': 'Today -  11,June,2023'},
-    {'name': 'Miranda', 'group': 'Today -  11,June,2023'},
-    {'name': 'Miranda', 'group': 'Today -  11,June,2023'},
-    {'name': 'Miranda', 'group': 'Today -  11,June,2023'},
-    {'name': 'Mike', 'group': 'Today -  12,June,2023'},
-    {'name': 'Danny', 'group': 'Today -  12,June,2023'},
-    {'name': 'Danny', 'group': 'Today -  12,June,2023'},
-    {'name': 'Danny', 'group': 'Today -  12,June,2023'},
-    {'name': 'Danny', 'group': 'Today -  12,June,2023'},
-  ];
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<NotificationProvider>(
       create: (context) => provider,
       builder: (context, child) => Consumer<NotificationProvider>(
-        builder: (context, value, child) => Scaffold(
+        builder: (context, pr, child) => Scaffold(
           backgroundColor: MColors.page_background,
           body: Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(20, 50, 20, 0),
@@ -118,7 +48,7 @@ class NotificationScreenState extends BaseState<NotificationScreen, Notification
               children: [
                 ClaimizerAppBar(title: S.current.notification),
                 Gaps.vGap12,
-                Expanded(
+                /*Expanded(
                   child:  GroupedListView<dynamic, String>(
                     elements: _elements,
                     groupBy: (element) => element['group'],
@@ -175,76 +105,69 @@ class NotificationScreenState extends BaseState<NotificationScreen, Notification
                       );
                     },
                   ),
-                ),
-                // Expanded(
-                //     child: ListView.builder(
-                //       itemCount: data.length,
-                //       itemBuilder: (BuildContext context, int index) {
-                //         final item = data[index];
-                //         return Column(
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           children: [
-                //             Padding(
-                //               padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                //               child: Text(
-                //                 item["date"],
-                //                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: MColors.main_text_color),
-                //               ),
-                //             ),
-                //             Gaps.vGap16,
-                //             Container(
-                //               decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
-                //               child: ListView.builder(
-                //                 shrinkWrap: true,
-                //                 physics: NeverScrollableScrollPhysics(),
-                //                 itemCount: item["items"].length,
-                //                 itemBuilder: (BuildContext context, int index) {
-                //                   final subItem = item["items"][index];
-                //                   return Container(
-                //                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                //                     child: Row(
-                //                       children: [
-                //                         Container(
-                //                           height: 32,
-                //                           width: 32,
-                //                           decoration: BoxDecoration(color: MColors.page_background, borderRadius: BorderRadius.circular(16)),
-                //                           padding: EdgeInsets.all(6),
-                //                           child: SvgPicture.asset(ImageUtils.getSVGPath("notification-bing")),
-                //                         ),
-                //                         Gaps.hGap16,
-                //                         Column(
-                //                           crossAxisAlignment: CrossAxisAlignment.start,
-                //                           children: [
-                //                             Text(
-                //                               subItem["title"],
-                //                               style: MTextStyles.textDark14,
-                //                             ),
-                //                             Gaps.vGap6,
-                //                             SizedBox(
-                //                                 width: 70.w,
-                //                                 child: Text(
-                //                                   subItem["description"],
-                //                                   style: MTextStyles.textGray12,
-                //                                 )),
-                //                             Gaps.vGap6,
-                //                             Text(
-                //                               subItem["time"],
-                //                               style: MTextStyles.textDark12,
-                //                             ),
-                //                           ],
-                //                         )
-                //                       ],
-                //                     ),
-                //                   );
-                //                 },
-                //               ),
-                //             ),
-                //             Gaps.vGap16,
-                //             Gaps.vGap8
-                //           ],
-                //         );
-                //       },
-                //     ))
+                ),*/
+                Expanded(
+                    child: ListView.builder(
+                      itemCount: pr.notificationList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                              child: Text(
+                                "${pr.notificationList[index].date} - ${pr.notificationList[index].diffDate}" ,
+                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: MColors.main_text_color),
+                              ),
+                            ),
+                            Gaps.vGap16,
+                            Container(
+                              decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: pr.notificationList[index].items.length,
+                                itemBuilder: (BuildContext context, int nIndex) {
+                                  return Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: 32,
+                                          width: 32,
+                                          decoration: BoxDecoration(color: MColors.page_background, borderRadius: BorderRadius.circular(16)),
+                                          padding: EdgeInsets.all(6),
+                                          child: SvgPicture.asset(ImageUtils.getSVGPath("notification-bing")),
+                                        ),
+                                        Gaps.hGap16,
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                                width: 70.w,
+                                                child: Text(
+                                                  pr.notificationList[index].items[nIndex].title,
+                                                  style: MTextStyles.textDark14,
+                                                ),),
+                                            Gaps.vGap6,
+                                            Text(
+                                              pr.notificationList[index].diffDate,
+                                              style: MTextStyles.textDark12,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Gaps.vGap16,
+                            Gaps.vGap8
+                          ],
+                        );
+                      },
+                    ))
               ],
             ),
           ),

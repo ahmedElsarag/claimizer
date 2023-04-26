@@ -1,11 +1,15 @@
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
+import 'package:Cliamizer/ui/claims_details_screen/widgets/build_contract_file_picker.dart';
+import 'package:Cliamizer/ui/claims_details_screen/widgets/build_description_field.dart';
 import 'package:Cliamizer/ui/claims_details_screen/widgets/comments_widget.dart';
 import 'package:Cliamizer/ui/claims_details_screen/widgets/description_widget.dart';
 import 'package:Cliamizer/ui/claims_details_screen/widgets/files_widgets.dart';
 import 'package:Cliamizer/ui/claims_details_screen/widgets/item_widget.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -17,6 +21,7 @@ import '../../network/models/claims_response.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
 import '../../res/styles.dart';
+import '../claims_screen/widgets/claims_loading.dart';
 import 'ClaimsDetailsPresenter.dart';
 import 'ClaimsDetailsProvider.dart';
 
@@ -43,7 +48,6 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
   void initState() {
     super.initState();
     provider = context.read<ClaimsDetailsProvider>();
-    print("################################ ${widget.claimsDataBean.referenceId}");
     mPresenter.getClaimDetailsDataApiCall(widget.claimsDataBean.referenceId);
   }
 
@@ -53,7 +57,7 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
     return Consumer<ClaimsDetailsProvider>(
         builder: (context, pr, child) => Scaffold(
               backgroundColor: MColors.page_background,
-              body: SafeArea(
+              body: pr.instance !=null? SafeArea(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.w),
                   child: ListView(
@@ -67,11 +71,11 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AppHeadline(title: pr.instance.unit.building ?? S.current.na),
+                              AppHeadline(title: pr.instance?.unit?.building ?? S.current.na),
                               Gaps.vGap30,
                               ItemWidget(
                                 title: S.current.yourBuilding,
-                                value: pr.instance.unit.building ?? S.current.na,
+                                value: pr.instance?.unit?.building ?? S.current.na,
                               ),
                               ItemWidget(
                                 title: S.current.yourUnit,
@@ -103,37 +107,116 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                                 value:pr.instance.description
                               ),
                               FilesWidget(
-                                value: ImageUtils.getImagePath("logo"),
+                                value: pr.instance.files??ImageUtils.getImagePath("logo"),
                               ),
                               CommentsWidget(
                                 commentsData: pr.instance.comments,
-                                deleteComment: () {
-                                  print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@comment deleted");
-                                },
+                                presenter: mPresenter,
+                                claimId: widget.claimsDataBean.referenceId,
                               ),
-                              InkWell(
-                                onTap: () {
-                                  print("@@@@@@@@@@@@@@@@@@@@@@ Updated");
-                                },
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      ImageUtils.getSVGPath("refresh"),
+                              Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      showDialog(context: context, builder: (context) {
+                                        return AlertDialog(
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                S.of(context).addComment,
+                                                style: MTextStyles.textMain14,
+                                              ),
+                                              Gaps.vGap8,
+                                              BuildCommentField(
+                                                provider: provider,
+                                              ),
+                                              Gaps.vGap8,
+                                              BuildUploadFileField(
+                                                provider: provider,
+                                              ),
+                                              Gaps.vGap8,
+                                              ElevatedButton(
+                                                onPressed: () async{
+                                                  if (pr.file != null){
+                                                    FormData formData = new FormData.fromMap({
+                                                      "file[0]": await MultipartFile.fromFile(
+                                                        pr.file.path,
+                                                        contentType: new MediaType('image', 'jpg'),
+                                                      ),
+                                                      "comment": pr.comment.text,
+                                                      "claim_id": widget.claimsDataBean.id,
+                                                    });
+                                                    mPresenter.doPostCommentApiCall(formData,widget.claimsDataBean.referenceId);
+                                                  }
+                                                },
+                                                child: Text(
+                                                  S.of(context).addComment,
+                                                  style: MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                                ),
+                                                style: ButtonStyle(
+                                                    backgroundColor: MaterialStateProperty.all<Color>(MColors.primary_color),
+                                                    elevation: MaterialStatePropertyAll(0),
+                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        )),
+                                                    padding: MaterialStateProperty.all<EdgeInsets>(
+                                                        EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      },);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          ImageUtils.getSVGPath("refresh"),
+                                        ),
+                                        Gaps.hGap8,
+                                        Text(
+                                          S.of(context).update,
+                                          style: MTextStyles.textMain14,
+                                        )
+                                      ],
                                     ),
-                                    Gaps.hGap8,
-                                    Text(
-                                      "Update",
-                                      style: MTextStyles.textMain14,
-                                    )
-                                  ],
-                                ),
-                              )
+                                  ),
+                                  Gaps.hGap12,
+                                  Gaps.hGap12,
+                                  InkWell(
+                                    onTap: () {
+                                      print("@#@#@#@#@#@#@#@#@#@#@# ${pr.instance.id}");
+                                      mPresenter.deleteClaimApiCall(pr.instance.id);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          decoration:BoxDecoration(
+                                            color: MColors.primary_color.withOpacity(0.08),
+                                            shape: BoxShape.circle
+                                          ),
+                                          padding: EdgeInsets.all(4),
+                                          child: SvgPicture.asset(
+                                            ImageUtils.getSVGPath("trash"),color: MColors.primary_color,
+                                          ),
+                                        ),
+                                        Gaps.hGap8,
+                                        Text(
+                                          S.of(context).deleteClaim,
+                                          style: MTextStyles.textMain14,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ),
                       ]),
                 ),
-              ),
+              ) : Center(child: SizedBox.shrink()),
             ));
   }
 

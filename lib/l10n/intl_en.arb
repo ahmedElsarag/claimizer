@@ -144,5 +144,10 @@
   "uploadContractImage": "Contract Image",
   "uploadIdentityImage": "Identity Image",
   "nameIsRequired": "Name is required",
-  "saveChanges": "Save Changes"
+  "saveChanges": "Save Changes",
+  "update": "Update",
+  "addComment": "Add Comment",
+  "commentAdded": "Comment Added",
+  "deleteClaim": "Delete Claim",
+  "claimDeleted": "Claim Deleted"
 }

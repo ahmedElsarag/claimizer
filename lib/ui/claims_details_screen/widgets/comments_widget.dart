@@ -1,5 +1,6 @@
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/app_widgets/app_headline.dart';
+import 'package:Cliamizer/app_widgets/image_loader.dart';
 import 'package:Cliamizer/network/models/ClaimDetailsResponse.dart';
 import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +11,13 @@ import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
 import '../../../res/styles.dart';
+import '../ClaimsDetailsPresenter.dart';
 
 class CommentsWidget extends StatelessWidget {
  final Comments commentsData;
- final Function deleteComment;
-  const CommentsWidget({Key key, this.deleteComment,this.commentsData,}) : super(key: key);
+ final String claimId;
+ final ClaimsDetailsPresenter presenter;
+ const CommentsWidget({Key key, this.presenter,this.commentsData, this.claimId,}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,7 +28,7 @@ class CommentsWidget extends StatelessWidget {
         ListView.separated(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: commentsData.commentData.length,
+          itemCount: commentsData.data.length,
           separatorBuilder: (context, index) => Divider(color: MColors.dividerColor,),
           itemBuilder: (context, index) => Container(
             margin: EdgeInsets.symmetric(vertical: 2.w),
@@ -39,14 +42,14 @@ class CommentsWidget extends StatelessWidget {
                       ),
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Image.asset(ImageUtils.getImagePath("img"),height: 48,width: 48,))),
+                          child: ImageLoader(imageUrl: commentsData.data[index].user.avatar,height: 48,width: 48,))),
                   Gaps.hGap12,
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         width: 50.w,
-                        child: Text(commentsData.commentData[index].comment??"",
+                        child: Text(commentsData.data[index].user?.name??"",
                             style: MTextStyles.textMain14.copyWith(
                               color: MColors.black,
                             )),
@@ -54,13 +57,13 @@ class CommentsWidget extends StatelessWidget {
                       Gaps.vGap4,
                       Container(
                         width: 50.w,
-                        child: Text(commentsData.commentData[index].comment??"",
+                        child: Text(commentsData.data[index].comment??"",
                             style: MTextStyles.textGray12.copyWith(
                               color: MColors.primary_light_color,
                             )),
                       ),
                       Gaps.vGap4,
-                      Text(commentsData.commentData[index].createdAt??"",
+                      Text(commentsData.data[index].createdAt??"",
                           style: MTextStyles.textGray10.copyWith(
                             color: MColors.black,
                           )),
@@ -68,9 +71,11 @@ class CommentsWidget extends StatelessWidget {
                     ],
                   ),
                   Spacer(),
-                  InkWell(
-                      onTap: deleteComment??(){},
-                      child: SvgPicture.asset(ImageUtils.getSVGPath("trash")))
+                  // InkWell(
+                  //     onTap:(){
+                  //       print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ${commentsData.data[index].id}");
+                  //     },
+                  //     child: SvgPicture.asset(ImageUtils.getSVGPath("trash")))
                 ],
               ),
               Visibility(
@@ -78,10 +83,10 @@ class CommentsWidget extends StatelessWidget {
                 child: SizedBox(
                   height: 80,
                   width: 100.w,
-                  child: ListView.builder(
+                  child:  ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount: 5,
+                    itemCount: 2,
                     itemBuilder: (context, index) => Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
