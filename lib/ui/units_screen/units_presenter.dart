@@ -21,14 +21,6 @@ import '../../res/styles.dart';
 import 'units_screen.dart';
 
 class UnitPresenter extends BasePresenter<UnitsScreenState> {
-  // calculate to verify unit validated or not
-  //   // https://beta.claimizer.com/client/properties?qr_code=U22-98940-10&contract_number=1&start_date=01-01-2022&end_date=01-01-2023&m=02024045
-  //   /*
-  //     https://beta.claimizer.com/client/properties?qr_code=U22-18376-1
-  //     m = (start date + end date) * contract number
-  //     m = (01012022+ 01012023) * 1 = 02024045
-  //     validated = true
-  //   */
 
   Future getExistingUnitsApiCall() async {
     Map<String, dynamic> header = Map();
@@ -37,6 +29,23 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
     });
     view.showProgress(isDismiss: false);
     await requestFutureData<UnitsResponse>(Method.get, options: Options(headers: header), endPoint: Api.unitsApiCall,
+        onSuccess: (data) {
+      view.closeProgress();
+      if (data != null) {
+        view.provider.unitsList = data.data;
+      }
+    }, onError: (code, msg) {
+      view.closeProgress();
+    });
+  }
+
+  Future getFilteredExistingUnitsApiCall(Map<String, dynamic> params) async {
+    Map<String, dynamic> header = Map();
+    await Prefs.getUserToken.then((token) {
+      header['Authorization'] = "Bearer $token";
+    });
+    view.showProgress(isDismiss: false);
+    await requestFutureData<UnitsResponse>(Method.get, options: Options(headers: header),queryParams: params, endPoint: Api.unitsApiCall,
         onSuccess: (data) {
       view.closeProgress();
       if (data != null) {

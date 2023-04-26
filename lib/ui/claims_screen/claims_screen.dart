@@ -160,7 +160,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 onTap: () {
                                   Map<String, dynamic> parms = Map();
                                   parms['property'] = searchController.text.toString();
-                                  mPresenter.getfilteredClaimsApiCall(parms);
+                                  mPresenter.getFilteredClaimsApiCall(parms);
                                 },
                               ),
                               suffixIcon: GestureDetector(
@@ -174,7 +174,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                             onFieldSubmitted: (value) {
                               Map<String, dynamic> parms = Map();
                               parms['property'] = searchController.text.toString();
-                              mPresenter.getfilteredClaimsApiCall(parms);
+                              mPresenter.getFilteredClaimsApiCall(parms);
                               print("@@@@@@@@@@@@@@@@@@@@@@&&&& ${searchController.text}");
                             },
                             onChanged: (value) {

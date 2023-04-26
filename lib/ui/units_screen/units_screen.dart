@@ -4,6 +4,7 @@ import 'package:Cliamizer/ui/units_screen/widgets/complete_new_unit.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/existing_unit_list.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/search_qr_code_view.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/unit_link_request.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
     'existing_unit',
     'unit_link_request',
   ];
+
 
   @override
   void initState() {
@@ -132,7 +134,56 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                   child: Row(
                     children: [
                       Expanded(
-                        child: SearchField(),
+                        child: Container(
+                          // width: 237,
+                          height: 10.w,
+                          child: TextFormField(
+                            controller: pr.searchController,
+                            decoration: InputDecoration(
+                              hintText: S.current.search,
+                              hintStyle: MTextStyles.textGray14,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none, borderRadius: BorderRadius.circular(8)),
+                              contentPadding: EdgeInsets.zero,
+                              filled: true,
+                              fillColor: Color(0xffF7F7F7),
+                              prefixIcon: GestureDetector(
+                                child: Icon(
+                                  CupertinoIcons.search,
+                                  color: MColors.primary_light_color,
+                                ),
+                                onTap: () {
+                                  if (pr.selectedIndex == 1) {
+                                    Map<String, dynamic> parms = Map();
+                                    parms['unit'] = pr.searchController.text.toString();
+                                    mPresenter.getFilteredExistingUnitsApiCall(parms);
+                                  } else if (pr.selectedIndex == 2) {}
+                                },
+                              ),
+                              suffixIcon: GestureDetector(
+                                child: Icon(
+                                  Icons.cancel_rounded,
+                                  color: MColors.primary_light_color,
+                                ),
+                                onTap: () {
+                                  pr.searchController.clear();
+                                  mPresenter.getExistingUnitsApiCall();
+                                },
+                              ),
+                            ),
+                            onFieldSubmitted: (value) {
+                              if (pr.selectedIndex == 1) {
+                                Map<String, dynamic> parms = Map();
+                                parms['unit'] = pr.searchController.text.toString();
+                                mPresenter.getFilteredExistingUnitsApiCall(parms);
+                              } else if (pr.selectedIndex == 2) {}
+                              print("@@@@@@@@@@@@@@@@@@@@@@&&&& ${pr.searchController.text}");
+                            },
+                            onChanged: (value) {
+                              pr.searchValue = value;
+                            },
+                          ),
+                        ),
                       ),
                       SizedBox(width: 17.0),
                       InkWell(

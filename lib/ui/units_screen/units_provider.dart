@@ -127,6 +127,25 @@ class UnitProvider<T> extends BaseProvider<T> {
     _buildingUnitsList = value;
     notifyListeners();
   }
+
+  String _searchValue = '';
+
+  String get searchValue => _searchValue;
+
+  set searchValue(String value) {
+    _searchValue = value;
+    notifyListeners();
+  }
+
+  TextEditingController _searchController = TextEditingController();
+
+  TextEditingController get searchController => _searchController;
+
+  set searchController(TextEditingController value) {
+    _searchController = value;
+    notifyListeners();
+  }
+
   String _selectedUnit;
 
   String get selectedUnit => _selectedUnit;

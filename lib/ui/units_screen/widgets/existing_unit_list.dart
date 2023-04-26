@@ -20,6 +20,7 @@ final UnitPresenter presenter;
         print("@@@@@@@@@@@@@@@@@@@ : ${pr.unitsList.length}");
         return pr.unitsList.isNotEmpty? RefreshIndicator(
           onRefresh: ()async{
+            pr.searchController.clear();
             await presenter.getExistingUnitsApiCall();
           },
           child: ListView.builder(

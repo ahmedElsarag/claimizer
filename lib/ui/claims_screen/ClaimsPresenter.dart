@@ -34,7 +34,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     });
   }
 
-  Future getfilteredClaimsApiCall(Map<String, dynamic> params) async {
+  Future getFilteredClaimsApiCall(Map<String, dynamic> params) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
