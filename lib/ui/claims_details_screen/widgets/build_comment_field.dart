@@ -21,7 +21,7 @@ class BuildCommentField extends StatelessWidget {
         maxLines: null,
         style: MTextStyles.textDark14,
         decoration: InputDecoration(
-          hintText: S.of(context).writeYourThoughtsHere,
+          hintText: S.of(context).comment,
           hintStyle: MTextStyles.textMain14.copyWith(
               color: MColors.light_text_color
           ),

@@ -51,7 +51,7 @@ class BuildUploadFileField extends StatelessWidget {
               ),
               suffixIcon:  InkWell(
                 onTap: () async {
-                 pr.updateCommentFile(null);
+                  pr.updateCommentFile(null);
                 },
                 child:Padding(
                   padding: const EdgeInsets.all(12.0),

@@ -1,7 +1,7 @@
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
-import 'package:Cliamizer/ui/claims_details_screen/widgets/build_contract_file_picker.dart';
-import 'package:Cliamizer/ui/claims_details_screen/widgets/build_description_field.dart';
+import 'package:Cliamizer/ui/claims_details_screen/widgets/build_comment_field.dart';
+import 'package:Cliamizer/ui/claims_details_screen/widgets/build_upload_file_field.dart';
 import 'package:Cliamizer/ui/claims_details_screen/widgets/comments_widget.dart';
 import 'package:Cliamizer/ui/claims_details_screen/widgets/description_widget.dart';
 import 'package:Cliamizer/ui/claims_details_screen/widgets/files_widgets.dart';
@@ -10,7 +10,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -21,7 +20,6 @@ import '../../network/models/claims_response.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
 import '../../res/styles.dart';
-import '../claims_screen/widgets/claims_loading.dart';
 import 'ClaimsDetailsPresenter.dart';
 import 'ClaimsDetailsProvider.dart';
 
@@ -104,10 +102,13 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                                 valueColor: MColors.primary_light_color,
                               ),
                               DescriptionWidget(
-                                value:pr.instance.description
+                                value: pr.instance.description
                               ),
-                              FilesWidget(
-                                value: pr.instance.files??ImageUtils.getImagePath("logo"),
+                              Visibility(
+                                visible: pr.instance.files !=null,
+                                child: FilesWidget(
+                                  value: ImageUtils.getImagePath("logo"),
+                                ),
                               ),
                               CommentsWidget(
                                 commentsData: pr.instance.comments,
@@ -127,6 +128,7 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                                                 S.of(context).addComment,
                                                 style: MTextStyles.textMain14,
                                               ),
+                                              Gaps.vGap8,
                                               Gaps.vGap8,
                                               BuildCommentField(
                                                 provider: provider,
