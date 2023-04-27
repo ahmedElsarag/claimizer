@@ -208,7 +208,10 @@ class UnitLinkRequest extends StatelessWidget {
           ),
         ),
       )
-    : NoDataWidget()
+    : NoDataWidget(
+      onRefresh: ()async{
+        await presenter.getUnitRequestsApiCall();
+      }),
     );
   }
 

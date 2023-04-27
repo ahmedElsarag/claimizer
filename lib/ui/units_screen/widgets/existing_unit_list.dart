@@ -192,7 +192,11 @@ class ExistingUnitList extends StatelessWidget {
                   ),
                 ),
           ),
-        ) : NoDataWidget();
+        ) : NoDataWidget(
+          onRefresh: ()async{
+            await presenter.getExistingUnitsApiCall();
+          },
+        );
       },
     );
   }

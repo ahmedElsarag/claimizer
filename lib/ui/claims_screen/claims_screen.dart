@@ -151,12 +151,16 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                             decoration: InputDecoration(
                               hintText: S.current.search,
                               hintStyle: MTextStyles.textGray14,
-                              border: OutlineInputBorder(borderSide: BorderSide.none, borderRadius: BorderRadius.circular(8)),
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none, borderRadius: BorderRadius.circular(8)),
                               contentPadding: EdgeInsets.zero,
                               filled: true,
                               fillColor: Color(0xffF7F7F7),
                               prefixIcon: GestureDetector(
-                                child: Icon(CupertinoIcons.search, color: MColors.primary_light_color,),
+                                child: Icon(
+                                  CupertinoIcons.search,
+                                  color: MColors.primary_light_color,
+                                ),
                                 onTap: () {
                                   Map<String, dynamic> parms = Map();
                                   parms['property'] = searchController.text.toString();
@@ -164,7 +168,10 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 },
                               ),
                               suffixIcon: GestureDetector(
-                                child: Icon(Icons.cancel_rounded, color: MColors.primary_light_color,),
+                                child: Icon(
+                                  Icons.cancel_rounded,
+                                  color: MColors.primary_light_color,
+                                ),
                                 onTap: () {
                                   searchController.clear();
                                   mPresenter.getAllClaimsApiCall();
@@ -181,7 +188,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                               pr.searchValue = value;
                             },
                           ),
-                  ),
+                        ),
                       ),
                       SizedBox(width: 17.0),
                       InkWell(
@@ -487,10 +494,12 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                         steps: [
                                           appStepper.Step(
                                             title: new Text(''),
-                                            content: BuildingGrid(onSelected: (id) {
-                                              selectedBuildingId = id;
-                                              mPresenter.getUnitsApiCall(id);
-                                            }),
+                                            content: BuildingGrid(
+                                                presenter: mPresenter,
+                                                onSelected: (id) {
+                                                  selectedBuildingId = id;
+                                                  mPresenter.getUnitsApiCall(id);
+                                                }),
                                             isActive: pr.currentStep == 0,
                                             state: pr.currentStep == 0
                                                 ? appStepper.StepState.indexed
@@ -500,10 +509,13 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                           ),
                                           appStepper.Step(
                                             title: new Text(''),
-                                            content: UnitsGrid(onSelected: (id) {
-                                              selectedUnitId = id;
-                                              mPresenter.getCategoryApiCall(id);
-                                            }),
+                                            content: UnitsGrid(
+                                                id: selectedUnitId,
+                                                presenter: mPresenter,
+                                                onSelected: (id) {
+                                                  selectedUnitId = id;
+                                                  mPresenter.getCategoryApiCall(id);
+                                                }),
                                             isActive: pr.currentStep == 1,
                                             state: pr.currentStep == 1
                                                 ? appStepper.StepState.indexed
@@ -513,10 +525,13 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                           ),
                                           appStepper.Step(
                                             title: new Text(''),
-                                            content: CategoriesGrid(onSelected: (index) {
-                                              selectedCategoryId = pr.categoriesList[index].id;
-                                              pr.subCategoryList = pr.categoriesList[index].subCategory.data;
-                                            }),
+                                            content: CategoriesGrid(
+                                                presenter: mPresenter,
+                                                id: selectedCategoryId,
+                                                onSelected: (index) {
+                                                  selectedCategoryId = pr.categoriesList[index].id;
+                                                  pr.subCategoryList = pr.categoriesList[index].subCategory.data;
+                                                }),
                                             isActive: pr.currentStep == 2,
                                             state: pr.currentStep == 2
                                                 ? appStepper.StepState.indexed
@@ -541,10 +556,13 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                           ),
                                           appStepper.Step(
                                             title: new Text(''),
-                                            content: ClaimTypeGrid(onSelected: (id) {
-                                              selectedTypeId = id;
-                                              mPresenter.getClaimAvailableTimeApiCall();
-                                            }),
+                                            content: ClaimTypeGrid(
+                                                presenter: mPresenter,
+                                                id: selectedTypeId,
+                                                onSelected: (id) {
+                                                  selectedTypeId = id;
+                                                  mPresenter.getClaimAvailableTimeApiCall();
+                                                }),
                                             isActive: pr.currentStep == 4,
                                             state: pr.currentStep == 4
                                                 ? appStepper.StepState.indexed

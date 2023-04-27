@@ -1,3 +1,4 @@
+import 'package:Cliamizer/ui/claims_screen/ClaimsPresenter.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,9 +13,9 @@ import '../../../res/gaps.dart';
 import '../../../res/styles.dart';
 
 class BuildingGrid extends StatelessWidget {
-  const BuildingGrid({Key key, this.onSelected}) : super(key: key);
-
+  const BuildingGrid({Key key, this.onSelected, this.presenter}) : super(key: key);
   final Function(int) onSelected;
+  final ClaimsPresenter presenter;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +78,11 @@ class BuildingGrid extends StatelessWidget {
                 ),
               );
             },
-          ) : NoDataWidgetGrid(),
+          ) : NoDataWidgetGrid(
+            onRefresh: ()async{
+              presenter.getBuildingsApiCall();
+            },
+          ),
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:Cliamizer/ui/claims_screen/ClaimsPresenter.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/claims_loading.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,10 @@ import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 
 class UnitsGrid extends StatelessWidget {
-  const UnitsGrid({Key key, this.onSelected}) : super(key: key);
-
+  const UnitsGrid({Key key, this.onSelected, this.presenter, this.id}) : super(key: key);
+  final ClaimsPresenter presenter;
   final Function(int) onSelected;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,11 @@ class UnitsGrid extends StatelessWidget {
                   },
                 )
               : pr.dataLoaded
-                  ? NoDataWidgetGrid()
+                  ? NoDataWidgetGrid(
+                      onRefresh: () async {
+                        presenter.getUnitsApiCall(id);
+                      },
+                    )
                   : ClaimsLoading(),
         ],
       ),

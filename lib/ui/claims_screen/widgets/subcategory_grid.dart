@@ -1,3 +1,4 @@
+import 'package:Cliamizer/ui/claims_screen/ClaimsPresenter.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,21 +34,21 @@ class SubcategoryGrid extends StatelessWidget {
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
-                      onTap: () {
-                        pr.selectedClaimSubCategoryIndex = index;
-                        onSelected(pr.subCategoryList[index].id);
-                        pr.selectedSubCategory = pr.subCategoryList[index].name;
-                        pr.currentStep < 5 ? pr.currentStep += 1 : null;
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(8),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color:
+                            onTap: () {
+                              pr.selectedClaimSubCategoryIndex = index;
+                              onSelected(pr.subCategoryList[index].id);
+                              pr.selectedSubCategory = pr.subCategoryList[index].name;
+                              pr.currentStep < 5 ? pr.currentStep += 1 : null;
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(8),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color:
                                       pr.selectedClaimSubCategoryIndex == index ? MColors.primary_color : Colors.white,
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(color: MColors.dividerColor.withOpacity(.6), width: 2)),
-                        child: Text(
+                              child: Text(
                                 pr.subCategoryList[index].name,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(

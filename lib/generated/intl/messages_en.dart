@@ -120,6 +120,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "profile" : MessageLookupByLibrary.simpleMessage("Profile"),
     "profileUpdatedSuccessfully" : MessageLookupByLibrary.simpleMessage("Profile Updated Successfully"),
     "qrCode" : MessageLookupByLibrary.simpleMessage("QR Code"),
+    "refresh" : MessageLookupByLibrary.simpleMessage("Refresh"),
     "register" : MessageLookupByLibrary.simpleMessage("Register"),
     "rememberMe" : MessageLookupByLibrary.simpleMessage("Remember Me"),
     "rememberThat" : MessageLookupByLibrary.simpleMessage("Remember That"),

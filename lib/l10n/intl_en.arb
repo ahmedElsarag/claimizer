@@ -149,5 +149,6 @@
   "addComment": "Add Comment",
   "commentAdded": "Comment Added",
   "deleteClaim": "Delete Claim",
-  "claimDeleted": "Claim Deleted"
+  "claimDeleted": "Claim Deleted",
+  "refresh": "Refresh"
 }

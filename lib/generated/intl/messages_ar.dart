@@ -118,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "profile" : MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
     "profileUpdatedSuccessfully" : MessageLookupByLibrary.simpleMessage("تم تعديل الملف الشخصي بنجاح"),
     "qrCode" : MessageLookupByLibrary.simpleMessage("رمز الاستجابة السريعة"),
+    "refresh" : MessageLookupByLibrary.simpleMessage("Refresh"),
     "register" : MessageLookupByLibrary.simpleMessage("حساب جديد"),
     "rememberMe" : MessageLookupByLibrary.simpleMessage("تذكرني"),
     "rememberThat" : MessageLookupByLibrary.simpleMessage("تذكر ذلك"),

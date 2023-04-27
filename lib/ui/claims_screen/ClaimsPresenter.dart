@@ -62,15 +62,20 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
     });
+    view.showProgress();
     await requestFutureData<BuildingsResponse>(Method.get,
         options: Options(headers: header), endPoint: Api.buildingsApiCall, onSuccess: (data) {
+      view.closeProgress();
       view.provider.dataLoaded = true;
       if (data != null) {
+
         view.provider.buildingsList = data.data;
       }
     }, onError: (code, msg) {
           view.provider.dataLoaded = true;
-    });
+          view.closeProgress();
+
+        });
   }
 
   Future getUnitsApiCall(int buildingId) async {

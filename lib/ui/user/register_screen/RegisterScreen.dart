@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/res/gaps.dart';
+import 'package:Cliamizer/ui/user/login_screen/LoginScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -167,7 +168,7 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.push(context, CupertinoPageRoute(builder: (_) => RegisterScreen()));
+                            Navigator.push(context, CupertinoPageRoute(builder: (_) => LoginScreen()));
                           },
                           child: Text(
                             S.of(context).login,

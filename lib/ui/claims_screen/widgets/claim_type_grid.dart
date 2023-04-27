@@ -1,3 +1,4 @@
+import 'package:Cliamizer/ui/claims_screen/ClaimsPresenter.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,8 +11,9 @@ import '../../../res/colors.dart';
 import 'claims_loading.dart';
 
 class ClaimTypeGrid extends StatelessWidget {
-  const ClaimTypeGrid({Key key, this.onSelected}) : super(key: key);
-
+  const ClaimTypeGrid({Key key, this.onSelected, this.id, this.presenter}) : super(key: key);
+  final int id;
+  final ClaimsPresenter presenter;
   final Function(int) onSelected;
 
   @override
@@ -34,20 +36,20 @@ class ClaimTypeGrid extends StatelessWidget {
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
-                      onTap: () {
-                        pr.selectedClaimTypeIndex = index;
-                        onSelected(pr.claimTypeList[index].id);
-                        pr.selectedType = pr.claimTypeList[index].name;
-                        pr.currentStep < 6 ? pr.currentStep += 1 : null;
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(8),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: pr.selectedClaimTypeIndex == index ? MColors.primary_color : Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: MColors.dividerColor.withOpacity(.6), width: 2)),
-                        child: Text(
+                            onTap: () {
+                              pr.selectedClaimTypeIndex = index;
+                              onSelected(pr.claimTypeList[index].id);
+                              pr.selectedType = pr.claimTypeList[index].name;
+                              pr.currentStep < 6 ? pr.currentStep += 1 : null;
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(8),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: pr.selectedClaimTypeIndex == index ? MColors.primary_color : Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: MColors.dividerColor.withOpacity(.6), width: 2)),
+                              child: Text(
                                 pr.claimTypeList[index].name,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -60,7 +62,11 @@ class ClaimTypeGrid extends StatelessWidget {
                         },
                       )
                     : pr.dataLoaded
-                        ? NoDataWidgetGrid()
+                        ? NoDataWidgetGrid(
+                            onRefresh: () async {
+                              presenter.getClaimTypeApiCall(id);
+                            },
+                          )
                         : ClaimsLoading(),
               ],
             ));

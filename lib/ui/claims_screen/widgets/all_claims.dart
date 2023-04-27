@@ -119,8 +119,11 @@ class AllClaims extends StatelessWidget {
                   ),
                 ),
             )
-            : NoDataWidget(),
-      ),
+            : NoDataWidget(
+          onRefresh: ()async{
+            await presenter.getAllClaimsApiCall();
+          },
+      ),)
     );
   }
 

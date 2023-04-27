@@ -7,12 +7,14 @@ import '../../../app_widgets/NoDataFoundGrid.dart';
 import '../../../app_widgets/app_headline.dart';
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
+import '../ClaimsPresenter.dart';
 import 'claims_loading.dart';
 
 class CategoriesGrid extends StatelessWidget {
-  const CategoriesGrid({Key key, this.onSelected}) : super(key: key);
-
+  const CategoriesGrid({Key key, this.onSelected, this.presenter, this.id}) : super(key: key);
+  final ClaimsPresenter presenter;
   final Function(int) onSelected;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,11 @@ class CategoriesGrid extends StatelessWidget {
                         },
                       )
                     : pr.dataLoaded
-                        ? NoDataWidgetGrid()
+                        ? NoDataWidgetGrid(
+                            onRefresh: () async {
+                              presenter.getCategoryApiCall(id);
+                            },
+                          )
                         : ClaimsLoading(),
               ],
             ));

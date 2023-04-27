@@ -6,6 +6,7 @@ import 'package:Cliamizer/res/colors.dart';
 import 'package:Cliamizer/route/fluro_navigator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 import 'package:toast/toast.dart';
 
@@ -39,21 +40,25 @@ abstract class BaseState<T extends StatefulWidget, P extends BasePresenter>
           builder: (context) {
             return WillPopScope(
               onWillPop: () async => false,
-              child: SpinKitPulse(
+              child: Container(
+                height: 30.h,
+                alignment: Alignment.center,
+                child: Lottie.asset('assets/images/png/loading.json', width: 10.w),
+              )/*SpinKitPulse(
                 size: 50.sp,
                 itemBuilder: (BuildContext context, int index) {
                   return DecoratedBox(
                     decoration: BoxDecoration(
-                      /*shape: BoxShape.rectangle,*/
+                      *//*shape: BoxShape.rectangle,*//*
                       borderRadius: BorderRadius.circular(12),
                       color:
-                     /* index.isEven ? */
+                     *//* index.isEven ? *//*
                       Theme.of(context).primaryColor
-                     /*     : MColors.gray_99,*/
+                     *//*     : MColors.gray_99,*//*
                     ),
                   );
                 },
-              ),
+              )*/,
             );
           },
         );
