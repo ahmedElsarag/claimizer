@@ -23,14 +23,10 @@ class BuildUploadFileField extends StatelessWidget {
     return Consumer<ClaimsDetailsProvider>(
       builder: (context, pr, child) => InkWell(
         onTap: () async {
-          List<File> files = [];
-          FilePickerResult result = await FilePicker.platform.pickFiles(
-            allowMultiple: true,
-            type: FileType.any,
-          );
-
+          final result = await FilePicker.platform.pickFiles();
           if (result != null) {
-            files = result.paths.map((path) => File(path)).toList();
+            final file = File(result.files.single.path);
+            pr.updateCommentFile(file);
           }
         },
         child: TextFormField(
@@ -64,14 +60,10 @@ class BuildUploadFileField extends StatelessWidget {
               ),
               prefixIcon: InkWell(
                 onTap: () async {
-                  List<File> files = [];
-                  FilePickerResult result = await FilePicker.platform.pickFiles(
-                    allowMultiple: true,
-                    type: FileType.any,
-                  );
-
+                  final result = await FilePicker.platform.pickFiles();
                   if (result != null) {
-                    files = result.paths.map((path) => File(path)).toList();
+                    final file = File(result.files.single.path);
+                    pr.updateCommentFile(file);
                   }
                 },
                 child:Padding(
