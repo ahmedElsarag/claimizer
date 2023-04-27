@@ -331,6 +331,22 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                   ],
                                 ),
                                 Gaps.vGap12,
+                                Gaps.vGap12,Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(S.of(context).claimType,
+                                        style: MTextStyles.textMain16.copyWith(
+                                          color: MColors.black,
+                                        )),
+                                    Gaps.vGap8,
+                                    Text(pr.selectedType ?? "",
+                                        style: MTextStyles.textMain14.copyWith(
+                                          color: MColors.black,
+                                          fontWeight: FontWeight.w400,
+                                        )),
+                                  ],
+                                ),
+                                Gaps.vGap12,
                                 Gaps.vGap12,
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -380,7 +396,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                       child: ElevatedButton(
                                         onPressed: () async{
                                           FormData formData = new FormData.fromMap({
-                                            "file": await MultipartFile.fromFile(
+                                            "file[0]": await MultipartFile.fromFile(
                                               pr.fileName.path,
                                               filename: pr.fileName.path.split('/').last,
                                               contentType: MediaType('application', 'octet-stream'),
