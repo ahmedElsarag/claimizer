@@ -28,8 +28,10 @@ class BuildFilePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ClaimsProvider>(
       builder: (context, pr, child) => TextFormField(
-        controller: TextEditingController(text: pr.fileName),
+        style: MTextStyles.textDark14,
         readOnly: true,
+        controller: TextEditingController(text: pr?.fileName?.path),
+        // initialValue: pr.contractImg.path,
         decoration: InputDecoration(
             hintText: S.of(context).uploadAnyFiles,
             hintStyle: MTextStyles.textMain14,
@@ -45,22 +47,34 @@ class BuildFilePicker extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(color: MColors.textFieldBorder),
             ),
+            suffixIcon:  InkWell(
+              onTap: () async {
+                pr.updateFileName(null);
+              },
+              child:Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Icon(Icons.close),
+              ),
+            ),
             prefixIcon: InkWell(
               onTap: () async {
-                FilePickerResult result = await FilePicker.platform.pickFiles();
+                final result = await FilePicker.platform.pickFiles();
                 if (result != null) {
-                  File file = File(result.files.single.path);
-                  pr.fileName = path.basename(file.path);
+                  final file = File(result.files.single.path);
+                  pr.updateFileName(file);
                 }
+                // FilePickerResult result = await FilePicker.platform.pickFiles();
+                // if (result != null) {
+                //   File file = File(result.files.single.path);
+                //   pr.contractImg.absolute.path = path.basename(file.path);
+                // }
               },
-              child: Padding(
+              child:Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
               ),
             )),
-        onChanged: (value) {
-          pr.fileName = value;
-        },
+
       ),
     );
   }

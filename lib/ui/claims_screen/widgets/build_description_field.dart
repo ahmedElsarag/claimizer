@@ -17,6 +17,7 @@ class BuildDescriptionField extends StatelessWidget {
       builder: (context, pr, child) =>  TextFormField(
         maxLines: null,
         style: MTextStyles.textDark14,
+        controller: TextEditingController(text: pr.description),
         decoration: InputDecoration(
           hintText: S.of(context).writeYourThoughtsHere,
           hintStyle: MTextStyles.textMain14.copyWith(

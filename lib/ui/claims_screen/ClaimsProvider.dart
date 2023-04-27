@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:Cliamizer/network/models/buildings_response.dart';
 import 'package:Cliamizer/network/models/categories_response.dart';
 import 'package:Cliamizer/network/models/claim_available_time_response.dart';
@@ -15,7 +17,7 @@ class ClaimsProvider extends ChangeNotifier {
 
   String _selectedTimeValue;
   String _description;
-  String _fileName = "";
+  File _fileName;
   int _currentStep = 0;
   bool _isStepsFinished = false;
 
@@ -213,10 +215,10 @@ class ClaimsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String get fileName => _fileName;
+  File get fileName => _fileName;
 
-  set fileName(String value) {
-    _fileName = value;
+  void updateFileName(File newFile) {
+    _fileName = newFile;
     notifyListeners();
   }
 

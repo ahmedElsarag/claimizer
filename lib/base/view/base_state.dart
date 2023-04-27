@@ -90,11 +90,14 @@ abstract class BaseState<T extends StatefulWidget, P extends BasePresenter>
       clipBehavior: Clip.antiAliasWithSaveLayer,
       content: Row(
         children: <Widget>[
-          Text(
-            msg,
-            style:GoogleFonts.montserrat(
-                color: Utils.getStatusTypeColorFromString(status),
-              fontSize: 12.sp,
+          SizedBox(
+            width: 50.w,
+            child: Text(
+              msg,
+              style:GoogleFonts.montserrat(
+                  color: Utils.getStatusTypeColorFromString(status),
+                fontSize: 12.sp,
+              ),
             ),
           ),
           Spacer(),

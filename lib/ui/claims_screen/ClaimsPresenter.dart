@@ -158,7 +158,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     });
   }
 
-  Future postClaimRequestApiCall() async {
+  Future postClaimRequestApiCall(dynamic formData) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
@@ -166,7 +166,8 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     print("!@!#!#!@#@#!@# ${view.provider.description}");
     view.showProgress(isDismiss: false);
     await requestFutureData<ClaimsRequestResponse>(Method.post,
-        params: {
+        params: formData,
+        /*{
           "unit_id": view.selectedUnitId,
           "category_id": view.selectedCategoryId,
           "sub_category_id": view.selectedSubCategoryId,
@@ -174,14 +175,16 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
           "description": view.provider.description,
           "available_date": DateFormat('yyyy-MM-dd', 'en').format(view.provider.selectedDate),
           "available_time": view.provider.selectedTimeValue
-        },
+        },*/
         options: Options(headers: header),
         endPoint: Api.claimsApiCall, onSuccess: (data) {
       view.closeProgress();
       if (data != null) {
         showDialog(
           context: view.context,
-          builder: (context) => ClaimCreatedDialog(),
+          builder: (context) => ClaimCreatedDialog(
+            presenter: view.mPresenter,
+          ),
         );
       }
     }, onError: (code, msg) {

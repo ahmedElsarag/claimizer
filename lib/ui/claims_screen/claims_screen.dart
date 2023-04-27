@@ -10,9 +10,11 @@ import 'package:Cliamizer/ui/claims_screen/widgets/categories_grid.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/claim_type_grid.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/subcategory_grid.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/units_grid.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -376,8 +378,22 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                       width: 30.w,
                                       margin: EdgeInsets.symmetric(vertical: 3.w),
                                       child: ElevatedButton(
-                                        onPressed: () {
-                                          mPresenter.postClaimRequestApiCall();
+                                        onPressed: () async{
+                                          FormData formData = new FormData.fromMap({
+                                            "file": await MultipartFile.fromFile(
+                                              pr.fileName.path,
+                                              filename: pr.fileName.path.split('/').last,
+                                              contentType: MediaType('application', 'octet-stream'),
+                                            ),
+                                            "unit_id": selectedUnitId,
+                                            "category_id": selectedCategoryId,
+                                            "sub_category_id": selectedSubCategoryId,
+                                            "claim_type_id": selectedTypeId,
+                                            "description": provider.description,
+                                            "available_date": DateFormat('yyyy-MM-dd', 'en').format(provider.selectedDate),
+                                            "available_time": provider.selectedTimeValue
+                                          });
+                                          mPresenter.postClaimRequestApiCall(formData);
                                         },
                                         child: Text(
                                           S.of(context).confirm,

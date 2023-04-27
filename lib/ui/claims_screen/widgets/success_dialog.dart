@@ -1,3 +1,4 @@
+import 'package:Cliamizer/ui/claims_screen/ClaimsPresenter.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,8 +12,8 @@ import '../../../res/gaps.dart';
 import '../../../res/styles.dart';
 
 class ClaimCreatedDialog extends StatelessWidget {
-  const ClaimCreatedDialog({Key key}) : super(key: key);
-
+  const ClaimCreatedDialog({Key key, this.presenter}) : super(key: key);
+  final ClaimsPresenter presenter;
   @override
   Widget build(BuildContext context) {
     return Consumer<ClaimsProvider>(
@@ -39,6 +40,8 @@ class ClaimCreatedDialog extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 pr.isStepsFinished = !pr.isStepsFinished;
+                pr.selectedIndex = 1;
+                presenter.getAllClaimsApiCall();
                 Navigator.pop(context);
               },
               child: Text(
