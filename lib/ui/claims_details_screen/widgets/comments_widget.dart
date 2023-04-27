@@ -32,6 +32,7 @@ class CommentsWidget extends StatelessWidget {
           itemCount: commentsData.data.length,
           separatorBuilder: (context, index) => Divider(color: MColors.dividerColor,),
           itemBuilder: (context, index) => CommentItemWidget(
+            apiStrings: commentsData.data[index].files,
             commentsData: commentsData.data[index],
           )),
         Gaps.vGap12,

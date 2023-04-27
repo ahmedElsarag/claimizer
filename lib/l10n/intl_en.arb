@@ -150,5 +150,6 @@
   "commentAdded": "Comment Added",
   "deleteClaim": "Delete Claim",
   "claimDeleted": "Claim Deleted",
-  "refresh": "Refresh"
+  "refresh": "Refresh",
+  "noFiles": "No Files"
 }

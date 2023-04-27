@@ -1,5 +1,6 @@
 import 'package:Cliamizer/network/models/ClaimDetailsResponse.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../CommonUtils/image_utils.dart';
@@ -9,11 +10,27 @@ import '../../../res/gaps.dart';
 import '../../../res/styles.dart';
 
 class CommentItemWidget extends StatelessWidget {
-  const CommentItemWidget({Key key, this.commentsData}) : super(key: key);
+  const CommentItemWidget({Key key, this.commentsData, this.apiStrings}) : super(key: key);
   final CommentsData commentsData;
-
+  final List<String> apiStrings;
+  String formatDate(String date){
+    String dateTimeString = date;
+    DateTime dateTime = DateTime.parse(dateTimeString);
+    String formattedDateString = DateFormat("dd-MM-yyyy | hh:mm a").format(dateTime.toLocal());
+    return formattedDateString;
+  }
   @override
   Widget build(BuildContext context) {
+    List<Widget> stringWidgets = [];
+
+    for (String apiString in apiStrings) {
+      // extract values from apiString and add them to a widget
+      stringWidgets.add(ImageLoader(
+        imageUrl: apiString,
+        width: 16.w,
+        height: 16.w,
+      ));
+    }
     return Container(
       margin: EdgeInsets.symmetric(vertical: 2.w),
       child:Column(
@@ -47,7 +64,7 @@ class CommentItemWidget extends StatelessWidget {
                         )),
                   ),
                   Gaps.vGap4,
-                  Text(commentsData.createdAt??"",
+                  Text(formatDate(commentsData.createdAt??""),
                       style: MTextStyles.textGray10.copyWith(
                         color: MColors.black,
                       )),
@@ -62,25 +79,23 @@ class CommentItemWidget extends StatelessWidget {
               //     child: SvgPicture.asset(ImageUtils.getSVGPath("trash")))
             ],
           ),
-          Visibility(
-            visible: commentsData.files !=null,
-            child: SizedBox(
-              height: 80,
-              width: 100.w,
-              child:  ListView.builder(
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: 2,
-                itemBuilder: (context, index) => Container(
-                  decoration: BoxDecoration(
+          apiStrings.isNotEmpty? SizedBox(
+            height: 80,
+            width: 100.w,
+            child:  ListView.builder(
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: apiStrings.length,
+              itemBuilder: (context, index) => Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 2.w),
+                child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                  ),
-                  margin: EdgeInsets.symmetric(horizontal: 2.w),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(ImageUtils.getImagePath("img"),height: 58,width: 58,)),
-                ),),
-            ),)
+                    child: ImageLoader(imageUrl: apiStrings[index],height: 58,width: 58,)),
+              ),),
+          ) :SizedBox.shrink()
         ],
       ),
     );

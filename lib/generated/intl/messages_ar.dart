@@ -102,6 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "newClaimsDetails" : MessageLookupByLibrary.simpleMessage("تفاصيل المطالبة الجديدة"),
     "newLinkRequest" : MessageLookupByLibrary.simpleMessage("طلب ارتباط جديد"),
     "next" : MessageLookupByLibrary.simpleMessage("التالي"),
+    "noFiles" : MessageLookupByLibrary.simpleMessage("No Files"),
     "noResults" : MessageLookupByLibrary.simpleMessage("لا توجد نتائج"),
     "notification" : MessageLookupByLibrary.simpleMessage("الاشعارات"),
     "orRegisterWith" : MessageLookupByLibrary.simpleMessage("أو سجل بواسطة"),

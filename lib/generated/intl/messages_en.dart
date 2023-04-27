@@ -104,6 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "newClaimsDetails" : MessageLookupByLibrary.simpleMessage("New Claims Details"),
     "newLinkRequest" : MessageLookupByLibrary.simpleMessage("New Link Request"),
     "next" : MessageLookupByLibrary.simpleMessage("Next"),
+    "noFiles" : MessageLookupByLibrary.simpleMessage("No Files"),
     "noResults" : MessageLookupByLibrary.simpleMessage("No Results"),
     "notification" : MessageLookupByLibrary.simpleMessage("Notification"),
     "orRegisterWith" : MessageLookupByLibrary.simpleMessage("Or Register with"),

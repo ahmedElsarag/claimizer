@@ -1554,6 +1554,16 @@ class S {
       args: [],
     );
   }
+
+  /// `No Files`
+  String get noFiles {
+    return Intl.message(
+      'No Files',
+      name: 'noFiles',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
