@@ -144,11 +144,11 @@
   "uploadIdentityImage": "صورة الهوية",
   "nameIsRequired": "الاسم مطلوب",
   "saveChanges": "حفظ التغييرات",
-  "update": "Update",
-  "addComment": "Add Comment",
-  "commentAdded": "Comment Added",
-  "deleteClaim": "Delete Claim",
-  "claimDeleted": "Claim Deleted",
-  "refresh": "Refresh",
-  "noFiles": "No Files"
+  "update": "تحديث",
+  "addComment": "اضافة تعليق",
+  "commentAdded": "تم اضافة التعليق",
+  "deleteClaim": "حذف المطالبة",
+  "claimDeleted": "تم حذف المطالبة",
+  "refresh": "تحديث",
+  "noFiles": "لا توجد ملفات"
 }
