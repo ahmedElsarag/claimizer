@@ -150,5 +150,6 @@
   "deleteClaim": "حذف المطالبة",
   "claimDeleted": "تم حذف المطالبة",
   "refresh": "تحديث",
-  "noFiles": "لا توجد ملفات"
+  "noFiles": "لا توجد ملفات",
+  "unitCode": "كود الوحدة: "
 }

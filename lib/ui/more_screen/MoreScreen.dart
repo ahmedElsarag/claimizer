@@ -249,6 +249,7 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
           // logout
           InkWell(
             onTap: () {
+              Prefs.clearExpectLanguage();
               Navigator.pushAndRemoveUntil(
                   context, CupertinoPageRoute(builder: (_) => LoginScreen()), (route) => false);
             },

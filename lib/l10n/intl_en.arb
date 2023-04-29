@@ -151,5 +151,6 @@
   "deleteClaim": "Delete Claim",
   "claimDeleted": "Claim Deleted",
   "refresh": "Refresh",
-  "noFiles": "No Files"
+  "noFiles": "No Files",
+  "unitCode": "Unit Code: "
 }

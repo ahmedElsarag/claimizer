@@ -405,10 +405,11 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                             "category_id": selectedCategoryId,
                                             "sub_category_id": selectedSubCategoryId,
                                             "claim_type_id": selectedTypeId,
-                                            "description": provider.description,
+                                            "description": provider.description.text,
                                             "available_date": DateFormat('yyyy-MM-dd', 'en').format(provider.selectedDate),
                                             "available_time": provider.selectedTimeValue
                                           });
+                                          // print("@@@@@@@@@@@@@@@@@@@@@@@@@ ${provider.selectedTimeValue}");
                                           mPresenter.postClaimRequestApiCall(formData);
                                         },
                                         child: Text(

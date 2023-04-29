@@ -151,6 +151,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "theQrCodeIsIncorrect" : MessageLookupByLibrary.simpleMessage("The QR code is incorrect"),
     "theUnitIsReserved" : MessageLookupByLibrary.simpleMessage("The unit is reserved"),
     "topUpdates" : MessageLookupByLibrary.simpleMessage("Top Updates"),
+    "unitCode" : MessageLookupByLibrary.simpleMessage("Unit Code: "),
     "unitLinkRequest" : MessageLookupByLibrary.simpleMessage("Unit Link Request"),
     "unitName" : MessageLookupByLibrary.simpleMessage("Unit"),
     "unitQuery" : MessageLookupByLibrary.simpleMessage("Unit Query"),

@@ -167,15 +167,6 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     view.showProgress(isDismiss: false);
     await requestFutureData<ClaimsRequestResponse>(Method.post,
         params: formData,
-        /*{
-          "unit_id": view.selectedUnitId,
-          "category_id": view.selectedCategoryId,
-          "sub_category_id": view.selectedSubCategoryId,
-          "claim_type_id": view.selectedTypeId,
-          "description": view.provider.description,
-          "available_date": DateFormat('yyyy-MM-dd', 'en').format(view.provider.selectedDate),
-          "available_time": view.provider.selectedTimeValue
-        },*/
         options: Options(headers: header),
         endPoint: Api.claimsApiCall, onSuccess: (data) {
       view.closeProgress();

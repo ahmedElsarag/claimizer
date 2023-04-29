@@ -41,6 +41,7 @@ class ClaimCreatedDialog extends StatelessWidget {
               onPressed: () {
                 pr.isStepsFinished = !pr.isStepsFinished;
                 pr.selectedIndex = 1;
+                pr.currentStep = 0;
                 presenter.getAllClaimsApiCall();
                 Navigator.pop(context);
               },
