@@ -239,8 +239,10 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
                       view.provider.endDate = null;
                       view.provider.updateContractImg(null);
                       view.provider.updateIdentityImg(null);
-                      view.provider.qrCodeValid = false;
+                      view.provider.qrCodeValid = null;
                       Navigator.pop(context);
+                      view.provider.selectedIndex = 2;
+                      getUnitRequestsApiCall();
                     },
                     child: Text(
                       S.current.backToHome,
