@@ -39,7 +39,7 @@ buildscript {
     }
 }
 android {
-    compileSdkVersion 33
+    compileSdkVersion flutter.compileSdkVersion
     ndkVersion "22.1.7171670"
 
     lintOptions {
