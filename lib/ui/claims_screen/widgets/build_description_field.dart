@@ -1,7 +1,5 @@
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
-import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';
@@ -15,9 +13,9 @@ class BuildDescriptionField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ClaimsProvider>(
       builder: (context, pr, child) =>  TextFormField(
-        maxLines: null,
+        controller: pr.description,
+        maxLines: 3,
         style: MTextStyles.textDark14,
-        controller: TextEditingController(text: pr.description),
         decoration: InputDecoration(
           hintText: S.of(context).writeYourThoughtsHere,
           hintStyle: MTextStyles.textMain14.copyWith(
@@ -36,15 +34,6 @@ class BuildDescriptionField extends StatelessWidget {
             borderSide: BorderSide(color: MColors.textFieldBorder),
           ),
         ),
-        onChanged: (text){
-          pr.description = text;
-          print("@!@!@!@!@ ${pr.description}");
-        },
-        validator: (text){
-          if(text.isEmpty){
-            return "enter Description";
-          }
-        },
       ),
     );
   }

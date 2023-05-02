@@ -149,6 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "theQrCodeIsIncorrect" : MessageLookupByLibrary.simpleMessage("رمز الاستجابة السريعة غير صحيح"),
     "theUnitIsReserved" : MessageLookupByLibrary.simpleMessage("الوحدة محجوزة"),
     "topUpdates" : MessageLookupByLibrary.simpleMessage("اخر التحديثات"),
+    "unitCode" : MessageLookupByLibrary.simpleMessage("كود الوحدة: "),
     "unitLinkRequest" : MessageLookupByLibrary.simpleMessage("طلب ارتباط الوحدة"),
     "unitName" : MessageLookupByLibrary.simpleMessage("الوحدة"),
     "unitQuery" : MessageLookupByLibrary.simpleMessage("استعلام الوحدة"),

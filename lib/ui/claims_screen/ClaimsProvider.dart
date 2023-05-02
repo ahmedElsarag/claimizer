@@ -12,11 +12,12 @@ import '../../network/models/claims_response.dart';
 class ClaimsProvider extends ChangeNotifier {
   int _selectedIndex = 1;
   DateTime _selectedDate;
+  TextEditingController _description = TextEditingController();
 
   int companyId;
 
   String _selectedTimeValue;
-  String _description;
+  // String _description;
   File _fileName;
   int _currentStep = 0;
   bool _isStepsFinished = false;
@@ -208,12 +209,17 @@ class ClaimsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String get description => _description;
+  TextEditingController get description => _description;
 
-  set description(String value) {
+  set description(TextEditingController value) {
     _description = value;
     notifyListeners();
-  }
+  } // String get description => _description;
+  //
+  // set description(String value) {
+  //   _description = value;
+  //   notifyListeners();
+  // }
 
   File get fileName => _fileName;
 

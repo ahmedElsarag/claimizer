@@ -45,22 +45,11 @@ class ExistingUnitList extends StatelessWidget {
                                 style: MTextStyles.textBoldDark16,
                               ),
                               Text(
-                                S
-                                    .of(context)
-                                    .requestCode + pr.unitsList[index].code,
+                                S.of(context).unitCode + pr.unitsList[index].code,
                                 style: MTextStyles.textSubtitle,
                               ),
                             ],
                           ),
-                          Container(
-                              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                              decoration: BoxDecoration(
-                                color: Color(0xff44A4F2).withOpacity(0.08),
-                                borderRadius: BorderRadius.circular(32),
-                              ),
-                              child: Text("New" ?? '',
-                                  style: MTextStyles.textDark12.copyWith(
-                                      color: MColors.blueButtonColor, fontWeight: FontWeight.w600)))
                         ],
                       ),
                       buildDivider(),

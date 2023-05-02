@@ -1564,6 +1564,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Unit Code: `
+  String get unitCode {
+    return Intl.message(
+      'Unit Code: ',
+      name: 'unitCode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
