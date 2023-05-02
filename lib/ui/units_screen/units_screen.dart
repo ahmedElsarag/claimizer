@@ -10,6 +10,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../CommonUtils/image_utils.dart';
+import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
+import '../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
@@ -43,6 +45,12 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
   @override
   void initState() {
     provider = context.read<UnitProvider>();
+    EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
+      if (event.isRefresh != null) {
+        mPresenter.getUnitRequestsApiCall();
+      }
+      setState(() {});
+    });
     mPresenter.getExistingUnitsApiCall();
     mPresenter.getUnitRequestsApiCall();
     super.initState();

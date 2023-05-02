@@ -152,5 +152,9 @@
   "claimDeleted": "Claim Deleted",
   "refresh": "Refresh",
   "noFiles": "No Files",
-  "unitCode": "Unit Code: "
+  "unitCode": "Unit Code: ",
+  "closeClaim": "Close Claim",
+  "unitLinkRequestDetails": "Unit Link Request Details",
+  "unlinkUnit": "UnLink Unit",
+  "renew": "Renew"
 }

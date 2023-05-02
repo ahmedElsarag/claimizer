@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
@@ -22,9 +23,12 @@ class ClaimCardDataItem extends StatelessWidget {
             title,
             style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
           ),
-          Text(
-            data ?? S.of(context).na,
-            style: MTextStyles.textSubtitle,
+          SizedBox(
+            width: 30.w,
+            child: Text(
+              data ?? S.of(context).na,
+              style: MTextStyles.textSubtitle,
+            ),
           ),
         ],
       ),
