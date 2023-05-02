@@ -32,6 +32,7 @@ class HomePresenter extends BasePresenter<HomeScreenState> {
         options: Options(headers: header), endPoint: Api.statisticsApiCall, onSuccess: (data) {
       view.closeProgress();
       if (data != null) {
+        view.provider.claimsStatistics.clear();
         view.provider.claimsStatistics.add(data.data.claims.all.toString());
         view.provider.claimsStatistics.add(data.data.claims.newClaims.toString());
         view.provider.claimsStatistics.add(data.data.claims.assigned.toString());

@@ -75,7 +75,9 @@ class Prefs {
 
   static Future<void> clearExpectLanguage() async {
     getAppLocal.then((value) => {
+          print('#####################$value'),
           PreferencesHelper.clearPrefs(),
+          print('#####################$value'),
           setAppLocal(value),
         });
   }

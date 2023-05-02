@@ -34,6 +34,7 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
   @override
   void initState() {
     pr = context.read<MainProvider>();
+    pr.currentSelect = 0;
     _tabController = TabController(vsync: this, length: 4);
     if (mounted)
       _tabController.addListener(() {
@@ -117,5 +118,5 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
   }
 
   @override
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive => false;
 }

@@ -4,14 +4,12 @@ import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/ui/user/login_screen/LoginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
-import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sizer/sizer.dart';
+
 import '../../CommonUtils/SizeConfig2.dart';
 import '../../CommonUtils/image_utils.dart';
-import '../../CommonUtils/log_utils.dart';
 import '../../CommonUtils/preference/Prefs.dart';
-import '../../res/setting.dart';
 import '../main_screens/MainScreen.dart';
 import 'SplashPresenter.dart';
 import 'SplashProvider.dart';
@@ -53,28 +51,10 @@ class SplashScreenState extends BaseState<SplashScreen, SplashPresenter> with Au
         // Navigator.pushReplacement(context, AppPageRoute(builder: (context)=>IntroStartScreen()));
     });
   }
-  void setSelected(String s) {
-    if (s == 'en' || s == 'null')
-      Setting.mobileLanguage.value = new Locale('en');
-    else
-      Setting.mobileLanguage.value = new Locale('ar');
-    Prefs.setAppLocal(s);
-    Log.d(s);
-  }
 
   @override
   void initState() {
-    Prefs.getAppLocal.then((value) => {
-      if (value != null)
-        {
-          setState(() {
-            setSelected(value);
-            print('###### $value');
-            mProvider.language = value;
-          }),
-          // provider.isArabic == "ar",
-        }
-    });
+    mPresenter.setAppLanguage();
     // languageProvider = context.read<LanguageProvider>();
     // languageProvider.loadSelectedLanguage();
     initSplash();

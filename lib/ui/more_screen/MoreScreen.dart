@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+
 import '../../CommonUtils/log_utils.dart';
 import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
 import '../../CommonUtils/model_eventbus/ProfileEvent.dart';
@@ -164,7 +165,6 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
                           } else {
                             setSelected("ar");
                           }
-                          print("!@##@!@!#!@!# "+pr.language);
                         }),
                   )),
             ],
