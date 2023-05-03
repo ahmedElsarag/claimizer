@@ -35,7 +35,7 @@ class UnitRequestDetailsDataBean {
   Null adminRemarks;
   String createdAt;
   UnitRequestDetailsResponse user;
-  // List<CommentsData> comments;
+  List<Comments> comments;
 
   UnitRequestDetailsDataBean(
       {this.id,
@@ -56,7 +56,7 @@ class UnitRequestDetailsDataBean {
         this.adminRemarks,
         this.createdAt,
         this.user,
-        /*this.comments*/});
+        this.comments});
 
   UnitRequestDetailsDataBean.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -79,12 +79,12 @@ class UnitRequestDetailsDataBean {
     user = json['user'] != null
         ? new UnitRequestDetailsResponse.fromJson(json['user'])
         : null;
-    // if (json['comments'] != null) {
-    //   comments = new List<CommentsData>();
-    //   json['data'].forEach((v) {
-    //     comments.add(new CommentsData.fromJson(v));
-    //   });
-    // }
+    if (json['comments'] != null) {
+      comments = new List<Comments>();
+      json['comments'].forEach((v) {
+        comments.add(new Comments.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -109,68 +109,60 @@ class UnitRequestDetailsDataBean {
     if (this.user != null) {
       data['user'] = this.user.toJson();
     }
-    // if (this.comments != null) {
-    //   data['comments'] = this.comments.map((v) => v.toJson()).toList();
-    // }
+    if (this.comments != null) {
+      data['comments'] = this.comments.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
 
-// class CommentsData {
-//   int id;
-//   String comment;
-//   String createdAt;
-//   List<String> files;
-//   UserData user;
-//
-//   CommentsData({this.id, this.comment, this.createdAt, this.files, this.user});
-//
-//   CommentsData.fromJson(Map<String, dynamic> json) {
-//     id = json['id'];
-//     comment = json['comment'];
-//     createdAt = json['created_at'];
-//     files = json['files'].cast<String>();
-//     user = json['user'] != null
-//         ? new UserData.fromJson(json['user'])
-//         : null;
-//   }
-//
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['id'] = this.id;
-//     data['comment'] = this.comment;
-//     data['created_at'] = this.createdAt;
-//     data['files'] = this.files;
-//     if (this.user != null) {
-//       data['user'] = this.user.toJson();
-//     }
-//     return data;
-//   }
-// }
-
-class UserData {
+class Comments {
   int id;
-  String refCode;
+  String content;
+  User user;
+  String createdAt;
+  List<String> files;
+
+  Comments({this.id, this.content, this.user, this.createdAt, this.files});
+
+  Comments.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    content = json['content'];
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    createdAt = json['created_at'];
+    files = json['files'].cast<String>();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['content'] = this.content;
+    if (this.user != null) {
+      data['user'] = this.user.toJson();
+    }
+    data['created_at'] = this.createdAt;
+    data['files'] = this.files;
+    return data;
+  }
+}
+
+class User {
+  int id;
   String name;
-  String email;
   String avatar;
 
-  UserData({this.id, this.refCode, this.name, this.email, this.avatar});
+  User({this.id, this.name, this.avatar});
 
-  UserData.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    refCode = json['ref_code'];
     name = json['name'];
-    email = json['email'];
     avatar = json['avatar'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['ref_code'] = this.refCode;
     data['name'] = this.name;
-    data['email'] = this.email;
     data['avatar'] = this.avatar;
     return data;
   }

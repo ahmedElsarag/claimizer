@@ -152,8 +152,9 @@
   "refresh": "تحديث",
   "noFiles": "لا توجد ملفات",
   "unitCode": "كود الوحدة: ",
-  "closeClaim": "Close Claim",
-  "unitLinkRequestDetails": "Unit Link Request Details",
-  "unlinkUnit": "UnLink Unit",
-  "renew": "Renew"
+  "closeClaim": "اغلاق المطالبة",
+  "unitLinkRequestDetails": "تفاصيل طلب ارتباط الوحدة",
+  "unlinkUnit": "الغاء الربط",
+  "renew": "تجديد",
+  "unitRequestUnlinked": "Unit Request UnLinked"
 }

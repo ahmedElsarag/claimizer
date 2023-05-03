@@ -58,7 +58,7 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
       header['Authorization'] = "Bearer $token";
     });
     await requestFutureData<GeneralResponse>(Method.post,
-        endPoint: Api.doAddCommentApiCall, params: bodyParams, options: Options(headers: header), onSuccess: (data) {
+        endPoint: Api.doAddCommentToClaimApiCall, params: bodyParams, options: Options(headers: header), onSuccess: (data) {
           view.closeProgress();
           if (data != null) {
             Log.d("onSuccess " + data.toString());

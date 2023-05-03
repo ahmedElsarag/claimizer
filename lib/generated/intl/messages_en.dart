@@ -158,6 +158,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "unitLinkRequestDetails" : MessageLookupByLibrary.simpleMessage("Unit Link Request Details"),
     "unitName" : MessageLookupByLibrary.simpleMessage("Unit"),
     "unitQuery" : MessageLookupByLibrary.simpleMessage("Unit Query"),
+    "unitRequestUnlinked" : MessageLookupByLibrary.simpleMessage("Unit Request UnLinked"),
     "unitType" : MessageLookupByLibrary.simpleMessage("Unit Type"),
     "units" : MessageLookupByLibrary.simpleMessage("Units"),
     "unitsProperty" : MessageLookupByLibrary.simpleMessage("Units Property"),

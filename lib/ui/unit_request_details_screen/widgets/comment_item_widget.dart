@@ -1,17 +1,17 @@
-import 'package:Cliamizer/network/models/ClaimDetailsResponse.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../CommonUtils/image_utils.dart';
 import '../../../app_widgets/image_loader.dart';
+import '../../../network/models/UnitRequestDetailsResponse.dart';
 import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
 import '../../../res/styles.dart';
 
 class CommentItemWidget extends StatelessWidget {
   const CommentItemWidget({Key key, this.commentsData, this.apiStrings}) : super(key: key);
-  final CommentsData commentsData;
+  final Comments commentsData;
   final List<String> apiStrings;
   String formatDate(String date){
     String dateTimeString = date;
@@ -58,7 +58,7 @@ class CommentItemWidget extends StatelessWidget {
                   Gaps.vGap4,
                   Container(
                     width: 50.w,
-                    child: Text(commentsData.comment??"",
+                    child: Text(commentsData.content??"",
                         style: MTextStyles.textGray12.copyWith(
                           color: MColors.primary_light_color,
                         )),

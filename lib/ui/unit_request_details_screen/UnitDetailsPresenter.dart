@@ -56,7 +56,7 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
     });
   }
 
-  Future doPostCommentApiCall(dynamic bodyParams,int claimId) async {
+  Future doPostCommentApiCall(dynamic bodyParams,int unitID) async {
     view.showProgress();
 
     Map<String, dynamic> header = Map();
@@ -64,7 +64,7 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
       header['Authorization'] = "Bearer $token";
     });
     await requestFutureData<GeneralResponse>(Method.post,
-        endPoint: Api.doAddCommentApiCall, params: bodyParams, options: Options(headers: header), onSuccess: (data) {
+        endPoint: Api.doAddCommentToUnitRequestApiCall, params: bodyParams, options: Options(headers: header), onSuccess: (data) {
           view.closeProgress();
           if (data != null) {
             Log.d("onSuccess " + data.toString());
@@ -73,7 +73,7 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
             print("#############@@@@@@@@@@@@@@@@@@@###########");
             view.provider.comment.clear();
             view.provider.updateCommentFile(null);
-            getUnitRequestDetailsDataApiCall(claimId);
+            getUnitRequestDetailsDataApiCall(unitID);
           } else {
             view.showToasts("Error", 'error');
           }
@@ -104,7 +104,7 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
         onSuccess: (data)  {
           if (data != null) {
             Navigator.pop(view.context);
-            view.showToasts(S.of(view.context).claimDeleted, "success");
+            view.showToasts(S.of(view.context).unitRequestUnlinked, "success");
             Navigator.pop(view.context);
             passReloadByEventPath();
           }else{
@@ -125,7 +125,7 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
     });
   }
 
-  Future renewUnitLinkRequestApiCall(FormData bodyParams) async {
+  Future renewUnitLinkRequestApiCall(FormData bodyParams,int unitID) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       print('@@@@@@@@@@@@@@@@@@@@@$token');
@@ -163,10 +163,12 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
                       Gaps.vGap30,
                       ElevatedButton(
                         onPressed: () {
+                          Navigator.pop(context);
                           view.provider.contractNo.clear();
                           view.provider.endDate = null;
                           view.provider.updateContractImg(null);
                           view.provider.updateIdentityImg(null);
+                          getUnitRequestDetailsDataApiCall(unitID);
                           Navigator.pop(context);
                         },
                         child: Text(
