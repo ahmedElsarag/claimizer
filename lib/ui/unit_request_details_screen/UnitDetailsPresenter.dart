@@ -1,9 +1,13 @@
 import 'package:Cliamizer/base/presenter/base_presenter.dart';
 import 'package:Cliamizer/network/models/ClaimDetailsResponse.dart';
+import 'package:Cliamizer/network/models/UnitRequestDetailsResponse.dart';
 import 'package:Cliamizer/network/models/general_response.dart';
 import 'package:dio/dio.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:sizer/sizer.dart';
+import '../../CommonUtils/image_utils.dart';
 import '../../CommonUtils/log_utils.dart';
 import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
 import '../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
@@ -13,24 +17,26 @@ import '../../generated/l10n.dart';
 import '../../network/api/network_api.dart';
 import '../../network/exception/error_status.dart';
 import '../../network/network_util.dart';
-import 'ClaimsDetailsScreen.dart';
+import '../../res/colors.dart';
+import '../../res/gaps.dart';
+import '../../res/styles.dart';
+import 'UnitDetailsScreen.dart';
 
 
-class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
-  getClaimDetailsDataApiCall(String id) async {
+class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> {
+  getUnitRequestDetailsDataApiCall(int id) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token)  {
       view.showProgress(isDismiss: false);
       header['Authorization'] = "Bearer $token";
-      requestFutureData<ClaimDetailsResponse>(
+      requestFutureData<UnitRequestDetailsResponse>(
         Method.get,
-        endPoint: Api.getClaimDetailsApiCall(id),
+        endPoint: Api.getUnitRequestDetailsApiCall(id),
         options: Options(headers: header),
         onSuccess: (data)  {
           Log.d("${data.data.id}");
           if (data != null) {
             view.provider.setData(data.data);
-            print("################################ ${data.data.comments.data[0].user.name}");
             view.provider.isDateLoaded = true;
             view.closeProgress();
           }else{
@@ -50,7 +56,7 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
     });
   }
 
-  Future doPostCommentApiCall(dynamic bodyParams,String claimId) async {
+  Future doPostCommentApiCall(dynamic bodyParams,int claimId) async {
     view.showProgress();
 
     Map<String, dynamic> header = Map();
@@ -67,7 +73,7 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
             print("#############@@@@@@@@@@@@@@@@@@@###########");
             view.provider.comment.clear();
             view.provider.updateCommentFile(null);
-            getClaimDetailsDataApiCall(claimId);
+            getUnitRequestDetailsDataApiCall(claimId);
           } else {
             view.showToasts("Error", 'error');
           }
@@ -85,48 +91,16 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
         });
   }
   
-  deleteClaimApiCall(int id) async {
-    Map<String, dynamic> header = Map();
-    await Prefs.getUserToken.then((token)  {
-      view.showProgress(isDismiss: false);
-      header['Authorization'] = "Bearer $token";
-      requestFutureData<GeneralResponse>(
-        Method.delete,
-        endPoint: Api.deleteClaimDetailsApiCall(id),
-        options: Options(headers: header),
-        onSuccess: (data)  {
-          if (data != null) {
-            Navigator.pop(view.context);
-            view.showToasts(S.of(view.context).claimDeleted, "success");
-            Navigator.pop(view.context);
-            passReloadByEventPath();
-          }else{
-            view.closeProgress();
-          }
-
-        },
-        onError: (code, msg) {
-          Log.d(msg);
-          if(code == ErrorStatus.UNKNOWN_ERROR)
-            view.provider.internetStatus = false;
-          view.closeProgress();
-          if(code == ErrorStatus.UNAUTHORIZED)
-            showDialog( context: view.context,builder: (_)=>
-                LoginRequiredDialog( message: S.of(view.context).sessionTimeoutPleaseLogin),barrierDismissible: false);
-        },
-      );
-    });
-  }
-
-  closeClaimApiCall(String code) async {
+  unlinkUnitRequestApiCall(Map<String,dynamic> params) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token)  {
       view.showProgress(isDismiss: false);
       header['Authorization'] = "Bearer $token";
       requestFutureData<GeneralResponse>(
         Method.post,
-        endPoint: Api.closeClaimDetailsApiCall(code),
+        endPoint: Api.unlinkUnitRequestDetailsApiCall,
         options: Options(headers: header),
+        params: params,
         onSuccess: (data)  {
           if (data != null) {
             Navigator.pop(view.context);
@@ -150,6 +124,82 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
       );
     });
   }
+
+  Future renewUnitLinkRequestApiCall(FormData bodyParams) async {
+    Map<String, dynamic> header = Map();
+    await Prefs.getUserToken.then((token) {
+      print('@@@@@@@@@@@@@@@@@@@@@$token');
+      header['Authorization'] = "Bearer $token";
+    });
+    view.showProgress(isDismiss: false);
+    await requestFutureData<GeneralResponse>(Method.post,
+        endPoint: Api.renewUnitLinkRequestApiCall,
+        params: bodyParams,
+        options: Options(headers: header), onSuccess: (data) {
+          view.closeProgress();
+          if (data != null) {
+            if (data.status == "success") {
+              showDialog(
+                context: view.context,
+                builder: (context) => AlertDialog(
+                  backgroundColor: MColors.whiteE,
+                  elevation: 0,
+                  contentPadding: EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(ImageUtils.getSVGPath("done")),
+                      Gaps.vGap16,
+                      Text(S.current.confirmation,
+                          style: MTextStyles.textMain16.copyWith(
+                            color: MColors.black,
+                          )),
+                      Gaps.vGap8,
+                      Text(
+                        S.current.thankYouForSubmittingYourRequestOneOfOurCustomerservices,
+                        style: MTextStyles.textSubtitle,
+                        textAlign: TextAlign.center,
+                      ),
+                      Gaps.vGap30,
+                      ElevatedButton(
+                        onPressed: () {
+                          view.provider.contractNo.clear();
+                          view.provider.endDate = null;
+                          view.provider.updateContractImg(null);
+                          view.provider.updateIdentityImg(null);
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          S.current.backToHome,
+                          style: MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(MColors.primary_color),
+                            elevation: MaterialStatePropertyAll(0),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            )),
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            } else if (data.status == "fail") {
+              view.showToasts(data.message, 'error');
+            }
+          }
+        }, onError: (code, msg) {
+          view.closeProgress();
+          if (code == 422) {
+            view.showToasts(S.current.anErrorOccurredTryAgainLater, 'warning');
+          } else {
+            view.showToasts(S.current.anErrorOccurredTryAgainLater, 'error');
+          }
+        });
+  }
+
 
   void passReloadByEventPath({bool isRefresh,}) {
     EventBus eventBus = EventBusUtils.getInstance();

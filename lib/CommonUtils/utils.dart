@@ -171,6 +171,67 @@ class Utils {
     }
   }
 
+  static Color getClaimStatusColorFromString(String status) {
+    switch (status) {
+      case 'new':
+        return Color(0xffff9500);
+      case 'assigned':
+        return Color.fromRGBO(45, 11, 238, 0.95);
+      case 'started':
+        return Color(0xff10d2c8);
+      case 'completed':
+        return Color(0xff679c0d);
+      case 'closed':
+        return Color(0xff0a562e);
+      case 'cancelled':
+        return Color(0xffff0000);
+      default:
+        return Color(0xff44A4F2).withOpacity(0.08);
+    }
+  }
+
+  static Color getUnitStatusColorFromString(String status) {
+    switch (status) {
+      case 'new':
+        return Color(0xffff9500);
+      case 'assigned':
+      case 'renewing':
+        return Color.fromRGBO(45, 11, 238, 0.95);
+      case 'started':
+        return Color(0xff10d2c8);
+      case 'completed':
+        return Color(0xff679c0d);
+      case 'closed':
+        return Color(0xff0a562e);
+      case 'cancelled':
+      case 'canceled':
+      case 'rejected':
+        return Color(0xffff0000);
+      default:
+        return Color(0xff44A4F2).withOpacity(0.08);
+    }
+  }
+
+  static Color getTextStatusColorFromString(String status) {
+    switch (status) {
+      case 'new':
+      case 'assigned':
+      case 'completed':
+      case 'closed':
+      case 'cancelled':
+      case 'canceled':
+      case 'renewing':
+      case 'rejected':
+        return Colors.white;
+      case 'started':
+      case 'approved':
+        return MColors.text_button_color;
+      default:
+        return Color(0xff44A4F2).withOpacity(0.08);
+    }
+  }
+
+
 
 }
 

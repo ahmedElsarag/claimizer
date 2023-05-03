@@ -14,7 +14,6 @@ class ClaimCardDataItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('@@!$data@@!');
     return Padding(
       padding: EdgeInsets.only(bottom: isLast ? 0 : 8.0),
       child: Row(

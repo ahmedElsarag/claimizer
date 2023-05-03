@@ -11,6 +11,7 @@ import 'package:Cliamizer/ui/main_screens/MainProvider.dart';
 import 'package:Cliamizer/ui/more_screen/MoreProvider.dart';
 import 'package:Cliamizer/ui/notification_screen/NotificationProvider.dart';
 import 'package:Cliamizer/ui/splash_screen/SplashScreen.dart';
+import 'package:Cliamizer/ui/unit_request_details_screen/UnitDetailsProvider.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:fluro/fluro.dart';
@@ -71,6 +72,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => ClaimsDetailsProvider()),
         ChangeNotifierProvider(create: (context) => EditProfileProvider()),
         ChangeNotifierProvider(create: (context) => UnitProvider()),
+        ChangeNotifierProvider(create: (context) => UnitDetailsProvider()),
         ChangeNotifierProvider(create: (context) => NotificationProvider()),
       ],
       child: ValueListenableBuilder(

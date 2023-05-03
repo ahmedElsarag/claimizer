@@ -1575,6 +1575,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Close Claim`
+  String get closeClaim {
+    return Intl.message(
+      'Close Claim',
+      name: 'closeClaim',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit Link Request Details`
+  String get unitLinkRequestDetails {
+    return Intl.message(
+      'Unit Link Request Details',
+      name: 'unitLinkRequestDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `UnLink Unit`
+  String get unlinkUnit {
+    return Intl.message(
+      'UnLink Unit',
+      name: 'unlinkUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Renew`
+  String get renew {
+    return Intl.message(
+      'Renew',
+      name: 'renew',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

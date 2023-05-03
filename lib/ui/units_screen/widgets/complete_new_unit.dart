@@ -147,15 +147,6 @@ class CompleteNewUnit extends StatelessWidget {
                           "request_remarks": pr.description.text,
                         });
                         presenter.completeLinkRequestApiCall(formData);
-                        // presenter.completeLinkRequestApiCall({
-                        //   "unit_code": pr.qrCode.text,
-                        //   "contract_number": pr.contractNo.text,
-                        //   "start_at": pr.startDate.toString(),
-                        //   "end_at": pr.endDate.toString(),
-                        //   "contract_attach": pr.contractImg,
-                        //   "client_gov_id": pr.identityImg,
-                        //   "request_remarks": pr.description.text,
-                        // });
                       }
                     },
                     child: Text(

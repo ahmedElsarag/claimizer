@@ -1,3 +1,4 @@
+import 'package:Cliamizer/CommonUtils/model_eventbus/ReloadHomeEevet.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/all_claims.dart';
@@ -20,6 +21,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/image_utils.dart';
+import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
 import '../../app_widgets/app_headline.dart';
 import '../../app_widgets/custom_stepper.dart' as appStepper;
 import '../../generated/l10n.dart';
@@ -65,6 +67,12 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
   @override
   void initState() {
     provider = context.read<ClaimsProvider>();
+    EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
+      if (event.isRefresh != null) {
+        mPresenter.getAllClaimsApiCall();
+      }
+      setState(() {});
+    });
     mPresenter.getAllClaimsApiCall();
     mPresenter.getBuildingsApiCall();
     super.initState();

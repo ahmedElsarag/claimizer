@@ -225,6 +225,32 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                               ),
                             ],
                           ),
+                          Gaps.vGap12,
+                          Gaps.vGap12,
+                          InkWell(
+                            onTap: () {
+                              print("@#@#@#@#@#@#@#@#@#@#@# ${pr.instance.referenceId}");
+                              mPresenter.closeClaimApiCall(pr.instance.referenceId);
+                            },
+                            child: Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: MColors.primary_color.withOpacity(0.08), shape: BoxShape.circle),
+                                  padding: EdgeInsets.all(4),
+                                  child: SvgPicture.asset(
+                                    ImageUtils.getSVGPath("trash"),
+                                    color: MColors.primary_color,
+                                  ),
+                                ),
+                                Gaps.hGap8,
+                                Text(
+                                  S.of(context).closeClaim,
+                                  style: MTextStyles.textMain14,
+                                )
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),

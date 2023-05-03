@@ -7,6 +7,7 @@ import 'models/NewLinkRequestResponse.dart';
 import 'models/NotificationResponse.dart';
 import 'models/ProfileResponse.dart';
 import 'models/StatisticsResponse.dart';
+import 'models/UnitRequestDetailsResponse.dart';
 import 'models/UnitRequestResponse.dart';
 import 'models/buildings_response.dart';
 import 'models/categories_response.dart';
@@ -66,6 +67,9 @@ class EntityFactory {
         break;
       case "ClaimDetailsResponse":
         return ClaimDetailsResponse.fromJson(json) as T;
+        break;
+      case "UnitRequestDetailsResponse":
+        return UnitRequestDetailsResponse.fromJson(json) as T;
         break;
       default:
         return null;
