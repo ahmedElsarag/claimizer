@@ -199,7 +199,7 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                               ),
                               Gaps.hGap12,
                               Gaps.hGap12,
-                              InkWell(
+                              /*InkWell(
                                 onTap: () {
                                   print("@#@#@#@#@#@#@#@#@#@#@# ${pr.instance.id}");
                                   mPresenter.deleteClaimApiCall(pr.instance.id);
@@ -222,7 +222,7 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                                     )
                                   ],
                                 ),
-                              ),
+                              ),*/
                             ],
                           ),
                           Gaps.vGap12,

@@ -156,5 +156,6 @@
   "closeClaim": "Close Claim",
   "unitLinkRequestDetails": "Unit Link Request Details",
   "unlinkUnit": "UnLink Unit",
-  "renew": "Renew"
+  "renew": "Renew",
+  "unitRequestUnlinked": "Unit Request UnLinked"
 }

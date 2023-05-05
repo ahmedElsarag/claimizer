@@ -339,22 +339,6 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                   ],
                                 ),
                                 Gaps.vGap12,
-                                Gaps.vGap12,Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(S.of(context).claimType,
-                                        style: MTextStyles.textMain16.copyWith(
-                                          color: MColors.black,
-                                        )),
-                                    Gaps.vGap8,
-                                    Text(pr.selectedType ?? "",
-                                        style: MTextStyles.textMain14.copyWith(
-                                          color: MColors.black,
-                                          fontWeight: FontWeight.w400,
-                                        )),
-                                  ],
-                                ),
-                                Gaps.vGap12,
                                 Gaps.vGap12,
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

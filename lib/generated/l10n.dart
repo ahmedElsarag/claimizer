@@ -1615,6 +1615,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Unit Request UnLinked`
+  String get unitRequestUnlinked {
+    return Intl.message(
+      'Unit Request UnLinked',
+      name: 'unitRequestUnlinked',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

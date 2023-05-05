@@ -102,6 +102,11 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                             title: S.current.company,
                             value: pr.instance.company ?? S.current.na,
                           ),
+                          CommentsWidget(
+                            commentsData: pr.instance.comments,
+                            presenter: mPresenter,
+                            claimId: widget.unitRequestDataBean.refCode,
+                          ),
                           Row(
                             children: [
                               InkWell(
@@ -146,7 +151,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                       contentType: new MediaType('image', 'jpg'),
                                                     ),
                                                     "comment": pr.comment.text,
-                                                    "claim_id": widget.unitRequestDataBean.id,
+                                                    "request_id": widget.unitRequestDataBean.id,
                                                   });
                                                   mPresenter.doPostCommentApiCall(
                                                       formData, widget.unitRequestDataBean.id);
@@ -213,229 +218,230 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                           ),
                           Gaps.vGap12,
                           Gaps.vGap12,
-                          // InkWell(
-                          //   onTap: () {
-                          //     showDialog(
-                          //       context: context,
-                          //       builder: (context) {
-                          //         return AlertDialog(
-                          //           content: Column(
-                          //             mainAxisSize: MainAxisSize.min,
-                          //             children: [
-                          //               Text(
-                          //                 S.of(context).renew,
-                          //                 style: MTextStyles.textMain14,
-                          //               ),
-                          //               Gaps.vGap8,
-                          //               Gaps.vGap8,
-                          //               Container(
-                          //                 height: MediaQuery.of(context).size.height * .06,
-                          //                 child: TextFormField(
-                          //                   controller: pr.contractNo,
-                          //                   style: MTextStyles.textDark14,
-                          //                   decoration: InputDecoration(
-                          //                     hintText: S.of(context).contractNo,
-                          //                     hintStyle: MTextStyles.textMain14.copyWith(color: MColors.light_text_color, fontWeight: FontWeight.w500),
-                          //                     border: OutlineInputBorder(
-                          //                       borderRadius: BorderRadius.circular(8),
-                          //                       borderSide: BorderSide(color: MColors.textFieldBorder),
-                          //                     ),
-                          //                     enabledBorder: OutlineInputBorder(
-                          //                       borderRadius: BorderRadius.circular(8),
-                          //                       borderSide: BorderSide(color: MColors.textFieldBorder),
-                          //                     ),
-                          //                     focusedBorder: OutlineInputBorder(
-                          //                       borderRadius: BorderRadius.circular(8),
-                          //                       borderSide: BorderSide(color: MColors.textFieldBorder),
-                          //                     ),
-                          //                   ),
-                          //                 ),
-                          //               ),
-                          //               Gaps.vGap8,
-                          //               GestureDetector(
-                          //                 onTap: () async{
-                          //                   final DateTime picked = await showDatePicker(
-                          //                         context: context,
-                          //                         initialDate: pr.endDate ?? DateTime.now(),
-                          //                         firstDate: DateTime(1900),
-                          //                         lastDate: DateTime.now().add(Duration(days: 1000)));
-                          //                     if (picked != null) {
-                          //                       pr.endDate = picked;
-                          //                     }
-                          //                 },
-                          //                 child: Container(
-                          //                   decoration: BoxDecoration(
-                          //                     borderRadius: BorderRadius.circular(8),
-                          //                     border: Border.all(color: MColors.textFieldBorder),
-                          //                   ),
-                          //                   padding: EdgeInsets.all(10.0),
-                          //                   child: Row(
-                          //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //                     children: [
-                          //                       Text(
-                          //                         pr.endDate != null
-                          //                             ? _dateFormatEN.format(pr.endDate)
-                          //                             : S.of(context).endDate,
-                          //                       ),
-                          //                     ],
-                          //                   ),
-                          //                 ),
-                          //               ),
-                          //               Gaps.vGap8,
-                          //               TextFormField(
-                          //                 style: MTextStyles.textDark14,
-                          //                 readOnly: true,
-                          //                 controller: TextEditingController(text: pr?.contractImg?.path),
-                          //                 // initialValue: pr.contractImg.path,
-                          //                 decoration: InputDecoration(
-                          //                     hintText: S.of(context).uploadContractImage,
-                          //                     hintStyle: MTextStyles.textMain14,
-                          //                     border: OutlineInputBorder(
-                          //                       borderRadius: BorderRadius.circular(8),
-                          //                       borderSide: BorderSide(color: MColors.textFieldBorder),
-                          //                     ),
-                          //                     enabledBorder: OutlineInputBorder(
-                          //                       borderRadius: BorderRadius.circular(8),
-                          //                       borderSide: BorderSide(color: MColors.textFieldBorder),
-                          //                     ),
-                          //                     focusedBorder: OutlineInputBorder(
-                          //                       borderRadius: BorderRadius.circular(8),
-                          //                       borderSide: BorderSide(color: MColors.textFieldBorder),
-                          //                     ),
-                          //                     suffixIcon:  InkWell(
-                          //                       onTap: () async {
-                          //                         pr.updateContractImg(null);
-                          //                       },
-                          //                       child:Padding(
-                          //                         padding: const EdgeInsets.all(12.0),
-                          //                         child: Icon(Icons.close),
-                          //                       ),
-                          //                     ),
-                          //                     prefixIcon: InkWell(
-                          //                       onTap: () async {
-                          //                         final result = await FilePicker.platform.pickFiles();
-                          //                         if (result != null) {
-                          //                           final file = File(result.files.single.path);
-                          //                           pr.updateContractImg(file);
-                          //                         }
-                          //                         // FilePickerResult result = await FilePicker.platform.pickFiles();
-                          //                         // if (result != null) {
-                          //                         //   File file = File(result.files.single.path);
-                          //                         //   pr.contractImg.absolute.path = path.basename(file.path);
-                          //                         // }
-                          //                       },
-                          //                       child:Padding(
-                          //                         padding: const EdgeInsets.all(12.0),
-                          //                         child: SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
-                          //                       ),
-                          //                     )),
-                          //
-                          //               ),
-                          //               Gaps.vGap8,
-                          //               TextFormField(
-                          //                 controller: TextEditingController(text: pr?.identityImg?.path),
-                          //                 style: MTextStyles.textDark14,
-                          //                 readOnly: true,
-                          //                 decoration: InputDecoration(
-                          //                     hintText: S.of(context).uploadIdentityImage,
-                          //                     hintStyle: MTextStyles.textMain14,
-                          //                     border: OutlineInputBorder(
-                          //                       borderRadius: BorderRadius.circular(8),
-                          //                       borderSide: BorderSide(color: MColors.textFieldBorder),
-                          //                     ),
-                          //                     enabledBorder: OutlineInputBorder(
-                          //                       borderRadius: BorderRadius.circular(8),
-                          //                       borderSide: BorderSide(color: MColors.textFieldBorder),
-                          //                     ),
-                          //                     focusedBorder: OutlineInputBorder(
-                          //                       borderRadius: BorderRadius.circular(8),
-                          //                       borderSide: BorderSide(color: MColors.textFieldBorder),
-                          //                     ),
-                          //                     suffixIcon:  InkWell(
-                          //                       onTap: () async {
-                          //                         pr.updateIdentityImg(null);
-                          //                       },
-                          //                       child:Padding(
-                          //                         padding: const EdgeInsets.all(12.0),
-                          //                         child: Icon(Icons.close),
-                          //                       ),
-                          //                     ),
-                          //                     prefixIcon: InkWell(
-                          //                       onTap: () async {
-                          //                         final result = await FilePicker.platform.pickFiles();
-                          //                         if (result != null) {
-                          //                           final file = File(result.files.single.path);
-                          //                           pr.updateIdentityImg(file);
-                          //                         }
-                          //                       },
-                          //                       child:Padding(
-                          //                         padding: const EdgeInsets.all(12.0),
-                          //                         child: SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
-                          //                       ),
-                          //                     )),
-                          //
-                          //               ),
-                          //               Gaps.vGap8, Gaps.vGap8,
-                          //               ElevatedButton(
-                          //                 onPressed:  () async {
-                          //                   if (pr.contractNo.text.isEmpty && pr.endDate == null) {
-                          //                     mPresenter.view.showSnackBar("msg");
-                          //                   } else {
-                          //                     FormData formData = new FormData.fromMap({
-                          //                       "contract_attach": await MultipartFile.fromFile(
-                          //                         pr.contractImg.path,
-                          //                         filename: pr.contractImg.path.split('/').last,
-                          //                         contentType: MediaType('application', 'octet-stream'),
-                          //                       ),
-                          //                       "client_gov_id": await MultipartFile.fromFile(
-                          //                         pr.identityImg.path,
-                          //                         filename: pr.identityImg.path.split('/').last,
-                          //                         contentType: MediaType('application', 'octet-stream'),
-                          //                       ),
-                          //                       "contract_no": pr.contractNo.text,
-                          //                       "end_at": pr.endDate.toString(),
-                          //                       "id": pr.instance.id,
-                          //                     });
-                          //                     mPresenter.renewUnitLinkRequestApiCall(formData);
-                          //                   }
-                          //                 },
-                          //                 child: Text(
-                          //                   S.of(context).renew,
-                          //                   style: MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
-                          //                 ),
-                          //                 style: ButtonStyle(
-                          //                     backgroundColor:
-                          //                     MaterialStateProperty.all<Color>(MColors.primary_color),
-                          //                     elevation: MaterialStatePropertyAll(0),
-                          //                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          //                         RoundedRectangleBorder(
-                          //                           borderRadius: BorderRadius.circular(8),
-                          //                         )),
-                          //                     padding: MaterialStateProperty.all<EdgeInsets>(
-                          //                         EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
-                          //               )
-                          //             ],
-                          //           ),
-                          //         );
-                          //       },
-                          //     );
-                          //   },
-                          //   child: Row(
-                          //     children: [
-                          //       Container(
-                          //         decoration: BoxDecoration(
-                          //             color: MColors.primary_color.withOpacity(0.08), shape: BoxShape.circle),
-                          //         padding: EdgeInsets.all(4),
-                          //         child: Icon(Icons.update,color: MColors.primary_color)
-                          //       ),
-                          //       Gaps.hGap8,
-                          //       Text(
-                          //         S.of(context).renew,
-                          //         style: MTextStyles.textMain14,
-                          //       )
-                          //     ],
-                          //   ),
-                          // ),
+                          InkWell(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Consumer<UnitDetailsProvider>(
+                                    builder: (context, pro, child) => AlertDialog(
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            S.of(context).renew,
+                                            style: MTextStyles.textMain14,
+                                          ),
+                                          Gaps.vGap8,
+                                          Gaps.vGap8,
+                                          Container(
+                                            height: MediaQuery.of(context).size.height * .06,
+                                            child: TextFormField(
+                                              controller: pr.contractNo,
+                                              style: MTextStyles.textDark14,
+                                              decoration: InputDecoration(
+                                                hintText: S.of(context).contractNo,
+                                                hintStyle: MTextStyles.textMain14.copyWith(color: MColors.light_text_color, fontWeight: FontWeight.w500),
+                                                border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                ),
+                                                enabledBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Gaps.vGap8,
+                                          GestureDetector(
+                                            onTap: () async{
+                                              final DateTime picked = await showDatePicker(
+                                                    context: context,
+                                                    initialDate: pr.endDate ?? DateTime.now(),
+                                                    firstDate: DateTime(1900),
+                                                    lastDate: DateTime.now().add(Duration(days: 1000)));
+                                                if (picked != null) {
+                                                  pr.endDate = picked;
+                                                }
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(8),
+                                                border: Border.all(color: MColors.textFieldBorder),
+                                              ),
+                                              padding: EdgeInsets.all(10.0),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    pr.endDate != null
+                                                        ? _dateFormatEN.format(pr.endDate)
+                                                        : S.of(context).endDate,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Gaps.vGap8,
+                                          TextFormField(
+                                              style: MTextStyles.textDark14,
+                                              readOnly: true,
+                                              controller: TextEditingController(text: pro?.contractImg?.path),
+                                              decoration: InputDecoration(
+                                                  hintText: S.of(context).uploadContractImage,
+                                                  hintStyle: MTextStyles.textMain14,
+                                                  border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                  ),
+                                                  enabledBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                  ),
+                                                  focusedBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                  ),
+                                                  suffixIcon:  InkWell(
+                                                    onTap: () async {
+                                                      pro.updateContractImg(null);
+                                                      setState(() {});
+                                                    },
+                                                    child:Padding(
+                                                      padding: const EdgeInsets.all(12.0),
+                                                      child: Icon(Icons.close),
+                                                    ),
+                                                  ),
+                                                  prefixIcon: InkWell(
+                                                    onTap: () async {
+                                                      final result = await FilePicker.platform.pickFiles();
+                                                      if (result != null) {
+                                                        final file = File(result.files.single.path);
+                                                        pro.updateContractImg(file);
+                                                        setState(() {});
+                                                      }
+                                                    },
+                                                    child:Padding(
+                                                      padding: const EdgeInsets.all(12.0),
+                                                      child: SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
+                                                    ),
+                                                  )),
+
+                                            ),
+                                          Gaps.vGap8,
+                                          TextFormField(
+                                            controller: TextEditingController(text: pr?.identityImg?.path),
+                                            style: MTextStyles.textDark14,
+                                            readOnly: true,
+                                            decoration: InputDecoration(
+                                                hintText: S.of(context).uploadIdentityImage,
+                                                hintStyle: MTextStyles.textMain14,
+                                                border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                ),
+                                                enabledBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                ),
+                                                suffixIcon:  InkWell(
+                                                  onTap: () async {
+                                                    pr.updateIdentityImg(null);
+                                                    setState(() {});
+                                                  },
+                                                  child:Padding(
+                                                    padding: const EdgeInsets.all(12.0),
+                                                    child: Icon(Icons.close),
+                                                  ),
+                                                ),
+                                                prefixIcon: InkWell(
+                                                  onTap: () async {
+                                                    final result = await FilePicker.platform.pickFiles();
+                                                    if (result != null) {
+                                                      final file = File(result.files.single.path);
+                                                      pr.updateIdentityImg(file);
+                                                      setState(() {});
+                                                    }
+                                                  },
+                                                  child:Padding(
+                                                    padding: const EdgeInsets.all(12.0),
+                                                    child: SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
+                                                  ),
+                                                )),
+
+                                          ),
+                                          Gaps.vGap8, Gaps.vGap8,
+                                          ElevatedButton(
+                                            onPressed:  () async {
+                                              if (pr.contractNo.text.isEmpty && pr.endDate == null) {
+                                                mPresenter.view.showSnackBar("msg");
+                                              } else {
+                                                FormData formData = new FormData.fromMap({
+                                                  "contract_attach": await MultipartFile.fromFile(
+                                                    pr.contractImg.path,
+                                                    filename: pr.contractImg.path.split('/').last,
+                                                    contentType: MediaType('application', 'octet-stream'),
+                                                  ),
+                                                  "client_gov_id": await MultipartFile.fromFile(
+                                                    pr.identityImg.path,
+                                                    filename: pr.identityImg.path.split('/').last,
+                                                    contentType: MediaType('application', 'octet-stream'),
+                                                  ),
+                                                  "contract_no": pr.contractNo.text,
+                                                  "end_at": pr.endDate.toString(),
+                                                  "id": pr.instance.id,
+                                                });
+                                                mPresenter.renewUnitLinkRequestApiCall(formData,widget.unitRequestDataBean.id);
+                                                // Navigator.pop(context);
+                                              }
+                                            },
+                                            child: Text(
+                                              S.of(context).renew,
+                                              style: MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                            ),
+                                            style: ButtonStyle(
+                                                backgroundColor:
+                                                MaterialStateProperty.all<Color>(MColors.primary_color),
+                                                elevation: MaterialStatePropertyAll(0),
+                                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                    RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(8),
+                                                    )),
+                                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                                    EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: MColors.primary_color.withOpacity(0.08), shape: BoxShape.circle),
+                                  padding: EdgeInsets.all(4),
+                                  child: Icon(Icons.update,color: MColors.primary_color)
+                                ),
+                                Gaps.hGap8,
+                                Text(
+                                  S.of(context).renew,
+                                  style: MTextStyles.textMain14,
+                                )
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
