@@ -31,8 +31,8 @@ class UnitRequestDetailsDataBean {
   String contractAttach;
   String clientGovId;
   String status;
-  Null userRemarks;
-  Null adminRemarks;
+  dynamic userRemarks;
+  dynamic adminRemarks;
   String createdAt;
   UnitRequestDetailsResponse user;
   List<Comments> comments;

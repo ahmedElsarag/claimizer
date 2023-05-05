@@ -386,16 +386,16 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                 mPresenter.view.showSnackBar("msg");
                                               } else {
                                                 FormData formData = new FormData.fromMap({
-                                                  // "contract_attach": await MultipartFile.fromFile(
-                                                  //   pr.contractImg.path,
-                                                  //   filename: pr.contractImg.path.split('/').last,
-                                                  //   contentType: MediaType('application', 'octet-stream'),
-                                                  // ),
-                                                  // "client_gov_id": await MultipartFile.fromFile(
-                                                  //   pr.identityImg.path,
-                                                  //   filename: pr.identityImg.path.split('/').last,
-                                                  //   contentType: MediaType('application', 'octet-stream'),
-                                                  // ),
+                                                  "contract_attach": await MultipartFile.fromFile(
+                                                    pr.contractImg.path,
+                                                    filename: pr.contractImg.path.split('/').last,
+                                                    contentType: MediaType('application', 'octet-stream'),
+                                                  ),
+                                                  "client_gov_id": await MultipartFile.fromFile(
+                                                    pr.identityImg.path,
+                                                    filename: pr.identityImg.path.split('/').last,
+                                                    contentType: MediaType('application', 'octet-stream'),
+                                                  ),
                                                   "contract_no": pr.contractNo.text,
                                                   "end_at": pr.endDate.toString(),
                                                   "id": pr.instance.id,
