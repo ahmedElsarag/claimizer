@@ -161,6 +161,14 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                                                   });
                                                   mPresenter.doPostCommentApiCall(
                                                       formData, widget.claimsDataBean.referenceId);
+                                                }else{
+                                                  FormData formData = FormData();
+                                                  formData = new FormData.fromMap({
+                                                    "comment": pr.comment.text,
+                                                    "claim_id": widget.claimsDataBean.id,
+                                                  });
+                                                  mPresenter.doPostCommentApiCall(
+                                                      formData, widget.claimsDataBean.referenceId);
                                                 }
                                               },
                                               child: Text(
