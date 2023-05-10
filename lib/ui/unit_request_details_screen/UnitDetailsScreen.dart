@@ -155,6 +155,14 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                   });
                                                   mPresenter.doPostCommentApiCall(
                                                       formData, widget.unitRequestDataBean.id);
+                                                }else{
+                                                  FormData formData = FormData();
+                                                  formData = new FormData.fromMap({
+                                                    "comment": pr.comment.text,
+                                                    "request_id": widget.unitRequestDataBean.id,
+                                                  });
+                                                  mPresenter.doPostCommentApiCall(
+                                                      formData, widget.unitRequestDataBean.id);
                                                 }
                                               },
                                               child: Text(
