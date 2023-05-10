@@ -175,6 +175,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
           context: view.context,
           builder: (context) => ClaimCreatedDialog(
             presenter: view.mPresenter,
+            claimsRequestResponse: data,
           ),
         );
       }

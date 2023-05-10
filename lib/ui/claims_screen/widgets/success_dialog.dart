@@ -7,13 +7,15 @@ import 'package:sizer/sizer.dart';
 
 import '../../../CommonUtils/image_utils.dart';
 import '../../../generated/l10n.dart';
+import '../../../network/models/claim_request_response.dart';
 import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
 import '../../../res/styles.dart';
 
 class ClaimCreatedDialog extends StatelessWidget {
-  const ClaimCreatedDialog({Key key, this.presenter}) : super(key: key);
-  final ClaimsPresenter presenter;
+  const ClaimCreatedDialog({Key key, this.presenter, this.claimsRequestResponse}) : super(key: key);
+ final ClaimsRequestResponse claimsRequestResponse;
+ final ClaimsPresenter presenter;
   @override
   Widget build(BuildContext context) {
     return Consumer<ClaimsProvider>(
@@ -33,6 +35,12 @@ class ClaimCreatedDialog extends StatelessWidget {
             Gaps.vGap8,
             Text(
               S.of(context).thankYouForSubmittingYourRequestOneOfOurCustomerservices,
+              style: MTextStyles.textSubtitle,
+              textAlign: TextAlign.center,
+            ),
+            Gaps.vGap8,
+            Text(
+              S.of(context).requestCode +" "+ claimsRequestResponse.id,
               style: MTextStyles.textSubtitle,
               textAlign: TextAlign.center,
             ),

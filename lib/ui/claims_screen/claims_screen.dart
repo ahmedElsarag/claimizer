@@ -192,7 +192,6 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                               Map<String, dynamic> parms = Map();
                               parms['property'] = searchController.text.toString();
                               mPresenter.getFilteredClaimsApiCall(parms);
-                              print("@@@@@@@@@@@@@@@@@@@@@@&&&& ${searchController.text}");
                             },
                             onChanged: (value) {
                               pr.searchValue = value;
@@ -349,7 +348,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                         )),
                                     Gaps.vGap8,
                                     Text(
-                                        "${Setting.mobileLanguage.value == Locale("en") ? _dateFormatEN.format(pr.selectedDate) : _dateFormatAR.format(pr.selectedDate)} ${S.of(context).from} ${pr.selectedTimeValue}",
+                                        "${pr.selectedDate==null? DateFormat('yyyy-MM-dd','en').format(DateTime.now()): Setting.mobileLanguage.value == Locale("en") ? _dateFormatEN.format(pr.selectedDate) : _dateFormatAR.format(pr.selectedDate)} ${S.of(context).from} ${pr.selectedTimeValue}",
                                         style: MTextStyles.textMain14.copyWith(
                                           color: MColors.black,
                                           fontWeight: FontWeight.w400,
@@ -398,7 +397,8 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                             "sub_category_id": selectedSubCategoryId,
                                             "claim_type_id": selectedTypeId,
                                             "description": provider.description.text,
-                                            "available_date": DateFormat('yyyy-MM-dd', 'en').format(provider.selectedDate),
+                                            "available_date":provider.selectedDate !=null?
+                                              DateFormat('yyyy-MM-dd', 'en').format(provider.selectedDate) :DateFormat('yyyy-MM-dd','en').format(DateTime.now()),
                                             "available_time": provider.selectedTimeValue
                                           });
                                           // print("@@@@@@@@@@@@@@@@@@@@@@@@@ ${provider.selectedTimeValue}");

@@ -16,6 +16,7 @@ import '../../generated/l10n.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
 import '../../res/styles.dart';
+import '../home_screen/HomeProvider.dart';
 import 'units_presenter.dart';
 
 class UnitsScreen extends StatefulWidget {
@@ -30,6 +31,7 @@ class UnitsScreen extends StatefulWidget {
 class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   UnitProvider provider;
+  HomeProvider homeProvider;
   List<String> cardTitles = [
     S.current.newLinkRequest,
     S.current.existingUnit,
@@ -41,10 +43,10 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
     'unit_link_request',
   ];
 
-
   @override
   void initState() {
     provider = context.read<UnitProvider>();
+    homeProvider = context.read<HomeProvider>();
     EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
       if (event.isRefresh != null) {
         mPresenter.getUnitRequestsApiCall();
@@ -146,7 +148,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                           // width: 237,
                           height: 10.w,
                           child: TextFormField(
-                            controller: pr.searchController,
+                            controller: pr.selectedIndex == 1 ? pr.searchController : pr.unitLinkSearchController,
                             decoration: InputDecoration(
                               hintText: S.current.search,
                               hintStyle: MTextStyles.textGray14,
@@ -165,7 +167,12 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                     Map<String, dynamic> parms = Map();
                                     parms['unit'] = pr.searchController.text.toString();
                                     mPresenter.getFilteredExistingUnitsApiCall(parms);
-                                  } else if (pr.selectedIndex == 2) {}
+                                  } else if (pr.selectedIndex == 2) {
+                                    Map<String, dynamic> parms = Map();
+                                    print("&&&&&&&&&&&&&&&&&&&&&&& ${pr.unitLinkSearchController.text}");
+                                    parms['unit'] = pr.unitLinkSearchController.text.toString();
+                                    mPresenter.getFilteredUnitRequestsApiCall(parms);
+                                  }
                                 },
                               ),
                               suffixIcon: GestureDetector(
@@ -175,7 +182,9 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                 ),
                                 onTap: () {
                                   pr.searchController.clear();
+                                  pr.unitLinkSearchController.clear();
                                   mPresenter.getExistingUnitsApiCall();
+                                  mPresenter.getUnitRequestsApiCall();
                                 },
                               ),
                             ),
@@ -184,8 +193,12 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                 Map<String, dynamic> parms = Map();
                                 parms['unit'] = pr.searchController.text.toString();
                                 mPresenter.getFilteredExistingUnitsApiCall(parms);
-                              } else if (pr.selectedIndex == 2) {}
-                              print("@@@@@@@@@@@@@@@@@@@@@@&&&& ${pr.searchController.text}");
+                              } else if (pr.selectedIndex == 2) {
+                                Map<String, dynamic> parms = Map();
+                                print("&&&&&&&&&&&&&&&&&&&&&&& ${pr.unitLinkSearchController.text}");
+                                parms['unit'] = pr.unitLinkSearchController.text.toString();
+                                mPresenter.getFilteredUnitRequestsApiCall(parms);
+                              }
                             },
                             onChanged: (value) {
                               pr.searchValue = value;
@@ -250,6 +263,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                               )
                             : UnitLinkRequest(
                                 presenter: mPresenter,
+                                homeProvider: homeProvider,
                               ),
                   ],
                 ),

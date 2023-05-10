@@ -73,6 +73,23 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
     });
   }
 
+  Future getFilteredUnitRequestsApiCall(Map<String, dynamic> params) async {
+    Map<String, dynamic> header = Map();
+    await Prefs.getUserToken.then((token) {
+      header['Authorization'] = "Bearer $token";
+    });
+    view.showProgress(isDismiss: false);
+    await requestFutureData<UnitRequestsResponse>(Method.get, options: Options(headers: header),queryParams: params, endPoint: Api.unitRequestApiCall,
+        onSuccess: (data) {
+          view.closeProgress();
+          if (data != null) {
+            view.provider.unitsRequestList = data.data;
+          }
+        }, onError: (code, msg) {
+          view.closeProgress();
+        });
+  }
+
   checkLinkHasParams(String link) {
     Uri myUri = Uri.parse(link);
     bool hasContractNumber = myUri.queryParameters.containsKey('contract_number');

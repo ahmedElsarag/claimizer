@@ -39,7 +39,7 @@ class BuildDatePicker extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                pr.selectedDate != null ? _dateFormat.format(pr.selectedDate) : S.of(context).selectDate,
+                pr.selectedDate != null ? _dateFormat.format(pr.selectedDate) :DateFormat('yyyy-MM-dd','en').format(DateTime.now()),
                 style: MTextStyles.textMain14.copyWith(
                     color: MColors.light_text_color
                 ),

@@ -1,5 +1,6 @@
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/app_widgets/NoDataFound.dart';
+import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
 import 'package:Cliamizer/ui/units_screen/units_presenter.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,8 +17,9 @@ import '../../../res/styles.dart';
 import '../../unit_request_details_screen/UnitDetailsScreen.dart';
 
 class UnitLinkRequest extends StatelessWidget {
-  const UnitLinkRequest({Key key, this.presenter}) : super(key: key);
+  const UnitLinkRequest({Key key, this.presenter, this.homeProvider}) : super(key: key);
   final UnitPresenter presenter;
+  final HomeProvider homeProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -238,5 +240,4 @@ class UnitLinkRequest extends StatelessWidget {
       ],
     );
   }
-
 }

@@ -146,6 +146,15 @@ class UnitProvider<T> extends BaseProvider<T> {
     notifyListeners();
   }
 
+  TextEditingController _unitLinkSearchController = TextEditingController();
+
+  TextEditingController get unitLinkSearchController => _unitLinkSearchController;
+
+  set unitLinkSearchController(TextEditingController value) {
+    _unitLinkSearchController = value;
+    notifyListeners();
+  }
+
   String _selectedUnit;
 
   String get selectedUnit => _selectedUnit;

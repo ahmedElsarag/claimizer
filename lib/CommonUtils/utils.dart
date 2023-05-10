@@ -174,16 +174,24 @@ class Utils {
   static Color getClaimStatusColorFromString(String status) {
     switch (status) {
       case 'new':
+      case 'جديد':
         return Color(0xffff9500);
       case 'assigned':
+      case 'تم اختيار فني':
+      case 'renewing':
+      case 'active':
         return Color.fromRGBO(45, 11, 238, 0.95);
       case 'started':
+      case 'بدأت':
         return Color(0xff10d2c8);
       case 'completed':
+      case 'مكتمل':
         return Color(0xff679c0d);
       case 'closed':
+      case 'مغلق':
         return Color(0xff0a562e);
       case 'cancelled':
+      case 'ملغي':
         return Color(0xffff0000);
       default:
         return Color(0xff44A4F2).withOpacity(0.08);
@@ -193,19 +201,26 @@ class Utils {
   static Color getUnitStatusColorFromString(String status) {
     switch (status) {
       case 'new':
+      case 'جديد':
         return Color(0xffff9500);
       case 'assigned':
+      case 'تم اختيار فني':
       case 'renewing':
+      case 'active':
         return Color.fromRGBO(45, 11, 238, 0.95);
       case 'started':
+      case 'بدأت':
         return Color(0xff10d2c8);
       case 'completed':
-        return Color(0xff679c0d);
+      case 'مكتمل':
+      return Color(0xff679c0d);
       case 'closed':
+      case 'مغلق':
         return Color(0xff0a562e);
       case 'cancelled':
       case 'canceled':
       case 'rejected':
+      case 'ملغي':
         return Color(0xffff0000);
       default:
         return Color(0xff44A4F2).withOpacity(0.08);
@@ -215,15 +230,22 @@ class Utils {
   static Color getTextStatusColorFromString(String status) {
     switch (status) {
       case 'new':
+      case 'جديد':
       case 'assigned':
+      case 'تم اختيار فني':
       case 'completed':
+      case 'مكتمل':
       case 'closed':
+      case 'مغلق':
       case 'cancelled':
       case 'canceled':
       case 'renewing':
+      case 'ملغي':
       case 'rejected':
+      case 'active':
         return Colors.white;
       case 'started':
+      case 'بدأت':
       case 'approved':
         return MColors.text_button_color;
       default:
