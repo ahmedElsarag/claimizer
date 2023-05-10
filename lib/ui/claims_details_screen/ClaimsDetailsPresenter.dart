@@ -4,6 +4,7 @@ import 'package:Cliamizer/network/models/general_response.dart';
 import 'package:dio/dio.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
+
 import '../../CommonUtils/log_utils.dart';
 import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
 import '../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
@@ -26,25 +27,24 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
         Method.get,
         endPoint: Api.getClaimDetailsApiCall(id),
         options: Options(headers: header),
-        onSuccess: (data)  {
+        onSuccess: (data) {
+          view.closeProgress();
           Log.d("${data.data.id}");
           if (data != null) {
             view.provider.setData(data.data);
             print("################################ ${data.data.comments.data[0].user.name}");
             view.provider.isDateLoaded = true;
-            view.closeProgress();
-          }else{
-            view.closeProgress();
           }
         },
         onError: (code, msg) {
-          Log.d(msg);
-          if(code == ErrorStatus.UNKNOWN_ERROR)
-            view.provider.internetStatus = false;
           view.closeProgress();
-          if(code == ErrorStatus.UNAUTHORIZED)
-            showDialog( context: view.context,builder: (_)=>
-                LoginRequiredDialog( message: S.of(view.context).sessionTimeoutPleaseLogin),barrierDismissible: false);
+          Log.d(msg);
+          if (code == ErrorStatus.UNKNOWN_ERROR) view.provider.internetStatus = false;
+          if (code == ErrorStatus.UNAUTHORIZED)
+            showDialog(
+                context: view.context,
+                builder: (_) => LoginRequiredDialog(message: S.of(view.context).sessionTimeoutPleaseLogin),
+                barrierDismissible: false);
         },
       );
     });

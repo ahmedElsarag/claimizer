@@ -157,5 +157,6 @@
   "unitLinkRequestDetails": "Unit Link Request Details",
   "unlinkUnit": "UnLink Unit",
   "renew": "Renew",
-  "unitRequestUnlinked": "Unit Request UnLinked"
+  "unitRequestUnlinked": "Unit Request UnLinked",
+  "qrScanner": "Qr Scanner"
 }

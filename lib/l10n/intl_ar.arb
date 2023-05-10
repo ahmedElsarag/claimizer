@@ -156,5 +156,6 @@
   "unitLinkRequestDetails": "تفاصيل طلب ارتباط الوحدة",
   "unlinkUnit": "الغاء الربط",
   "renew": "تجديد",
-  "unitRequestUnlinked": "Unit Request UnLinked"
+  "unitRequestUnlinked": "Unit Request UnLinked",
+  "qrScanner": "الماسح"
 }

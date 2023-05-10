@@ -117,7 +117,6 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                     Gaps.vGap30,
                     Form(
                       key: _formKey,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: Container(
                         child: Column(
                           children: <Widget>[

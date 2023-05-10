@@ -22,7 +22,7 @@ class ClaimDetailDataBean {
   String description;
   String availableDate;
   dynamic availableTime;
-  String employeeId;
+  dynamic employeeId;
   String startDate;
   String endDate;
   String createdBy;
