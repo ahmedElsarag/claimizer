@@ -37,7 +37,7 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
           Log.d("${data.data.id}");
           if (data != null) {
             print("###################$id");
-            print("###################${data.data.id}");
+            print("###################${data.data.comments[0].user.avatar}");
             view.provider.setData(data.data);
             view.provider.isDateLoaded = true;
             view.closeProgress();

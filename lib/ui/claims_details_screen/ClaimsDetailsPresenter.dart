@@ -32,7 +32,7 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
           Log.d("${data.data.id}");
           if (data != null) {
             view.provider.setData(data.data);
-            print("################################ ${data.data.comments.data[0].user.name}");
+            print("################################ ${data.data.comments.data[4].user.data.name}");
             view.provider.isDateLoaded = true;
           }
         },

@@ -1,10 +1,12 @@
+import 'package:Cliamizer/network/models/claims_response.dart';
+
 class ClaimDetailsResponse {
-  ClaimDetailDataBean data;
+  ClaimsDetailsDataBean data;
 
   ClaimDetailsResponse({this.data});
 
   ClaimDetailsResponse.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new ClaimDetailDataBean.fromJson(json['data']) : null;
+    data = json['data'] != null ? new ClaimsDetailsDataBean.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -16,20 +18,20 @@ class ClaimDetailsResponse {
   }
 }
 
-class ClaimDetailDataBean {
+class ClaimsDetailsDataBean {
   int id;
   String referenceId;
+  String status;
   String description;
   String availableDate;
-  dynamic availableTime;
-  dynamic employeeId;
+  String availableTime;
+  String employeeId;
   String startDate;
   String endDate;
   String createdBy;
   String priority;
-  String status;
-  dynamic rate;
-  dynamic feedback;
+  Null rate;
+  Null feedback;
   String createdAt;
   List<String> files;
   Unit unit;
@@ -38,9 +40,10 @@ class ClaimDetailDataBean {
   Category type;
   Comments comments;
 
-  ClaimDetailDataBean(
+  ClaimsDetailsDataBean(
       {this.id,
         this.referenceId,
+        this.status,
         this.description,
         this.availableDate,
         this.availableTime,
@@ -49,7 +52,6 @@ class ClaimDetailDataBean {
         this.endDate,
         this.createdBy,
         this.priority,
-        this.status,
         this.rate,
         this.feedback,
         this.createdAt,
@@ -60,9 +62,10 @@ class ClaimDetailDataBean {
         this.type,
         this.comments});
 
-  ClaimDetailDataBean.fromJson(Map<String, dynamic> json) {
+  ClaimsDetailsDataBean.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     referenceId = json['reference_id'];
+    status = json['status'];
     description = json['description'];
     availableDate = json['available_date'];
     availableTime = json['available_time'];
@@ -71,7 +74,6 @@ class ClaimDetailDataBean {
     endDate = json['end_date'];
     createdBy = json['created_by'];
     priority = json['priority'];
-    status = json['status'];
     rate = json['rate'];
     feedback = json['feedback'];
     createdAt = json['created_at'];
@@ -93,6 +95,7 @@ class ClaimDetailDataBean {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['reference_id'] = this.referenceId;
+    data['status'] = this.status;
     data['description'] = this.description;
     data['available_date'] = this.availableDate;
     data['available_time'] = this.availableTime;
@@ -101,7 +104,6 @@ class ClaimDetailDataBean {
     data['end_date'] = this.endDate;
     data['created_by'] = this.createdBy;
     data['priority'] = this.priority;
-    data['status'] = this.status;
     data['rate'] = this.rate;
     data['feedback'] = this.feedback;
     data['created_at'] = this.createdAt;
@@ -216,7 +218,7 @@ class CommentsData {
   String comment;
   String createdAt;
   List<String> files;
-  UserData user;
+  User user;
 
   CommentsData({this.id, this.comment, this.createdAt, this.files, this.user});
 
@@ -226,7 +228,7 @@ class CommentsData {
     createdAt = json['created_at'];
     files = json['files'].cast<String>();
     user = json['user'] != null
-        ? new UserData.fromJson(json['user'])
+        ? new User.fromJson(json['user'])
         : null;
   }
 
@@ -238,6 +240,24 @@ class CommentsData {
     data['files'] = this.files;
     if (this.user != null) {
       data['user'] = this.user.toJson();
+    }
+    return data;
+  }
+}
+
+class User {
+  UserData data;
+
+  User({this.data});
+
+  User.fromJson(Map<String, dynamic> json) {
+    data = json['data'] != null ? new UserData.fromJson(json['data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
+      data['data'] = this.data.toJson();
     }
     return data;
   }

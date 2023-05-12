@@ -9,8 +9,8 @@ import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
 import '../../../res/styles.dart';
 
-class CommentItemWidget extends StatelessWidget {
-  const CommentItemWidget({Key key, this.commentsData, this.apiStrings}) : super(key: key);
+class ClaimCommentItemWidget extends StatelessWidget {
+  const ClaimCommentItemWidget({Key key, this.commentsData, this.apiStrings}) : super(key: key);
   final CommentsData commentsData;
   final List<String> apiStrings;
   String formatDate(String date){
@@ -43,14 +43,14 @@ class CommentItemWidget extends StatelessWidget {
                   ),
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
-                      child: ImageLoader(imageUrl: commentsData.user.avatar,height: 48,width: 48,))),
+                      child: ImageLoader(imageUrl: commentsData.user.data.avatar,height: 48,width: 48,))),
               Gaps.hGap12,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     width: 50.w,
-                    child: Text(commentsData.user?.name?? "",
+                    child: Text(commentsData.user.data.name?? "",
                         style: MTextStyles.textMain14.copyWith(
                           color: MColors.black,
                         )),
@@ -101,3 +101,4 @@ class CommentItemWidget extends StatelessWidget {
     );
   }
 }
+

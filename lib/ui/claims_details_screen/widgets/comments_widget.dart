@@ -31,7 +31,7 @@ class CommentsWidget extends StatelessWidget {
           shrinkWrap: true,
           itemCount: commentsData.data.length,
           separatorBuilder: (context, index) => Divider(color: MColors.dividerColor,),
-          itemBuilder: (context, index) => CommentItemWidget(
+          itemBuilder: (context, index) => ClaimCommentItemWidget(
             apiStrings: commentsData.data[index].files,
             commentsData: commentsData.data[index],
           )),
