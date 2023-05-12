@@ -48,15 +48,12 @@ class SplashScreenState extends BaseState<SplashScreen, SplashPresenter> with Au
   void initSplash() {
     _subscription = Stream.value(1).delay(Duration(seconds: 3)).listen((_) {
         isUserLoggedIn();
-        // Navigator.pushReplacement(context, AppPageRoute(builder: (context)=>IntroStartScreen()));
     });
   }
 
   @override
   void initState() {
     mPresenter.setAppLanguage();
-    // languageProvider = context.read<LanguageProvider>();
-    // languageProvider.loadSelectedLanguage();
     initSplash();
     super.initState();
   }
@@ -81,6 +78,7 @@ class SplashScreenState extends BaseState<SplashScreen, SplashPresenter> with Au
   }
 
   Future isUserLoggedIn() async {
+    print("@@@@@@@@@@@@@@@@@@@@@ ${Prefs.isLogin.then((value) => value)}");
     await Prefs.isLogin ? _openHomeScreen(context) : _openLoginScreen(context);
   }
 

@@ -61,7 +61,6 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
             print('###### $value');
             provider.language = value;
           }),
-          // provider.isArabic == "ar",
         }
     });
   }
@@ -162,8 +161,10 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
                         onChanged: (value) {
                           if (value) {
                             setSelected("en");
+                            mPresenter.passReloadByEventPath();
                           } else {
                             setSelected("ar");
+                            mPresenter.passReloadByEventPath();
                           }
                         }),
                   )),

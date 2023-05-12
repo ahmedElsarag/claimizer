@@ -15,6 +15,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
 import '../../CommonUtils/model_eventbus/ProfileEvent.dart';
+import '../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
 import '../../app_widgets/image_loader.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
@@ -68,6 +69,12 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
       }
       if (event.userImage != null) {
         provider.avatar = event.userImage;
+      }
+      setState(() {});
+    });
+    EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
+      if (event.isRefresh != null || event.isLangChanged != null) {
+        mPresenter.getStatisticsApiCall();
       }
       setState(() {});
     });

@@ -38,7 +38,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
     provider = context.read<UnitProvider>();
     homeProvider = context.read<HomeProvider>();
     EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
-      if (event.isRefresh != null) {
+      if (event.isRefresh != null || event.isLangChanged != null) {
         mPresenter.getUnitRequestsApiCall();
       }
       setState(() {});

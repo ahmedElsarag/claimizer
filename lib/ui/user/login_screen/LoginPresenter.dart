@@ -35,6 +35,6 @@ class LoginPresenter extends BasePresenter<LoginScreenState> {
     Prefs.setUserName(response.data.name);
     print("#@#@#@#@#@#@#@#@#@ ${response.data.token}");
     print("#@#@#@#@#@#@#@#@#@123 ${response.data.name}");
-    if (view.provider.isRememberMe) Prefs.setIsLogin(true).then((value) => print("login status $value"));
+    Prefs.setIsLogin(true).then((value) => print("login status $value"));
   }
 }
