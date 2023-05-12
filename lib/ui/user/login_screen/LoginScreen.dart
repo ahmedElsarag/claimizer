@@ -123,26 +123,12 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
                             buildEmailField(context),
                             Gaps.vGap10,
                             buildPasswordField(context),
-                            Gaps.hGap8,
+                            Gaps.vGap8,
                             Container(
                               width: 100.w,
-                              margin: EdgeInsets.symmetric(horizontal: 20),
+                              margin: EdgeInsets.symmetric(horizontal: 8.w),
                               child: Row(
                                 children: [
-                                  Checkbox(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      checkColor: Colors.white,
-                                      activeColor: Colors.blue,
-                                      value: provider.isRememberMe,
-                                      onChanged: (value) {
-                                        provider.isRememberMe = !provider.isRememberMe;
-                                      }),
-                                  Text(
-                                    S.of(context).rememberMe,
-                                    style: Theme.of(context).textTheme.titleMedium,
-                                  ),
                                   Spacer(),
                                   InkWell(
                                     onTap: () {
@@ -246,7 +232,7 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
             style: Theme.of(context).textTheme.bodySmall,
             dividerColor: Theme.of(context).dividerColor,
             decoration: InputDecoration(
-              hintText: "Name@mail.com",
+              hintText: S.current.emailAddress,
               errorStyle: Theme.of(context).textTheme.bodySmall.copyWith(color: Colors.redAccent),
               contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.outlineBorderLight)),
@@ -307,7 +293,7 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
             style: Theme.of(context).textTheme.bodySmall,
             decoration: InputDecoration(
               errorStyle: Theme.of(context).textTheme.bodySmall.copyWith(color: Colors.redAccent),
-              hintText: "password",
+              hintText: S.current.password,
               contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
               suffixIcon: GestureDetector(
                   onTap: () {
