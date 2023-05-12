@@ -2,6 +2,7 @@ import 'package:Cliamizer/base/presenter/base_presenter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/log_utils.dart';
@@ -51,20 +52,10 @@ class MorePresenter extends BasePresenter<MoreScreenState> {
   showProgress(){
     WillPopScope(
       onWillPop: () async => false,
-      child: SpinKitPulse(
-        size: 50.sp,
-        itemBuilder: (BuildContext context, int index) {
-          return DecoratedBox(
-            decoration: BoxDecoration(
-              /*shape: BoxShape.rectangle,*/
-                borderRadius: BorderRadius.circular(12),
-                color:
-                /* index.isEven ? */
-                Theme.of(context).primaryColor
-              /*     : MColors.gray_99,*/
-            ),
-          );
-        },
+      child: Container(
+        height: 30.h,
+        alignment: Alignment.center,
+        child: Lottie.asset('assets/images/png/loading.json', width: 10.w),
       ),
     );
   }

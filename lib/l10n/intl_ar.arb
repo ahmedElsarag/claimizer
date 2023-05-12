@@ -156,6 +156,9 @@
   "unitLinkRequestDetails": "تفاصيل طلب ارتباط الوحدة",
   "unlinkUnit": "الغاء الربط",
   "renew": "تجديد",
-  "unitRequestUnlinked": "Unit Request UnLinked",
-  "qrScanner": "الماسح"
+  "unitRequestUnlinked": "تم الغاء ارتباط الوحدة",
+  "qrScanner": "الماسح",
+  "youNeedToRenewUnit": "تحتاج الي تجديد تعاقد الوحدة ",
+  "unit": "ينتهي تعاقد الوحدة  ",
+  "contractEndsOn": " في تاريخ "
 }

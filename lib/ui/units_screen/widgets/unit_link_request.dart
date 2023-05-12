@@ -27,6 +27,7 @@ class UnitLinkRequest extends StatelessWidget {
       builder: (context, pr, child) =>  pr.unitsRequestList.isNotEmpty? RefreshIndicator(
         onRefresh: ()async{
           await presenter.getUnitRequestsApiCall();
+          pr.unitLinkSearchController.clear();
         },
         child: ListView.builder(
           itemCount: pr.unitsRequestList.length,

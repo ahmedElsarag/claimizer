@@ -247,6 +247,8 @@ class Utils {
       case 'started':
       case 'بدأت':
       case 'approved':
+      case 'finished':
+      case 'انتهت':
         return MColors.text_button_color;
       default:
         return Color(0xff44A4F2).withOpacity(0.08);

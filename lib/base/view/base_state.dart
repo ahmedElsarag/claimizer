@@ -44,21 +44,7 @@ abstract class BaseState<T extends StatefulWidget, P extends BasePresenter>
                 height: 30.h,
                 alignment: Alignment.center,
                 child: Lottie.asset('assets/images/png/loading.json', width: 10.w),
-              )/*SpinKitPulse(
-                size: 50.sp,
-                itemBuilder: (BuildContext context, int index) {
-                  return DecoratedBox(
-                    decoration: BoxDecoration(
-                      *//*shape: BoxShape.rectangle,*//*
-                      borderRadius: BorderRadius.circular(12),
-                      color:
-                     *//* index.isEven ? *//*
-                      Theme.of(context).primaryColor
-                     *//*     : MColors.gray_99,*//*
-                    ),
-                  );
-                },
-              )*/,
+              ),
             );
           },
         );

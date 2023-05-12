@@ -158,5 +158,8 @@
   "unlinkUnit": "UnLink Unit",
   "renew": "Renew",
   "unitRequestUnlinked": "Unit Request UnLinked",
-  "qrScanner": "Qr Scanner"
+  "qrScanner": "Qr Scanner",
+  "youNeedToRenewUnit": "You need to renew unit ",
+  "unit": "Unit ",
+  "contractEndsOn": "Contract ends on "
 }

@@ -1634,6 +1634,36 @@ class S {
       args: [],
     );
   }
+
+  /// `You need to renew unit `
+  String get youNeedToRenewUnit {
+    return Intl.message(
+      'You need to renew unit ',
+      name: 'youNeedToRenewUnit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit `
+  String get unit {
+    return Intl.message(
+      'Unit ',
+      name: 'unit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contract ends on `
+  String get contractEndsOn {
+    return Intl.message(
+      'Contract ends on ',
+      name: 'contractEndsOn',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

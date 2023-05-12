@@ -157,6 +157,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                           // width: 237,
                           height: 10.w,
                           child: TextFormField(
+                            style:MTextStyles.textDark14,
                             controller: searchController,
                             decoration: InputDecoration(
                               hintText: S.current.search,

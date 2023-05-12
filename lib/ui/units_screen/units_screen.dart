@@ -148,6 +148,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                           // width: 237,
                           height: 10.w,
                           child: TextFormField(
+                            style: MTextStyles.textDark14,
                             controller: pr.selectedIndex == 1 ? pr.searchController : pr.unitLinkSearchController,
                             decoration: InputDecoration(
                               hintText: S.current.search,
@@ -181,10 +182,13 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                   color: MColors.primary_light_color,
                                 ),
                                 onTap: () {
-                                  pr.searchController.clear();
-                                  pr.unitLinkSearchController.clear();
-                                  mPresenter.getExistingUnitsApiCall();
-                                  mPresenter.getUnitRequestsApiCall();
+                                  if (pr.selectedIndex == 1) {
+                                    mPresenter.getExistingUnitsApiCall();
+                                    pr.searchController.clear();
+                                  } else if (pr.selectedIndex == 2) {
+                                    pr.unitLinkSearchController.clear();
+                                    mPresenter.getUnitRequestsApiCall();
+                                  }
                                 },
                               ),
                             ),

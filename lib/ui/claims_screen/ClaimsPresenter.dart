@@ -8,6 +8,8 @@ import 'package:Cliamizer/ui/claims_screen/widgets/success_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/preference/Prefs.dart';
 import '../../network/api/network_api.dart';
@@ -184,4 +186,16 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
       view.showToasts(msg, "error");
     });
   }
+
+  showProgress(){
+    WillPopScope(
+      onWillPop: () async => false,
+      child: Container(
+        height: 30.h,
+        alignment: Alignment.center,
+        child: Lottie.asset('assets/images/png/loading.json', width: 10.w),
+      ),
+    );
+  }
+
 }

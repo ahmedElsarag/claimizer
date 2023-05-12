@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../network/models/StatisticsResponse.dart';
+
 class HomeProvider extends ChangeNotifier {
   List<String> _claimsStatistics = [];
 
@@ -9,6 +11,16 @@ class HomeProvider extends ChangeNotifier {
     _claimsStatistics = value;
     notifyListeners();
   }
+
+  List<AboutToExpireUnits> _rememberThatList = [];
+
+  List<AboutToExpireUnits> get rememberThatList => _rememberThatList;
+
+  set rememberThatList(List<AboutToExpireUnits> value) {
+    _rememberThatList = value;
+    notifyListeners();
+  }
+
 
   String _name;
 
