@@ -45,15 +45,6 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
   final DateFormat _dateFormatEN = DateFormat('yyyy-MM-dd', 'en');
   final DateFormat _dateFormatAR = DateFormat('yyyy-MM-dd', 'ar');
 
-  List<String> cardTitles = [
-    S.current.newClaims,
-    S.current.allClaims,
-  ];
-  List<String> cardImages = [
-    'newclaims',
-    'allclaims',
-  ];
-
   int selectedBuildingId;
   int selectedUnitId;
   int selectedCategoryId;
@@ -81,6 +72,15 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    List<String> cardTitles = [
+      S.current.newClaims,
+      S.current.allClaims,
+    ];
+    List<String> cardImages = [
+      'newclaims',
+      'allclaims',
+    ];
+
     return Scaffold(
       backgroundColor: MColors.page_background,
       body: Consumer<ClaimsProvider>(

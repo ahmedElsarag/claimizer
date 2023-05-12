@@ -32,16 +32,6 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   UnitProvider provider;
   HomeProvider homeProvider;
-  List<String> cardTitles = [
-    S.current.newLinkRequest,
-    S.current.existingUnit,
-    S.current.unitLinkRequest,
-  ];
-  List<String> cardImages = [
-    'new_unit_link',
-    'existing_unit',
-    'unit_link_request',
-  ];
 
   @override
   void initState() {
@@ -60,6 +50,16 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
 
   @override
   Widget build(BuildContext context) {
+    List<String> cardTitles = [
+      S.current.newLinkRequest,
+      S.current.existingUnit,
+      S.current.unitLinkRequest,
+    ];
+    List<String> cardImages = [
+      'new_unit_link',
+      'existing_unit',
+      'unit_link_request',
+    ];
     super.build(context);
     return Scaffold(
       backgroundColor: MColors.page_background,
