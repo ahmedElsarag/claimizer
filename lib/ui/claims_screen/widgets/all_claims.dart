@@ -1,4 +1,3 @@
-import 'package:Cliamizer/CommonUtils/utils.dart';
 import 'package:Cliamizer/app_widgets/NoDataFound.dart';
 import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsScreen.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsPresenter.dart';
@@ -64,15 +63,16 @@ class AllClaims extends StatelessWidget {
                                   ],
                                 ),
                                 Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                                    decoration: BoxDecoration(
-                                      color: Utils.getClaimStatusColorFromString(pr?.claimsList[index]?.status),
-                                      borderRadius: BorderRadius.circular(32),
-                                    ),
-                                    child: Text(pr?.claimsList[index]?.status ?? '',
-                                        style: MTextStyles.textDark12
-                                            .copyWith(color: Utils.getTextStatusColorFromString(pr?.claimsList[index]?.status), fontWeight: FontWeight.w600)))
-                              ],
+                                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                                          decoration: BoxDecoration(
+                                            color: presenter.getClaimStatusColorFromString(
+                                                pr?.claimsList[index]?.status?.toLowerCase()),
+                                            borderRadius: BorderRadius.circular(32),
+                                          ),
+                                          child: Text(pr?.claimsList[index]?.status ?? '',
+                                              style: MTextStyles.textDark12
+                                                  .copyWith(color: Colors.white, fontWeight: FontWeight.w600)))
+                                    ],
                             ),
                             buildDivider(),
                             Column(

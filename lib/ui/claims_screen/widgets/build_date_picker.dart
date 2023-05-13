@@ -5,14 +5,12 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../CommonUtils/image_utils.dart';
-import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/styles.dart';
 
 class BuildDatePicker extends StatelessWidget {
   BuildDatePicker({Key key, this.provider}) : super(key: key);
   final ClaimsProvider provider;
-  final DateFormat _dateFormat = DateFormat('yyyy-MM-dd','en');
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +37,8 @@ class BuildDatePicker extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                pr.selectedDate != null ? _dateFormat.format(pr.selectedDate) :DateFormat('yyyy-MM-dd','en').format(DateTime.now()),
-                style: MTextStyles.textMain14.copyWith(
-                    color: MColors.light_text_color
-                ),
+                DateFormat('yyyy-MM-dd', 'en').format(pr.selectedDate),
+                style: MTextStyles.textMain14.copyWith(color: MColors.light_text_color),
               ),
               SvgPicture.asset(ImageUtils.getSVGPath("calendar")),
             ],

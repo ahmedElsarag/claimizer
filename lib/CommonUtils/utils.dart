@@ -1,13 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:Cliamizer/res/colors.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:Cliamizer/generated/l10n.dart';
-import 'package:Cliamizer/res/colors.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'SizeConfig2.dart';
 import 'image_utils.dart';
 
 class Utils {
@@ -170,93 +167,6 @@ class Utils {
         return Image.asset(ImageUtils.getImagePath("logo"),width: 12.w,height: 12.w,);
     }
   }
-
-  static Color getClaimStatusColorFromString(String status) {
-    switch (status) {
-      case 'new':
-      case 'جديد':
-        return Color(0xffff9500);
-      case 'assigned':
-      case 'تم اختيار فني':
-      case 'renewing':
-      case 'active':
-        return Color.fromRGBO(45, 11, 238, 0.95);
-      case 'started':
-      case 'بدأت':
-        return Color(0xff10d2c8);
-      case 'completed':
-      case 'مكتمل':
-        return Color(0xff679c0d);
-      case 'closed':
-      case 'مغلق':
-        return Color(0xff0a562e);
-      case 'cancelled':
-      case 'ملغي':
-        return Color(0xffff0000);
-      default:
-        return Color(0xff44A4F2).withOpacity(0.08);
-    }
-  }
-
-  static Color getUnitStatusColorFromString(String status) {
-    switch (status) {
-      case 'new':
-      case 'جديد':
-        return Color(0xffff9500);
-      case 'assigned':
-      case 'تم اختيار فني':
-      case 'renewing':
-      case 'active':
-        return Color.fromRGBO(45, 11, 238, 0.95);
-      case 'started':
-      case 'بدأت':
-        return Color(0xff10d2c8);
-      case 'completed':
-      case 'مكتمل':
-      return Color(0xff679c0d);
-      case 'closed':
-      case 'مغلق':
-        return Color(0xff0a562e);
-      case 'cancelled':
-      case 'canceled':
-      case 'rejected':
-      case 'ملغي':
-        return Color(0xffff0000);
-      default:
-        return Color(0xff44A4F2).withOpacity(0.08);
-    }
-  }
-
-  static Color getTextStatusColorFromString(String status) {
-    switch (status) {
-      case 'new':
-      case 'جديد':
-      case 'assigned':
-      case 'تم اختيار فني':
-      case 'completed':
-      case 'مكتمل':
-      case 'closed':
-      case 'مغلق':
-      case 'cancelled':
-      case 'canceled':
-      case 'renewing':
-      case 'ملغي':
-      case 'rejected':
-      case 'active':
-        return Colors.white;
-      case 'started':
-      case 'بدأت':
-      case 'approved':
-      case 'finished':
-      case 'انتهت':
-        return MColors.text_button_color;
-      default:
-        return Color(0xff44A4F2).withOpacity(0.08);
-    }
-  }
-
-
-
 }
 
 /// 默认dialog背景色为半透明黑色，这里修改源码改为透明

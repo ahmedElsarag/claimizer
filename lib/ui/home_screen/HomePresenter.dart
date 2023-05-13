@@ -34,6 +34,7 @@ class HomePresenter extends BasePresenter<HomeScreenState> {
       if (data != null) {
         view.provider.claimsStatistics.clear();
         view.provider.rememberThatList = data.data.aboutToExpireUnits;
+        view.provider.claimStatusColors = data.data.claimColor;
         view.provider.claimsStatistics.add(data.data.claims.all.toString());
         view.provider.claimsStatistics.add(data.data.claims.newClaims.toString());
         view.provider.claimsStatistics.add(data.data.claims.assigned.toString());

@@ -1,5 +1,4 @@
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
-import 'package:Cliamizer/CommonUtils/preference/Prefs.dart';
 import 'package:Cliamizer/app_widgets/app_headline.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/ui/home_screen/HomePresenter.dart';
@@ -16,7 +15,6 @@ import 'package:sizer/sizer.dart';
 import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
 import '../../CommonUtils/model_eventbus/ProfileEvent.dart';
 import '../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
-import '../../app_widgets/image_loader.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
 
@@ -162,20 +160,28 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
               ),
             ),
             const SizedBox(height: 40),
-            AppHeadline(title: S.of(context).rememberThat, padding: const EdgeInsets.symmetric(horizontal: 20)),
-            const SizedBox(height: 18),
-            Container(
-              height: 16.h,
-              child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (_, index) =>
-                      RememberThatItem(index: index, aboutToExpireUnits: provider.rememberThatList[index]),
-                  separatorBuilder: (_, index) => SizedBox(
-                        width: 3.w,
-                      ),
-                  itemCount: provider.rememberThatList.length),
+            Visibility(
+              visible: provider.rememberThatList.isNotEmpty,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppHeadline(title: S.of(context).rememberThat, padding: const EdgeInsets.symmetric(horizontal: 20)),
+                  const SizedBox(height: 18),
+                  Container(
+                    height: 16.h,
+                    child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (_, index) =>
+                            RememberThatItem(index: index, aboutToExpireUnits: provider.rememberThatList[index]),
+                        separatorBuilder: (_, index) => SizedBox(
+                              width: 3.w,
+                            ),
+                        itemCount: provider.rememberThatList.length),
+                  ),
+                  const SizedBox(height: 40),
+                ],
+              ),
             ),
-            const SizedBox(height: 40),
           ],
         )),
       ),

@@ -1,15 +1,12 @@
-import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/app_widgets/NoDataFound.dart';
 import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
 import 'package:Cliamizer/ui/units_screen/units_presenter.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../CommonUtils/utils.dart';
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
@@ -63,15 +60,16 @@ class UnitLinkRequest extends StatelessWidget {
                         ],
                       ),
                       Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: Utils.getUnitStatusColorFromString(pr?.unitsRequestList[index]?.status),
-                            borderRadius: BorderRadius.circular(32),
-                          ),
-                          child: Text(pr.unitsRequestList[index].status ?? '',
-                              style: MTextStyles.textDark12.copyWith(
-                                  color: Utils.getTextStatusColorFromString(pr?.unitsRequestList[index]?.status), fontWeight: FontWeight.w600)))
-                    ],
+                                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: presenter
+                                      .getUnitStatusColorFromString(pr?.unitsRequestList[index]?.status?.toLowerCase()),
+                                  borderRadius: BorderRadius.circular(32),
+                                ),
+                                child: Text(pr.unitsRequestList[index].status ?? '',
+                                    style: MTextStyles.textDark12
+                                        .copyWith(color: Colors.white, fontWeight: FontWeight.w600)))
+                          ],
                   ),
                   buildDivider(),
                   Column(

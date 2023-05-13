@@ -124,6 +124,7 @@ dependencies:
   im_stepper: ^1.0.1+1
   grouped_list: ^5.1.2
   qr_code_scanner: ^1.0.1
+  hexcolor: ^3.0.1
 
 
 dev_dependencies:

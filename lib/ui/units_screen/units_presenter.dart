@@ -2,11 +2,12 @@ import 'package:Cliamizer/base/presenter/base_presenter.dart';
 import 'package:Cliamizer/network/models/NewLinkListRequestResponse.dart';
 import 'package:Cliamizer/network/models/NewLinkRequestResponse.dart';
 import 'package:Cliamizer/network/models/UnitRequestResponse.dart';
-import 'package:Cliamizer/network/models/claims_response.dart';
 import 'package:Cliamizer/network/models/units_response.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/image_utils.dart';
@@ -18,6 +19,7 @@ import '../../network/network_util.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
 import '../../res/styles.dart';
+import '../home_screen/HomeProvider.dart';
 import 'units_screen.dart';
 
 class UnitPresenter extends BasePresenter<UnitsScreenState> {
@@ -291,5 +293,38 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
         view.showToasts(S.current.anErrorOccurredTryAgainLater, 'error');
       }
     });
+  }
+
+  Color getUnitStatusColorFromString(String status) {
+    HomeProvider homeProvider = view.context.read<HomeProvider>();
+    switch (status) {
+      case 'new':
+      case 'جديد':
+        return HexColor(homeProvider.claimStatusColors.newClaims ?? '#ff9500');
+      case 'assigned':
+      case 'تم اختيار فني':
+      case 'renewing':
+      case 'renewed':
+      case 'active':
+        return HexColor(homeProvider.claimStatusColors.assigned ?? '#ff9500');
+      case 'started':
+      case 'بدأت':
+        return HexColor(homeProvider.claimStatusColors.started ?? '#ff9500');
+      case 'completed':
+      case 'finished':
+      case 'approved':
+      case 'مكتمل':
+        return HexColor(homeProvider.claimStatusColors.completed ?? '#ff9500');
+      case 'closed':
+      case 'مغلق':
+        return HexColor(homeProvider.claimStatusColors.closed ?? '#ff9500');
+      case 'cancelled':
+      case 'canceled':
+      case 'rejected':
+      case 'ملغي':
+        return HexColor(homeProvider.claimStatusColors.cancelled ?? '#ff9500');
+      default:
+        return Color(0xff44A4F2).withOpacity(0.08);
+    }
   }
 }

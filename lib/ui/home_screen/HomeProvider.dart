@@ -39,4 +39,13 @@ class HomeProvider extends ChangeNotifier {
     _avatar = value;
     notifyListeners();
   }
+
+  ClaimColor _claimStatusColors;
+
+  ClaimColor get claimStatusColors => _claimStatusColors;
+
+  set claimStatusColors(ClaimColor value) {
+    _claimStatusColors = value;
+    notifyListeners();
+  }
 }

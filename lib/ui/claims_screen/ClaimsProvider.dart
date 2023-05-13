@@ -12,11 +12,13 @@ import '../../network/models/claims_response.dart';
 class ClaimsProvider extends ChangeNotifier {
   int _selectedIndex = 1;
   DateTime _selectedDate;
+
   TextEditingController _description = TextEditingController();
 
   int companyId;
 
   String _selectedTimeValue;
+
   // String _description;
   File _fileName;
   int _currentStep = 0;
@@ -52,13 +54,14 @@ class ClaimsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  DateTime get selectedDate => _selectedDate;
+  DateTime get selectedDate {
+    return _selectedDate ?? DateTime.now();
+  }
 
   set selectedDate(DateTime value) {
     _selectedDate = value;
     notifyListeners();
   }
-
 
   String _searchValue = '';
 

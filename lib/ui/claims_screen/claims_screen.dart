@@ -157,7 +157,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                           // width: 237,
                           height: 10.w,
                           child: TextFormField(
-                            style:MTextStyles.textDark14,
+                            style: MTextStyles.textDark14,
                             controller: searchController,
                             decoration: InputDecoration(
                               hintText: S.current.search,
@@ -349,12 +349,33 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                         )),
                                     Gaps.vGap8,
                                     Text(
-                                        "${pr.selectedDate==null? DateFormat('yyyy-MM-dd','en').format(DateTime.now()): Setting.mobileLanguage.value == Locale("en") ? _dateFormatEN.format(pr.selectedDate) : _dateFormatAR.format(pr.selectedDate)} ${S.of(context).from} ${pr.selectedTimeValue}",
+                                        "${pr.selectedDate == null ? DateFormat('yyyy-MM-dd', 'en').format(DateTime.now()) : Setting.mobileLanguage.value == Locale("en") ? _dateFormatEN.format(pr.selectedDate) : _dateFormatAR.format(pr.selectedDate)} ${S.of(context).from} ${pr.selectedTimeValue}",
                                         style: MTextStyles.textMain14.copyWith(
                                           color: MColors.black,
                                           fontWeight: FontWeight.w400,
                                         )),
                                   ],
+                                ),
+                                Visibility(
+                                  visible: pr.description.text.isNotEmpty,
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 24),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(S.of(context).description,
+                                            style: MTextStyles.textMain16.copyWith(
+                                              color: MColors.black,
+                                            )),
+                                        Gaps.vGap8,
+                                        Text(pr.description.text,
+                                            style: MTextStyles.textMain14.copyWith(
+                                              color: MColors.black,
+                                              fontWeight: FontWeight.w400,
+                                            )),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                                 Gaps.vGap30,
                                 Row(
@@ -386,7 +407,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                       width: 30.w,
                                       margin: EdgeInsets.symmetric(vertical: 3.w),
                                       child: ElevatedButton(
-                                        onPressed: () async{
+                                        onPressed: () async {
                                           FormData formData = new FormData.fromMap({
                                             "file[0]": await MultipartFile.fromFile(
                                               pr.fileName.path,
@@ -398,8 +419,9 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                             "sub_category_id": selectedSubCategoryId,
                                             "claim_type_id": selectedTypeId,
                                             "description": provider.description.text,
-                                            "available_date":provider.selectedDate !=null?
-                                              DateFormat('yyyy-MM-dd', 'en').format(provider.selectedDate) :DateFormat('yyyy-MM-dd','en').format(DateTime.now()),
+                                            "available_date": provider.selectedDate != null
+                                                ? DateFormat('yyyy-MM-dd', 'en').format(provider.selectedDate)
+                                                : DateFormat('yyyy-MM-dd', 'en').format(DateTime.now()),
                                             "available_time": provider.selectedTimeValue
                                           });
                                           // print("@@@@@@@@@@@@@@@@@@@@@@@@@ ${provider.selectedTimeValue}");

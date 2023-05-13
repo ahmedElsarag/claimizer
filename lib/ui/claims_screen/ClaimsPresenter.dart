@@ -5,10 +5,13 @@ import 'package:Cliamizer/network/models/claim_available_time_response.dart';
 import 'package:Cliamizer/network/models/claim_request_response.dart';
 import 'package:Cliamizer/network/models/claims_response.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/success_dialog.dart';
+import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/preference/Prefs.dart';
@@ -154,6 +157,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
       view.closeProgress();
       if (data != null) {
         view.provider.claimAvailableTimeList = data.data;
+        view.provider.selectedTimeValue = data.data.isNotEmpty ? data.data[0].name : null;
       }
     }, onError: (code, msg) {
       view.closeProgress();
@@ -198,4 +202,31 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     );
   }
 
+  Color getClaimStatusColorFromString(String status) {
+    HomeProvider homeProvider = view.context.read<HomeProvider>();
+    switch (status) {
+      case 'new':
+      case 'جديد':
+        return HexColor(homeProvider.claimStatusColors.newClaims ?? '#ff9500');
+      case 'assigned':
+      case 'تم اختيار فني':
+      case 'renewing':
+      case 'active':
+        return HexColor(homeProvider.claimStatusColors.assigned ?? '#ff9500');
+      case 'started':
+      case 'بدأت':
+        return HexColor(homeProvider.claimStatusColors.started ?? '#ff9500');
+      case 'completed':
+      case 'مكتمل':
+        return HexColor(homeProvider.claimStatusColors.completed ?? '#ff9500');
+      case 'closed':
+      case 'مغلق':
+        return HexColor(homeProvider.claimStatusColors.closed ?? '#ff9500');
+      case 'cancelled':
+      case 'ملغي':
+        return HexColor(homeProvider.claimStatusColors.cancelled ?? '#ff9500');
+      default:
+        return Color(0xff44A4F2).withOpacity(0.08);
+    }
+  }
 }
