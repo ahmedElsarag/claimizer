@@ -22,13 +22,13 @@ class Utils {
   }
 
   static bool isEmailValid(String email) {
-    return RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
-        .hasMatch(email);
+    return RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(email);
   }
 
   String convertDateFormat(String originalDateString) {
     DateTime originalDate = DateTime.parse(originalDateString.replaceAll('/', '-'));
-    String newDateString = '${originalDate.day.toString().padLeft(2, '0')}-${originalDate.month.toString().padLeft(2, '0')}-${originalDate.year}';
+    String newDateString =
+        '${originalDate.day.toString().padLeft(2, '0')}-${originalDate.month.toString().padLeft(2, '0')}-${originalDate.year}';
     return newDateString;
   }
 
@@ -48,28 +48,24 @@ class Utils {
     }
   }
 
-
-  static double sWidth(double w, context){
-    return MediaQuery.of(context).size.width*(w/100);
+  static double sWidth(double w, context) {
+    return MediaQuery.of(context).size.width * (w / 100);
   }
 
-
-  static double sHeight(double h,context){
-    return MediaQuery.of(context).size.height*(h/100);
-  }
-  static double sTextSize(double w, double t,context){
-    return kIsWeb?w:t.sp;
+  static double sHeight(double h, context) {
+    return MediaQuery.of(context).size.height * (h / 100);
   }
 
-  static void showMyDialog(
-      BuildContext context, String buttonName, String message,
-      {Function callback}) {
+  static double sTextSize(double w, double t, context) {
+    return kIsWeb ? w : t.sp;
+  }
+
+  static void showMyDialog(BuildContext context, String buttonName, String message, {Function callback}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15)),
           content: Text(message),
           actions: [
             Column(
@@ -112,7 +108,7 @@ class Utils {
       case 'canceled':
       case 'cancelled':
       case 'error':
-        return  MColors.error_color;
+        return MColors.error_color;
       default:
         return MColors.textFieldBorder;
     }
@@ -150,21 +146,157 @@ class Utils {
       case 'Late':
       case 'draft':
       case 'warning':
-        return Icon(Icons.warning_amber_rounded,color: getStatusTypeColorFromString(status),size: 28.sp,);
+        return Icon(
+          Icons.warning_amber_rounded,
+          color: getStatusTypeColorFromString(status),
+          size: 28.sp,
+        );
       case 'accepted':
       case 'Present':
       case 'finished':
       case 'success':
       case 'start':
-        return Icon(Icons.done_all_rounded,color: getStatusTypeColorFromString(status),size: 28.sp,);
+        return Icon(
+          Icons.done_all_rounded,
+          color: getStatusTypeColorFromString(status),
+          size: 28.sp,
+        );
       case 'rejected':
       case 'refused':
       case 'canceled':
       case 'cancelled':
       case 'error':
-        return Icon(Icons.error_outline_rounded,color: getStatusTypeColorFromString(status),size: 28.sp,);
+        return Icon(
+          Icons.error_outline_rounded,
+          color: getStatusTypeColorFromString(status),
+          size: 28.sp,
+        );
       default:
-        return Image.asset(ImageUtils.getImagePath("logo"),width: 12.w,height: 12.w,);
+        return Image.asset(
+          ImageUtils.getImagePath("logo"),
+          width: 12.w,
+          height: 12.w,
+        );
+    }
+  }
+
+  static Color getClaimStatusColorFromString(String status) {
+    switch (status) {
+      case 'New':
+      case 'new':
+      case 'جديد':
+        return Color(0xffff9500);
+      case 'Assigned':
+      case 'assigned':
+      case 'تم اختيار فني':
+      case 'Renewing':
+      case 'renewing':
+      case 'Active':
+      case 'active':
+        return Color.fromRGBO(45, 11, 238, 0.95);
+      case 'Started':
+      case 'started':
+      case 'بدأت':
+        return Color(0xff10d2c8);
+      case 'Completed':
+      case 'completed':
+      case 'مكتمل':
+        return Color(0xff679c0d);
+      case 'Closed':
+      case 'closed':
+      case 'مغلق':
+        return Color(0xff0a562e);
+      case 'Cancelled':
+      case 'cancelled':
+      case 'ملغي':
+        return Color(0xffff0000);
+      default:
+        return Color(0xff44A4F2).withOpacity(0.08);
+    }
+  }
+
+  static Color getUnitStatusColorFromString(String status) {
+    switch (status) {
+      case 'New':
+      case 'new':
+      case 'جديد':
+        return Color(0xffff9500);
+      case 'Assigned':
+      case 'assigned':
+      case 'تم اختيار فني':
+      case 'Renewing':
+      case 'Renewed':
+      case 'renewing':
+      case 'مجدد':
+      case 'Active':
+      case 'active':
+        return Color.fromRGBO(45, 11, 238, 0.95);
+      case 'Started':
+      case 'started':
+      case 'بدأت':
+        return Color(0xff10d2c8);
+      case 'Completed':
+      case 'completed':
+      case 'مكتمل':
+        return Color(0xff679c0d);
+      case 'Closed':
+      case 'closed':
+      case 'مغلق':
+        return Color(0xff0a562e);
+      case 'Cancelled':
+      case 'cancelled':
+      case 'ملغي':
+      case 'Rejected':
+      case 'rejected':
+      case 'مرفوض':
+        return Color(0xffff0000);
+      default:
+        return Color(0xff44A4F2).withOpacity(0.08);
+    }
+  }
+
+  static Color getTextStatusColorFromString(String status) {
+    switch (status) {
+      case 'New':
+      case 'new':
+      case 'جديد':
+      case 'Assigned':
+      case 'assigned':
+      case 'تم اختيار فني':
+      case 'Completed':
+      case 'completed':
+      case 'مكتمل':
+      case 'Closed':
+      case 'closed':
+      case 'مغلق':
+      case 'Cancelled':
+      case 'cancelled':
+      case 'Canceled':
+      case 'canceled':
+      case 'Renewing':
+      case 'Renewed':
+      case 'مجدد':
+      case 'renewing':
+      case 'ملغي':
+      case 'Rejected':
+      case 'rejected':
+      case 'مرفوض':
+      case 'Active':
+      case 'active':
+        return Colors.white;
+      case 'Started':
+      case 'started':
+      case 'بدأت':
+      case 'Approved':
+      case 'approved':
+      case 'موافق عليه':
+      case 'Finished':
+      case 'finished':
+      case 'منتهي':
+      case 'مرفوض':
+        return MColors.text_button_color;
+      default:
+        return Color(0xff44A4F2).withOpacity(0.08);
     }
   }
 }
@@ -179,14 +311,11 @@ Future<T> showTransparentDialog<T>({
   return showGeneralDialog(
     barrierDismissible: true,
     context: context,
-    pageBuilder: (BuildContext buildContext, Animation<double> animation,
-        Animation<double> secondaryAnimation) {
+    pageBuilder: (BuildContext buildContext, Animation<double> animation, Animation<double> secondaryAnimation) {
       final Widget pageChild = Builder(builder: builder);
       return SafeArea(
         child: Builder(builder: (BuildContext context) {
-          return theme != null
-              ? Theme(data: theme, child: pageChild)
-              : pageChild;
+          return theme != null ? Theme(data: theme, child: pageChild) : pageChild;
         }),
       );
     },
@@ -198,10 +327,7 @@ Future<T> showTransparentDialog<T>({
 }
 
 Widget _buildMaterialDialogTransitions(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-    Widget child) {
+    BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
   return FadeTransition(
     opacity: CurvedAnimation(
       parent: animation,
@@ -219,14 +345,11 @@ Future<T> showElasticDialog<T>({
   final ThemeData theme = Theme.of(context);
   return showGeneralDialog(
     context: context,
-    pageBuilder: (BuildContext buildContext, Animation<double> animation,
-        Animation<double> secondaryAnimation) {
+    pageBuilder: (BuildContext buildContext, Animation<double> animation, Animation<double> secondaryAnimation) {
       final Widget pageChild = Builder(builder: builder);
       return SafeArea(
         child: Builder(builder: (BuildContext context) {
-          return theme != null
-              ? Theme(data: theme, child: pageChild)
-              : pageChild;
+          return theme != null ? Theme(data: theme, child: pageChild) : pageChild;
         }),
       );
     },
@@ -239,22 +362,16 @@ Future<T> showElasticDialog<T>({
 }
 
 Widget _buildDialogTransitions(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-    Widget child) {
+    BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
   return FadeTransition(
     opacity: CurvedAnimation(
       parent: animation,
       curve: Curves.easeOut,
     ),
     child: SlideTransition(
-      position: Tween<Offset>(begin: const Offset(0.0, 0.3), end: Offset.zero)
-          .animate(CurvedAnimation(
+      position: Tween<Offset>(begin: const Offset(0.0, 0.3), end: Offset.zero).animate(CurvedAnimation(
         parent: animation,
-        curve: animation.status != AnimationStatus.forward
-            ? Curves.easeOutBack
-            : ElasticOutCurve(0.85),
+        curve: animation.status != AnimationStatus.forward ? Curves.easeOutBack : ElasticOutCurve(0.85),
       )),
       child: child,
     ),

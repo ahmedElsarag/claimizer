@@ -34,7 +34,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  LoginProvider<LoginResponse> provider;
+  LoginProvider<LoginResponse> provider = LoginProvider<LoginResponse>();
 
   //Rolling listener
   ScrollController _controller = ScrollController();
@@ -52,7 +52,7 @@ class LoginScreenState extends BaseState<LoginScreen, LoginPresenter> with Autom
 
   @override
   void initState() {
-    provider= context.read<LoginProvider<LoginResponse>>();
+    // provider= context.read<LoginProvider<LoginResponse>>();
     Prefs.getAppLocal.then((value) => {
           if (value != null)
             {

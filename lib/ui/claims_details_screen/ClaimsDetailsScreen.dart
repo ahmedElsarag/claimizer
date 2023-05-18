@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/ui/claims_details_screen/widgets/build_comment_field.dart';
@@ -11,10 +10,9 @@ import 'package:Cliamizer/ui/claims_details_screen/widgets/item_widget.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:http_parser/http_parser.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../app_widgets/app_headline.dart';
 import '../../app_widgets/claimizer_app_bar.dart';
 import '../../generated/l10n.dart';
@@ -49,6 +47,19 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
     super.initState();
     provider = context.read<ClaimsDetailsProvider>();
     mPresenter.getClaimDetailsDataApiCall(widget.claimsDataBean.referenceId);
+  }
+
+  final picker = ImagePicker();
+
+  List<XFile> _imageFiles;
+
+  Future<void> pickImages() async {
+    final pickedFiles = await picker.pickMultiImage();
+    if (pickedFiles != null) {
+      setState(() {
+        _imageFiles = pickedFiles;
+      });
+    }
   }
 
   @override
@@ -134,34 +145,68 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                                               provider: provider,
                                             ),
                                             Gaps.vGap8,
-                                            BuildUploadFileField(
+                                            /*BuildUploadFileField(
                                               provider: provider,
-                                            ),
+                                            ),*/
+                                            GestureDetector(
+                                                onTap: () async {
+                                                  pickImages();
+                                                  // final result = await FilePicker.platform.pickFiles(
+                                                  //   allowMultiple: true,
+                                                  //   type: FileType.image
+                                                  // );
+                                                  // if (result != null) {
+                                                  //   final file = File(result.files.single.path);
+                                                  //   print("##################### ${result.files.single.path}");
+                                                  //   pr.updateCommentFile(file);
+                                                  //   print("##################### ${pr.file.path}");
+                                                  // }
+                                                  // print("##################### ${pr.file.path}");
+                                                },
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(color: MColors.textFieldBorder),
+                                                      borderRadius: BorderRadius.circular(8)),
+                                                  padding: EdgeInsets.all(8),
+                                                  child: Row(
+                                                    children: [
+                                                      SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
+                                                      Gaps.hGap8,
+                                                      SizedBox(
+                                                        width: 35.w,
+                                                        child: Text(
+                                                          pr.file != null ? pr.file.path : S.current.uploadAnyFiles,
+                                                          style: MTextStyles.textDark14,
+                                                        ),
+                                                      ),
+                                                      Spacer(),
+                                                      InkWell(
+                                                        onTap: () async {
+                                                          pr.updateCommentFile(null);
+                                                        },
+                                                        child: Icon(Icons.close),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )),
                                             Gaps.vGap8,
                                             ElevatedButton(
                                               onPressed: () async {
-                                                if (pr.file != null) {
-                                                  // List<File> files;
-                                                  FormData formData = FormData();
-                                                  // for (int i = 0; i < files?.length; i++) {
-                                                  //   formData.files.add(MapEntry(
-                                                  //     "file[$i]",
-                                                  //     await MultipartFile.fromFile(files[i].path),
-                                                  //   ));
-                                                  // }
-                                                  // formData.fields.add(MapEntry("comment", pr.comment.text));
-                                                  // formData.fields.add(MapEntry("claim_id", widget.claimsDataBean.id.toString()));
-                                                  formData = new FormData.fromMap({
-                                                    "file[0]": await MultipartFile.fromFile(
-                                                      pr.file.path,
-                                                      contentType: new MediaType('image', 'jpg'),
-                                                    ),
-                                                    "comment": pr.comment.text,
-                                                    "claim_id": widget.claimsDataBean.id,
-                                                  });
+                                                final formData = FormData();
+                                                if (_imageFiles.isNotEmpty) {
+                                                  for (var i = 0; i < _imageFiles.length; i++) {
+                                                    final file = await _imageFiles[i].readAsBytes();
+                                                    formData.files.add(MapEntry(
+                                                      'file[$i]',
+                                                      MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
+                                                    ));
+                                                    formData.fields.add(MapEntry("comment", pr.comment.text));
+                                                    formData.fields
+                                                        .add(MapEntry("claim_id", widget.claimsDataBean.id.toString()));
+                                                  }
                                                   mPresenter.doPostCommentApiCall(
                                                       formData, widget.claimsDataBean.referenceId);
-                                                }else{
+                                                } else {
                                                   FormData formData = FormData();
                                                   formData = new FormData.fromMap({
                                                     "comment": pr.comment.text,

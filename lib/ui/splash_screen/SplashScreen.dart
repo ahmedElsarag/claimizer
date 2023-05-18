@@ -78,7 +78,6 @@ class SplashScreenState extends BaseState<SplashScreen, SplashPresenter> with Au
   }
 
   Future isUserLoggedIn() async {
-    print("@@@@@@@@@@@@@@@@@@@@@ ${Prefs.isLogin.then((value) => value)}");
     await Prefs.isLogin ? _openHomeScreen(context) : _openLoginScreen(context);
   }
 

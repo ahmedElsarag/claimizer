@@ -69,7 +69,6 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
 
   Future getImageFromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
