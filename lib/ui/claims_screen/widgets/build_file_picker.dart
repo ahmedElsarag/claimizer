@@ -63,25 +63,25 @@ class _BuildFilePickerState extends State<BuildFilePicker> {
                     Container(
                       width: 60.w,
                       child: ElevatedButton.icon(
-                        style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(MColors.white)),
-                        onPressed: getImageFromCamera,
-                        icon: Icon(Icons.camera_alt, color: MColors.text_button_color),
-                        label: Text(S.of(context).takePhoto,
-                            style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
-                      ),
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(MColors.white)),
+                          onPressed: getImageFromCamera,
+                          icon: Icon(Icons.camera_alt, color: MColors.primary_color),
+                          label: Text(S.of(context).takePhoto,
+                              style: MTextStyles.textMain14.copyWith(color: MColors.primary_color)),
+                        ),
                     ),
                     SizedBox(height: 8),
                     Container(
                       width: 60.w,
                       child: ElevatedButton.icon(
-                        style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(MColors.white)),
-                        onPressed: pickImages,
-                        icon: Icon(Icons.photo_library, color: MColors.text_button_color),
-                        label: Text(
-                          S.of(context).chooseFromGallery,
-                          style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color),
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(MColors.white)),
+                          onPressed: pickImages,
+                          icon: Icon(Icons.photo_library, color: MColors.primary_color),
+                          label: Text(
+                            S.of(context).chooseFromGallery,
+                            style: MTextStyles.textMain14.copyWith(color: MColors.primary_color),
+                          ),
                         ),
-                      ),
                     ),
                   ],
                 ),
