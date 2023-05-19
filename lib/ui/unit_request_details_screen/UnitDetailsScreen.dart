@@ -129,7 +129,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                             ),
                                             Gaps.vGap8,
                                             BuildUploadFileField(
-                                              provider: provider,
+                                              provider: provider,presenter: mPresenter,
                                             ),
                                             Gaps.vGap8,
                                             ElevatedButton(

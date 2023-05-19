@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:Cliamizer/base/view/base_state.dart';
 
 import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsProvider.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -16,11 +18,13 @@ import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
 import '../../../res/styles.dart';
+import '../UnitDetailsPresenter.dart';
 import '../UnitDetailsProvider.dart';
 
 class BuildUploadFileField extends StatefulWidget {
-  BuildUploadFileField({Key key, this.provider}) : super(key: key);
+  BuildUploadFileField({Key key, this.provider,this.presenter}) : super(key: key);
   UnitDetailsProvider provider;
+  UnitDetailsPresenter presenter;
 
   @override
   State<BuildUploadFileField> createState() => _BuildUploadFileFieldState();
@@ -37,6 +41,16 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
 
   Future<void> pickImages() async {
     final pickedFiles = await picker.pickMultiImage();
+    if (pickedFiles.length > 4) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: MColors.error_color,
+          margin: EdgeInsets.all(8),
+          behavior: SnackBarBehavior.floating,
+          content: Text(S.of(context).only4ImagesAllowed)));
+      Navigator.pop(context);
+      Navigator.pop(context);
+      return ;
+    }
     if (pickedFiles != null) {
       setState(() {
         widget.provider.imageFiles = pickedFiles;
@@ -47,7 +61,6 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
 
   Future getImageFromCamera() async {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
-
     setState(() {
       if (pickedFile != null) {
         widget.provider.file = File(pickedFile.path);

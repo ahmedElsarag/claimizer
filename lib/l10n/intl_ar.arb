@@ -161,6 +161,6 @@
   "youNeedToRenewUnit": "تحتاج الي تجديد تعاقد الوحدة ",
   "unit": "ينتهي تعاقد الوحدة  ",
   "contractEndsOn": " في تاريخ ",
-  "noImageSelected": "No image selected.",
-  "only4ImagesAllowed": "only 4 images allowed"
+  "noImageSelected": "لم تختار اي صورة",
+  "only4ImagesAllowed": "مسموح برفع 4 صور كحد أقصي"
 }

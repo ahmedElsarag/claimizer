@@ -27,7 +27,16 @@ class _BuildFilePickerState extends State<BuildFilePicker> {
 
   Future<void> pickImages() async {
     final pickedFiles = await picker.pickMultiImage();
-    if (pickedFiles.length > 4) showToast(S.of(context).only4ImagesAllowed);
+    if (pickedFiles.length > 4) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: MColors.error_color,
+          margin: EdgeInsets.all(8),
+          behavior: SnackBarBehavior.floating,
+          content: Text(S.of(context).only4ImagesAllowed)));
+      Navigator.pop(context);
+      Navigator.pop(context);
+      return ;
+    }
     if (pickedFiles != null) {
       setState(() {
         widget.provider.imageFiles = pickedFiles;
