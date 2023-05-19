@@ -1,6 +1,6 @@
-import 'package:Cliamizer/ui/claims_screen/ClaimsPresenter.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -23,11 +23,11 @@ class SubcategoryGrid extends StatelessWidget {
                 AppHeadline(title: S.of(context).selectClaimSubcategory),
                 pr.subCategoryList.isNotEmpty
                     ? GridView.builder(
-                        itemCount: pr.subCategoryList.length,
+                  itemCount: pr.subCategoryList.length,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 38.w,
                           childAspectRatio: 1.0,
                           crossAxisSpacing: 8.0,
                           mainAxisSpacing: 8.0,
@@ -48,13 +48,26 @@ class SubcategoryGrid extends StatelessWidget {
                                       pr.selectedClaimSubCategoryIndex == index ? MColors.primary_color : Colors.white,
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(color: MColors.dividerColor.withOpacity(.6), width: 2)),
-                              child: Text(
-                                pr.subCategoryList[index].name,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 9.sp,
-                                  color: pr.selectedClaimSubCategoryIndex == index ? Colors.white : Colors.black,
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  if (pr.subCategoryList[index]?.icon != null)
+                                    SvgPicture.network(
+                                      pr.subCategoryList[index]?.icon ?? '',
+                                      width: 40,
+                                    ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    pr.subCategoryList[index].name,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 9.sp,
+                                      color: pr.selectedClaimSubCategoryIndex == index ? Colors.white : Colors.black,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           );

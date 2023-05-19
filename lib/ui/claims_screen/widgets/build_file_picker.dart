@@ -2,11 +2,10 @@ import 'dart:io';
 
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as path;
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -28,6 +27,7 @@ class _BuildFilePickerState extends State<BuildFilePicker> {
 
   Future<void> pickImages() async {
     final pickedFiles = await picker.pickMultiImage();
+    if (pickedFiles.length > 4) showToast(S.of(context).only4ImagesAllowed);
     if (pickedFiles != null) {
       setState(() {
         widget.provider.imageFiles = pickedFiles;
@@ -44,7 +44,7 @@ class _BuildFilePickerState extends State<BuildFilePicker> {
       if (pickedFile != null) {
         widget.provider.file = File(pickedFile.path);
       } else {
-        print('No image selected.');
+        print(S.of(context).noImageSelected);
       }
     });
     Navigator.pop(context);
@@ -63,25 +63,25 @@ class _BuildFilePickerState extends State<BuildFilePicker> {
                     Container(
                       width: 60.w,
                       child: ElevatedButton.icon(
-                        style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(MColors.white)),
-                        onPressed: getImageFromCamera,
-                        icon: Icon(Icons.camera_alt, color: MColors.text_button_color),
-                        label: Text(S.of(context).takePhoto,
-                            style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
-                      ),
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(MColors.white)),
+                          onPressed: getImageFromCamera,
+                          icon: Icon(Icons.camera_alt, color: MColors.primary_color),
+                          label: Text(S.of(context).takePhoto,
+                              style: MTextStyles.textMain14.copyWith(color: MColors.primary_color)),
+                        ),
                     ),
                     SizedBox(height: 8),
                     Container(
                       width: 60.w,
                       child: ElevatedButton.icon(
-                        style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(MColors.white)),
-                        onPressed: pickImages,
-                        icon: Icon(Icons.photo_library, color: MColors.text_button_color),
-                        label: Text(
-                          S.of(context).chooseFromGallery,
-                          style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color),
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(MColors.white)),
+                          onPressed: pickImages,
+                          icon: Icon(Icons.photo_library, color: MColors.primary_color),
+                          label: Text(
+                            S.of(context).chooseFromGallery,
+                            style: MTextStyles.textMain14.copyWith(color: MColors.primary_color),
+                          ),
                         ),
-                      ),
                     ),
                   ],
                 ),
@@ -110,9 +110,13 @@ class _BuildFilePickerState extends State<BuildFilePicker> {
                 SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
                 Gaps.hGap8,
                 SizedBox(
-                  width: 35.w,
+                  width: 55.w,
                   child: Text(
-                    pr.file!= null ? pr.file.path : pr.imageFiles !=null? pr.imageFiles[0].path: S.current.uploadAnyFiles,
+                    pr.file != null
+                        ? pr.file.path
+                        : pr.imageFiles != null
+                            ? pr.imageFiles[0].path
+                            : S.current.uploadAnyFiles,
                     style: MTextStyles.textDark14,
                   ),
                 ),

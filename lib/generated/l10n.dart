@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -1660,6 +1661,26 @@ class S {
     return Intl.message(
       'Contract ends on ',
       name: 'contractEndsOn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No image selected.`
+  String get noImageSelected {
+    return Intl.message(
+      'No image selected.',
+      name: 'noImageSelected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `only 4 images allowed`
+  String get only4ImagesAllowed {
+    return Intl.message(
+      'only 4 images allowed',
+      name: 'only4ImagesAllowed',
       desc: '',
       args: [],
     );

@@ -17,21 +17,22 @@ class CategoryDataBean {
   int id;
   String referenceId;
   String name;
+  String icon;
   SubCategory subCategory;
 
-  CategoryDataBean({this.id, this.referenceId, this.name, this.subCategory});
+  CategoryDataBean({this.id, this.referenceId, this.name, this.subCategory, this.icon});
 
   CategoryDataBean.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     referenceId = json['reference_id'];
     name = json['name'];
+    icon = json['icon'];
     subCategory = json['child'] != null ? new SubCategory.fromJson(json['child']) : null;
   }
 }
 
 class SubCategory {
   List<SubCategoryDataBean> data;
-
   SubCategory({this.data});
 
   SubCategory.fromJson(Map<String, dynamic> json) {
@@ -56,13 +57,15 @@ class SubCategoryDataBean {
   int id;
   String referenceId;
   String name;
+  String icon;
 
-  SubCategoryDataBean({this.id, this.referenceId, this.name});
+  SubCategoryDataBean({this.id, this.referenceId, this.name, this.icon});
 
   SubCategoryDataBean.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     referenceId = json['reference_id'];
     name = json['name'];
+    icon = json['icon'];
   }
 
   Map<String, dynamic> toJson() {

@@ -160,5 +160,7 @@
   "qrScanner": "الماسح",
   "youNeedToRenewUnit": "تحتاج الي تجديد تعاقد الوحدة ",
   "unit": "ينتهي تعاقد الوحدة  ",
-  "contractEndsOn": " في تاريخ "
+  "contractEndsOn": " في تاريخ ",
+  "noImageSelected": "No image selected.",
+  "only4ImagesAllowed": "only 4 images allowed"
 }
