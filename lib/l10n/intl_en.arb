@@ -161,5 +161,7 @@
   "qrScanner": "Qr Scanner",
   "youNeedToRenewUnit": "You need to renew unit ",
   "unit": "Unit ",
-  "contractEndsOn": "Contract ends on "
+  "contractEndsOn": "Contract ends on ",
+  "noImageSelected": "No image selected.",
+  "only4ImagesAllowed": "only 4 images allowed"
 }
