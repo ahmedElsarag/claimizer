@@ -256,8 +256,10 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
                       view.provider.description.clear();
                       view.provider.startDate = null;
                       view.provider.endDate = null;
-                      view.provider.updateContractImg(null);
-                      view.provider.updateIdentityImg(null);
+                      view.provider.identityImg = null;
+                      view.provider.contractImg = null;
+                      view.provider.contractFiles = null;
+                      view.provider.identityFiles = null;
                       view.provider.qrCodeValid = null;
                       Navigator.pop(context);
                       view.provider.selectedIndex = 2;

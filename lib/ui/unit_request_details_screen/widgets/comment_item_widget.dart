@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../CommonUtils/FullScreenImage.dart';
 import '../../../CommonUtils/image_utils.dart';
 import '../../../app_widgets/image_loader.dart';
 import '../../../network/models/UnitRequestDetailsResponse.dart';
@@ -86,14 +87,21 @@ class CommentItemWidget extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemCount: apiStrings.length,
-              itemBuilder: (context, index) => Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                margin: EdgeInsets.symmetric(horizontal: 2.w),
-                child: ClipRRect(
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (_) {
+                    return FullScreenImage(image: apiStrings[index],);
+                  }));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    child: ImageLoader(imageUrl: apiStrings[index],height: 58,width: 58,)),
+                  ),
+                  margin: EdgeInsets.symmetric(horizontal: 2.w),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: ImageLoader(imageUrl: apiStrings[index],height: 58,width: 58,)),
+                ),
               ),),
           ) :SizedBox.shrink()
         ],

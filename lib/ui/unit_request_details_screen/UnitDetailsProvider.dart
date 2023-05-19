@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:Cliamizer/base/provider/base_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UnitDetailsProvider<T> extends BaseProvider<T> {
   bool _isDateLoaded = false;
@@ -10,6 +11,25 @@ class UnitDetailsProvider<T> extends BaseProvider<T> {
   DateTime _endDate;
   File _contractImg;
   File _identityImg;
+
+  File _file;
+  List<XFile> _imageFiles;
+
+
+  File get file => _file;
+
+  set file(File value) {
+    _file = value;
+    notifyListeners();
+  }
+
+  List<XFile> get imageFiles => _imageFiles;
+
+  set imageFiles(List<XFile> value) {
+    _imageFiles = value;
+    notifyListeners();
+  }
+
 
   TextEditingController get contractNo => _contractNo;
 
@@ -33,20 +53,6 @@ class UnitDetailsProvider<T> extends BaseProvider<T> {
   }
 
   TextEditingController _comment = TextEditingController();
-  File _file;
-
-  File get file => _file;
-
-  set file(File value) {
-    _file = value;
-    notifyListeners();
-  }
-
-  void updateCommentFile(File newFile) {
-    _file = newFile;
-    notifyListeners();
-  }
-
   TextEditingController get comment => _comment;
 
   set comment(TextEditingController value) {

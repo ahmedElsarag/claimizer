@@ -157,7 +157,7 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                                                   FormData formData = new FormData.fromMap({
                                                     "file[0]": await MultipartFile.fromFile(
                                                       pr.file.path,
-                                                      contentType: new MediaType('image', 'jpg'),
+                                                      contentType: new MediaType('application', 'octet-stream'),
                                                     ),
                                                     "comment": pr.comment.text,
                                                     "claim_id": widget.claimsDataBean.id,

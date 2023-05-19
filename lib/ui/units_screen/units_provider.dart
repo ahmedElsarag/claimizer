@@ -5,6 +5,7 @@ import 'package:Cliamizer/network/models/units_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../network/models/NewLinkListRequestResponse.dart';
 import '../../network/models/NewLinkRequestResponse.dart';
 import '../../network/models/UnitRequestResponse.dart';
@@ -72,8 +73,32 @@ class UnitProvider<T> extends BaseProvider<T> {
 
   File get identityImg => _identityImg;
 
-  void updateIdentityImg(File newFile) {
-    _identityImg = newFile;
+  set identityImg(File value) {
+    _identityImg = value;
+    notifyListeners();
+  }
+
+
+
+  List<XFile> _contractFiles;
+  List<XFile> _identityFiles;
+
+  set contractImg(File value) {
+    _contractImg = value;
+    notifyListeners();
+  }
+
+  List<XFile> get contractFiles => _contractFiles;
+
+  set contractFiles(List<XFile> value) {
+    _contractFiles = value;
+    notifyListeners();
+  }
+
+  List<XFile> get identityFiles => _identityFiles;
+
+  set identityFiles(List<XFile> value) {
+    _identityFiles = value;
     notifyListeners();
   }
 
@@ -119,6 +144,7 @@ class UnitProvider<T> extends BaseProvider<T> {
     _linkListRequestDataBean = value;
     notifyListeners();
   }
+
   List<UnitsList> _buildingUnitsList = [];
 
   List<UnitsList> get buildingUnitsList => _buildingUnitsList;

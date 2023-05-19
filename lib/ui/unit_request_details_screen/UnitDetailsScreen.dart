@@ -134,28 +134,33 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                             Gaps.vGap8,
                                             ElevatedButton(
                                               onPressed: () async {
-                                                if (pr.file != null) {
-                                                  // List<File> files;
-                                                  FormData formData = FormData();
-                                                  // for (int i = 0; i < files?.length; i++) {
-                                                  //   formData.files.add(MapEntry(
-                                                  //     "file[$i]",
-                                                  //     await MultipartFile.fromFile(files[i].path),
-                                                  //   ));
-                                                  // }
-                                                  // formData.fields.add(MapEntry("comment", pr.comment.text));
-                                                  // formData.fields.add(MapEntry("claim_id", widget.unitRequestDataBean.id.toString()));
-                                                  formData = new FormData.fromMap({
-                                                    "file[0]": await MultipartFile.fromFile(
+                                                final formData = FormData();
+                                                if (pr.imageFiles !=null) {
+                                                  for (var i = 0; i < pr.imageFiles.length; i++) {
+                                                    final file = await pr.imageFiles[i].readAsBytes();
+                                                    formData.files.add(MapEntry(
+                                                      'files[$i]',
+                                                      MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
+                                                    ));
+                                                    formData.fields.add(MapEntry("comment", pr.comment.text));
+                                                    formData.fields
+                                                        .add(MapEntry("request_id", widget.unitRequestDataBean.id.toString()));
+                                                  }
+                                                  mPresenter.doPostCommentApiCall(
+                                                      formData, widget.unitRequestDataBean.id);
+                                                } else if(pr.file !=null){
+                                                  FormData formData = new FormData.fromMap({
+                                                    "files[0]": await MultipartFile.fromFile(
                                                       pr.file.path,
                                                       contentType: new MediaType('image', 'jpg'),
                                                     ),
                                                     "comment": pr.comment.text,
                                                     "request_id": widget.unitRequestDataBean.id,
+
                                                   });
                                                   mPresenter.doPostCommentApiCall(
                                                       formData, widget.unitRequestDataBean.id);
-                                                }else{
+                                                } else {
                                                   FormData formData = FormData();
                                                   formData = new FormData.fromMap({
                                                     "comment": pr.comment.text,
@@ -164,6 +169,10 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                   mPresenter.doPostCommentApiCall(
                                                       formData, widget.unitRequestDataBean.id);
                                                 }
+                                                pr.imageFiles=null;
+                                                pr.file=null;
+                                                pr.comment.clear();
+                                                setState(() {});
                                               },
                                               child: Text(
                                                 S.of(context).addComment,
@@ -171,15 +180,15 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                               ),
                                               style: ButtonStyle(
                                                   backgroundColor:
-                                                      MaterialStateProperty.all<Color>(MColors.primary_color),
+                                                  MaterialStateProperty.all<Color>(MColors.primary_color),
                                                   elevation: MaterialStatePropertyAll(0),
                                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                       RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                  )),
+                                                        borderRadius: BorderRadius.circular(8),
+                                                      )),
                                                   padding: MaterialStateProperty.all<EdgeInsets>(
                                                       EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
-                                            )
+                                            ),
                                           ],
                                         ),
                                       );

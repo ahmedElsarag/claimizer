@@ -56,7 +56,7 @@ class CompleteNewUnit extends StatelessWidget {
                   margin: EdgeInsetsDirectional.only(end: 3.w),
                   decoration: BoxDecoration(color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
                 ),
-                Text(pr.isBuilding? "Building Query":S.current.unitQuery, style: MTextStyles.textMain16),
+                Text(pr.isBuilding ? "Building Query" : S.current.unitQuery, style: MTextStyles.textMain16),
               ],
             ),
             Gaps.vGap8,
@@ -69,9 +69,7 @@ class CompleteNewUnit extends StatelessWidget {
               provider: provider,
             ),
             Gaps.vGap8,
-            Visibility(
-                visible: pr.isBuilding,
-                child: BuildBuildingUnitDropDown()),
+            Visibility(visible: pr.isBuilding, child: BuildBuildingUnitDropDown()),
             Gaps.vGap8,
             ContractField(
               provider: provider,
@@ -104,8 +102,10 @@ class CompleteNewUnit extends StatelessWidget {
                       pr.description.clear();
                       pr.startDate = null;
                       pr.endDate = null;
-                      pr.updateContractImg(null);
-                      pr.updateIdentityImg(null);
+                      pr.identityImg = null;
+                      pr.contractImg = null;
+                      pr.contractFiles = null;
+                      pr.identityFiles = null;
                     },
                     child: Text(
                       S.of(context).back,
@@ -127,18 +127,16 @@ class CompleteNewUnit extends StatelessWidget {
                     onPressed: () async {
                       if (pr.contractNo.text.isEmpty && pr.startDate == null && pr.endDate == null) {
                         presenter.view.showSnackBar("msg");
-                      } else {
-                        print("@@@@@@@@@@@@@@@@data ${pr.qrCode.text}");
+                      } else if (pr.contractImg != null ||
+                          pr.identityImg != null) {
                         FormData formData = new FormData.fromMap({
                           "contract_attach": await MultipartFile.fromFile(
                             pr.contractImg.path,
-                            filename: pr.contractImg.path.split('/').last,
-                            contentType: MediaType('application', 'octet-stream'),
+                            contentType: new  MediaType('application', 'octet-stream'),
                           ),
                           "client_gov_id": await MultipartFile.fromFile(
                             pr.identityImg.path,
-                            filename: pr.identityImg.path.split('/').last,
-                            contentType: MediaType('application', 'octet-stream'),
+                            contentType: new  MediaType('application', 'octet-stream'),
                           ),
                           "unit_code": pr.isBuilding ? pr.selectedUnit : pr.qrCode.text,
                           "contract_number": pr.contractNo.text,
