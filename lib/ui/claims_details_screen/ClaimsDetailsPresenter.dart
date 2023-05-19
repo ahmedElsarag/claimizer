@@ -32,7 +32,6 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
           Log.d("${data.data.id}");
           if (data != null) {
             view.provider.setData(data.data);
-            print("################################ ${data.data.comments.data[4].user.data.name}");
             view.provider.isDateLoaded = true;
           }
         },
@@ -66,7 +65,7 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
             view.showToasts(S.of(view.context).commentAdded, 'success');
             print("#############@@@@@@@@@@@@@@@@@@@###########");
             view.provider.comment.clear();
-            view.provider.updateCommentFile(null);
+            // view.provider.updateCommentFile(null);
             getClaimDetailsDataApiCall(claimId);
           } else {
             view.showToasts("Error", 'error');

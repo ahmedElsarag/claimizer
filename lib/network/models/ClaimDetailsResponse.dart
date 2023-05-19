@@ -25,13 +25,13 @@ class ClaimsDetailsDataBean {
   String description;
   String availableDate;
   String availableTime;
-  String employeeId;
+  dynamic employeeId;
   String startDate;
   String endDate;
   String createdBy;
   String priority;
-  Null rate;
-  Null feedback;
+  dynamic rate;
+  dynamic feedback;
   String createdAt;
   List<String> files;
   Unit unit;
