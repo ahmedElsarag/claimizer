@@ -57,7 +57,6 @@ class SearchAboutUnitByQR extends StatelessWidget {
                     presenter.view.showToasts(S.of(context).pleaseEnterQrCode,'warning');
                   } else {
                     presenter.checkLinkHasParams(pr.qrCode.text);
-                    print("QRCODE = ${pr.qrCode.text}");
                   }
                 },
                 child: Text(

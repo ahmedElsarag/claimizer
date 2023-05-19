@@ -103,7 +103,6 @@ class _ScannerScreenState extends State<ScannerScreen> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       result = scanData;
-      print('scannned ${result?.code}');
       if (result != null) {
         controller.stopCamera().then((value) {
           widget.onScanDone(result.code);

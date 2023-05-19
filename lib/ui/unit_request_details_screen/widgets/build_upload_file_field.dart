@@ -65,7 +65,13 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
       if (pickedFile != null) {
         widget.provider.file = File(pickedFile.path);
       } else {
-        print('No image selected.');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: MColors.error_color,
+            margin: EdgeInsets.all(8),
+            behavior: SnackBarBehavior.floating,
+            content: Text(S.of(context).noImageSelected)));
+        Navigator.pop(context);
+        Navigator.pop(context);
       }
     });
     Navigator.pop(context);

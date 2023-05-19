@@ -63,7 +63,6 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
             Log.d("onSuccess " + data.toString());
             Navigator.pop(view.context);
             view.showToasts(S.of(view.context).commentAdded, 'success');
-            print("#############@@@@@@@@@@@@@@@@@@@###########");
             view.provider.comment.clear();
             // view.provider.updateCommentFile(null);
             getClaimDetailsDataApiCall(claimId);

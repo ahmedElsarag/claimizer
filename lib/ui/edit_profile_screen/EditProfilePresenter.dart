@@ -40,8 +40,6 @@ class EditProfilePresenter extends BasePresenter<EditProfileScreenState> {
             view.provider.emailController?.text = data.profileDataBean.email;
             view.provider.mobileController?.text = data.profileDataBean.profile.mobile;
             view.provider.isNotificationEnabled = data.profileDataBean.profile.emailNotifications;
-            print(
-                '@@@@@@@@@########${data.profileDataBean.profile.emailNotifications} ${view.provider.isNotificationEnabled}');
             view.provider.isDateLoaded = true;
             view.closeProgress();
           }else{
@@ -64,7 +62,6 @@ class EditProfilePresenter extends BasePresenter<EditProfileScreenState> {
   Future doEditPassword(Map<String, dynamic> bodyParams) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
-      print('@@@@@@@@@@@@@@@@@@@@@$token');
       header['Authorization'] = "Bearer $token";
     });
     view.showProgress(isDismiss: false);
@@ -121,7 +118,6 @@ class EditProfilePresenter extends BasePresenter<EditProfileScreenState> {
 
   void saveUser(ProfileResponse response) {
     Prefs.setUserName(response.profileDataBean.name);
-    print("user name ${response.profileDataBean.name}");
     Prefs.setCurrentUser(jsonEncode(response.toJson()));
     Prefs.setUserImage(response.profileDataBean.avatar);
   }

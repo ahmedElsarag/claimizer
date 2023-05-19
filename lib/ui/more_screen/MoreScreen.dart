@@ -58,7 +58,6 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
         {
           setState(() {
             setSelected(value);
-            print('###### $value');
             provider.language = value;
           }),
         }
@@ -242,7 +241,6 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
           //             value: provider.receiveNotification,
           //             onChanged: (value) {
           //               provider.receiveNotification = value;
-          //               print(provider.receiveNotification);
           //             }))
           //   ],
           // ),

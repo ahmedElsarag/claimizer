@@ -75,8 +75,6 @@ class StepWidget extends StatelessWidget {
                   selectedItem = itemsList[index];
                   Future.delayed(Duration(seconds: 0));
                   step < stepCountCompare ? step += stepCount : null;
-                  print(
-                      "selectedIndex $selectedItemIndex, selectedItem $selectedItem, stepCount $stepCount, stepCompare $stepCountCompare");
                 },
                 child: Container(
                   decoration: BoxDecoration(

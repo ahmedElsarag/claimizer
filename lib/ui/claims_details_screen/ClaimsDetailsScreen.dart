@@ -217,7 +217,6 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                               Gaps.hGap12,
                               /*InkWell(
                                 onTap: () {
-                                  print("@#@#@#@#@#@#@#@#@#@#@# ${pr.instance.id}");
                                   mPresenter.deleteClaimApiCall(pr.instance.id);
                                 },
                                 child: Row(
@@ -245,7 +244,6 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                           Gaps.vGap12,
                           InkWell(
                             onTap: () {
-                              print("@#@#@#@#@#@#@#@#@#@#@# ${pr.instance.referenceId}");
                               mPresenter.closeClaimApiCall(pr.instance.referenceId);
                             },
                             child: Row(

@@ -63,7 +63,13 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
       if (pickedFile != null) {
         widget.provider.file = File(pickedFile.path);
       } else {
-        print('No image selected.');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: MColors.error_color,
+            margin: EdgeInsets.all(8),
+            behavior: SnackBarBehavior.floating,
+            content: Text(S.of(context).noImageSelected)));
+        Navigator.pop(context);
+        Navigator.pop(context);
       }
     });
     Navigator.pop(context);
@@ -104,18 +110,6 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
                 ),
               );
             },);
-
-            // final result = await FilePicker.platform.pickFiles(
-            //   allowMultiple: true,
-            //   type: FileType.image
-            // );
-            // if (result != null) {
-            //   final file = File(result.files.single.path);
-            //   print("##################### ${result.files.single.path}");
-            //   pr.updateCommentFile(file);
-            //   print("##################### ${pr.file.path}");
-            // }
-            // print("##################### ${pr.file.path}");
           },
           child: Container(
             decoration: BoxDecoration(
@@ -129,7 +123,7 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
                 SizedBox(
                   width: 35.w,
                   child: Text(
-                    pr.file!= null ? pr.file.path : pr.imageFiles !=null? pr.imageFiles[0].path: S.current.uploadAnyFiles,
+                    pr.file!= null ? pr.file.path : pr.imageFiles.isNotEmpty? pr.imageFiles[0].path: S.current.uploadAnyFiles,
                     style: MTextStyles.textDark14,
                   ),
                 ),

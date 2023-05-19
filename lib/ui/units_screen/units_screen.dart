@@ -170,7 +170,6 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                     mPresenter.getFilteredExistingUnitsApiCall(parms);
                                   } else if (pr.selectedIndex == 2) {
                                     Map<String, dynamic> parms = Map();
-                                    print("&&&&&&&&&&&&&&&&&&&&&&& ${pr.unitLinkSearchController.text}");
                                     parms['unit'] = pr.unitLinkSearchController.text.toString();
                                     mPresenter.getFilteredUnitRequestsApiCall(parms);
                                   }
@@ -199,7 +198,6 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                 mPresenter.getFilteredExistingUnitsApiCall(parms);
                               } else if (pr.selectedIndex == 2) {
                                 Map<String, dynamic> parms = Map();
-                                print("&&&&&&&&&&&&&&&&&&&&&&& ${pr.unitLinkSearchController.text}");
                                 parms['unit'] = pr.unitLinkSearchController.text.toString();
                                 mPresenter.getFilteredUnitRequestsApiCall(parms);
                               }

@@ -73,11 +73,6 @@ class ClaimCommentItemWidget extends StatelessWidget {
                 ],
               ),
               Spacer(),
-              // InkWell(
-              //     onTap:(){
-              //       print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ${commentsData.id}");
-              //     },
-              //     child: SvgPicture.asset(ImageUtils.getSVGPath("trash")))
             ],
           ),
           apiStrings.isNotEmpty? SizedBox(

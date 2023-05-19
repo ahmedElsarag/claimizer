@@ -36,8 +36,6 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
         onSuccess: (data)  {
           Log.d("${data.data.id}");
           if (data != null) {
-            print("###################$id");
-            print("###################${data.data.comments[0].user.avatar}");
             view.provider.setData(data.data);
             view.provider.isDateLoaded = true;
             view.closeProgress();
@@ -72,7 +70,6 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
             Log.d("onSuccess " + data.toString());
             Navigator.pop(view.context);
             view.showToasts(S.of(view.context).commentAdded, 'success');
-            print("#############@@@@@@@@@@@@@@@@@@@###########");
             view.provider.comment.clear();
             getUnitRequestDetailsDataApiCall(unitID);
           } else {
@@ -129,7 +126,6 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
   Future renewUnitLinkRequestApiCall(FormData bodyParams,int unitID) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
-      print('@@@@@@@@@@@@@@@@@@@@@$token');
       header['Authorization'] = "Bearer $token";
     });
     view.showProgress(isDismiss: false);

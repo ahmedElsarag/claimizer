@@ -21,7 +21,6 @@ class ExistingUnitList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<UnitProvider>(
       builder: (context, pr, child) {
-        print("@@@@@@@@@@@@@@@@@@@ : ${pr.unitsList.length}");
         return pr.unitsList.isNotEmpty ? RefreshIndicator(
           onRefresh: () async {
             pr.searchController.clear();

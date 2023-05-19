@@ -54,7 +54,6 @@ class ForgotPasswordScreenState extends BaseState<ForgotPasswordScreen, ForgotPa
             {
               setState(() {
                 setSelected(value);
-                print('###### $value');
                 provider.language = value;
               }),
               // provider.isArabic == "ar",
@@ -233,8 +232,6 @@ class ForgotPasswordScreenState extends BaseState<ForgotPasswordScreen, ForgotPa
 
     if (form.validate()) {
       form.save();
-      print('New user saved with signup data:\n');
-      print(email );
     }
   }
 

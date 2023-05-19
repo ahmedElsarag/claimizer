@@ -50,7 +50,13 @@ class _BuildContractFilePickerState extends State<BuildContractFilePicker> {
       if (pickedFile != null) {
         widget.provider.contractImg = File(pickedFile.path);
       } else {
-        print('No image selected.');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: MColors.error_color,
+            margin: EdgeInsets.all(8),
+            behavior: SnackBarBehavior.floating,
+            content: Text(S.of(context).noImageSelected)));
+        Navigator.pop(context);
+        Navigator.pop(context);
       }
     });
     Navigator.pop(context);
@@ -108,7 +114,7 @@ class _BuildContractFilePickerState extends State<BuildContractFilePicker> {
                   child: Text(
                     pr.contractImg != null
                         ? pr.contractImg.path
-                        : pr.contractFiles != null
+                        : pr.contractFiles.isNotEmpty
                         ? pr.contractFiles[0].path
                         : S.current.uploadAnyFiles,
                     style: MTextStyles.textDark14,

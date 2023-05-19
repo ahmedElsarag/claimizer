@@ -30,7 +30,6 @@ class UnitLinkRequest extends StatelessWidget {
           itemCount: pr.unitsRequestList.length,
           itemBuilder: (context, index) => InkWell(
             onTap: (){
-              print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& ${pr.unitsRequestList[index].id}");
               Navigator.push(context, CupertinoPageRoute(builder: (context) => UnitRequestDetailsScreen(
                 id: pr.unitsRequestList[index].id,
                 unitRequestDataBean: pr.unitsRequestList[index],

@@ -71,7 +71,6 @@ class _StartEndDatePickerFieldState extends State<StartEndDatePickerField> {
                     pr.endDate = picked;
                   }
                 }else{
-                  print("TTTTTTTTTKJ");
                 }
               },
               child: Container(

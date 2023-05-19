@@ -212,7 +212,6 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                               Gaps.hGap12,
                               InkWell(
                                 onTap: () {
-                                  print("@#@#@#@#@#@#@#@#@#@#@# ${pr.instance.id}");
                                   mPresenter.unlinkUnitRequestApiCall({"id":pr.instance.id});
                                 },
                                 child: Row(

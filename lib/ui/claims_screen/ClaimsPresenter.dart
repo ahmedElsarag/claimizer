@@ -169,7 +169,6 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
     });
-    print("!@!#!#!@#@#!@# ${view.provider.description}");
     view.showProgress(isDismiss: false);
     await requestFutureData<ClaimsRequestResponse>(Method.post,
         params: formData,

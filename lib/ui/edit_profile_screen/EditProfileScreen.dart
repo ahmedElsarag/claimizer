@@ -62,7 +62,13 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
       if (pickedFile != null) {
         _image = File(pickedFile.path);
       } else {
-        print('No image selected.');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: MColors.error_color,
+            margin: EdgeInsets.all(8),
+            behavior: SnackBarBehavior.floating,
+            content: Text(S.of(context).noImageSelected)));
+        Navigator.pop(context);
+        Navigator.pop(context);
       }
     });
   }
@@ -73,7 +79,13 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
       if (pickedFile != null) {
         _image = File(pickedFile.path);
       } else {
-        print('No image selected.');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: MColors.error_color,
+            margin: EdgeInsets.all(8),
+            behavior: SnackBarBehavior.floating,
+            content: Text(S.of(context).noImageSelected)));
+        Navigator.pop(context);
+        Navigator.pop(context);
       }
     });
   }
@@ -444,10 +456,8 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
             showDropdownIcon: false,
             initialCountryCode: 'AE',
             onChanged: (phone) {
-              print("lhgshjklkjhajksjk" + phone.completeNumber);
             },
             onCountryChanged: (country) {
-              print('Country changed to: ' + country.name);
             },
           ),
         ],
@@ -741,14 +751,12 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
       });
       mPresenter.editProfileApiCall(formData);
     } else {
-      print('#######################################');
       Map<String, dynamic> params = Map();
       params['mobile'] = provider.mobileController.text;
       params['name'] = provider.nameController.text;
       params['email'] = provider.emailController.text;
       params['email_notifications'] = provider.isNotificationEnabled;
       mPresenter.editProfileApiCall(params);
-      print('#######################################');
     }
   }
 
@@ -784,7 +792,6 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                 "password": passwordController.text,
                 "password_confirmation": confirmPasswordController.text,
               });
-              print("edit password");
             }),
           ],
         ),

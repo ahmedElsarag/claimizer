@@ -16,7 +16,6 @@ class SplashPresenter extends BasePresenter<SplashScreenState> {
       Setting.mobileLanguage.value =  Locale(s);
     }
     Prefs.setAppLocal(s);
-    print("language selected $s");
   }
 
 }

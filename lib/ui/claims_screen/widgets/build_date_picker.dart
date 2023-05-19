@@ -23,7 +23,6 @@ class BuildDatePicker extends StatelessWidget {
               firstDate: DateTime(1900),
               lastDate: DateTime.now().add(Duration(days: 1000)));
           if (picked != null) {
-            print('@@@@@@@@@@@@${DateFormat('yyyy-MM-dd','en').format(picked)}');
             pr.selectedDate = picked;
           }
         },

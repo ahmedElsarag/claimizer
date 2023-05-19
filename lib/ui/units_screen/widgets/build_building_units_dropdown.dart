@@ -29,7 +29,6 @@ class BuildBuildingUnitDropDown extends StatelessWidget {
             value: pr.selectedUnit,
             onChanged: (String newValue) {
               pr.selectedUnit = newValue;
-              print("%%%%%%%%%%%%%%%%%%%%%%%%% $newValue");
             },
             items: pr.buildingUnitsList.map((UnitsList value) {
               return DropdownMenuItem<String>(

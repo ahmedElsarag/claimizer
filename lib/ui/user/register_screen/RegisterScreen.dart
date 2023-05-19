@@ -60,7 +60,6 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
             {
               setState(() {
                 setSelected(value);
-                print('###### $value');
                 provider.language = value;
               }),
               // provider.isArabic == "ar",
@@ -357,10 +356,8 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
             showDropdownIcon: false,
             initialCountryCode: 'AE',
             onChanged: (phone) {
-              print(phone.completeNumber);
             },
             onCountryChanged: (country) {
-              print('Country changed to: ' + country.name);
             },
           ),
         ],
@@ -612,8 +609,6 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
 
     if (form.validate()) {
       form.save();
-      print('New user saved with signup data:\n');
-      print(emailController.text + " " + passwordController.text);
       _doServerLogin();
     }
   }

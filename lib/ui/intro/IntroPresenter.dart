@@ -16,6 +16,5 @@ class IntroPresenter extends BasePresenter<IntroScreenState> {
       Setting.mobileLanguage.value =  Locale(s);
     }
     Prefs.setAppLocal(s);
-    print("language selected $s");
   }
 }

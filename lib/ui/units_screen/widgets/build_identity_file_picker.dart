@@ -50,7 +50,13 @@ class _BuildIdentityFilePickerState extends State<BuildIdentityFilePicker> {
       if (pickedFile != null) {
         widget.provider.identityImg = File(pickedFile.path);
       } else {
-        print('No image selected.');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: MColors.error_color,
+            margin: EdgeInsets.all(8),
+            behavior: SnackBarBehavior.floating,
+            content: Text(S.of(context).noImageSelected)));
+        Navigator.pop(context);
+        Navigator.pop(context);
       }
     });
     Navigator.pop(context);
@@ -108,7 +114,7 @@ class _BuildIdentityFilePickerState extends State<BuildIdentityFilePicker> {
                   child: Text(
                     pr.identityImg != null
                         ? pr.identityImg.path
-                        : pr.identityFiles != null
+                        : pr.identityFiles.isNotEmpty
                             ? pr.identityFiles[0].path
                             : S.current.uploadAnyFiles,
                     style: MTextStyles.textDark14,
