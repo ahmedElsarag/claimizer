@@ -4,6 +4,7 @@ import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../CommonUtils/FullScreenImage.dart';
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
@@ -40,13 +41,20 @@ class FilesWidget extends StatelessWidget {
           child: apiStrings.isNotEmpty ?  ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: count,
-            itemBuilder: (context, index) => Container(
-                margin: EdgeInsets.symmetric(horizontal: 2.w),
-                child: ImageLoader(
-                  imageUrl: apiStrings[index],
-                  width: 16.w,
-                  height: 16.w,
-                )),
+            itemBuilder: (context, index) => GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return FullScreenImage(image: apiStrings[index],);
+                }));
+              },
+              child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 2.w),
+                  child: ImageLoader(
+                    imageUrl: apiStrings[index],
+                    width: 16.w,
+                    height: 16.w,
+                  )),
+            ),
           ): Text(S.of(context).noFiles),
         ),
         Gaps.vGap12,

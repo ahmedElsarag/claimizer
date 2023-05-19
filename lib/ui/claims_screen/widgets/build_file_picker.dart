@@ -5,70 +5,129 @@ import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
+import '../../../res/gaps.dart';
 import '../../../res/styles.dart';
 
-class BuildFilePicker extends StatelessWidget {
+class BuildFilePicker extends StatefulWidget {
   const BuildFilePicker({Key key, this.provider}) : super(key: key);
   final ClaimsProvider provider;
 
-  Future<void> _pickFile(String fileName) async {
-    FilePickerResult result = await FilePicker.platform.pickFiles();
-    if (result != null) {
-      File file = File(result.files.single.path);
-      fileName = path.basename(file.path);
+  @override
+  State<BuildFilePicker> createState() => _BuildFilePickerState();
+}
+
+class _BuildFilePickerState extends State<BuildFilePicker> {
+  final picker = ImagePicker();
+
+  Future<void> pickImages() async {
+    final pickedFiles = await picker.pickMultiImage();
+    if (pickedFiles != null) {
+      setState(() {
+        widget.provider.imageFiles = pickedFiles;
+      });
     }
+    Navigator.pop(context);
+  }
+
+  // File pr.file;
+  Future getImageFromCamera() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        widget.provider.file = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ClaimsProvider>(
-      builder: (context, pr, child) => TextFormField(
-        style: MTextStyles.textDark14,
-        readOnly: true,
-        onTap: () async {
-          final result = await FilePicker.platform.pickFiles(type: FileType.image);
-          if (result != null) {
-            final file = File(result.files.single.path);
-            pr.updateFileName(file);
-          }
-        },
-        controller: TextEditingController(text: pr?.fileName?.path),
-        // initialValue: pr.contractImg.path,
-        decoration: InputDecoration(
-            hintText: S.of(context).uploadAnyFiles,
-            hintStyle: MTextStyles.textMain14,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: MColors.textFieldBorder),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: MColors.textFieldBorder),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: MColors.textFieldBorder),
-            ),
-            suffixIcon: InkWell(
-              onTap: () async {
-                pr.updateFileName(null);
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Icon(Icons.close),
-              ),
-            ),
-            prefixIcon: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
-            )),
+      builder: (context, pr, child) => GestureDetector(
+          onTap: () async {
+            showDialog(context: context, builder: (context) {
+              return AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 60.w,
+                      child: ElevatedButton.icon(
+                        style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(MColors.white)),
+                        onPressed: getImageFromCamera,
+                        icon: Icon(Icons.camera_alt, color: MColors.text_button_color),
+                        label: Text(S.of(context).takePhoto,
+                            style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: 60.w,
+                      child: ElevatedButton.icon(
+                        style: ButtonStyle(backgroundColor:MaterialStateProperty.all<Color>(MColors.white)),
+                        onPressed: pickImages,
+                        icon: Icon(Icons.photo_library, color: MColors.text_button_color),
+                        label: Text(
+                          S.of(context).chooseFromGallery,
+                          style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },);
 
-      ),
+            // final result = await FilePicker.platform.pickFiles(
+            //   allowMultiple: true,
+            //   type: FileType.image
+            // );
+            // if (result != null) {
+            //   final file = File(result.files.single.path);
+            //   print("##################### ${result.files.single.path}");
+            //   pr.updateCommentFile(file);
+            //   print("##################### ${pr.file.path}");
+            // }
+            // print("##################### ${pr.file.path}");
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: MColors.textFieldBorder),
+                borderRadius: BorderRadius.circular(8)),
+            padding: EdgeInsets.all(8),
+            child: Row(
+              children: [
+                SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
+                Gaps.hGap8,
+                SizedBox(
+                  width: 35.w,
+                  child: Text(
+                    pr.file!= null ? pr.file.path : pr.imageFiles !=null? pr.imageFiles[0].path: S.current.uploadAnyFiles,
+                    style: MTextStyles.textDark14,
+                  ),
+                ),
+                Spacer(),
+                InkWell(
+                  onTap: () async {
+                    pr.imageFiles=null;
+                    pr.file=null;
+                    setState(() {});
+                  },
+                  child: Icon(Icons.close),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }

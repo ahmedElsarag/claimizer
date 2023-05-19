@@ -27,17 +27,18 @@ class ClaimsDetailsProvider<T> extends BaseProvider<T> {
   File _file;
   List<XFile> _imageFiles;
 
-  List<XFile> get imageFiles => _imageFiles;
-
-  void  updateImageFiles(List<XFile> value) {
-    _imageFiles = value;
-    notifyListeners();
-  }
 
   File get file => _file;
 
-  void updateCommentFile(File newFile) {
-    _file = newFile;
+  set file(File value) {
+    _file = value;
+    notifyListeners();
+  }
+
+  List<XFile> get imageFiles => _imageFiles;
+
+  set imageFiles(List<XFile> value) {
+    _imageFiles = value;
     notifyListeners();
   }
 

@@ -34,27 +34,29 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
     super.initState();
   }
 
-  List<XFile> _imageFiles;
+  Future<void> pickImages() async {
+    final pickedFiles = await picker.pickMultiImage();
+    if (pickedFiles != null) {
+      setState(() {
+        widget.provider.imageFiles = pickedFiles;
+      });
+    }
+    Navigator.pop(context);
+  }
+
+  // File pr.file;
 
   Future getImageFromCamera() async {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
     setState(() {
       if (pickedFile != null) {
-        // widget.provider.file.path = File(pickedFile.path);
+        widget.provider.file = File(pickedFile.path);
       } else {
         print('No image selected.');
       }
     });
-  }
-
-  Future<void> pickImages() async {
-    final pickedFiles = await picker.pickMultiImage();
-    if (pickedFiles != null) {
-      setState(() {
-        _imageFiles = pickedFiles;
-      });
-    }
+    Navigator.pop(context);
   }
 
   @override
@@ -62,6 +64,37 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
     return Consumer<ClaimsDetailsProvider>(
       builder: (context, pr, child) => GestureDetector(
           onTap: () async {
+            showDialog(context: context, builder: (context) {
+              return AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 60.w,
+                      child: ElevatedButton.icon(
+                        onPressed: getImageFromCamera,
+                        icon: Icon(Icons.camera_alt, color: MColors.text_button_color),
+                        label: Text(S.of(context).takePhoto,
+                            style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: 60.w,
+                      child: ElevatedButton.icon(
+                        onPressed: pickImages,
+                        icon: Icon(Icons.photo_library, color: MColors.text_button_color),
+                        label: Text(
+                          S.of(context).chooseFromGallery,
+                          style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },);
+
             // final result = await FilePicker.platform.pickFiles(
             //   allowMultiple: true,
             //   type: FileType.image
@@ -76,7 +109,8 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
           },
           child: Container(
             decoration: BoxDecoration(
-                border: Border.all(color: MColors.textFieldBorder), borderRadius: BorderRadius.circular(8)),
+                border: Border.all(color: MColors.textFieldBorder),
+                borderRadius: BorderRadius.circular(8)),
             padding: EdgeInsets.all(8),
             child: Row(
               children: [
@@ -85,65 +119,22 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
                 SizedBox(
                   width: 35.w,
                   child: Text(
-                    pr.file != null ? pr.file.path : S.current.uploadAnyFiles,
+                    pr.file!= null ? pr.file.path : pr.imageFiles !=null? pr.imageFiles[0].path: S.current.uploadAnyFiles,
                     style: MTextStyles.textDark14,
                   ),
                 ),
                 Spacer(),
                 InkWell(
                   onTap: () async {
-                    pr.updateCommentFile(null);
+                    pr.imageFiles=null;
+                    pr.file=null;
+                    setState(() {});
                   },
                   child: Icon(Icons.close),
                 ),
               ],
             ),
-          )
-          /*TextFormField(
-          style: MTextStyles.textDark14,
-          readOnly: true,
-          controller: TextEditingController(text: pr?.file?.path),
-          // initialValue: pr.contractImg.path,
-          decoration: InputDecoration(
-              hintText: S.of(context).uploadAnyFiles,
-              hintStyle: MTextStyles.textMain14,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: MColors.textFieldBorder),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: MColors.textFieldBorder),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: MColors.textFieldBorder),
-              ),
-              suffixIcon:  InkWell(
-                onTap: () async {
-                  pr.updateCommentFile(null);
-                },
-                child:Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Icon(Icons.close),
-                ),
-              ),
-              prefixIcon: InkWell(
-                onTap: () async {
-                  final result = await FilePicker.platform.pickFiles();
-                  if (result != null) {
-                    final file = File(result.files.single.path);
-                    pr.updateCommentFile(file);
-                  }
-                },
-                child:Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
-                ),
-              )),
-
-        ),*/
-          ),
+          )),
     );
   }
 }

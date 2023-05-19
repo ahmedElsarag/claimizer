@@ -408,24 +408,44 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                       margin: EdgeInsets.symmetric(vertical: 3.w),
                                       child: ElevatedButton(
                                         onPressed: () async {
-                                          FormData formData = new FormData.fromMap({
-                                            "file[0]": await MultipartFile.fromFile(
-                                              pr.fileName.path,
-                                              filename: pr.fileName.path.split('/').last,
-                                              contentType: MediaType('application', 'octet-stream'),
-                                            ),
-                                            "unit_id": selectedUnitId,
-                                            "category_id": selectedCategoryId,
-                                            "sub_category_id": selectedSubCategoryId,
-                                            "claim_type_id": selectedTypeId,
-                                            "description": provider.description.text,
-                                            "available_date": provider.selectedDate != null
-                                                ? DateFormat('yyyy-MM-dd', 'en').format(provider.selectedDate)
-                                                : DateFormat('yyyy-MM-dd', 'en').format(DateTime.now()),
-                                            "available_time": provider.selectedTimeValue
-                                          });
-                                          // print("@@@@@@@@@@@@@@@@@@@@@@@@@ ${provider.selectedTimeValue}");
-                                          mPresenter.postClaimRequestApiCall(formData);
+                                          final formData = FormData();
+                                          if (pr.imageFiles != null) {
+                                            for (var i = 0; i < pr.imageFiles.length; i++) {
+                                              final file = await pr.imageFiles[i].readAsBytes();
+                                              formData.files.add(MapEntry(
+                                                'file[$i]',
+                                                MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
+                                              ));
+                                              formData.fields.add(MapEntry("unit_id", selectedUnitId.toString()));
+                                              formData.fields.add(MapEntry("category_id", selectedCategoryId.toString()));
+                                              formData.fields.add(MapEntry("sub_category_id", selectedSubCategoryId.toString()));
+                                              formData.fields.add(MapEntry("claim_type_id", selectedTypeId.toString()));
+                                              formData.fields.add(MapEntry("description", provider.description.text));
+                                              formData.fields.add(MapEntry("available_date", provider.selectedDate != null
+                                                  ? DateFormat('yyyy-MM-dd', 'en').format(provider.selectedDate)
+                                                  : DateFormat('yyyy-MM-dd', 'en').format(DateTime.now()),));
+                                              formData.fields.add(MapEntry("available_time", provider.selectedTimeValue));
+                                            }
+                                            mPresenter.postClaimRequestApiCall(formData);
+                                          } else if (pr.file != null) {
+                                            FormData formData = new FormData.fromMap({
+                                              "file[0]": await MultipartFile.fromFile(
+                                                pr.file.path,
+                                                filename: pr.file.path.split('/').last,
+                                                contentType: MediaType('application', 'octet-stream'),
+                                              ),
+                                              "unit_id": selectedUnitId,
+                                              "category_id": selectedCategoryId,
+                                              "sub_category_id": selectedSubCategoryId,
+                                              "claim_type_id": selectedTypeId,
+                                              "description": provider.description.text,
+                                              "available_date": provider.selectedDate != null
+                                                  ? DateFormat('yyyy-MM-dd', 'en').format(provider.selectedDate)
+                                                  : DateFormat('yyyy-MM-dd', 'en').format(DateTime.now()),
+                                              "available_time": provider.selectedTimeValue
+                                            });
+                                            mPresenter.postClaimRequestApiCall(formData);
+                                          }
                                         },
                                         child: Text(
                                           S.of(context).confirm,
