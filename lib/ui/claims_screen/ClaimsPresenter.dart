@@ -184,6 +184,9 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
             claimsRequestResponse: data,
           ),
         );
+        view.provider.file= null;
+        view.provider.imageFiles = null;
+        view.provider.description.clear();
       }
     }, onError: (code, msg) {
       view.closeProgress();

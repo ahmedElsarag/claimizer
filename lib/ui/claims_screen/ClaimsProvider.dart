@@ -6,6 +6,7 @@ import 'package:Cliamizer/network/models/claim_available_time_response.dart';
 import 'package:Cliamizer/network/models/claim_type_response.dart';
 import 'package:Cliamizer/network/models/units_response.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../network/models/claims_response.dart';
 
@@ -228,6 +229,24 @@ class ClaimsProvider extends ChangeNotifier {
 
   void updateFileName(File newFile) {
     _fileName = newFile;
+    notifyListeners();
+  }
+
+  File _file;
+  List<XFile> _imageFiles;
+
+
+  File get file => _file;
+
+  set file(File value) {
+    _file = value;
+    notifyListeners();
+  }
+
+  List<XFile> get imageFiles => _imageFiles;
+
+  set imageFiles(List<XFile> value) {
+    _imageFiles = value;
     notifyListeners();
   }
 
