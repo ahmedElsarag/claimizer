@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+
 import '../../CommonUtils/image_utils.dart';
 import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
 import '../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
@@ -119,7 +120,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                               color: pr.selectedIndex == pageIndex
                                                   ? Colors.white
                                                   : MColors.light_text_color,
-                                              fontSize: pr.selectedIndex == pageIndex ? 14 : 12),
+                                              fontSize: 10.sp),
                                           textAlign: TextAlign.center,
                                         ),
                                       ),

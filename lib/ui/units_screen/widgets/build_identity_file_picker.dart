@@ -1,13 +1,10 @@
 import 'dart:io';
 
-import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:path/path.dart' as path;
 import 'package:sizer/sizer.dart';
 
 import '../../../CommonUtils/image_utils.dart';
@@ -114,9 +111,9 @@ class _BuildIdentityFilePickerState extends State<BuildIdentityFilePicker> {
                   child: Text(
                     pr.identityImg != null
                         ? pr.identityImg.path
-                        : pr.identityFiles.isNotEmpty
+                        : pr.identityFiles != null && pr.identityFiles.isNotEmpty
                             ? pr.identityFiles[0].path
-                            : S.current.uploadAnyFiles,
+                            : S.of(context).identityFile,
                     style: MTextStyles.textDark14,
                   ),
                 ),

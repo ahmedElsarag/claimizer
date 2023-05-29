@@ -1,13 +1,10 @@
 import 'dart:io';
 
-import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:path/path.dart' as path;
 import 'package:sizer/sizer.dart';
 
 import '../../../CommonUtils/image_utils.dart';
@@ -114,9 +111,9 @@ class _BuildContractFilePickerState extends State<BuildContractFilePicker> {
                   child: Text(
                     pr.contractImg != null
                         ? pr.contractImg.path
-                        : pr.contractFiles.isNotEmpty
-                        ? pr.contractFiles[0].path
-                        : S.current.uploadAnyFiles,
+                        : pr.contractFiles != null && pr.contractFiles.isNotEmpty
+                            ? pr.contractFiles[0].path
+                            : S.current.contractFile,
                     style: MTextStyles.textDark14,
                   ),
                 ),

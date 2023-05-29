@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -1680,6 +1681,26 @@ class S {
     return Intl.message(
       'only 4 images allowed',
       name: 'only4ImagesAllowed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contract file`
+  String get contractFile {
+    return Intl.message(
+      'Contract file',
+      name: 'contractFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Identity file`
+  String get identityFile {
+    return Intl.message(
+      'Identity file',
+      name: 'identityFile',
       desc: '',
       args: [],
     );

@@ -6,8 +6,6 @@ import 'package:Cliamizer/network/models/UnitRequestResponse.dart';
 import 'package:Cliamizer/ui/unit_request_details_screen/widgets/build_comment_field.dart';
 import 'package:Cliamizer/ui/unit_request_details_screen/widgets/build_upload_file_field.dart';
 import 'package:Cliamizer/ui/unit_request_details_screen/widgets/comments_widget.dart';
-import 'package:Cliamizer/ui/unit_request_details_screen/widgets/description_widget.dart';
-import 'package:Cliamizer/ui/unit_request_details_screen/widgets/files_widgets.dart';
 import 'package:Cliamizer/ui/unit_request_details_screen/widgets/item_widget.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
@@ -21,7 +19,6 @@ import 'package:sizer/sizer.dart';
 import '../../app_widgets/app_headline.dart';
 import '../../app_widgets/claimizer_app_bar.dart';
 import '../../generated/l10n.dart';
-import '../../network/models/claims_response.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
 import '../../res/styles.dart';
@@ -210,24 +207,26 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                               ),
                               Gaps.hGap12,
                               Gaps.hGap12,
-                              InkWell(
-                                onTap: () {
-                                  mPresenter.unlinkUnitRequestApiCall({"id":pr.instance.id});
-                                },
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          color: MColors.primary_color.withOpacity(0.08), shape: BoxShape.circle),
-                                      padding: EdgeInsets.all(4),
-                                      child: Icon(Icons.link_off,color: MColors.primary_color)
-                                    ),
-                                    Gaps.hGap8,
-                                    Text(
-                                      S.of(context).unlinkUnit,
-                                      style: MTextStyles.textMain14,
-                                    )
-                                  ],
+                              Visibility(
+                                visible: pr.instance.status.toLowerCase() != 'canceled' && pr.instance.status != 'ملغي',
+                                child: InkWell(
+                                  onTap: () {
+                                    mPresenter.unlinkUnitRequestApiCall({"id": pr.instance.id});
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                          decoration: BoxDecoration(
+                                              color: MColors.primary_color.withOpacity(0.08), shape: BoxShape.circle),
+                                          padding: EdgeInsets.all(4),
+                                          child: Icon(Icons.link_off, color: MColors.primary_color)),
+                                      Gaps.hGap8,
+                                      Text(
+                                        S.of(context).unlinkUnit,
+                                        style: MTextStyles.textMain14,
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],

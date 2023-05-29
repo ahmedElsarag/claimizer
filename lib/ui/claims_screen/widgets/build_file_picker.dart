@@ -5,7 +5,6 @@ import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -117,7 +116,7 @@ class _BuildFilePickerState extends State<BuildFilePicker> {
                   child: Text(
                     pr.file != null
                         ? pr.file.path
-                        : pr.imageFiles.isNotEmpty
+                        : pr.imageFiles != null && pr.imageFiles.isNotEmpty
                             ? pr.imageFiles[0].path
                             : S.current.uploadAnyFiles,
                     style: MTextStyles.textDark14,

@@ -162,5 +162,7 @@
   "unit": "ينتهي تعاقد الوحدة  ",
   "contractEndsOn": " في تاريخ ",
   "noImageSelected": "لم تختار اي صورة",
-  "only4ImagesAllowed": "مسموح برفع 4 صور كحد أقصي"
+  "only4ImagesAllowed": "مسموح برفع 4 صور كحد أقصي",
+  "contractFile": "Contract file",
+  "identityFile": "Identity file"
 }
