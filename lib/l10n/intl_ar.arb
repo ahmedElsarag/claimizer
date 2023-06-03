@@ -164,5 +164,7 @@
   "noImageSelected": "لم تختار اي صورة",
   "only4ImagesAllowed": "مسموح برفع 4 صور كحد أقصي",
   "uploadYourIdentity": "قم برفع صورة الهوية",
-  "uploadContractFile": "قم برفع صورة العقد"
+  "uploadContractFile": "قم برفع صورة العقد",
+  "contractFile": "Contract file",
+  "identityFile": "Identity file"
 }

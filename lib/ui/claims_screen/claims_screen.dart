@@ -129,7 +129,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                         style: MTextStyles.textMainLight14.copyWith(
                                             color:
                                                 pr.selectedIndex == pageIndex ? Colors.white : MColors.light_text_color,
-                                            fontSize: pr.selectedIndex == pageIndex ? 14 : 12),
+                                            fontSize: 10.sp),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),

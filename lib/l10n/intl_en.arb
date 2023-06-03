@@ -165,5 +165,7 @@
   "noImageSelected": "No image selected.",
   "only4ImagesAllowed": "only 4 images allowed",
   "uploadYourIdentity": "Upload Your Identity",
-  "uploadContractFile": "Upload Contract File"
+  "uploadContractFile": "Upload Contract File",
+  "contractFile": "Contract file",
+  "identityFile": "Identity file"
 }

@@ -1704,6 +1704,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Contract file`
+  String get contractFile {
+    return Intl.message(
+      'Contract file',
+      name: 'contractFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Identity file`
+  String get identityFile {
+    return Intl.message(
+      'Identity file',
+      name: 'identityFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contract file`
+  String get contractFile {
+    return Intl.message(
+      'Contract file',
+      name: 'contractFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Identity file`
+  String get identityFile {
+    return Intl.message(
+      'Identity file',
+      name: 'identityFile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload Your Identity`
+  String get uploadYourIdentity {
+    return Intl.message(
+      'Upload Your Identity',
+      name: 'uploadYourIdentity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload Contract File`
+  String get uploadContractFile {
+    return Intl.message(
+      'Upload Contract File',
+      name: 'uploadContractFile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:path/path.dart' as path;
 import 'package:sizer/sizer.dart';
 
 import '../../../CommonUtils/image_utils.dart';

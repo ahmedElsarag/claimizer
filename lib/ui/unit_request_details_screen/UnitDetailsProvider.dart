@@ -1,10 +1,11 @@
 import 'dart:io';
 
 import 'package:Cliamizer/base/provider/base_provider.dart';
+import 'package:Cliamizer/network/models/UnitRequestDetailsResponse.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class UnitDetailsProvider<T> extends BaseProvider<T> {
+class UnitDetailsProvider<T> extends BaseProvider<UnitRequestDetailsDataBean> {
   bool _isDateLoaded = false;
   bool _internetStatus = true;
   TextEditingController _contractNo = TextEditingController();
@@ -14,7 +15,6 @@ class UnitDetailsProvider<T> extends BaseProvider<T> {
 
   File _file;
   List<XFile> _imageFiles;
-
 
   File get file => _file;
 
