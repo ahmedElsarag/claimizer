@@ -167,5 +167,7 @@
   "uploadYourIdentity": "Upload Your Identity",
   "uploadContractFile": "Upload Contract File",
   "contractFile": "Contract file",
-  "identityFile": "Identity file"
+  "identityFile": "Identity file",
+  "images": "Images",
+  "claimClosed": "Claim Closed"
 }

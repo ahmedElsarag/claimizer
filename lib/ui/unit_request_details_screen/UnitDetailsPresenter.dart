@@ -163,10 +163,11 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
                           Navigator.pop(context);
                           view.provider.contractNo.clear();
                           view.provider.endDate = null;
-                          view.provider.updateContractImg(null);
-                          view.provider.updateIdentityImg(null);
+                          view.provider.contractImg = null;
+                          view.provider.identityImg = null;
                           getUnitRequestDetailsDataApiCall(unitID);
                           Navigator.pop(context);
+                          passReloadByEventPath();
                         },
                         child: Text(
                           S.current.backToHome,

@@ -44,7 +44,7 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
           content: Text(S.of(context).only4ImagesAllowed)));
       Navigator.pop(context);
       Navigator.pop(context);
-      return ;
+      return;
     }
     if (pickedFiles != null) {
       setState(() {
@@ -80,58 +80,63 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
     return Consumer<ClaimsDetailsProvider>(
       builder: (context, pr, child) => GestureDetector(
           onTap: () async {
-            showDialog(context: context, builder: (context) {
-              return AlertDialog(
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 60.w,
-                      child: ElevatedButton.icon(
-                        onPressed: getImageFromCamera,
-                        icon: Icon(Icons.camera_alt, color: MColors.text_button_color),
-                        label: Text(S.of(context).takePhoto,
-                            style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: 60.w,
-                      child: ElevatedButton.icon(
-                        onPressed: pickImages,
-                        icon: Icon(Icons.photo_library, color: MColors.text_button_color),
-                        label: Text(
-                          S.of(context).chooseFromGallery,
-                          style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color),
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 60.w,
+                        child: ElevatedButton.icon(
+                          onPressed: getImageFromCamera,
+                          icon: Icon(Icons.camera_alt, color: MColors.text_button_color),
+                          label: Text(S.of(context).takePhoto,
+                              style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },);
+                      SizedBox(height: 8),
+                      Container(
+                        width: 60.w,
+                        child: ElevatedButton.icon(
+                          onPressed: pickImages,
+                          icon: Icon(Icons.photo_library, color: MColors.text_button_color),
+                          label: Text(
+                            S.of(context).chooseFromGallery,
+                            style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
           },
           child: Container(
             decoration: BoxDecoration(
-                border: Border.all(color: MColors.textFieldBorder),
-                borderRadius: BorderRadius.circular(8)),
+                border: Border.all(color: MColors.textFieldBorder), borderRadius: BorderRadius.circular(8)),
             padding: EdgeInsets.all(8),
             child: Row(
               children: [
                 SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
                 Gaps.hGap8,
-                SizedBox(
-                  width: 35.w,
-                  child: Text(
-                    pr.file!= null ? pr.file.path : pr.imageFiles!=null? pr.imageFiles[0].path: S.current.uploadAnyFiles,
-                    style: MTextStyles.textDark14,
-                  ),
-                ),
+                pr.file != null
+                    ? Image.file(pr.file)
+                    : pr.imageFiles != null
+                        ? Row(
+                            children: [Icon(Icons.image,color: MColors.rejected_color,), Text(pr.imageFiles.length.toString() +" "+ S.of(context).images)],
+                          )
+                        : Text(
+                            S.current.uploadAnyFiles,
+                            style: MTextStyles.textDark14,
+                          ),
                 Spacer(),
                 InkWell(
                   onTap: () async {
-                    pr.imageFiles=null;
-                    pr.file=null;
+                    pr.imageFiles = null;
+                    pr.file = null;
                     setState(() {});
                   },
                   child: Icon(Icons.close),

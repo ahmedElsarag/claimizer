@@ -12,6 +12,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -207,7 +208,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                               ),
                               Gaps.hGap12,
                               Gaps.hGap12,
-                              pr.instance.status.toLowerCase() != "rejected" && pr.instance.statustoLowerCase() != "canceled"
+                              pr.instance.status.toLowerCase() != "rejected" && pr.instance.status.toLowerCase() != "canceled"
                               &&pr.instance.status != "مرفوض" && pr.instance.status != "ملغي"
                                   ? InkWell(
                                       onTap: () {
@@ -305,95 +306,133 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                             ),
                                           ),
                                           Gaps.vGap8,
-                                          TextFormField(
-                                            style: MTextStyles.textDark14,
-                                            readOnly: true,
-                                            controller: TextEditingController(text: pro?.contractImg?.path),
-                                            decoration: InputDecoration(
-                                                hintText: S.of(context).uploadContractImage,
-                                                hintStyle: MTextStyles.textMain14,
-                                                border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
-                                                ),
-                                                enabledBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
-                                                ),
-                                                suffixIcon: InkWell(
-                                                  onTap: () async {
-                                                    pro.updateContractImg(null);
-                                                    setState(() {});
+                                          GestureDetector(
+                                              onTap: () async {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return AlertDialog(
+                                                      content: Column(
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        children: [
+                                                          Container(
+                                                            width: 60.w,
+                                                            child: ElevatedButton.icon(
+                                                              onPressed: getContractFromCamera,
+                                                              icon: Icon(Icons.camera_alt, color: MColors.text_button_color),
+                                                              label: Text(S.of(context).takePhoto,
+                                                                  style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
+                                                            ),
+                                                          ),
+                                                          SizedBox(height: 8),
+                                                          Container(
+                                                            width: 60.w,
+                                                            child: ElevatedButton.icon(
+                                                              onPressed: pickContractFromGallery,
+                                                              icon: Icon(Icons.photo_library, color: MColors.text_button_color),
+                                                              label: Text(
+                                                                S.of(context).chooseFromGallery,
+                                                                style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
                                                   },
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(12.0),
-                                                    child: Icon(Icons.close),
-                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(color: MColors.textFieldBorder), borderRadius: BorderRadius.circular(8)),
+                                                padding: EdgeInsets.all(8),
+                                                child: Row(
+                                                  children: [
+                                                    SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
+                                                    Gaps.hGap8,
+                                                    pr.contractImg != null
+                                                        ? ClipRRect(
+                                                        borderRadius: BorderRadius.circular(12),
+                                                        child: Image.file(pr.contractImg,width: 10.w,height: 10.w,fit: BoxFit.cover,))
+                                                        : Text(
+                                                      S.of(context).uploadContractImage,
+                                                      style: MTextStyles.textDark14,
+                                                    ),
+                                                    Spacer(),
+                                                    InkWell(
+                                                      onTap: () async {
+                                                        pr.contractImg = null;
+                                                        setState(() {});
+                                                      },
+                                                      child: Icon(Icons.close),
+                                                    ),
+                                                  ],
                                                 ),
-                                                prefixIcon: InkWell(
-                                                  onTap: () async {
-                                                    final result = await FilePicker.platform.pickFiles();
-                                                    if (result != null) {
-                                                      final file = File(result.files.single.path);
-                                                      pro.updateContractImg(file);
-                                                      setState(() {});
-                                                    }
-                                                  },
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(12.0),
-                                                    child: SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
-                                                  ),
-                                                )),
-                                          ),
+                                              )),
                                           Gaps.vGap8,
-                                          TextFormField(
-                                            controller: TextEditingController(text: pr?.identityImg?.path),
-                                            style: MTextStyles.textDark14,
-                                            readOnly: true,
-                                            decoration: InputDecoration(
-                                                hintText: S.of(context).uploadIdentityImage,
-                                                hintStyle: MTextStyles.textMain14,
-                                                border: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
-                                                ),
-                                                enabledBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
-                                                ),
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
-                                                ),
-                                                suffixIcon: InkWell(
-                                                  onTap: () async {
-                                                    pr.updateIdentityImg(null);
-                                                    setState(() {});
+                                          GestureDetector(
+                                              onTap: () async {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return AlertDialog(
+                                                      content: Column(
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        children: [
+                                                          Container(
+                                                            width: 60.w,
+                                                            child: ElevatedButton.icon(
+                                                              onPressed: getIdentityFromCamera,
+                                                              icon: Icon(Icons.camera_alt, color: MColors.text_button_color),
+                                                              label: Text(S.of(context).takePhoto,
+                                                                  style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
+                                                            ),
+                                                          ),
+                                                          SizedBox(height: 8),
+                                                          Container(
+                                                            width: 60.w,
+                                                            child: ElevatedButton.icon(
+                                                              onPressed: pickIdentityFromGallery,
+                                                              icon: Icon(Icons.photo_library, color: MColors.text_button_color),
+                                                              label: Text(
+                                                                S.of(context).chooseFromGallery,
+                                                                style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
                                                   },
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(12.0),
-                                                    child: Icon(Icons.close),
-                                                  ),
+                                                );
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(color: MColors.textFieldBorder), borderRadius: BorderRadius.circular(8)),
+                                                padding: EdgeInsets.all(8),
+                                                child: Row(
+                                                  children: [
+                                                    SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
+                                                    Gaps.hGap8,
+                                                    pr.identityImg != null
+                                                        ? ClipRRect(
+                                                        borderRadius: BorderRadius.circular(12),
+                                                        child: Image.file(pr.identityImg,width: 10.w,height: 10.w,fit: BoxFit.cover,))
+                                                        : Text(
+                                                      S.of(context).uploadIdentityImage,
+                                                      style: MTextStyles.textDark14,
+                                                    ),
+                                                    Spacer(),
+                                                    InkWell(
+                                                      onTap: () async {
+                                                        pr.identityImg = null;
+                                                        setState(() {});
+                                                      },
+                                                      child: Icon(Icons.close),
+                                                    ),
+                                                  ],
                                                 ),
-                                                prefixIcon: InkWell(
-                                                  onTap: () async {
-                                                    final result = await FilePicker.platform.pickFiles();
-                                                    if (result != null) {
-                                                      final file = File(result.files.single.path);
-                                                      pr.updateIdentityImg(file);
-                                                      setState(() {});
-                                                    }
-                                                  },
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(12.0),
-                                                    child: SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
-                                                  ),
-                                                )),
-                                          ),
+                                              )),
                                           Gaps.vGap8,
                                           Gaps.vGap8,
                                           ElevatedButton(
@@ -467,6 +506,65 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
             : Center(child: SizedBox.shrink()),
       );
     });
+  }
+  final picker = ImagePicker();
+
+  Future<void> pickContractFromGallery() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        provider.contractImg =  File(pickedFile.path);
+      });
+    }
+    Navigator.pop(context);
+  }
+
+  Future getContractFromCamera() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        provider.contractImg = File(pickedFile.path);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: MColors.error_color,
+            margin: EdgeInsets.all(8),
+            behavior: SnackBarBehavior.floating,
+            content: Text(S.of(context).noImageSelected)));
+        Navigator.pop(context);
+        Navigator.pop(context);
+      }
+    });
+    Navigator.pop(context);
+  }
+
+  Future<void> pickIdentityFromGallery() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        provider.identityImg =  File(pickedFile.path);
+      });
+    }
+    Navigator.pop(context);
+  }
+
+  Future getIdentityFromCamera() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        provider.identityImg = File(pickedFile.path);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: MColors.error_color,
+            margin: EdgeInsets.all(8),
+            behavior: SnackBarBehavior.floating,
+            content: Text(S.of(context).noImageSelected)));
+        Navigator.pop(context);
+        Navigator.pop(context);
+      }
+    });
+    Navigator.pop(context);
   }
 
   @override

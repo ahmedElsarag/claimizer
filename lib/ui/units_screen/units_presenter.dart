@@ -292,14 +292,14 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
       case 'تم اختيار فني':
       case 'renewing':
       case 'renewed':
-      case 'active':
+      case 'مجدد':
         return HexColor(homeProvider.claimStatusColors.assigned ?? '#ff9500');
-      case 'started':
-      case 'بدأت':
+      case 'منتهي':
+      case 'finished':
         return HexColor(homeProvider.claimStatusColors.started ?? '#ff9500');
       case 'completed':
-      case 'finished':
       case 'approved':
+      case 'موافق عليه':
       case 'مكتمل':
         return HexColor(homeProvider.claimStatusColors.completed ?? '#ff9500');
       case 'closed':
@@ -309,6 +309,7 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
       case 'canceled':
       case 'rejected':
       case 'ملغي':
+      case 'مرفوض':
         return HexColor(homeProvider.claimStatusColors.cancelled ?? '#ff9500');
       default:
         return Color(0xff44A4F2).withOpacity(0.08);

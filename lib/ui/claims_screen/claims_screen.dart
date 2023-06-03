@@ -158,7 +158,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                           height: 10.w,
                           child: TextFormField(
                             style: MTextStyles.textDark14,
-                            controller: searchController,
+                            controller: pr.searchController,
                             decoration: InputDecoration(
                               hintText: S.current.search,
                               hintStyle: MTextStyles.textGray14,
@@ -174,7 +174,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 ),
                                 onTap: () {
                                   Map<String, dynamic> parms = Map();
-                                  parms['property'] = searchController.text.toString();
+                                  parms['property'] = pr.searchController.text.toString();
                                   mPresenter.getFilteredClaimsApiCall(parms);
                                 },
                               ),
@@ -184,14 +184,14 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                   color: MColors.primary_light_color,
                                 ),
                                 onTap: () {
-                                  searchController.clear();
+                                  pr.searchController.clear();
                                   mPresenter.getAllClaimsApiCall();
                                 },
                               ),
                             ),
                             onFieldSubmitted: (value) {
                               Map<String, dynamic> parms = Map();
-                              parms['property'] = searchController.text.toString();
+                              parms['property'] = pr.searchController.text.toString();
                               mPresenter.getFilteredClaimsApiCall(parms);
                             },
                             onChanged: (value) {

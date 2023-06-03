@@ -64,6 +64,15 @@ class ClaimsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  TextEditingController _searchController = TextEditingController();
+
+  TextEditingController get searchController => _searchController;
+
+  set searchController(TextEditingController value) {
+    _searchController = value;
+    notifyListeners();
+  }
+
   String _searchValue = '';
 
   String get searchValue => _searchValue;

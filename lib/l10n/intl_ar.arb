@@ -165,6 +165,8 @@
   "only4ImagesAllowed": "مسموح برفع 4 صور كحد أقصي",
   "uploadYourIdentity": "قم برفع صورة الهوية",
   "uploadContractFile": "قم برفع صورة العقد",
-  "contractFile": "Contract file",
-  "identityFile": "Identity file"
+  "contractFile": "صورة العقد",
+  "identityFile": "صورة الهوية",
+  "images": "صور",
+  "claimClosed": "تم غلق طلب الصيانة"
 }

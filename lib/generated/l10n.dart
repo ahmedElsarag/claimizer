@@ -1725,41 +1725,21 @@ class S {
     );
   }
 
-  /// `Contract file`
-  String get contractFile {
+  /// `Images`
+  String get images {
     return Intl.message(
-      'Contract file',
-      name: 'contractFile',
+      'Images',
+      name: 'images',
       desc: '',
       args: [],
     );
   }
 
-  /// `Identity file`
-  String get identityFile {
+  /// `Claim Closed`
+  String get claimClosed {
     return Intl.message(
-      'Identity file',
-      name: 'identityFile',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Upload Your Identity`
-  String get uploadYourIdentity {
-    return Intl.message(
-      'Upload Your Identity',
-      name: 'uploadYourIdentity',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Upload Contract File`
-  String get uploadContractFile {
-    return Intl.message(
-      'Upload Contract File',
-      name: 'uploadContractFile',
+      'Claim Closed',
+      name: 'claimClosed',
       desc: '',
       args: [],
     );

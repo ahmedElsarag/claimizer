@@ -21,44 +21,48 @@ class UnitLinkRequest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<UnitProvider>(
-      builder: (context, pr, child) =>  pr.unitsRequestList.isNotEmpty? RefreshIndicator(
-        onRefresh: ()async{
-          await presenter.getUnitRequestsApiCall();
-          pr.unitLinkSearchController.clear();
-        },
-        child: ListView.builder(
-          itemCount: pr.unitsRequestList.length,
-          itemBuilder: (context, index) => InkWell(
-            onTap: (){
-              Navigator.push(context, CupertinoPageRoute(builder: (context) => UnitRequestDetailsScreen(
-                id: pr.unitsRequestList[index].id,
-                unitRequestDataBean: pr.unitsRequestList[index],
-              ),));
-            },
-            child: Container(
-              decoration:
-              BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-              padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
-              margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            pr.unitsRequestList[index].unitName??"",
-                            style: MTextStyles.textBoldDark16,
+      builder: (context, pr, child) => pr.unitsRequestList.isNotEmpty
+          ? RefreshIndicator(
+              onRefresh: () async {
+                await presenter.getUnitRequestsApiCall();
+                pr.unitLinkSearchController.clear();
+              },
+              child: ListView.builder(
+                itemCount: pr.unitsRequestList.length,
+                itemBuilder: (context, index) => InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => UnitRequestDetailsScreen(
+                            id: pr.unitsRequestList[index].id,
+                            unitRequestDataBean: pr.unitsRequestList[index],
                           ),
-                          Text(
-                            S.of(context).requestCode + pr.unitsRequestList[index].refCode,
-                            style: MTextStyles.textSubtitle,
-                          ),
-                        ],
-                      ),
-                      Container(
+                        ));
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
+                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
+                    margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  pr.unitsRequestList[index].unitName ?? "",
+                                  style: MTextStyles.textBoldDark16,
+                                ),
+                                Text(
+                                  S.of(context).requestCode + pr.unitsRequestList[index].refCode,
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                            Container(
                                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                                 decoration: BoxDecoration(
                                   color: presenter
@@ -69,119 +73,112 @@ class UnitLinkRequest extends StatelessWidget {
                                     style: MTextStyles.textDark12
                                         .copyWith(color: Colors.white, fontWeight: FontWeight.w600)))
                           ],
-                  ),
-                  buildDivider(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            S.of(context).unitName+ " :    ",
-                            style: MTextStyles.textBoldDark12
-                                .copyWith(color: MColors.subtitlesColor),
-                          ),
-                          Text(
-                            pr.unitsRequestList[index].unitName??"",
-                            style: MTextStyles.textSubtitle,
-                          ),
-                        ],
-                      ),
-                      Gaps.vGap8,
-                      Row(
-                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            S.of(context).buildingName+ " :    ",
-                            style: MTextStyles.textBoldDark12
-                                .copyWith(color: MColors.subtitlesColor),
-                          ),
-                          Text(
-                            pr.unitsRequestList[index].buildingName??"",
-                            style: MTextStyles.textSubtitle,
-                          ),
-                        ],
-                      ),
-                      Gaps.vGap8,
-                      Row(
-                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            S.of(context).unitType+ " :    ",
-                            style: MTextStyles.textBoldDark12
-                                .copyWith(color: MColors.subtitlesColor),
-                          ),
-                          Text(
-                            pr.unitsRequestList[index].unitType??"",
-                            style: MTextStyles.textSubtitle,
-                          ),
-                        ],
-                      ),
-                      Gaps.vGap8,
-                      Row(
-                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            S.of(context).company+ " :    ",
-                            style: MTextStyles.textBoldDark12
-                                .copyWith(color: MColors.subtitlesColor),
-                          ),
-                          Text(
-                            pr.unitsRequestList[index].company??"",
-                            style: MTextStyles.textSubtitle,
-                          ),
-                        ],
-                      ),
-                      Gaps.vGap8,
-                      Row(
-                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            S.of(context).contractNo+ " :    ",
-                            style: MTextStyles.textBoldDark12
-                                .copyWith(color: MColors.subtitlesColor),
-                          ),
-                          Text(
-                            pr.unitsRequestList[index].contractNumber ?? S.current.na,
-                            style: MTextStyles.textSubtitle,
-                          ),
-                        ],
-                      ),
-                      Gaps.vGap8,
-                      Row(
-                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            S.of(context).startAt+ " :    ",
-                            style: MTextStyles.textBoldDark12
-                                .copyWith(color: MColors.subtitlesColor),
-                          ),
-                          Text(
-                            pr.unitsRequestList[index].startAt??"",
-                            style: MTextStyles.textSubtitle,
-                          ),
-                        ],
-                      ),
-                      Gaps.vGap8,
-                      Row(
-                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            S.of(context).endAt+ " :    ",
-                            style: MTextStyles.textBoldDark12
-                                .copyWith(color: MColors.subtitlesColor),
-                          ),
-                          Text(
-                            pr.unitsRequestList[index].endAt??"",
-                            style: MTextStyles.textSubtitle,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  /*buildDivider(),
+                        ),
+                        buildDivider(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).unitName + " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsRequestList[index].unitName ?? "",
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                            Gaps.vGap8,
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).buildingName + " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsRequestList[index].buildingName ?? "",
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                            Gaps.vGap8,
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).unitType + " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsRequestList[index].unitType ?? "",
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                            Gaps.vGap8,
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).company + " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsRequestList[index].company ?? "",
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                            Gaps.vGap8,
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).contractNo + " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsRequestList[index].contractNumber ?? S.current.na,
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                            Gaps.vGap8,
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).startAt + " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsRequestList[index].startAt ?? "",
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                            Gaps.vGap8,
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).endAt + " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsRequestList[index].endAt ?? "",
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        /*buildDivider(),
                   Row(
                     children: [
                       Row(
@@ -214,16 +211,15 @@ class UnitLinkRequest extends StatelessWidget {
                       )
                     ],
                   )*/
-                ],
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-      )
-    : NoDataWidget(
-      onRefresh: ()async{
-        await presenter.getUnitRequestsApiCall();
-      }),
+            )
+          : NoDataWidget(onRefresh: () async {
+              await presenter.getUnitRequestsApiCall();
+            }),
     );
   }
 

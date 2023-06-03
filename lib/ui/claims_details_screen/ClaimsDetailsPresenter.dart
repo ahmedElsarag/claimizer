@@ -128,7 +128,7 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
         onSuccess: (data)  {
           if (data != null) {
             Navigator.pop(view.context);
-            view.showToasts(S.of(view.context).claimDeleted, "success");
+            view.showToasts(S.of(view.context).claimClosed, "success");
             Navigator.pop(view.context);
             passReloadByEventPath();
           }else{

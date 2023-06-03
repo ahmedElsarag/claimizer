@@ -25,6 +25,7 @@ class AllClaims extends StatelessWidget {
               child: pr.claimsList.isNotEmpty
                   ? RefreshIndicator(
                       onRefresh: () async {
+                        pr.searchController.text = "";
                         await presenter.getAllClaimsApiCall();
                       },
                       child: ListView.separated(
@@ -111,7 +112,7 @@ class AllClaims extends StatelessWidget {
                                           isLast: true,
                                           title: S.of(context).availableTime,
                                           data:
-                                              "${pr?.claimsList[index]?.availableDate.toString()} - ${pr?.claimsList[index]?.availableTime}"),
+                                              "${pr?.claimsList[index]?.availableDate.toString()}\n${pr?.claimsList[index]?.availableTime}"),
                                     ],
                                   )
                                 ],

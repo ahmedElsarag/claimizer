@@ -10,6 +10,14 @@ class UnitDetailsProvider<T> extends BaseProvider<UnitRequestDetailsDataBean> {
   bool _internetStatus = true;
   TextEditingController _contractNo = TextEditingController();
   DateTime _endDate;
+
+  File get contractImg => _contractImg;
+
+  set contractImg(File value) {
+    _contractImg = value;
+    notifyListeners();
+  }
+
   File _contractImg;
   File _identityImg;
 
@@ -67,16 +75,9 @@ class UnitDetailsProvider<T> extends BaseProvider<UnitRequestDetailsDataBean> {
     notifyListeners();
   }
 
-  File get contractImg => _contractImg;
-
-  void updateContractImg(File newFile) {
-    _contractImg = newFile;
-    notifyListeners();
-  }
-
   File get identityImg => _identityImg;
 
-  void updateIdentityImg(File value) {
+  set identityImg(File value) {
     _identityImg = value;
     notifyListeners();
   }
