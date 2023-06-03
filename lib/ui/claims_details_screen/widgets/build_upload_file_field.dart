@@ -123,7 +123,7 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
                 SizedBox(
                   width: 35.w,
                   child: Text(
-                    pr.file!= null ? pr.file.path : pr.imageFiles.isNotEmpty? pr.imageFiles[0].path: S.current.uploadAnyFiles,
+                    pr.file!= null ? pr.file.path : pr.imageFiles!=null? pr.imageFiles[0].path: S.current.uploadAnyFiles,
                     style: MTextStyles.textDark14,
                   ),
                 ),

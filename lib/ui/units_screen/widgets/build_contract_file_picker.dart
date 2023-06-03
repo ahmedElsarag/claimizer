@@ -109,16 +109,13 @@ class _BuildContractFilePickerState extends State<BuildContractFilePicker> {
               children: [
                 SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
                 Gaps.hGap8,
-                SizedBox(
-                  width: 35.w,
-                  child: Text(
-                    pr.contractImg != null
-                        ? pr.contractImg.path
-                        : pr.contractFiles.isNotEmpty
-                        ? pr.contractFiles[0].path
-                        : S.current.uploadAnyFiles,
-                    style: MTextStyles.textDark14,
-                  ),
+                pr.contractImg != null
+                    ? ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.file(pr.contractImg,width: 10.w,height: 10.w,fit: BoxFit.cover,))
+                    : Text(
+                  S.of(context).uploadContractFile,
+                  style: MTextStyles.textDark14,
                 ),
                 Spacer(),
                 InkWell(

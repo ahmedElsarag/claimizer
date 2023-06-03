@@ -1684,6 +1684,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Upload Your Identity`
+  String get uploadYourIdentity {
+    return Intl.message(
+      'Upload Your Identity',
+      name: 'uploadYourIdentity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload Contract File`
+  String get uploadContractFile {
+    return Intl.message(
+      'Upload Contract File',
+      name: 'uploadContractFile',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

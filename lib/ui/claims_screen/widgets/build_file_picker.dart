@@ -114,10 +114,12 @@ class _BuildFilePickerState extends State<BuildFilePicker> {
                 Gaps.hGap8,
                 SizedBox(
                   width: 55.w,
-                  child: Text(
-                    pr.file != null
-                        ? pr.file.path
-                        : pr.imageFiles.isNotEmpty
+                  child:pr.file != null
+                      ? ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.file(pr.file,width: 10.w,height: 10.w,fit: BoxFit.cover,))
+                      : Text(
+                      pr.imageFiles != null
                             ? pr.imageFiles[0].path
                             : S.current.uploadAnyFiles,
                     style: MTextStyles.textDark14,

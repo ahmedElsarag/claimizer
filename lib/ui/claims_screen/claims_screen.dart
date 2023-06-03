@@ -73,7 +73,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
   Widget build(BuildContext context) {
     super.build(context);
     List<String> cardTitles = [
-      S.current.newClaims,
+      S.current.addNewClaim,
       S.current.allClaims,
     ];
     List<String> cardImages = [

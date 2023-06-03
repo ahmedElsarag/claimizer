@@ -21,173 +21,152 @@ class ExistingUnitList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<UnitProvider>(
       builder: (context, pr, child) {
-        return pr.unitsList.isNotEmpty ? RefreshIndicator(
-          onRefresh: () async {
-            pr.searchController.clear();
-            await presenter.getExistingUnitsApiCall();
-          },
-          child: ListView.builder(
-            itemCount: pr.unitsList.length,
-            itemBuilder: (context, index) =>
-                Container(
-                  decoration:
-                  BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
-                  margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                pr.unitsList[index].name ?? "",
-                                style: MTextStyles.textBoldDark16,
-                              ),
-                              Text(
-                                S.of(context).unitCode + pr.unitsList[index].code,
-                                style: MTextStyles.textSubtitle,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      buildDivider(),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                S
-                                    .of(context)
-                                    .unitName,
-                                style: MTextStyles.textBoldDark12
-                                    .copyWith(color: MColors.subtitlesColor),
-                              ),
-                              Text(
-                                pr.unitsList[index].name ?? "",
-                                style: MTextStyles.textSubtitle,
-                              ),
-                            ],
-                          ),
-                          Gaps.vGap8,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                S
-                                    .of(context)
-                                    .buildingName,
-                                style: MTextStyles.textBoldDark12
-                                    .copyWith(color: MColors.subtitlesColor),
-                              ),
-                              Text(
-                                pr.unitsList[index].building ?? "",
-                                style: MTextStyles.textSubtitle,
-                              ),
-                            ],
-                          ),
-                          Gaps.vGap8,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                S
-                                    .of(context)
-                                    .unitType,
-                                style: MTextStyles.textBoldDark12
-                                    .copyWith(color: MColors.subtitlesColor),
-                              ),
-                              Text(
-                                pr.unitsList[index].type ?? "",
-                                style: MTextStyles.textSubtitle,
-                              ),
-                            ],
-                          ),
-                          Gaps.vGap8,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                S
-                                    .of(context)
-                                    .company,
-                                style: MTextStyles.textBoldDark12
-                                    .copyWith(color: MColors.subtitlesColor),
-                              ),
-                              Text(
-                                pr.unitsList[index].company ?? "",
-                                style: MTextStyles.textSubtitle,
-                              ),
-                            ],
-                          ),
-                          Gaps.vGap8,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                S
-                                    .of(context)
-                                    .contractNo,
-                                style: MTextStyles.textBoldDark12
-                                    .copyWith(color: MColors.subtitlesColor),
-                              ),
-                              Text(
-                                pr.unitsList[index].id.toString() ?? "",
-                                style: MTextStyles.textSubtitle,
-                              ),
-                            ],
-                          ),
-                          Gaps.vGap8,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                S
-                                    .of(context)
-                                    .startAt,
-                                style: MTextStyles.textBoldDark12
-                                    .copyWith(color: MColors.subtitlesColor),
-                              ),
-                              Text(
-                                pr.unitsList[index].startAt ?? "",
-                                style: MTextStyles.textSubtitle,
-                              ),
-                            ],
-                          ),
-                          Gaps.vGap8,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                S
-                                    .of(context)
-                                    .endAt,
-                                style: MTextStyles.textBoldDark12
-                                    .copyWith(color: MColors.subtitlesColor),
-                              ),
-                              Text(
-                                pr.unitsList[index].endAt ?? "",
-                                style: MTextStyles.textSubtitle,
-                              ),
-                            ],
-                          ),
-                        ],
-                      )
-                    ],
+        return pr.unitsList.isNotEmpty
+            ? RefreshIndicator(
+                onRefresh: () async {
+                  pr.searchController.clear();
+                  await presenter.getExistingUnitsApiCall();
+                },
+                child: ListView.builder(
+                  itemCount: pr.unitsList.length,
+                  itemBuilder: (context, index) => Container(
+                    decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
+                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
+                    margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
+                    child: Column(
+                      children: [
+                        Row(
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  pr.unitsList[index].name ?? "",
+                                  style: MTextStyles.textBoldDark16,
+                                ),
+                                Text(
+                                  S.of(context).unitCode + pr.unitsList[index].code,
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        buildDivider(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).unitName+ " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsList[index].name ?? "",
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                            Gaps.vGap8,
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).buildingName+ " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsList[index].building ?? "",
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                            Gaps.vGap8,
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).unitType+ " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsList[index].type ?? "",
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                            Gaps.vGap8,
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).company+ " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsList[index].company ?? "",
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                            Gaps.vGap8,
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).contractNo+ " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsList[index].id.toString() ?? "",
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                            Gaps.vGap8,
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).startAt+ " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsList[index].startAt ?? "",
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                            Gaps.vGap8,
+                            Row(
+                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).endAt+ " :    ",
+                                  style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+                                ),
+                                Text(
+                                  pr.unitsList[index].endAt ?? "",
+                                  style: MTextStyles.textSubtitle,
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
-          ),
-        ) : NoDataWidget(
-          onRefresh: ()async{
-            await presenter.getExistingUnitsApiCall();
-          },
-        );
+              )
+            : NoDataWidget(
+                onRefresh: () async {
+                  await presenter.getExistingUnitsApiCall();
+                },
+              );
       },
     );
   }

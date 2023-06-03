@@ -47,17 +47,23 @@ class NewLinkRequestDataBean {
 }
 
 class Units {
-  String u22822094;
+  int id;
+  String code;
+  String propertyName;
 
-  Units({this.u22822094});
+  Units({this.id, this.code, this.propertyName});
 
   Units.fromJson(Map<String, dynamic> json) {
-    u22822094 = json['U22-82209-4'];
+    id = json['id'];
+    code = json['code'];
+    propertyName = json['property_name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['U22-82209-4'] = this.u22822094;
+    data['id'] = this.id;
+    data['code'] = this.code;
+    data['property_name'] = this.propertyName;
     return data;
   }
 }

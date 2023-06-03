@@ -73,13 +73,13 @@ class UnitLinkRequest extends StatelessWidget {
                   buildDivider(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            S.of(context).unitName,
+                            S.of(context).unitName+ " :    ",
                             style: MTextStyles.textBoldDark12
                                 .copyWith(color: MColors.subtitlesColor),
                           ),
@@ -91,10 +91,10 @@ class UnitLinkRequest extends StatelessWidget {
                       ),
                       Gaps.vGap8,
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            S.of(context).buildingName,
+                            S.of(context).buildingName+ " :    ",
                             style: MTextStyles.textBoldDark12
                                 .copyWith(color: MColors.subtitlesColor),
                           ),
@@ -106,10 +106,10 @@ class UnitLinkRequest extends StatelessWidget {
                       ),
                       Gaps.vGap8,
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            S.of(context).unitType,
+                            S.of(context).unitType+ " :    ",
                             style: MTextStyles.textBoldDark12
                                 .copyWith(color: MColors.subtitlesColor),
                           ),
@@ -121,10 +121,10 @@ class UnitLinkRequest extends StatelessWidget {
                       ),
                       Gaps.vGap8,
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            S.of(context).company,
+                            S.of(context).company+ " :    ",
                             style: MTextStyles.textBoldDark12
                                 .copyWith(color: MColors.subtitlesColor),
                           ),
@@ -136,10 +136,10 @@ class UnitLinkRequest extends StatelessWidget {
                       ),
                       Gaps.vGap8,
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            S.of(context).contractNo,
+                            S.of(context).contractNo+ " :    ",
                             style: MTextStyles.textBoldDark12
                                 .copyWith(color: MColors.subtitlesColor),
                           ),
@@ -151,10 +151,10 @@ class UnitLinkRequest extends StatelessWidget {
                       ),
                       Gaps.vGap8,
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            S.of(context).startAt,
+                            S.of(context).startAt+ " :    ",
                             style: MTextStyles.textBoldDark12
                                 .copyWith(color: MColors.subtitlesColor),
                           ),
@@ -166,10 +166,10 @@ class UnitLinkRequest extends StatelessWidget {
                       ),
                       Gaps.vGap8,
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            S.of(context).endAt,
+                            S.of(context).endAt+ " :    ",
                             style: MTextStyles.textBoldDark12
                                 .copyWith(color: MColors.subtitlesColor),
                           ),

@@ -17,17 +17,18 @@ class ClaimCardDataItem extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: isLast ? 0 : 8.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            title,
+            title + " :  ",
             style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
           ),
-          SizedBox(
-            width: 20,
-          ),
+          // SizedBox(
+          //   width: 20,
+          // ),
           Container(
-            width: 40.w,
+            // width: 40.w,
             alignment: AlignmentDirectional.centerEnd,
             child: Text(
               data.toLowerCase() ?? S.of(context).na,

@@ -129,13 +129,14 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                             ),
                                             Gaps.vGap8,
                                             BuildUploadFileField(
-                                              provider: provider,presenter: mPresenter,
+                                              provider: provider,
+                                              presenter: mPresenter,
                                             ),
                                             Gaps.vGap8,
                                             ElevatedButton(
                                               onPressed: () async {
                                                 final formData = FormData();
-                                                if (pr.imageFiles !=null) {
+                                                if (pr.imageFiles != null) {
                                                   for (var i = 0; i < pr.imageFiles.length; i++) {
                                                     final file = await pr.imageFiles[i].readAsBytes();
                                                     formData.files.add(MapEntry(
@@ -143,12 +144,12 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                       MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
                                                     ));
                                                     formData.fields.add(MapEntry("comment", pr.comment.text));
-                                                    formData.fields
-                                                        .add(MapEntry("request_id", widget.unitRequestDataBean.id.toString()));
+                                                    formData.fields.add(MapEntry(
+                                                        "request_id", widget.unitRequestDataBean.id.toString()));
                                                   }
                                                   mPresenter.doPostCommentApiCall(
                                                       formData, widget.unitRequestDataBean.id);
-                                                } else if(pr.file !=null){
+                                                } else if (pr.file != null) {
                                                   FormData formData = new FormData.fromMap({
                                                     "files[0]": await MultipartFile.fromFile(
                                                       pr.file.path,
@@ -156,7 +157,6 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                     ),
                                                     "comment": pr.comment.text,
                                                     "request_id": widget.unitRequestDataBean.id,
-
                                                   });
                                                   mPresenter.doPostCommentApiCall(
                                                       formData, widget.unitRequestDataBean.id);
@@ -169,8 +169,8 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                   mPresenter.doPostCommentApiCall(
                                                       formData, widget.unitRequestDataBean.id);
                                                 }
-                                                pr.imageFiles=null;
-                                                pr.file=null;
+                                                pr.imageFiles = null;
+                                                pr.file = null;
                                                 pr.comment.clear();
                                                 setState(() {});
                                               },
@@ -180,12 +180,12 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                               ),
                                               style: ButtonStyle(
                                                   backgroundColor:
-                                                  MaterialStateProperty.all<Color>(MColors.primary_color),
+                                                      MaterialStateProperty.all<Color>(MColors.primary_color),
                                                   elevation: MaterialStatePropertyAll(0),
                                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                       RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(8),
-                                                      )),
+                                                    borderRadius: BorderRadius.circular(8),
+                                                  )),
                                                   padding: MaterialStateProperty.all<EdgeInsets>(
                                                       EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
                                             ),
@@ -210,26 +210,29 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                               ),
                               Gaps.hGap12,
                               Gaps.hGap12,
-                              InkWell(
-                                onTap: () {
-                                  mPresenter.unlinkUnitRequestApiCall({"id":pr.instance.id});
-                                },
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          color: MColors.primary_color.withOpacity(0.08), shape: BoxShape.circle),
-                                      padding: EdgeInsets.all(4),
-                                      child: Icon(Icons.link_off,color: MColors.primary_color)
-                                    ),
-                                    Gaps.hGap8,
-                                    Text(
-                                      S.of(context).unlinkUnit,
-                                      style: MTextStyles.textMain14,
+                              pr.instance.status != "Rejected" && pr.instance.status != "Canceled"
+                              &&pr.instance.status != "مرفوض" && pr.instance.status != "ملغي"
+                                  ? InkWell(
+                                      onTap: () {
+                                        mPresenter.unlinkUnitRequestApiCall({"id": pr.instance.id});
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                              decoration: BoxDecoration(
+                                                  color: MColors.primary_color.withOpacity(0.08),
+                                                  shape: BoxShape.circle),
+                                              padding: EdgeInsets.all(4),
+                                              child: Icon(Icons.link_off, color: MColors.primary_color)),
+                                          Gaps.hGap8,
+                                          Text(
+                                            S.of(context).unlinkUnit,
+                                            style: MTextStyles.textMain14,
+                                          )
+                                        ],
+                                      ),
                                     )
-                                  ],
-                                ),
-                              ),
+                                  : SizedBox.shrink(),
                             ],
                           ),
                           Gaps.vGap12,
@@ -257,7 +260,8 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                               style: MTextStyles.textDark14,
                                               decoration: InputDecoration(
                                                 hintText: S.of(context).contractNo,
-                                                hintStyle: MTextStyles.textMain14.copyWith(color: MColors.light_text_color, fontWeight: FontWeight.w500),
+                                                hintStyle: MTextStyles.textMain14.copyWith(
+                                                    color: MColors.light_text_color, fontWeight: FontWeight.w500),
                                                 border: OutlineInputBorder(
                                                   borderRadius: BorderRadius.circular(8),
                                                   borderSide: BorderSide(color: MColors.textFieldBorder),
@@ -275,15 +279,15 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                           ),
                                           Gaps.vGap8,
                                           GestureDetector(
-                                            onTap: () async{
+                                            onTap: () async {
                                               final DateTime picked = await showDatePicker(
-                                                    context: context,
-                                                    initialDate: pr.endDate ?? DateTime.now(),
-                                                    firstDate: DateTime(1900),
-                                                    lastDate: DateTime.now().add(Duration(days: 1000)));
-                                                if (picked != null) {
-                                                  pr.endDate = picked;
-                                                }
+                                                  context: context,
+                                                  initialDate: pr.endDate ?? DateTime.now(),
+                                                  firstDate: DateTime(1900),
+                                                  lastDate: DateTime.now().add(Duration(days: 1000)));
+                                              if (picked != null) {
+                                                pr.endDate = picked;
+                                              }
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -305,50 +309,49 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                           ),
                                           Gaps.vGap8,
                                           TextFormField(
-                                              style: MTextStyles.textDark14,
-                                              readOnly: true,
-                                              controller: TextEditingController(text: pro?.contractImg?.path),
-                                              decoration: InputDecoration(
-                                                  hintText: S.of(context).uploadContractImage,
-                                                  hintStyle: MTextStyles.textMain14,
-                                                  border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                    borderSide: BorderSide(color: MColors.textFieldBorder),
+                                            style: MTextStyles.textDark14,
+                                            readOnly: true,
+                                            controller: TextEditingController(text: pro?.contractImg?.path),
+                                            decoration: InputDecoration(
+                                                hintText: S.of(context).uploadContractImage,
+                                                hintStyle: MTextStyles.textMain14,
+                                                border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                ),
+                                                enabledBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                ),
+                                                suffixIcon: InkWell(
+                                                  onTap: () async {
+                                                    pro.updateContractImg(null);
+                                                    setState(() {});
+                                                  },
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(12.0),
+                                                    child: Icon(Icons.close),
                                                   ),
-                                                  enabledBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                    borderSide: BorderSide(color: MColors.textFieldBorder),
-                                                  ),
-                                                  focusedBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                    borderSide: BorderSide(color: MColors.textFieldBorder),
-                                                  ),
-                                                  suffixIcon:  InkWell(
-                                                    onTap: () async {
-                                                      pro.updateContractImg(null);
+                                                ),
+                                                prefixIcon: InkWell(
+                                                  onTap: () async {
+                                                    final result = await FilePicker.platform.pickFiles();
+                                                    if (result != null) {
+                                                      final file = File(result.files.single.path);
+                                                      pro.updateContractImg(file);
                                                       setState(() {});
-                                                    },
-                                                    child:Padding(
-                                                      padding: const EdgeInsets.all(12.0),
-                                                      child: Icon(Icons.close),
-                                                    ),
+                                                    }
+                                                  },
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(12.0),
+                                                    child: SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
                                                   ),
-                                                  prefixIcon: InkWell(
-                                                    onTap: () async {
-                                                      final result = await FilePicker.platform.pickFiles();
-                                                      if (result != null) {
-                                                        final file = File(result.files.single.path);
-                                                        pro.updateContractImg(file);
-                                                        setState(() {});
-                                                      }
-                                                    },
-                                                    child:Padding(
-                                                      padding: const EdgeInsets.all(12.0),
-                                                      child: SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
-                                                    ),
-                                                  )),
-
-                                            ),
+                                                )),
+                                          ),
                                           Gaps.vGap8,
                                           TextFormField(
                                             controller: TextEditingController(text: pr?.identityImg?.path),
@@ -369,12 +372,12 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                   borderRadius: BorderRadius.circular(8),
                                                   borderSide: BorderSide(color: MColors.textFieldBorder),
                                                 ),
-                                                suffixIcon:  InkWell(
+                                                suffixIcon: InkWell(
                                                   onTap: () async {
                                                     pr.updateIdentityImg(null);
                                                     setState(() {});
                                                   },
-                                                  child:Padding(
+                                                  child: Padding(
                                                     padding: const EdgeInsets.all(12.0),
                                                     child: Icon(Icons.close),
                                                   ),
@@ -388,16 +391,16 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                       setState(() {});
                                                     }
                                                   },
-                                                  child:Padding(
+                                                  child: Padding(
                                                     padding: const EdgeInsets.all(12.0),
                                                     child: SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
                                                   ),
                                                 )),
-
                                           ),
-                                          Gaps.vGap8, Gaps.vGap8,
+                                          Gaps.vGap8,
+                                          Gaps.vGap8,
                                           ElevatedButton(
-                                            onPressed:  () async {
+                                            onPressed: () async {
                                               if (pr.contractNo.text.isEmpty && pr.endDate == null) {
                                                 mPresenter.view.showSnackBar("msg");
                                               } else {
@@ -416,7 +419,8 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                   "end_at": pr.endDate.toString(),
                                                   "id": pr.instance.id,
                                                 });
-                                                mPresenter.renewUnitLinkRequestApiCall(formData,widget.unitRequestDataBean.id);
+                                                mPresenter.renewUnitLinkRequestApiCall(
+                                                    formData, widget.unitRequestDataBean.id);
                                                 // Navigator.pop(context);
                                               }
                                             },
@@ -426,12 +430,12 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                             ),
                                             style: ButtonStyle(
                                                 backgroundColor:
-                                                MaterialStateProperty.all<Color>(MColors.primary_color),
+                                                    MaterialStateProperty.all<Color>(MColors.primary_color),
                                                 elevation: MaterialStatePropertyAll(0),
                                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                     RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(8),
-                                                    )),
+                                                  borderRadius: BorderRadius.circular(8),
+                                                )),
                                                 padding: MaterialStateProperty.all<EdgeInsets>(
                                                     EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
                                           )
@@ -445,11 +449,10 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                             child: Row(
                               children: [
                                 Container(
-                                  decoration: BoxDecoration(
-                                      color: MColors.primary_color.withOpacity(0.08), shape: BoxShape.circle),
-                                  padding: EdgeInsets.all(4),
-                                  child: Icon(Icons.update,color: MColors.primary_color)
-                                ),
+                                    decoration: BoxDecoration(
+                                        color: MColors.primary_color.withOpacity(0.08), shape: BoxShape.circle),
+                                    padding: EdgeInsets.all(4),
+                                    child: Icon(Icons.update, color: MColors.primary_color)),
                                 Gaps.hGap8,
                                 Text(
                                   S.of(context).renew,

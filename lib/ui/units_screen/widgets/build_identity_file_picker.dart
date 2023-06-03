@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:Cliamizer/CommonUtils/FullScreenImage.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -37,7 +39,7 @@ class _BuildIdentityFilePickerState extends State<BuildIdentityFilePicker> {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
-        widget.provider.identityImg =  File(pickedFile.path);
+        widget.provider.identityImg = File(pickedFile.path);
       });
     }
     Navigator.pop(context);
@@ -109,17 +111,14 @@ class _BuildIdentityFilePickerState extends State<BuildIdentityFilePicker> {
               children: [
                 SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
                 Gaps.hGap8,
-                SizedBox(
-                  width: 35.w,
-                  child: Text(
-                    pr.identityImg != null
-                        ? pr.identityImg.path
-                        : pr.identityFiles.isNotEmpty
-                            ? pr.identityFiles[0].path
-                            : S.current.uploadAnyFiles,
-                    style: MTextStyles.textDark14,
-                  ),
-                ),
+                pr.identityImg != null
+                    ? ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.file(pr.identityImg,width: 10.w,height: 10.w,fit: BoxFit.cover,))
+                    : Text(
+                        S.of(context).uploadYourIdentity,
+                        style: MTextStyles.textDark14,
+                      ),
                 Spacer(),
                 InkWell(
                   onTap: () async {

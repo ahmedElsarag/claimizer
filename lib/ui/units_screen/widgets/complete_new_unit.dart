@@ -2,6 +2,7 @@ import 'package:Cliamizer/ui/units_screen/units_presenter.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/build_description_field.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/build_contract_file_picker.dart';
+import 'package:Cliamizer/ui/units_screen/widgets/unit_name_field.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -60,11 +61,17 @@ class CompleteNewUnit extends StatelessWidget {
               ],
             ),
             Gaps.vGap8,
-            Gaps.vGap12,
+            
             BuildingNameField(
               provider: provider,
             ),
             Gaps.vGap8,
+            
+            UnitNameField(
+              provider: provider,
+            ),
+            Gaps.vGap8,
+            
             CompanyNameField(
               provider: provider,
             ),
@@ -86,7 +93,7 @@ class CompleteNewUnit extends StatelessWidget {
             BuildDescriptionField(
               provider: provider,
             ),
-            Gaps.vGap12,
+            Gaps.vGap8,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
