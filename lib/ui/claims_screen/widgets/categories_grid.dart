@@ -31,7 +31,7 @@ class CategoriesGrid extends StatelessWidget {
                         physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                           childAspectRatio: 1.0,
-                          maxCrossAxisExtent: 38.w,
+                          maxCrossAxisExtent: 40.w,
                           crossAxisSpacing: 8.0,
                           mainAxisSpacing: 8.0,
                         ),

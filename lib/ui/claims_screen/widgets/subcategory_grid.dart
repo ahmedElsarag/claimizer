@@ -27,7 +27,7 @@ class SubcategoryGrid extends StatelessWidget {
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 38.w,
+                          maxCrossAxisExtent: 40.w,
                           childAspectRatio: 1.0,
                           crossAxisSpacing: 8.0,
                           mainAxisSpacing: 8.0,

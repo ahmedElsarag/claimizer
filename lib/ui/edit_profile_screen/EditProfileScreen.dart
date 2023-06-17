@@ -738,6 +738,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
   }
 
   void editProfile() async {
+    print("!@@!@!@!@!@!@!@ ${_image.path}");
     if (_image != null) {
       FormData formData = new FormData.fromMap({
         "image": await MultipartFile.fromFile(
