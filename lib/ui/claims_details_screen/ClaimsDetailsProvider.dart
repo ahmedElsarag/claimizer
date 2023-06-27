@@ -22,6 +22,7 @@ class ClaimsDetailsProvider<T> extends BaseProvider<T> {
     _isDateLoaded = value;
     notifyListeners();
   }
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   TextEditingController _comment = TextEditingController();
   File _file;

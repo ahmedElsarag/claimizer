@@ -22,7 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "accountCreated" : MessageLookupByLibrary.simpleMessage("Account Created"),
-    "addComment" : MessageLookupByLibrary.simpleMessage("Add Comment"),
+    "addComment" : MessageLookupByLibrary.simpleMessage("Confirm"),
     "addNewClaim" : MessageLookupByLibrary.simpleMessage("Add New Claim"),
     "allAttachment" : MessageLookupByLibrary.simpleMessage("All Attachment"),
     "allClaims" : MessageLookupByLibrary.simpleMessage("All Claims"),
@@ -81,7 +81,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "endAt" : MessageLookupByLibrary.simpleMessage("End Date"),
     "endDate" : MessageLookupByLibrary.simpleMessage("End Date"),
     "enterAllData" : MessageLookupByLibrary.simpleMessage("Enter All Data"),
+    "enterContractNoAndEndDate" : MessageLookupByLibrary.simpleMessage("Enter contract no and end date"),
     "enterYourEmailAndInstructionsWillBeSentToYou" : MessageLookupByLibrary.simpleMessage("Enter your Email and instructions will be sent to you!"),
+    "enterYourNotesInCommentField" : MessageLookupByLibrary.simpleMessage("Enter your notes in comment field"),
     "evening" : MessageLookupByLibrary.simpleMessage("Evening"),
     "existingUnit" : MessageLookupByLibrary.simpleMessage("Existing Unit"),
     "forgotPassword" : MessageLookupByLibrary.simpleMessage("Forgot Password ?"),

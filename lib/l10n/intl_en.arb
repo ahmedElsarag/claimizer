@@ -146,7 +146,7 @@
   "nameIsRequired": "Name is required",
   "saveChanges": "Save Changes",
   "update": "Update",
-  "addComment": "Add Comment",
+  "addComment": "Confirm",
   "commentAdded": "Comment Added",
   "deleteClaim": "Delete Claim",
   "claimDeleted": "Claim Deleted",
@@ -169,5 +169,7 @@
   "contractFile": "Contract file",
   "identityFile": "Identity file",
   "images": "Images",
-  "claimClosed": "Claim Closed"
+  "claimClosed": "Claim Closed",
+  "enterYourNotesInCommentField": "Enter your notes in comment field",
+  "enterContractNoAndEndDate": "Enter contract no and end date"
 }

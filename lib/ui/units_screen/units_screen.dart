@@ -4,6 +4,7 @@ import 'package:Cliamizer/ui/units_screen/widgets/complete_new_unit.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/existing_unit_list.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/search_qr_code_view.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/unit_link_request.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -89,7 +90,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                     Gaps.vGap16,
                     Consumer<UnitProvider>(
                       builder: (context, pr, child) => Container(
-                        height: 12.h,
+                        height: 14.h,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: cardTitles.length,
@@ -103,7 +104,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                 color: pr.selectedIndex == pageIndex ? MColors.primary_color : Colors.white,
                                 child: SizedBox(
                                   width: 25.w,
-                                  height: 96,
+                                  height: 102,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -113,14 +114,14 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                         color: pr.selectedIndex == pageIndex ? Colors.white : MColors.primary_color,
                                       ),
                                       SizedBox(
-                                        width: pr.selectedIndex == pageIndex ? 70 : 80,
-                                        child: Text(
+                                        width: pr.selectedIndex == pageIndex ? 80 : 90,
+                                        child: AutoSizeText(
                                           cardTitles[pageIndex],
                                           style: MTextStyles.textMainLight14.copyWith(
-                                              color: pr.selectedIndex == pageIndex
-                                                  ? Colors.white
-                                                  : MColors.light_text_color,
-                                              fontSize: 10.sp),
+                                            color:
+                                                pr.selectedIndex == pageIndex ? Colors.white : MColors.light_text_color,
+                                          ),
+                                          maxLines: 2,
                                           textAlign: TextAlign.center,
                                         ),
                                       ),

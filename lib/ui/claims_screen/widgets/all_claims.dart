@@ -3,10 +3,13 @@ import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsScreen.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsPresenter.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/claim_card_data_item.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../../CommonUtils/utils.dart';
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
@@ -18,6 +21,12 @@ class AllClaims extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String formatDate(String date){
+      String dateTimeString = date;
+      DateTime dateTime = DateTime.parse(dateTimeString);
+      String formattedDateString = DateFormat("dd-MM-yyyy | hh:mm a").format(dateTime.toLocal());
+      return formattedDateString;
+    }
     return Consumer<ClaimsProvider>(
         builder: (ctx, pr, w) => MediaQuery.removePadding(
               removeTop: true,
@@ -57,12 +66,14 @@ class AllClaims extends StatelessWidget {
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text(
+                                          SizedBox(
+                                            width: Utils.sWidth(55, context),
+                                            child: AutoSizeText(
                                             pr?.claimsList[index]?.unit?.building ?? S.current.na,
                                             style: MTextStyles.textBoldDark16,
-                                          ),
+                                          ),),
                                           Text(
-                                            S.of(context).requestCode + " ${pr?.claimsList[index]?.referenceId}",
+                                            S.of(context).requestCode + "\n ${pr?.claimsList[index]?.referenceId}",
                                             style: MTextStyles.textSubtitle,
                                           ),
                                         ],
@@ -74,9 +85,12 @@ class AllClaims extends StatelessWidget {
                                                 pr?.claimsList[index]?.status?.toLowerCase()),
                                             borderRadius: BorderRadius.circular(32),
                                           ),
-                                          child: Text(pr?.claimsList[index]?.status ?? '',
-                                              style: MTextStyles.textDark12
-                                                  .copyWith(color: Colors.white, fontWeight: FontWeight.w600)))
+                                          child: SizedBox(
+                                              width: Utils.sWidth(18, context),
+                                              child: AutoSizeText(pr?.claimsList[index]?.status ?? '',
+                                              style: TextStyle(
+                                                  color: Colors.white, fontWeight: FontWeight.w600
+                                              ),textAlign: TextAlign.center,)))
                                     ],
                                   ),
                                   buildDivider(),
@@ -106,7 +120,7 @@ class AllClaims extends StatelessWidget {
                                       ),
                                       ClaimCardDataItem(
                                         title: S.of(context).createdAt,
-                                        data: pr?.claimsList[index]?.createdAt,
+                                        data:Utils.formatDate(pr?.claimsList[index]?.createdAt),
                                       ),
                                       ClaimCardDataItem(
                                           isLast: true,

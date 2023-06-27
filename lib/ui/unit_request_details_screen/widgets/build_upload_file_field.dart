@@ -124,16 +124,28 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
               children: [
                 SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
                 Gaps.hGap8,
-                SizedBox(
-                  width: 35.w,
-                  child: Text(
-                    pr.file != null
-                        ? pr.file.path
-                        : pr.imageFiles != null
-                            ? pr.imageFiles[0].path
-                            : S.current.uploadAnyFiles,
-                    style: MTextStyles.textDark14,
-                  ),
+                pr.file != null
+                    ? ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.file(
+                      pr.file,
+                      width: 10.w,
+                      height: 10.w,
+                      fit: BoxFit.cover,
+                    ))
+                    : pr.imageFiles != null
+                    ? Row(
+                  children: [
+                    Icon(
+                      Icons.image,
+                      color: MColors.rejected_color,
+                    ),
+                    Text(pr.imageFiles.length.toString() + " " + S.of(context).images)
+                  ],
+                )
+                    : Text(
+                  S.current.uploadAnyFiles,
+                  style: MTextStyles.textDark14,
                 ),
                 Spacer(),
                 InkWell(

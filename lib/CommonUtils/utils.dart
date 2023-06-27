@@ -1,6 +1,7 @@
 import 'package:Cliamizer/res/colors.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -58,6 +59,13 @@ class Utils {
 
   static double sTextSize(double w, double t, context) {
     return kIsWeb ? w : t.sp;
+  }
+
+  static String formatDate(String date){
+    String dateTimeString = date;
+    DateTime dateTime = DateTime.parse(dateTimeString);
+    String formattedDateString = DateFormat("dd-MM-yyyy | hh:mm a").format(dateTime.toLocal());
+    return formattedDateString;
   }
 
   static void showMyDialog(BuildContext context, String buttonName, String message, {Function callback}) {

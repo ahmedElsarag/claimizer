@@ -123,10 +123,23 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
                 SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
                 Gaps.hGap8,
                 pr.file != null
-                    ? Image.file(pr.file)
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.file(
+                          pr.file,
+                          width: 10.w,
+                          height: 10.w,
+                          fit: BoxFit.cover,
+                        ))
                     : pr.imageFiles != null
                         ? Row(
-                            children: [Icon(Icons.image,color: MColors.rejected_color,), Text(pr.imageFiles.length.toString() +" "+ S.of(context).images)],
+                            children: [
+                              Icon(
+                                Icons.image,
+                                color: MColors.rejected_color,
+                              ),
+                              Text(pr.imageFiles.length.toString() + " " + S.of(context).images)
+                            ],
                           )
                         : Text(
                             S.current.uploadAnyFiles,

@@ -133,44 +133,49 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                             Gaps.vGap8,
                                             ElevatedButton(
                                               onPressed: () async {
-                                                final formData = FormData();
-                                                if (pr.imageFiles != null) {
-                                                  for (var i = 0; i < pr.imageFiles.length; i++) {
-                                                    final file = await pr.imageFiles[i].readAsBytes();
-                                                    formData.files.add(MapEntry(
-                                                      'files[$i]',
-                                                      MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
-                                                    ));
-                                                    formData.fields.add(MapEntry("comment", pr.comment.text));
-                                                    formData.fields.add(MapEntry(
-                                                        "request_id", widget.unitRequestDataBean.id.toString()));
-                                                  }
-                                                  mPresenter.doPostCommentApiCall(
-                                                      formData, widget.unitRequestDataBean.id);
-                                                } else if (pr.file != null) {
-                                                  FormData formData = new FormData.fromMap({
-                                                    "files[0]": await MultipartFile.fromFile(
-                                                      pr.file.path,
-                                                      contentType: new MediaType('image', 'jpg'),
-                                                    ),
-                                                    "comment": pr.comment.text,
-                                                    "request_id": widget.unitRequestDataBean.id,
-                                                  });
-                                                  mPresenter.doPostCommentApiCall(
-                                                      formData, widget.unitRequestDataBean.id);
+                                                if (pr.comment.text.isEmpty) {
+                                                  showToasts(S.of(context).enterYourNotesInCommentField, 'warning');
                                                 } else {
-                                                  FormData formData = FormData();
-                                                  formData = new FormData.fromMap({
-                                                    "comment": pr.comment.text,
-                                                    "request_id": widget.unitRequestDataBean.id,
-                                                  });
-                                                  mPresenter.doPostCommentApiCall(
-                                                      formData, widget.unitRequestDataBean.id);
+                                                  final formData = FormData();
+                                                  if (pr.imageFiles != null) {
+                                                    for (var i = 0; i < pr.imageFiles.length; i++) {
+                                                      final file = await pr.imageFiles[i].readAsBytes();
+                                                      formData.files.add(MapEntry(
+                                                        'file[$i]',
+                                                        MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
+                                                      ));
+                                                      formData.fields.add(MapEntry("comment", pr.comment.text));
+                                                      formData.fields.add(MapEntry(
+                                                          "claim_id", widget.unitRequestDataBean.id.toString()));
+                                                    }
+                                                    mPresenter.doPostCommentApiCall(
+                                                        formData, widget.unitRequestDataBean.id);
+                                                  } else if (pr.file != null) {
+                                                    FormData formData = new FormData.fromMap({
+                                                      "file[0]": await MultipartFile.fromFile(
+                                                        pr.file.path,
+                                                        contentType: new MediaType('application', 'octet-stream'),
+                                                      ),
+                                                      "comment": pr.comment.text,
+                                                      "claim_id": widget.unitRequestDataBean.id,
+                                                    });
+                                                    mPresenter.doPostCommentApiCall(
+                                                        formData, widget.unitRequestDataBean.id);
+                                                  } else {
+                                                    FormData formData = FormData();
+                                                    formData = new FormData.fromMap({
+                                                      "comment": pr.comment.text,
+                                                      "claim_id": widget.unitRequestDataBean.id,
+                                                    });
+                                                    mPresenter.doPostCommentApiCall(
+                                                        formData, widget.unitRequestDataBean.id);
+                                                  }
+                                                  pr.imageFiles = null;
+                                                  pr.file = null;
+                                                  pr.comment.clear();
+                                                  setState(() {});
                                                 }
-                                                pr.imageFiles = null;
-                                                pr.file = null;
-                                                pr.comment.clear();
-                                                setState(() {});
+
                                               },
                                               child: Text(
                                                 S.of(context).addComment,
@@ -208,8 +213,10 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                               ),
                               Gaps.hGap12,
                               Gaps.hGap12,
-                              pr.instance.status.toLowerCase() != "rejected" && pr.instance.status.toLowerCase() != "canceled"
-                              &&pr.instance.status != "مرفوض" && pr.instance.status != "ملغي"
+                              pr.instance.status.toLowerCase() != "rejected" &&
+                                      pr.instance.status.toLowerCase() != "canceled" &&
+                                      pr.instance.status != "مرفوض" &&
+                                      pr.instance.status != "ملغي"
                                   ? InkWell(
                                       onTap: () {
                                         mPresenter.unlinkUnitRequestApiCall({"id": pr.instance.id});
@@ -319,9 +326,11 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                             width: 60.w,
                                                             child: ElevatedButton.icon(
                                                               onPressed: getContractFromCamera,
-                                                              icon: Icon(Icons.camera_alt, color: MColors.text_button_color),
+                                                              icon: Icon(Icons.camera_alt,
+                                                                  color: MColors.text_button_color),
                                                               label: Text(S.of(context).takePhoto,
-                                                                  style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
+                                                                  style: MTextStyles.textMain14
+                                                                      .copyWith(color: MColors.text_button_color)),
                                                             ),
                                                           ),
                                                           SizedBox(height: 8),
@@ -329,10 +338,12 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                             width: 60.w,
                                                             child: ElevatedButton.icon(
                                                               onPressed: pickContractFromGallery,
-                                                              icon: Icon(Icons.photo_library, color: MColors.text_button_color),
+                                                              icon: Icon(Icons.photo_library,
+                                                                  color: MColors.text_button_color),
                                                               label: Text(
                                                                 S.of(context).chooseFromGallery,
-                                                                style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color),
+                                                                style: MTextStyles.textMain14
+                                                                    .copyWith(color: MColors.text_button_color),
                                                               ),
                                                             ),
                                                           ),
@@ -344,7 +355,8 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                    border: Border.all(color: MColors.textFieldBorder), borderRadius: BorderRadius.circular(8)),
+                                                    border: Border.all(color: MColors.textFieldBorder),
+                                                    borderRadius: BorderRadius.circular(8)),
                                                 padding: EdgeInsets.all(8),
                                                 child: Row(
                                                   children: [
@@ -352,12 +364,17 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                     Gaps.hGap8,
                                                     pr.contractImg != null
                                                         ? ClipRRect(
-                                                        borderRadius: BorderRadius.circular(12),
-                                                        child: Image.file(pr.contractImg,width: 10.w,height: 10.w,fit: BoxFit.cover,))
+                                                            borderRadius: BorderRadius.circular(12),
+                                                            child: Image.file(
+                                                              pr.contractImg,
+                                                              width: 10.w,
+                                                              height: 10.w,
+                                                              fit: BoxFit.cover,
+                                                            ))
                                                         : Text(
-                                                      S.of(context).uploadContractImage,
-                                                      style: MTextStyles.textDark14,
-                                                    ),
+                                                            S.of(context).uploadContractImage,
+                                                            style: MTextStyles.textDark14,
+                                                          ),
                                                     Spacer(),
                                                     InkWell(
                                                       onTap: () async {
@@ -383,9 +400,11 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                             width: 60.w,
                                                             child: ElevatedButton.icon(
                                                               onPressed: getIdentityFromCamera,
-                                                              icon: Icon(Icons.camera_alt, color: MColors.text_button_color),
+                                                              icon: Icon(Icons.camera_alt,
+                                                                  color: MColors.text_button_color),
                                                               label: Text(S.of(context).takePhoto,
-                                                                  style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
+                                                                  style: MTextStyles.textMain14
+                                                                      .copyWith(color: MColors.text_button_color)),
                                                             ),
                                                           ),
                                                           SizedBox(height: 8),
@@ -393,10 +412,12 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                             width: 60.w,
                                                             child: ElevatedButton.icon(
                                                               onPressed: pickIdentityFromGallery,
-                                                              icon: Icon(Icons.photo_library, color: MColors.text_button_color),
+                                                              icon: Icon(Icons.photo_library,
+                                                                  color: MColors.text_button_color),
                                                               label: Text(
                                                                 S.of(context).chooseFromGallery,
-                                                                style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color),
+                                                                style: MTextStyles.textMain14
+                                                                    .copyWith(color: MColors.text_button_color),
                                                               ),
                                                             ),
                                                           ),
@@ -408,7 +429,8 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                    border: Border.all(color: MColors.textFieldBorder), borderRadius: BorderRadius.circular(8)),
+                                                    border: Border.all(color: MColors.textFieldBorder),
+                                                    borderRadius: BorderRadius.circular(8)),
                                                 padding: EdgeInsets.all(8),
                                                 child: Row(
                                                   children: [
@@ -416,12 +438,17 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                     Gaps.hGap8,
                                                     pr.identityImg != null
                                                         ? ClipRRect(
-                                                        borderRadius: BorderRadius.circular(12),
-                                                        child: Image.file(pr.identityImg,width: 10.w,height: 10.w,fit: BoxFit.cover,))
+                                                            borderRadius: BorderRadius.circular(12),
+                                                            child: Image.file(
+                                                              pr.identityImg,
+                                                              width: 10.w,
+                                                              height: 10.w,
+                                                              fit: BoxFit.cover,
+                                                            ))
                                                         : Text(
-                                                      S.of(context).uploadIdentityImage,
-                                                      style: MTextStyles.textDark14,
-                                                    ),
+                                                            S.of(context).uploadIdentityImage,
+                                                            style: MTextStyles.textDark14,
+                                                          ),
                                                     Spacer(),
                                                     InkWell(
                                                       onTap: () async {
@@ -438,7 +465,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                           ElevatedButton(
                                             onPressed: () async {
                                               if (pr.contractNo.text.isEmpty && pr.endDate == null) {
-                                                mPresenter.view.showSnackBar("msg");
+                                                showToasts(S.of(context).enterContractNoAndEndDate, 'warning');
                                               } else {
                                                 FormData formData = new FormData.fromMap({
                                                   "contract_attach": await MultipartFile.fromFile(
@@ -507,13 +534,14 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
       );
     });
   }
+
   final picker = ImagePicker();
 
   Future<void> pickContractFromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
-        provider.contractImg =  File(pickedFile.path);
+        provider.contractImg = File(pickedFile.path);
       });
     }
     Navigator.pop(context);
@@ -542,7 +570,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
-        provider.identityImg =  File(pickedFile.path);
+        provider.identityImg = File(pickedFile.path);
       });
     }
     Navigator.pop(context);

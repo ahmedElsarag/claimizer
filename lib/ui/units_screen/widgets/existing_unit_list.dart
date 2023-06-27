@@ -1,6 +1,7 @@
 import 'package:Cliamizer/app_widgets/NoDataFound.dart';
 import 'package:Cliamizer/ui/units_screen/units_presenter.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../CommonUtils/image_utils.dart';
+import '../../../CommonUtils/utils.dart';
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
@@ -62,13 +64,16 @@ class ExistingUnitList extends StatelessWidget {
                               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  S.of(context).unitName+ " :    ",
+                                  S.of(context).unitName + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
-                                  pr.unitsList[index].name ?? "",
-                                  style: MTextStyles.textSubtitle,
-                                ),
+                                SizedBox(
+                                  width: Utils.sWidth(40, context),
+                                  child: AutoSizeText(
+                                    pr.unitsList[index].name ?? "",
+                                    style: MTextStyles.textSubtitle,
+                                  ),
+                                )
                               ],
                             ),
                             Gaps.vGap8,
@@ -76,13 +81,16 @@ class ExistingUnitList extends StatelessWidget {
                               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  S.of(context).buildingName+ " :    ",
+                                  S.of(context).buildingName + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
-                                  pr.unitsList[index].building ?? "",
-                                  style: MTextStyles.textSubtitle,
-                                ),
+                                SizedBox(
+                                  width: Utils.sWidth(40, context),
+                                  child: AutoSizeText(
+                                    pr.unitsList[index].building ?? "",
+                                    style: MTextStyles.textSubtitle,
+                                  ),
+                                )
                               ],
                             ),
                             Gaps.vGap8,
@@ -90,13 +98,16 @@ class ExistingUnitList extends StatelessWidget {
                               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  S.of(context).unitType+ " :    ",
+                                  S.of(context).unitType + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
-                                  pr.unitsList[index].type ?? "",
-                                  style: MTextStyles.textSubtitle,
-                                ),
+                                SizedBox(
+                                  width: Utils.sWidth(40, context),
+                                  child: AutoSizeText(
+                                    pr.unitsList[index].type ?? "",
+                                    style: MTextStyles.textSubtitle,
+                                  ),
+                                )
                               ],
                             ),
                             Gaps.vGap8,
@@ -104,13 +115,16 @@ class ExistingUnitList extends StatelessWidget {
                               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  S.of(context).company+ " :    ",
+                                  S.of(context).company + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
-                                  pr.unitsList[index].company ?? "",
-                                  style: MTextStyles.textSubtitle,
-                                ),
+                                SizedBox(
+                                  width: Utils.sWidth(40, context),
+                                  child: AutoSizeText(
+                                    pr.unitsList[index].company ?? "",
+                                    style: MTextStyles.textSubtitle,
+                                  ),
+                                )
                               ],
                             ),
                             Gaps.vGap8,
@@ -118,13 +132,16 @@ class ExistingUnitList extends StatelessWidget {
                               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  S.of(context).contractNo+ " :    ",
+                                  S.of(context).contractNo + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
-                                  pr.unitsList[index].id.toString() ?? "",
-                                  style: MTextStyles.textSubtitle,
-                                ),
+                                SizedBox(
+                                  width: Utils.sWidth(40, context),
+                                  child: AutoSizeText(
+                                    pr.unitsList[index].id.toString() ?? "",
+                                    style: MTextStyles.textSubtitle,
+                                  ),
+                                )
                               ],
                             ),
                             Gaps.vGap8,
@@ -132,13 +149,16 @@ class ExistingUnitList extends StatelessWidget {
                               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  S.of(context).startAt+ " :    ",
+                                  S.of(context).startAt + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
-                                  pr.unitsList[index].startAt ?? "",
-                                  style: MTextStyles.textSubtitle,
-                                ),
+                                SizedBox(
+                                  width: Utils.sWidth(40, context),
+                                  child: AutoSizeText(
+                                    pr.unitsList[index].startAt ?? "",
+                                    style: MTextStyles.textSubtitle,
+                                  ),
+                                )
                               ],
                             ),
                             Gaps.vGap8,
@@ -146,13 +166,16 @@ class ExistingUnitList extends StatelessWidget {
                               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  S.of(context).endAt+ " :    ",
+                                  S.of(context).endAt + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
-                                  pr.unitsList[index].endAt ?? "",
-                                  style: MTextStyles.textSubtitle,
-                                ),
+                                SizedBox(
+                                  width: Utils.sWidth(40, context),
+                                  child: AutoSizeText(
+                                    pr.unitsList[index].endAt ?? "",
+                                    style: MTextStyles.textSubtitle,
+                                  ),
+                                )
                               ],
                             ),
                           ],

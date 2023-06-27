@@ -1,7 +1,9 @@
+import 'package:Cliamizer/CommonUtils/utils.dart';
 import 'package:Cliamizer/app_widgets/NoDataFound.dart';
 import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
 import 'package:Cliamizer/ui/units_screen/units_presenter.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -86,10 +88,12 @@ class UnitLinkRequest extends StatelessWidget {
                                   S.of(context).unitName + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
+                                SizedBox(
+                                  width: Utils.sWidth(40, context),
+                                  child: AutoSizeText(
                                   pr.unitsRequestList[index].unitName ?? "",
                                   style: MTextStyles.textSubtitle,
-                                ),
+                                ),)
                               ],
                             ),
                             Gaps.vGap8,
@@ -100,9 +104,12 @@ class UnitLinkRequest extends StatelessWidget {
                                   S.of(context).buildingName + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
-                                  pr.unitsRequestList[index].buildingName ?? "",
-                                  style: MTextStyles.textSubtitle,
+                                SizedBox(
+                                  width: Utils.sWidth(40, context),
+                                  child: AutoSizeText(
+                                    pr.unitsRequestList[index].buildingName ?? "",
+                                    style: MTextStyles.textSubtitle,
+                                  ),
                                 ),
                               ],
                             ),
@@ -114,10 +121,13 @@ class UnitLinkRequest extends StatelessWidget {
                                   S.of(context).unitType + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
-                                  pr.unitsRequestList[index].unitType ?? "",
-                                  style: MTextStyles.textSubtitle,
-                                ),
+                                SizedBox(
+                                  width: Utils.sWidth(40, context),
+                                  child: AutoSizeText(
+                                    pr.unitsRequestList[index].unitType ?? "",
+                                    style: MTextStyles.textSubtitle,
+                                  ),
+                                )
                               ],
                             ),
                             Gaps.vGap8,
@@ -128,10 +138,13 @@ class UnitLinkRequest extends StatelessWidget {
                                   S.of(context).company + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
-                                  pr.unitsRequestList[index].company ?? "",
-                                  style: MTextStyles.textSubtitle,
-                                ),
+                                SizedBox(
+                                  width: Utils.sWidth(40, context),
+                                  child: AutoSizeText(
+                                    pr.unitsRequestList[index].company ?? "",
+                                    style: MTextStyles.textSubtitle,
+                                  ),
+                                )
                               ],
                             ),
                             Gaps.vGap8,
@@ -142,10 +155,12 @@ class UnitLinkRequest extends StatelessWidget {
                                   S.of(context).contractNo + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
-                                  pr.unitsRequestList[index].contractNumber ?? S.current.na,
-                                  style: MTextStyles.textSubtitle,
-                                ),
+                                SizedBox(
+                                    width: Utils.sWidth(40, context),
+                                    child: AutoSizeText(
+                                      pr.unitsRequestList[index].contractNumber ?? S.current.na,
+                                      style: MTextStyles.textSubtitle,
+                                    )),
                               ],
                             ),
                             Gaps.vGap8,
@@ -156,10 +171,13 @@ class UnitLinkRequest extends StatelessWidget {
                                   S.of(context).startAt + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
-                                  pr.unitsRequestList[index].startAt ?? "",
-                                  style: MTextStyles.textSubtitle,
-                                ),
+                                SizedBox(
+                                  width: Utils.sWidth(40, context),
+                                  child: AutoSizeText(
+                                    pr.unitsRequestList[index].startAt ?? "",
+                                    style: MTextStyles.textSubtitle,
+                                  ),
+                                )
                               ],
                             ),
                             Gaps.vGap8,
@@ -170,47 +188,17 @@ class UnitLinkRequest extends StatelessWidget {
                                   S.of(context).endAt + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
-                                Text(
-                                  pr.unitsRequestList[index].endAt ?? "",
-                                  style: MTextStyles.textSubtitle,
-                                ),
+                                SizedBox(
+                                  width: Utils.sWidth(40, context),
+                                  child: AutoSizeText(
+                                    pr.unitsRequestList[index].endAt ?? "",
+                                    style: MTextStyles.textSubtitle,
+                                  ),
+                                )
                               ],
                             ),
                           ],
                         ),
-                        /*buildDivider(),
-                  Row(
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                              decoration: BoxDecoration(
-                                  color: MColors.primary_color.withOpacity(0.08),
-                                  shape: BoxShape.circle
-                              ),
-                              padding: EdgeInsets.all(8),
-                              child: SvgPicture.asset(ImageUtils.getSVGPath("comment"))),
-                          Gaps.hGap8,
-                          Text(S.of(context).comment,style: MTextStyles.textMain14,)
-                        ],
-                      ),
-                      Gaps.hGap15,
-                      Gaps.hGap15,
-                      Row(
-                        children: [
-                          Container(
-                              decoration: BoxDecoration(
-                                  color: MColors.primary_color.withOpacity(0.08),
-                                  shape: BoxShape.circle
-                              ),
-                              padding: EdgeInsets.all(8),
-                              child: SvgPicture.asset(ImageUtils.getSVGPath("reply"))),
-                          Gaps.hGap8,
-                          Text(S.of(context).reply,style: MTextStyles.textMain14,)
-                        ],
-                      )
-                    ],
-                  )*/
                       ],
                     ),
                   ),

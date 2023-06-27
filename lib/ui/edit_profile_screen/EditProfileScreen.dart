@@ -167,6 +167,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                                     onTap: (index) {
                                       pr.selectedTabIndex = index;
                                     },
+                                    labelStyle: TextStyle(fontSize: 8.sp),
                                     tabs: [
                                       Tab(text: S.of(context).basicInfo),
                                       Tab(text: S.of(context).updatePassword),

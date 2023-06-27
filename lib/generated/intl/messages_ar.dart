@@ -22,7 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "accountCreated" : MessageLookupByLibrary.simpleMessage("تم إنشاء الحساب"),
-    "addComment" : MessageLookupByLibrary.simpleMessage("اضافة تعليق"),
+    "addComment" : MessageLookupByLibrary.simpleMessage("تأكيد"),
     "addNewClaim" : MessageLookupByLibrary.simpleMessage("طلب صيانة جديد"),
     "allAttachment" : MessageLookupByLibrary.simpleMessage("كل الملفات"),
     "allClaims" : MessageLookupByLibrary.simpleMessage("جميع طلبات الصيانة"),
@@ -79,7 +79,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "endAt" : MessageLookupByLibrary.simpleMessage("تاريخ النهاية"),
     "endDate" : MessageLookupByLibrary.simpleMessage("تاريخ النهاية"),
     "enterAllData" : MessageLookupByLibrary.simpleMessage("ادخل كل البيانات"),
+    "enterContractNoAndEndDate" : MessageLookupByLibrary.simpleMessage("ادخل رقم العقد وتاريخ الانتهاء الجديد"),
     "enterYourEmailAndInstructionsWillBeSentToYou" : MessageLookupByLibrary.simpleMessage("ادخل بريدك الإلكتروني وسيتم إرسال التعليمات إليك!"),
+    "enterYourNotesInCommentField" : MessageLookupByLibrary.simpleMessage("ادخل ملاحظاتك في خانة التعليق"),
     "evening" : MessageLookupByLibrary.simpleMessage("مساءا"),
     "existingUnit" : MessageLookupByLibrary.simpleMessage("الوحدة الحالية"),
     "forgotPassword" : MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور ؟ "),

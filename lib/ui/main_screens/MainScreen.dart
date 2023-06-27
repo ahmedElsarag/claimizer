@@ -63,7 +63,7 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
               ],
             ),
             bottomNavigationBar: Container(
-              height: 9.h,
+              height: 10.h,
               padding: EdgeInsets.only(top: 1.h, left: 1.w, right: 1.w,bottom: 1.h),
               color: MColors.white,
               child: TabBar(

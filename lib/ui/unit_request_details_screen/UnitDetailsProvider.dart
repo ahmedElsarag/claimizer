@@ -23,6 +23,7 @@ class UnitDetailsProvider<T> extends BaseProvider<UnitRequestDetailsDataBean> {
 
   File _file;
   List<XFile> _imageFiles;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   File get file => _file;
 

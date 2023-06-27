@@ -1505,10 +1505,10 @@ class S {
     );
   }
 
-  /// `Add Comment`
+  /// `Confirm`
   String get addComment {
     return Intl.message(
-      'Add Comment',
+      'Confirm',
       name: 'addComment',
       desc: '',
       args: [],
@@ -1740,6 +1740,26 @@ class S {
     return Intl.message(
       'Claim Closed',
       name: 'claimClosed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your notes in comment field`
+  String get enterYourNotesInCommentField {
+    return Intl.message(
+      'Enter your notes in comment field',
+      name: 'enterYourNotesInCommentField',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter contract no and end date`
+  String get enterContractNoAndEndDate {
+    return Intl.message(
+      'Enter contract no and end date',
+      name: 'enterContractNoAndEndDate',
       desc: '',
       args: [],
     );

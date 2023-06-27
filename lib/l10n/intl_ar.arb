@@ -145,7 +145,7 @@
   "nameIsRequired": "الاسم مطلوب",
   "saveChanges": "حفظ التغييرات",
   "update": "تحديث",
-  "addComment": "اضافة تعليق",
+  "addComment": "تأكيد",
   "commentAdded": "تم اضافة التعليق",
   "deleteClaim": "حذف المطالبة",
   "claimDeleted": "تم حذف المطالبة",
@@ -168,5 +168,7 @@
   "contractFile": "صورة العقد",
   "identityFile": "صورة الهوية",
   "images": "صور",
-  "claimClosed": "تم غلق طلب الصيانة"
+  "claimClosed": "تم غلق طلب الصيانة",
+  "enterYourNotesInCommentField": "ادخل ملاحظاتك في خانة التعليق",
+  "enterContractNoAndEndDate": "ادخل رقم العقد وتاريخ الانتهاء الجديد"
 }
