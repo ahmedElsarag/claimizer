@@ -13,7 +13,7 @@ class ClaimizerAppBar extends StatelessWidget {
     Key key,
     this.title,
   }) : super(key: key);
-
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -35,7 +35,7 @@ class ClaimizerAppBar extends StatelessWidget {
         Expanded(
           child: Center(
             child: Text(
-              title,
+              capitalize(title),
               style: GoogleFonts.montserrat(fontSize: 14.sp, fontWeight: FontWeight.w700, color: MColors.dark_text_color),
             ),
           ),

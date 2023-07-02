@@ -34,7 +34,8 @@ import 'ClaimsPresenter.dart';
 class ClaimsScreen extends StatefulWidget {
   static const String TAG = "/ClaimsScreen";
 
-  const ClaimsScreen({Key key}) : super(key: key);
+  const ClaimsScreen({Key key, this.isFilteredFromHome}) : super(key: key);
+  final bool isFilteredFromHome;
 
   @override
   State<ClaimsScreen> createState() => ClaimsScreenState();
@@ -51,13 +52,13 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
   int selectedSubCategoryId;
   int selectedTypeId;
 
-  ClaimsProvider provider;
+  ClaimsWithFilterProvider provider;
 
   final searchController = TextEditingController();
 
   @override
   void initState() {
-    provider = context.read<ClaimsProvider>();
+    provider = context.read<ClaimsWithFilterProvider>();
     EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
       if (event.isRefresh != null || event.isLangChanged != null) {
         mPresenter.getAllClaimsApiCall();
@@ -83,7 +84,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
 
     return Scaffold(
       backgroundColor: MColors.page_background,
-      body: Consumer<ClaimsProvider>(
+      body: Consumer<ClaimsWithFilterProvider>(
         builder: (context, pr, child) => Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(16, 60, 16, 0),
           child: Column(
@@ -200,40 +201,40 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                           ),
                         ),
                       ),
-                      SizedBox(width: 17.0),
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          width: 36,
-                          height: 36,
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: MColors.whiteE,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: MColors.coolGrey.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: Offset(1, 4))
-                              ]),
-                          child: SvgPicture.asset(ImageUtils.getSVGPath("filter")),
-                        ),
-                      ),
-                      Gaps.hGap8,
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          width: 36,
-                          height: 36,
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Color(0xffF7F7F7),
-                          ),
-                          child: SvgPicture.asset(ImageUtils.getSVGPath("export")),
-                        ),
-                      ),
+                      // SizedBox(width: 17.0),
+                      // InkWell(
+                      //   onTap: () {},
+                      //   child: Container(
+                      //     width: 36,
+                      //     height: 36,
+                      //     padding: EdgeInsets.all(8),
+                      //     decoration: BoxDecoration(
+                      //         borderRadius: BorderRadius.circular(8),
+                      //         color: MColors.whiteE,
+                      //         boxShadow: [
+                      //           BoxShadow(
+                      //               color: MColors.coolGrey.withOpacity(0.2),
+                      //               spreadRadius: 1,
+                      //               blurRadius: 5,
+                      //               offset: Offset(1, 4))
+                      //         ]),
+                      //     child: SvgPicture.asset(ImageUtils.getSVGPath("filter")),
+                      //   ),
+                      // ),
+                      // Gaps.hGap8,
+                      // InkWell(
+                      //   onTap: () {},
+                      //   child: Container(
+                      //     width: 36,
+                      //     height: 36,
+                      //     padding: EdgeInsets.all(8),
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(8),
+                      //       color: Color(0xffF7F7F7),
+                      //     ),
+                      //     child: SvgPicture.asset(ImageUtils.getSVGPath("export")),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -417,14 +418,20 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                 MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
                                               ));
                                               formData.fields.add(MapEntry("unit_id", selectedUnitId.toString()));
-                                              formData.fields.add(MapEntry("category_id", selectedCategoryId.toString()));
-                                              formData.fields.add(MapEntry("sub_category_id", selectedSubCategoryId.toString()));
+                                              formData.fields
+                                                  .add(MapEntry("category_id", selectedCategoryId.toString()));
+                                              formData.fields
+                                                  .add(MapEntry("sub_category_id", selectedSubCategoryId.toString()));
                                               formData.fields.add(MapEntry("claim_type_id", selectedTypeId.toString()));
                                               formData.fields.add(MapEntry("description", provider.description.text));
-                                              formData.fields.add(MapEntry("available_date", provider.selectedDate != null
-                                                  ? DateFormat('yyyy-MM-dd', 'en').format(provider.selectedDate)
-                                                  : DateFormat('yyyy-MM-dd', 'en').format(DateTime.now()),));
-                                              formData.fields.add(MapEntry("available_time", provider.selectedTimeValue));
+                                              formData.fields.add(MapEntry(
+                                                "available_date",
+                                                provider.selectedDate != null
+                                                    ? DateFormat('yyyy-MM-dd', 'en').format(provider.selectedDate)
+                                                    : DateFormat('yyyy-MM-dd', 'en').format(DateTime.now()),
+                                              ));
+                                              formData.fields
+                                                  .add(MapEntry("available_time", provider.selectedTimeValue));
                                             }
                                             mPresenter.postClaimRequestApiCall(formData);
                                           } else if (pr.file != null) {

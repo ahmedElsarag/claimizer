@@ -35,10 +35,10 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
   void initState() {
     pr = context.read<MainProvider>();
     pr.currentSelect = 0;
-    _tabController = TabController(vsync: this, length: 4);
+    pr.tabController = TabController(vsync: this, length: 4);
     if (mounted)
-      _tabController.addListener(() {
-        pr.currentSelect = _tabController.index;
+      pr.tabController.addListener(() {
+        pr.currentSelect = pr.tabController.index;
       });
     super.initState();
   }
@@ -54,10 +54,10 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
           child: Scaffold(
             body: TabBarView(
               physics: NeverScrollableScrollPhysics(),
-              controller: _tabController,
+              controller: pr.tabController,
               children: [
                 HomeScreen(),
-                ClaimsScreen(),
+                ClaimsScreen(isFilteredFromHome: false),
                 UnitsScreen(),
                 MoreScreen(),
               ],
@@ -67,7 +67,7 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
               padding: EdgeInsets.only(top: 1.h, left: 1.w, right: 1.w,bottom: 1.h),
               color: MColors.white,
               child: TabBar(
-                controller: _tabController,
+                controller: pr.tabController,
                 labelStyle: TextStyle(fontSize: 8.sp),
                 isScrollable: false,
                 unselectedLabelColor: MColors.subText_color,

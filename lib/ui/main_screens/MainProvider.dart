@@ -21,6 +21,15 @@ class MainProvider<T> extends BaseProvider<T> {
     notifyListeners();
   }
 
+  TabController _tabController;
+
+  TabController get tabController => _tabController;
+
+  set tabController(TabController value) {
+    _tabController = value;
+    notifyListeners();
+  }
+
   int _currentSelect = 0;
 
   int get currentSelect => _currentSelect;
@@ -34,7 +43,6 @@ class MainProvider<T> extends BaseProvider<T> {
     currentSelect = currentTab;
     notifyListeners();
   }
-
 
   PageController _pageController = PageController();
 

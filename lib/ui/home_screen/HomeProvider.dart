@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../generated/l10n.dart';
 import '../../network/models/StatisticsResponse.dart';
 
 class HomeProvider extends ChangeNotifier {
@@ -46,6 +47,23 @@ class HomeProvider extends ChangeNotifier {
 
   set claimStatusColors(ClaimColor value) {
     _claimStatusColors = value;
+    notifyListeners();
+  }
+
+  List<String> _cardTitles = [
+    S.current.allClaims,
+    S.current.newClaims,
+    S.current.assignedClaims,
+    S.current.startedClaims,
+    S.current.completedClaims,
+    S.current.cancelledClaims,
+    S.current.closedClaims
+  ];
+
+  List<String> get cardTitles => _cardTitles;
+
+  set cardTitles(List<String> value) {
+    _cardTitles = value;
     notifyListeners();
   }
 }

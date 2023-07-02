@@ -10,11 +10,11 @@ import '../../../res/styles.dart';
 
 class BuildDatePicker extends StatelessWidget {
   BuildDatePicker({Key key, this.provider}) : super(key: key);
-  final ClaimsProvider provider;
+  final ClaimsWithFilterProvider provider;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ClaimsProvider>(
+    return Consumer<ClaimsWithFilterProvider>(
       builder: (context, pr, child) => GestureDetector(
         onTap: () async {
           final DateTime picked = await showDatePicker(

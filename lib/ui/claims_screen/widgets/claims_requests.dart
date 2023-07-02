@@ -13,7 +13,7 @@ class ClaimsRequests extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ClaimsProvider>(
+    return Consumer<ClaimsWithFilterProvider>(
       builder: (ctx, pr, w) => MediaQuery.removePadding(
         removeTop: true,
         context: context,

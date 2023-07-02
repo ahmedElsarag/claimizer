@@ -59,7 +59,7 @@ class UnitLinkRequest extends StatelessWidget {
                                   style: MTextStyles.textBoldDark16,
                                 ),
                                 Text(
-                                  S.of(context).requestCode + pr.unitsRequestList[index].refCode,
+                                  S.of(context).requestCode +"\n"+ pr.unitsRequestList[index].refCode,
                                   style: MTextStyles.textSubtitle,
                                 ),
                               ],

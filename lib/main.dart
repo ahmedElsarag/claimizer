@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => MainProvider()),
         ChangeNotifierProvider(create: (context) => MoreProvider()),
         ChangeNotifierProvider(create: (context) => HomeProvider()),
-        ChangeNotifierProvider(create: (context) => ClaimsProvider()),
+        ChangeNotifierProvider(create: (context) => ClaimsWithFilterProvider()),
         ChangeNotifierProvider(create: (context) => ClaimsDetailsProvider()),
         ChangeNotifierProvider(create: (context) => EditProfileProvider()),
         ChangeNotifierProvider(create: (context) => UnitProvider()),

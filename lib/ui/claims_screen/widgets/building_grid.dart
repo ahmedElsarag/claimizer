@@ -19,7 +19,7 @@ class BuildingGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ClaimsProvider>(
+    return Consumer<ClaimsWithFilterProvider>(
       builder: (ctx, pr, w) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [

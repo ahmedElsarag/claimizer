@@ -45,15 +45,15 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
       header['Authorization'] = "Bearer $token";
     });
     view.showProgress(isDismiss: false);
-    await requestFutureData<ClaimsResponse>(Method.get, options: Options(headers: header),queryParams: params, endPoint: Api.claimsApiCall,
-        onSuccess: (data) {
-          if (data != null) {
-            view.provider.claimsList = data.data;
-          }
-          view.closeProgress();
-        }, onError: (code, msg) {
-          view.closeProgress();
-        });
+    await requestFutureData<ClaimsResponse>(Method.get,
+        options: Options(headers: header), queryParams: params, endPoint: Api.claimsApiCall, onSuccess: (data) {
+      if (data != null) {
+        view.provider.claimsList = data.data;
+      }
+      view.closeProgress();
+    }, onError: (code, msg) {
+      view.closeProgress();
+    });
   }
 
   formatDate(String date) {
@@ -73,14 +73,12 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
       view.closeProgress();
       view.provider.dataLoaded = true;
       if (data != null) {
-
         view.provider.buildingsList = data.data;
       }
     }, onError: (code, msg) {
-          view.provider.dataLoaded = true;
-          view.closeProgress();
-
-        });
+      view.provider.dataLoaded = true;
+      view.closeProgress();
+    });
   }
 
   Future getUnitsApiCall(int buildingId) async {
@@ -171,9 +169,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     });
     view.showProgress(isDismiss: false);
     await requestFutureData<ClaimsRequestResponse>(Method.post,
-        params: formData,
-        options: Options(headers: header),
-        endPoint: Api.claimsApiCall, onSuccess: (data) {
+        params: formData, options: Options(headers: header), endPoint: Api.claimsApiCall, onSuccess: (data) {
       view.closeProgress();
       if (data != null) {
         showDialog(
@@ -183,7 +179,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
             claimsRequestResponse: data,
           ),
         );
-        view.provider.file= null;
+        view.provider.file = null;
         view.provider.imageFiles = null;
         view.provider.description.clear();
       }
@@ -193,7 +189,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     });
   }
 
-  showProgress(){
+  showProgress() {
     WillPopScope(
       onWillPop: () async => false,
       child: Container(

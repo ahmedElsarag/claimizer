@@ -1,4 +1,5 @@
 import 'package:Cliamizer/app_widgets/NoDataFound.dart';
+import 'package:Cliamizer/ui/ClaimsWithFilter/ClaimsWithFitlerPresenter.dart';
 import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsScreen.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsPresenter.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
@@ -15,9 +16,9 @@ import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
 import '../../../res/styles.dart';
 
-class AllClaims extends StatelessWidget {
-  const AllClaims({Key key, this.presenter}) : super(key: key);
-  final ClaimsPresenter presenter;
+class AllClaimsWithFilter extends StatelessWidget {
+  const AllClaimsWithFilter({Key key, this.presenter}) : super(key: key);
+  final ClaimsWithFilterPresenter presenter;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,8 @@ class AllClaims extends StatelessWidget {
                   ? RefreshIndicator(
                       onRefresh: () async {
                         pr.searchController.text = "";
-                        await presenter.getAllClaimsApiCall();
+                        print("&@&@&@&@&@&@&@& ${pr.status}");
+                        await presenter.getFilteredClaimsWithStatusApiCall(pr.status);
                       },
                       child: ListView.separated(
                         shrinkWrap: true,
@@ -141,7 +143,7 @@ class AllClaims extends StatelessWidget {
                     )
                   : NoDataWidget(
                       onRefresh: () async {
-                        await presenter.getAllClaimsApiCall();
+                        await presenter.getFilteredClaimsWithStatusApiCall(pr.status);
                       },
                     ),
             ));

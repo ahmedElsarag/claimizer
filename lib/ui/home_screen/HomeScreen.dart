@@ -1,10 +1,12 @@
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/app_widgets/app_headline.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
+import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/home_screen/HomePresenter.dart';
 import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
 import 'package:Cliamizer/ui/home_screen/widgets/home_card_item.dart';
 import 'package:Cliamizer/ui/home_screen/widgets/remember_that_item.dart';
+import 'package:Cliamizer/ui/main_screens/MainProvider.dart';
 import 'package:Cliamizer/ui/notification_screen/NotificationScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ import '../../CommonUtils/model_eventbus/ProfileEvent.dart';
 import '../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
+import '../ClaimsWithFilter/ClaimsWithFilterScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -28,6 +31,8 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   HomeProvider provider;
+  MainProvider mainProvider;
+  ClaimsWithFilterProvider claimsProvider;
   List cardsColor = [
     Color(0xff44A4F2),
     Color(0xffFF9500),
@@ -51,6 +56,8 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
   @override
   void initState() {
     provider = context.read<HomeProvider>();
+    mainProvider = context.read<MainProvider>();
+    claimsProvider = context.read<ClaimsWithFilterProvider>();
     EventBusUtils.getInstance().on<ProfileEvent>().listen((event) {
       if (event.username != null) {
         provider.name = event.username;
@@ -74,15 +81,6 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
 
   @override
   Widget build(BuildContext context) {
-    List<String> cardTitles = [
-      S.current.allClaims,
-      S.current.newClaims,
-      S.current.assignedClaims,
-      S.current.startedClaims,
-      S.current.completedClaims,
-      S.current.cancelledClaims,
-      S.current.closedClaims
-    ];
     return Scaffold(
       backgroundColor: MColors.background_color,
       body: SafeArea(
@@ -149,11 +147,43 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
                   physics: NeverScrollableScrollPhysics(),
                   children: List.generate(
                     7,
-                    (index) => HomeCardItem(
-                        cardColor: cardsColor[index],
-                        title: cardTitles[index],
-                        imageIcon: cardImages[index],
-                        value: list.isNotEmpty ? list[index] : ' '),
+                    (index) => GestureDetector(
+                      onTap: () {
+                        if (index == 0) {
+                          claimsProvider.status = "all";
+                        } else if (index == 1) {
+                          claimsProvider.status = "new";
+                        } else if (index == 2) {
+                          claimsProvider.status = "assigned";
+                        } else if (index == 3) {
+                          claimsProvider.status = "started";
+                        } else if (index == 4) {
+                          claimsProvider.status = "completed";
+                        } else if (index == 5) {
+                          claimsProvider.status = "cancelled";
+                        } else if (index == 6) {
+                          claimsProvider.status = "closed";
+                        }
+                        if (index != 0) {
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) => ClaimsWithFilterScreen(),
+                              ));
+                        } else {
+                          mainProvider.tabController = TabController(vsync: this, length: 4, initialIndex: 1);
+                          mainProvider.currentSelect = 1;
+                          mainProvider.tabController.addListener(() {
+                            mainProvider.currentSelect = mainProvider.tabController.index;
+                          });
+                        }
+                      },
+                      child: HomeCardItem(
+                          cardColor: cardsColor[index],
+                          title: provider.cardTitles[index],
+                          imageIcon: cardImages[index],
+                          value: list.isNotEmpty ? list[index] : ' '),
+                    ),
                   ),
                 ),
               ),

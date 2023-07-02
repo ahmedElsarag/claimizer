@@ -210,40 +210,40 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                           ),
                         ),
                       ),
-                      SizedBox(width: 17.0),
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          width: 36,
-                          height: 36,
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: MColors.whiteE,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: MColors.coolGrey.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: Offset(1, 4))
-                              ]),
-                          child: SvgPicture.asset(ImageUtils.getSVGPath("filter")),
-                        ),
-                      ),
-                      Gaps.hGap8,
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          width: 36,
-                          height: 36,
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Color(0xffF7F7F7),
-                          ),
-                          child: SvgPicture.asset(ImageUtils.getSVGPath("export")),
-                        ),
-                      ),
+                      // SizedBox(width: 17.0),
+                      // InkWell(
+                      //   onTap: () {},
+                      //   child: Container(
+                      //     width: 36,
+                      //     height: 36,
+                      //     padding: EdgeInsets.all(8),
+                      //     decoration: BoxDecoration(
+                      //         borderRadius: BorderRadius.circular(8),
+                      //         color: MColors.whiteE,
+                      //         boxShadow: [
+                      //           BoxShadow(
+                      //               color: MColors.coolGrey.withOpacity(0.2),
+                      //               spreadRadius: 1,
+                      //               blurRadius: 5,
+                      //               offset: Offset(1, 4))
+                      //         ]),
+                      //     child: SvgPicture.asset(ImageUtils.getSVGPath("filter")),
+                      //   ),
+                      // ),
+                      // Gaps.hGap8,
+                      // InkWell(
+                      //   onTap: () {},
+                      //   child: Container(
+                      //     width: 36,
+                      //     height: 36,
+                      //     padding: EdgeInsets.all(8),
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(8),
+                      //       color: Color(0xffF7F7F7),
+                      //     ),
+                      //     child: SvgPicture.asset(ImageUtils.getSVGPath("export")),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

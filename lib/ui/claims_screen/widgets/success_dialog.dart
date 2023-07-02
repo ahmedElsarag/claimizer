@@ -18,7 +18,7 @@ class ClaimCreatedDialog extends StatelessWidget {
  final ClaimsPresenter presenter;
   @override
   Widget build(BuildContext context) {
-    return Consumer<ClaimsProvider>(
+    return Consumer<ClaimsWithFilterProvider>(
       builder: (ctx, pr, w) => AlertDialog(
         backgroundColor: MColors.whiteE,
         elevation: 0,

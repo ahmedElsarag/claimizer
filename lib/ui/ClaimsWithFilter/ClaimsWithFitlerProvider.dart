@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../network/models/claims_response.dart';
 
-class ClaimsWithFilterProvider extends ChangeNotifier {
+class ClaimsProvider extends ChangeNotifier {
   int _selectedIndex = 1;
   DateTime _selectedDate;
 
