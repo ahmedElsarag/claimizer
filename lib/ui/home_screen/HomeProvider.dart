@@ -50,20 +50,20 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<String> _cardTitles = [
-    S.current.allClaims,
-    S.current.newClaims,
-    S.current.assignedClaims,
-    S.current.startedClaims,
-    S.current.completedClaims,
-    S.current.cancelledClaims,
-    S.current.closedClaims
-  ];
+  // List<String> _cardTitles = [
+  //   S.current.allClaims,
+  //   S.current.newClaims,
+  //   S.current.assignedClaims,
+  //   S.current.startedClaims,
+  //   S.current.completedClaims,
+  //   S.current.cancelledClaims,
+  //   S.current.closedClaims
+  // ];
 
-  List<String> get cardTitles => _cardTitles;
-
-  set cardTitles(List<String> value) {
-    _cardTitles = value;
-    notifyListeners();
-  }
+  // List<String> get cardTitles => _cardTitles;
+  //
+  // set cardTitles(List<String> value) {
+  //   _cardTitles = value;
+  //   notifyListeners();
+  // }
 }

@@ -61,7 +61,8 @@ class ExistingUnitList extends StatelessWidget {
                           // //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).unitName + " :    ",
@@ -78,7 +79,8 @@ class ExistingUnitList extends StatelessWidget {
                             ),
                             Gaps.vGap8,
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).buildingName + " :    ",
@@ -95,7 +97,8 @@ class ExistingUnitList extends StatelessWidget {
                             ),
                             Gaps.vGap8,
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).unitType + " :    ",
@@ -112,7 +115,8 @@ class ExistingUnitList extends StatelessWidget {
                             ),
                             Gaps.vGap8,
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).company + " :    ",
@@ -129,7 +133,8 @@ class ExistingUnitList extends StatelessWidget {
                             ),
                             Gaps.vGap8,
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).contractNo + " :    ",
@@ -146,7 +151,8 @@ class ExistingUnitList extends StatelessWidget {
                             ),
                             Gaps.vGap8,
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).startAt + " :    ",
@@ -163,7 +169,8 @@ class ExistingUnitList extends StatelessWidget {
                             ),
                             Gaps.vGap8,
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).endAt + " :    ",

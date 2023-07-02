@@ -59,7 +59,7 @@ class UnitLinkRequest extends StatelessWidget {
                                   style: MTextStyles.textBoldDark16,
                                 ),
                                 Text(
-                                  S.of(context).requestCode +"\n"+ pr.unitsRequestList[index].refCode,
+                                  S.of(context).requestCode + "\n" + pr.unitsRequestList[index].refCode,
                                   style: MTextStyles.textSubtitle,
                                 ),
                               ],
@@ -82,7 +82,8 @@ class UnitLinkRequest extends StatelessWidget {
                           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).unitName + " :    ",
@@ -91,21 +92,23 @@ class UnitLinkRequest extends StatelessWidget {
                                 SizedBox(
                                   width: Utils.sWidth(40, context),
                                   child: AutoSizeText(
-                                  pr.unitsRequestList[index].unitName ?? "",
-                                  style: MTextStyles.textSubtitle,
-                                ),)
+                                    pr.unitsRequestList[index].unitName ?? "",
+                                    style: MTextStyles.textSubtitle,
+                                  ),
+                                )
                               ],
                             ),
                             Gaps.vGap8,
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).buildingName + " :    ",
                                   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
                                 ),
                                 SizedBox(
-                                  width: Utils.sWidth(40, context),
+                                  width: Utils.sWidth(34, context),
                                   child: AutoSizeText(
                                     pr.unitsRequestList[index].buildingName ?? "",
                                     style: MTextStyles.textSubtitle,
@@ -115,7 +118,8 @@ class UnitLinkRequest extends StatelessWidget {
                             ),
                             Gaps.vGap8,
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).unitType + " :    ",
@@ -132,7 +136,8 @@ class UnitLinkRequest extends StatelessWidget {
                             ),
                             Gaps.vGap8,
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).company + " :    ",
@@ -149,7 +154,8 @@ class UnitLinkRequest extends StatelessWidget {
                             ),
                             Gaps.vGap8,
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).contractNo + " :    ",
@@ -165,7 +171,8 @@ class UnitLinkRequest extends StatelessWidget {
                             ),
                             Gaps.vGap8,
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).startAt + " :    ",
@@ -182,7 +189,8 @@ class UnitLinkRequest extends StatelessWidget {
                             ),
                             Gaps.vGap8,
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   S.of(context).endAt + " :    ",

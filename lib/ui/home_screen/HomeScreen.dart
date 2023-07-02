@@ -81,6 +81,15 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
 
   @override
   Widget build(BuildContext context) {
+    List<String> cardTitles = [
+      S.current.allClaims,
+      S.current.newClaims,
+      S.current.assignedClaims,
+      S.current.startedClaims,
+      S.current.completedClaims,
+      S.current.cancelledClaims,
+      S.current.closedClaims
+    ];
     return Scaffold(
       backgroundColor: MColors.background_color,
       body: SafeArea(
@@ -180,7 +189,7 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
                       },
                       child: HomeCardItem(
                           cardColor: cardsColor[index],
-                          title: provider.cardTitles[index],
+                          title: cardTitles[index],
                           imageIcon: cardImages[index],
                           value: list.isNotEmpty ? list[index] : ' '),
                     ),
