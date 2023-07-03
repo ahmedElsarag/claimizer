@@ -85,6 +85,10 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                             value: pr.instance.unitName ?? S.current.na,
                           ),
                           ItemWidget(
+                            title: S.of(context).unitStatus,
+                            value: pr.instance.status ?? S.current.na,
+                          ),
+                          ItemWidget(
                             title: S.current.unitType,
                             value: pr.instance.unitType ?? S.current.na,
                           ),
@@ -146,7 +150,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                       ));
                                                       formData.fields.add(MapEntry("comment", pr.comment.text));
                                                       formData.fields.add(MapEntry(
-                                                          "claim_id", widget.unitRequestDataBean.id.toString()));
+                                                          "request_id", widget.unitRequestDataBean.id.toString()));
                                                     }
                                                     mPresenter.doPostCommentApiCall(
                                                         formData, widget.unitRequestDataBean.id);
@@ -157,7 +161,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                         contentType: new MediaType('application', 'octet-stream'),
                                                       ),
                                                       "comment": pr.comment.text,
-                                                      "claim_id": widget.unitRequestDataBean.id,
+                                                      "request_id": widget.unitRequestDataBean.id,
                                                     });
                                                     mPresenter.doPostCommentApiCall(
                                                         formData, widget.unitRequestDataBean.id);
@@ -165,7 +169,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                     FormData formData = FormData();
                                                     formData = new FormData.fromMap({
                                                       "comment": pr.comment.text,
-                                                      "claim_id": widget.unitRequestDataBean.id,
+                                                      "request_id": widget.unitRequestDataBean.id,
                                                     });
                                                     mPresenter.doPostCommentApiCall(
                                                         formData, widget.unitRequestDataBean.id);
@@ -175,7 +179,6 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                   pr.comment.clear();
                                                   setState(() {});
                                                 }
-
                                               },
                                               child: Text(
                                                 S.of(context).addComment,
@@ -466,6 +469,12 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                             onPressed: () async {
                                               if (pr.contractNo.text.isEmpty && pr.endDate == null) {
                                                 showToasts(S.of(context).enterContractNoAndEndDate, 'warning');
+                                              }
+                                              if (pr.contractNo.text.isEmpty) {
+                                                showToasts(S.of(context).pleaseEnterContractNumber, 'warning');
+                                              }
+                                              if (pr.endDate == null) {
+                                                showToasts(S.of(context).pleaseEnterContractEndDate, 'warning');
                                               } else {
                                                 FormData formData = new FormData.fromMap({
                                                   "contract_attach": await MultipartFile.fromFile(

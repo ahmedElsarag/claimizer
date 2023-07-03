@@ -82,6 +82,10 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                             value: pr.instance.unit.name ?? S.current.na,
                           ),
                           ItemWidget(
+                            title: S.of(context).claimStatus,
+                            value: pr.instance.status ?? S.current.na,
+                          ),
+                          ItemWidget(
                             title: S.current.claimCategory,
                             value: pr.instance.category.name ?? S.current.na,
                           ),
@@ -114,7 +118,10 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                             claimId: widget.claimsDataBean.referenceId,
                           ),
                           Visibility(
-                            visible: pr.instance.status.toLowerCase() != "closed" && pr.instance.status != "مغلق",
+                            visible: pr.instance.status.toLowerCase() != "closed" &&
+                                pr.instance.status != "مغلق" &&
+                                pr.instance.status.toLowerCase() != "cancelled" &&
+                                pr.instance.status != "ملغي",
                             child: Row(
                               children: [
                                 InkWell(
@@ -257,7 +264,10 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                           Gaps.vGap12,
                           Gaps.vGap12,
                           Visibility(
-                            visible: pr.instance.status.toLowerCase() != "closed" && pr.instance.status != "مغلق",
+                            visible: pr.instance.status.toLowerCase() != "closed" &&
+                                pr.instance.status != "مغلق" &&
+                                pr.instance.status.toLowerCase() != "cancelled" &&
+                                pr.instance.status != "ملغي",
                             child: InkWell(
                               onTap: () {
                                 mPresenter.closeClaimApiCall(pr.instance.referenceId);

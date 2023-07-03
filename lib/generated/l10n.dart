@@ -1764,6 +1764,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Claim Status`
+  String get claimStatus {
+    return Intl.message(
+      'Claim Status',
+      name: 'claimStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit Status`
+  String get unitStatus {
+    return Intl.message(
+      'Unit Status',
+      name: 'unitStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter contract end date`
+  String get pleaseEnterContractEndDate {
+    return Intl.message(
+      'Please enter contract end date',
+      name: 'pleaseEnterContractEndDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter contract number`
+  String get pleaseEnterContractNumber {
+    return Intl.message(
+      'Please enter contract number',
+      name: 'pleaseEnterContractNumber',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

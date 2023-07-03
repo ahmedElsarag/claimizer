@@ -171,5 +171,9 @@
   "images": "Images",
   "claimClosed": "Claim Closed",
   "enterYourNotesInCommentField": "Enter your notes in comment field",
-  "enterContractNoAndEndDate": "Enter contract no and end date"
+  "enterContractNoAndEndDate": "Enter contract no and end date",
+  "claimStatus": "Claim Status",
+  "unitStatus": "Unit Status",
+  "pleaseEnterContractEndDate": "Please enter contract end date",
+  "pleaseEnterContractNumber": "Please enter contract number"
 }

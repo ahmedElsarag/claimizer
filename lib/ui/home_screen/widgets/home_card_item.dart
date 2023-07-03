@@ -30,7 +30,7 @@ class HomeCardItem extends StatelessWidget {
               SizedBox(
                 child: AutoSizeText(
                   value,
-                  style: TextStyle(color: Colors.blue, fontSize: 12, fontWeight: FontWeight.bold),maxLines: 2,
+                  style: TextStyle(color: Colors.blue, fontSize: 12, fontWeight: FontWeight.bold),maxLines: 1,
                 ),
               ),
               Spacer(),
@@ -46,9 +46,18 @@ class HomeCardItem extends StatelessWidget {
             ],
           ),
           Spacer(),
-          Text(
-            title,
-            style: TextStyle(color: Colors.black87, fontSize: 14),
+          // AutoSizeText(
+          //   title,
+          //   maxLines: 1,
+          //   style: TextStyle(
+          //       color: Colors.black87,
+          //   ),textAlign: TextAlign.center,
+          // ),
+          FittedBox(
+            child: Text(
+              title,
+              style: TextStyle(color: Colors.black87, fontSize: 14),
+            ),
           ),
         ],
       ),

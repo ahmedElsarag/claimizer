@@ -22,24 +22,42 @@ class ClaimCardDataItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title + " :  ",
-            style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+          FittedBox(
+            child: Text(
+              title + " :  ",
+              maxLines: 1,
+              style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor,fontSize: 7.sp),
+              textAlign: TextAlign.start,
+            ),
           ),
+          // Text(
+          //   title + " :  ",
+          //   style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
+          // ),
           // SizedBox(
           //   width: 20,
           // ),
-          Container(
-              // width: 40.w,
-              alignment: AlignmentDirectional.centerEnd,
-              child: SizedBox(
-                width: Utils.sWidth(35, context),
-                child: AutoSizeText(
-                  data.toLowerCase() ?? S.of(context).na,
-                  maxLines: 2,
-                  style: MTextStyles.textSubtitle,
-                ),
-              )),
+          FittedBox(
+            child: Text(
+              " "+data.toLowerCase() ?? S.of(context).na ,
+              maxLines: 3,
+              style: MTextStyles.textSubtitle.copyWith(
+                fontSize: 8.sp
+              ),
+              textAlign: TextAlign.start,
+            ),
+          ),
+          // Container(
+          //     // width: 40.w,
+          //     alignment: AlignmentDirectional.centerEnd,
+          //     child: SizedBox(
+          //       width: Utils.sWidth(35, context),
+          //       child: AutoSizeText(
+          //         data.toLowerCase() ?? S.of(context).na,
+          //         maxLines: 2,
+          //         style: MTextStyles.textSubtitle,
+          //       ),
+          //     )),
         ],
       ),
     );

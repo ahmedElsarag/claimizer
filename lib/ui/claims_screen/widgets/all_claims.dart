@@ -66,31 +66,39 @@ class AllClaims extends StatelessWidget {
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(
-                                            width: Utils.sWidth(55, context),
-                                            child: AutoSizeText(
+                                          AutoSizeText(
                                             pr?.claimsList[index]?.unit?.building ?? S.current.na,
-                                            style: MTextStyles.textBoldDark16,
-                                          ),),
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                                color: Colors.black, fontWeight: FontWeight.w600
+                                            ),textAlign: TextAlign.center,
+                                          ),
                                           Text(
                                             S.of(context).requestCode + "\n ${pr?.claimsList[index]?.referenceId}",
                                             style: MTextStyles.textSubtitle,
                                           ),
                                         ],
                                       ),
-                                      Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                                          decoration: BoxDecoration(
-                                            color: presenter.getClaimStatusColorFromString(
-                                                pr?.claimsList[index]?.status?.toLowerCase()),
-                                            borderRadius: BorderRadius.circular(32),
-                                          ),
-                                          child: SizedBox(
-                                              width: Utils.sWidth(18, context),
-                                              child: AutoSizeText(pr?.claimsList[index]?.status ?? '',
+                                      Card(
+                                        color: presenter.getClaimStatusColorFromString(
+                                            pr?.claimsList[index]?.status?.toLowerCase()),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(32),
+
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 4),
+                                          child: FittedBox(
+                                            child: Text(
+                                              pr?.claimsList[index]?.status ?? '',
+                                              maxLines: 1,
                                               style: TextStyle(
                                                   color: Colors.white, fontWeight: FontWeight.w600
-                                              ),textAlign: TextAlign.center,)))
+                                              ),textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                      )
                                     ],
                                   ),
                                   buildDivider(),

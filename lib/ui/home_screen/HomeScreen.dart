@@ -162,16 +162,22 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
                           claimsProvider.status = "all";
                         } else if (index == 1) {
                           claimsProvider.status = "new";
+                          claimsProvider.status = "الجديدة";
                         } else if (index == 2) {
                           claimsProvider.status = "assigned";
+                          claimsProvider.status = "المعينة";
                         } else if (index == 3) {
                           claimsProvider.status = "started";
+                          claimsProvider.status = "التي بدأت";
                         } else if (index == 4) {
                           claimsProvider.status = "completed";
+                          claimsProvider.status = "المكتملة";
                         } else if (index == 5) {
                           claimsProvider.status = "cancelled";
+                          claimsProvider.status = "الملغية";
                         } else if (index == 6) {
                           claimsProvider.status = "closed";
+                          claimsProvider.status = "المغلقة";
                         }
                         if (index != 0) {
                           Navigator.push(
@@ -206,7 +212,7 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
                   AppHeadline(title: S.of(context).rememberThat, padding: const EdgeInsets.symmetric(horizontal: 20)),
                   const SizedBox(height: 18),
                   Container(
-                    height: 16.h,
+                    height: 18.h,
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (_, index) =>

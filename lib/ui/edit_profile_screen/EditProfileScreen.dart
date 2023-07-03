@@ -383,6 +383,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
           MyTextFormField(
             style: Theme.of(context).textTheme.bodySmall,
             dividerColor: Theme.of(context).dividerColor,
+            readOnly: true,
             decoration: InputDecoration(
               errorStyle: Theme.of(context).textTheme.bodySmall.copyWith(color: Colors.redAccent),
               contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
@@ -739,7 +740,6 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
   }
 
   void editProfile() async {
-    print("!@@!@!@!@!@!@!@ ${_image.path}");
     if (_image != null) {
       FormData formData = new FormData.fromMap({
         "image": await MultipartFile.fromFile(
@@ -751,8 +751,10 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
         "email": provider.emailController.text,
         "email_notifications": provider.isNotificationEnabled
       });
+      print("@#@#@@@@@@@@@@@@@@@@@@221");
       mPresenter.editProfileApiCall(formData);
     } else {
+      print("@#@#@@@@@@@@@@@@@@@@@@222");
       Map<String, dynamic> params = Map();
       params['mobile'] = provider.mobileController.text;
       params['name'] = provider.nameController.text;

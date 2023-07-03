@@ -68,39 +68,47 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
               color: MColors.white,
               child: TabBar(
                 controller: pr.tabController,
-                labelStyle: TextStyle(fontSize: 7.sp),
+                labelStyle:  TextStyle(fontSize: 10.sp),
                 isScrollable: false,
                 unselectedLabelColor: MColors.subText_color,
                 indicatorWeight: 3,
                 indicatorSize: TabBarIndicatorSize.label,
                 tabs: [
-                  Tab(
-                    icon: SvgPicture.asset(
-                      ImageUtils.getSVGPath('home'),
-                      color: mainProvider.currentSelect == 0 ? MColors.primary_color : MColors.tabsTextColor,
+                  FittedBox(
+                    child: Tab(
+                      icon: SvgPicture.asset(
+                        ImageUtils.getSVGPath('home'),
+                        color: mainProvider.currentSelect == 0 ? MColors.primary_color : MColors.tabsTextColor,
+                      ),
+                      text: S.of(context).home,
                     ),
-                    text: S.of(context).home,
                   ),
-                  Tab(
-                    icon: SvgPicture.asset(
-                      ImageUtils.getSVGPath('claims'),
-                      color: mainProvider.currentSelect == 1 ? MColors.primary_color : MColors.tabsTextColor,
+                  FittedBox(
+                    child: Tab(
+                      icon: SvgPicture.asset(
+                        ImageUtils.getSVGPath('claims'),
+                        color: mainProvider.currentSelect == 1 ? MColors.primary_color : MColors.tabsTextColor,
+                      ),
+                      text: S.of(context).claims,
                     ),
-                    text: S.of(context).claims,
                   ),
-                  Tab(
-                    icon: SvgPicture.asset(
-                      ImageUtils.getSVGPath('units'),
-                      color: mainProvider.currentSelect == 2 ? MColors.primary_color : MColors.tabsTextColor,
+                  FittedBox(
+                    child: Tab(
+                      icon: SvgPicture.asset(
+                        ImageUtils.getSVGPath('units'),
+                        color: mainProvider.currentSelect == 2 ? MColors.primary_color : MColors.tabsTextColor,
+                      ),
+                      text: S.of(context).units,
                     ),
-                    text: S.of(context).units,
                   ),
-                  Tab(
-                    icon: Icon(
-                      Icons.more_horiz_rounded,
-                      color: mainProvider.currentSelect == 3 ? MColors.primary_color : MColors.tabsTextColor,
+                  FittedBox(
+                    child: Tab(
+                      icon: Icon(
+                        Icons.more_horiz_rounded,
+                        color: mainProvider.currentSelect == 3 ? MColors.primary_color : MColors.tabsTextColor,
+                      ),
+                      text: S.of(context).more,
                     ),
-                    text: S.of(context).more,
                   ),
                 ],
                 // labelPadding: EdgeInsets.symmetric(horizontal: 1.0),

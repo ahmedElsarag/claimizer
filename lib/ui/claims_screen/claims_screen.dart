@@ -112,29 +112,33 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                             child: Card(
                               elevation: 0.5,
                               color: pr.selectedIndex == pageIndex ? MColors.primary_color : Colors.white,
-                              child: SizedBox(
-                                width: 30.w,
-                                height: 96,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      ImageUtils.getSVGPath(cardImages[pageIndex]),
-                                      color: pr.selectedIndex == pageIndex ? Colors.white : MColors.primary_color,
-                                    ),
-                                    SizedBox(
-                                      width: pr.selectedIndex == pageIndex ? 80 : 90,
-                                      child: Text(
-                                        cardTitles[pageIndex],
-                                        style: MTextStyles.textMainLight14.copyWith(
-                                            color:
-                                                pr.selectedIndex == pageIndex ? Colors.white : MColors.light_text_color,
-                                            fontSize: 10.sp),
-                                        textAlign: TextAlign.center,
+                              child: FittedBox(
+                                child: SizedBox(
+                                  width: 30.w,
+                                  height: 100,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        ImageUtils.getSVGPath(cardImages[pageIndex]),
+                                        color: pr.selectedIndex == pageIndex ? Colors.white : MColors.primary_color,
                                       ),
-                                    ),
-                                  ],
+                                      FittedBox(
+                                        child: SizedBox(
+                                          width: pr.selectedIndex == pageIndex ? 90 : 100,
+                                          child: Text(
+                                            cardTitles[pageIndex],
+                                            style: MTextStyles.textMainLight14.copyWith(
+                                                color:
+                                                    pr.selectedIndex == pageIndex ? Colors.white : MColors.light_text_color,
+                                                fontSize: 9.sp),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

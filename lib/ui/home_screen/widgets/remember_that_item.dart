@@ -1,6 +1,7 @@
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/network/models/StatisticsResponse.dart';
 import 'package:Cliamizer/res/gaps.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
@@ -17,7 +18,7 @@ class RememberThatItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 85.w,
-      height: 20.h,
+      height: 22.h,
       padding: EdgeInsets.all(16),
       margin: EdgeInsetsDirectional.only(start: index == 0 ? 20 : 0),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white),
@@ -44,6 +45,9 @@ class RememberThatItem extends StatelessWidget {
                 maxLines: 2,
                 style: TextStyle(color: Colors.black.withOpacity(.8), fontSize: 10.sp, fontWeight: FontWeight.w500),
               )),
+              SizedBox(
+                width: 10,
+              ),
               SvgPicture.asset(
                 ImageUtils.getSVGPath('alert'),
                 width: 16,
@@ -56,16 +60,18 @@ class RememberThatItem extends StatelessWidget {
             color: MColors.dividerColor,
           ),
           Gaps.vGap5,
-          Text(
-              S.of(context).unit +
-                  aboutToExpireUnits.propertyName +
-                  S.of(context).contractEndsOn +
-                  aboutToExpireUnits.requestEndAt,
+          FittedBox(
+            child: AutoSizeText(
+               S.of(context).unit +
+                              aboutToExpireUnits.propertyName +
+                              S.of(context).contractEndsOn +
+                              aboutToExpireUnits.requestEndAt,
               maxLines: 2,
               style: TextStyle(
-                color: Colors.black54,
-                fontSize: 9.sp,
-              )),
+                  color: Colors.black54,
+              ),textAlign: TextAlign.justify,
+            ),
+          ),
         ],
       ),
     );
