@@ -18,7 +18,7 @@ class BuildCommentField extends StatelessWidget {
     return Consumer<ClaimsDetailsProvider>(
       builder: (context, pr, child) =>  TextFormField(
         controller: pr.comment,
-        maxLines: null,
+        maxLines: 3,
         style: MTextStyles.textDark14,
         decoration: InputDecoration(
           hintText: S.of(context).comment,

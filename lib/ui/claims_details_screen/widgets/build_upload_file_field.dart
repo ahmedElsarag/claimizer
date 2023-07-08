@@ -84,6 +84,9 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
               context: context,
               builder: (context) {
                 return AlertDialog(
+                  insetPadding: EdgeInsets.zero,
+                  contentPadding: EdgeInsets.all(16),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -92,8 +95,10 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
                         child: ElevatedButton.icon(
                           onPressed: getImageFromCamera,
                           icon: Icon(Icons.camera_alt, color: MColors.text_button_color),
-                          label: Text(S.of(context).takePhoto,
-                              style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
+                          label: FittedBox(
+                            child: Text(S.of(context).takePhoto,
+                                style: MTextStyles.textMain12.copyWith(color: MColors.text_button_color)),
+                          ),
                         ),
                       ),
                       SizedBox(height: 8),
@@ -102,9 +107,11 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
                         child: ElevatedButton.icon(
                           onPressed: pickImages,
                           icon: Icon(Icons.photo_library, color: MColors.text_button_color),
-                          label: Text(
-                            S.of(context).chooseFromGallery,
-                            style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color),
+                          label: FittedBox(
+                            child: Text(
+                              S.of(context).chooseFromGallery,
+                              style: MTextStyles.textMain12.copyWith(color: MColors.text_button_color),
+                            ),
                           ),
                         ),
                       ),
@@ -117,11 +124,11 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
           child: Container(
             decoration: BoxDecoration(
                 border: Border.all(color: MColors.textFieldBorder), borderRadius: BorderRadius.circular(8)),
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(16),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(ImageUtils.getSVGPath("file_upload")),
-                Gaps.hGap8,
                 pr.file != null
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(12),
@@ -141,18 +148,28 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
                               Text(pr.imageFiles.length.toString() + " " + S.of(context).images)
                             ],
                           )
-                        : Text(
-                            S.current.uploadAnyFiles,
-                            style: MTextStyles.textDark14,
+                        : Column(
+                            children: [
+                              SvgPicture.asset(ImageUtils.getSVGPath("file_upload"),
+                                  color: MColors.light_text_color),
+                              Gaps.vGap8,
+                              Text(
+                                S.of(context).uploadAnyFiles,
+                                style: MTextStyles.textMain14.copyWith(color: MColors.light_text_color),
+                              ),
+                            ],
                           ),
-                Spacer(),
-                InkWell(
-                  onTap: () async {
-                    pr.imageFiles = null;
-                    pr.file = null;
-                    setState(() {});
-                  },
-                  child: Icon(Icons.close),
+                // Spacer(),
+                Visibility(
+                  visible: pr.imageFiles != null || pr.file != null,
+                  child: InkWell(
+                    onTap: () async {
+                      pr.imageFiles = null;
+                      pr.file = null;
+                      setState(() {});
+                    },
+                    child: Icon(Icons.close),
+                  ),
                 ),
               ],
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../res/colors.dart';
 
@@ -25,7 +26,7 @@ class AppHeadline extends StatelessWidget {
           ),
           Text(title,
               maxLines: 1,
-              style: TextStyle(color: MColors.headline_text_color, fontSize: 16, fontWeight: FontWeight.bold)),
+              style: TextStyle(color: MColors.headline_text_color, fontSize: 12.sp, fontWeight: FontWeight.bold)),
         ],
       ),
     );

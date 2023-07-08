@@ -146,7 +146,7 @@
   "nameIsRequired": "Name is required",
   "saveChanges": "Save Changes",
   "update": "Update",
-  "addComment": "Confirm",
+  "addComment": "Add Comment",
   "commentAdded": "Comment Added",
   "deleteClaim": "Delete Claim",
   "claimDeleted": "Claim Deleted",
@@ -175,5 +175,6 @@
   "claimStatus": "Claim Status",
   "unitStatus": "Unit Status",
   "pleaseEnterContractEndDate": "Please enter contract end date",
-  "pleaseEnterContractNumber": "Please enter contract number"
+  "pleaseEnterContractNumber": "Please enter contract number",
+  "cancel": "Cancel"
 }

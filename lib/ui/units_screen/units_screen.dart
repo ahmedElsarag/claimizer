@@ -117,7 +117,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                         width: pr.selectedIndex == pageIndex ? 80 : 90,
                                         child: AutoSizeText(
                                           cardTitles[pageIndex],
-                                          style: MTextStyles.textMainLight14.copyWith(
+                                          style: MTextStyles.textMain12.copyWith(
                                             color:
                                                 pr.selectedIndex == pageIndex ? Colors.white : MColors.light_text_color,
                                           ),

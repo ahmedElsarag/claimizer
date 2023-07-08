@@ -90,6 +90,7 @@ class ExistingUnitList extends StatelessWidget {
                                   width: Utils.sWidth(40, context),
                                   child: AutoSizeText(
                                     pr.unitsList[index].building ?? "",
+                                    maxLines: 2,
                                     style: MTextStyles.textSubtitle,
                                   ),
                                 )

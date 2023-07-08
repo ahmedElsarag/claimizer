@@ -1505,10 +1505,10 @@ class S {
     );
   }
 
-  /// `Confirm`
+  /// `Add Comment`
   String get addComment {
     return Intl.message(
-      'Confirm',
+      'Add Comment',
       name: 'addComment',
       desc: '',
       args: [],
@@ -1800,6 +1800,16 @@ class S {
     return Intl.message(
       'Please enter contract number',
       name: 'pleaseEnterContractNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
       desc: '',
       args: [],
     );

@@ -22,7 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "accountCreated" : MessageLookupByLibrary.simpleMessage("تم إنشاء الحساب"),
-    "addComment" : MessageLookupByLibrary.simpleMessage("تأكيد"),
+    "addComment" : MessageLookupByLibrary.simpleMessage("اضافة تعليق"),
     "addNewClaim" : MessageLookupByLibrary.simpleMessage("طلب صيانة جديد"),
     "allAttachment" : MessageLookupByLibrary.simpleMessage("كل الملفات"),
     "allClaims" : MessageLookupByLibrary.simpleMessage("جميع طلبات الصيانة"),
@@ -34,7 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "back" : MessageLookupByLibrary.simpleMessage("رجوع"),
     "backToHome" : MessageLookupByLibrary.simpleMessage("الرجوع الي الرئيسية"),
     "basicInfo" : MessageLookupByLibrary.simpleMessage("معلومات اساسية"),
-    "buildingName" : MessageLookupByLibrary.simpleMessage("اسم المبني"),
+    "buildingName" : MessageLookupByLibrary.simpleMessage("المبني"),
+    "cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
     "cancelledClaims" : MessageLookupByLibrary.simpleMessage("طلبات الصيانة الملغية"),
     "checkYourInternet" : MessageLookupByLibrary.simpleMessage("تحقق من الاتصاال بالانترنت"),
     "chooseFromGallery" : MessageLookupByLibrary.simpleMessage("اختر من المعرض"),

@@ -73,6 +73,14 @@ class ClaimsWithFilterProvider extends ChangeNotifier {
     notifyListeners();
   }
   String _status;
+  String _titleStatus;
+
+  String get titleStatus => _titleStatus;
+
+  set titleStatus(String value) {
+    _titleStatus = value;
+    notifyListeners();
+  }
 
   String get status => _status;
 

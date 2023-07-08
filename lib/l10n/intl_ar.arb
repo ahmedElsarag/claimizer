@@ -145,7 +145,7 @@
   "nameIsRequired": "الاسم مطلوب",
   "saveChanges": "حفظ التغييرات",
   "update": "تحديث",
-  "addComment": "تأكيد",
+  "addComment": "اضافة تعليق",
   "commentAdded": "تم اضافة التعليق",
   "deleteClaim": "حذف طلب الصيانة",
   "claimDeleted": "تم حذف طلب الصيانة",
@@ -174,5 +174,6 @@
   "claimStatus": "حالة طلب الصيانة",
   "unitStatus": "حالة الوحدة",
   "pleaseEnterContractEndDate": "ادخل تاريخ انتهاء العقد",
-  "pleaseEnterContractNumber": "ادخل رقم العقد"
+  "pleaseEnterContractNumber": "ادخل رقم العقد",
+  "cancel": "Cancel"
 }

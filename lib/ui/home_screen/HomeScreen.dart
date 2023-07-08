@@ -162,22 +162,22 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
                           claimsProvider.status = "all";
                         } else if (index == 1) {
                           claimsProvider.status = "new";
-                          claimsProvider.status = "الجديدة";
+                          claimsProvider.titleStatus = S.current.newClaims;
                         } else if (index == 2) {
                           claimsProvider.status = "assigned";
-                          claimsProvider.status = "المعينة";
+                          claimsProvider.titleStatus = S.current.assignedClaims;
                         } else if (index == 3) {
                           claimsProvider.status = "started";
-                          claimsProvider.status = "التي بدأت";
+                          claimsProvider.titleStatus = S.current.startedClaims;
                         } else if (index == 4) {
                           claimsProvider.status = "completed";
-                          claimsProvider.status = "المكتملة";
+                          claimsProvider.titleStatus = S.current.completedClaims;
                         } else if (index == 5) {
                           claimsProvider.status = "cancelled";
-                          claimsProvider.status = "الملغية";
+                          claimsProvider.titleStatus = S.current.cancelledClaims;
                         } else if (index == 6) {
                           claimsProvider.status = "closed";
-                          claimsProvider.status = "المغلقة";
+                          claimsProvider.titleStatus = S.current.closedClaims;
                         }
                         if (index != 0) {
                           Navigator.push(

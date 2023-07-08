@@ -135,65 +135,94 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                               presenter: mPresenter,
                                             ),
                                             Gaps.vGap8,
-                                            ElevatedButton(
-                                              onPressed: () async {
-                                                if (pr.comment.text.isEmpty) {
-                                                  showToasts(S.of(context).enterYourNotesInCommentField, 'warning');
-                                                } else {
-                                                  final formData = FormData();
-                                                  if (pr.imageFiles != null) {
-                                                    for (var i = 0; i < pr.imageFiles.length; i++) {
-                                                      final file = await pr.imageFiles[i].readAsBytes();
-                                                      formData.files.add(MapEntry(
-                                                        'file[$i]',
-                                                        MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
-                                                      ));
-                                                      formData.fields.add(MapEntry("comment", pr.comment.text));
-                                                      formData.fields.add(MapEntry(
-                                                          "request_id", widget.unitRequestDataBean.id.toString()));
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ElevatedButton(
+                                                  onPressed: () async {
+                                                    if (pr.comment.text.isEmpty) {
+                                                      showToasts(S.of(context).enterYourNotesInCommentField, 'warning');
+                                                    } else {
+                                                      final formData = FormData();
+                                                      if (pr.imageFiles != null) {
+                                                        for (var i = 0; i < pr.imageFiles.length; i++) {
+                                                          final file = await pr.imageFiles[i].readAsBytes();
+                                                          formData.files.add(MapEntry(
+                                                            'file[$i]',
+                                                            MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
+                                                          ));
+                                                          formData.fields.add(MapEntry("comment", pr.comment.text));
+                                                          formData.fields.add(MapEntry(
+                                                              "request_id", widget.unitRequestDataBean.id.toString()));
+                                                        }
+                                                        mPresenter.doPostCommentApiCall(
+                                                            formData, widget.unitRequestDataBean.id);
+                                                      } else if (pr.file != null) {
+                                                        FormData formData = new FormData.fromMap({
+                                                          "file[0]": await MultipartFile.fromFile(
+                                                            pr.file.path,
+                                                            contentType: new MediaType('application', 'octet-stream'),
+                                                          ),
+                                                          "comment": pr.comment.text,
+                                                          "request_id": widget.unitRequestDataBean.id,
+                                                        });
+                                                        mPresenter.doPostCommentApiCall(
+                                                            formData, widget.unitRequestDataBean.id);
+                                                      } else {
+                                                        FormData formData = FormData();
+                                                        formData = new FormData.fromMap({
+                                                          "comment": pr.comment.text,
+                                                          "request_id": widget.unitRequestDataBean.id,
+                                                        });
+                                                        mPresenter.doPostCommentApiCall(
+                                                            formData, widget.unitRequestDataBean.id);
+                                                      }
+                                                      pr.imageFiles = null;
+                                                      pr.file = null;
+                                                      pr.comment.clear();
+                                                      setState(() {});
                                                     }
-                                                    mPresenter.doPostCommentApiCall(
-                                                        formData, widget.unitRequestDataBean.id);
-                                                  } else if (pr.file != null) {
-                                                    FormData formData = new FormData.fromMap({
-                                                      "file[0]": await MultipartFile.fromFile(
-                                                        pr.file.path,
-                                                        contentType: new MediaType('application', 'octet-stream'),
-                                                      ),
-                                                      "comment": pr.comment.text,
-                                                      "request_id": widget.unitRequestDataBean.id,
-                                                    });
-                                                    mPresenter.doPostCommentApiCall(
-                                                        formData, widget.unitRequestDataBean.id);
-                                                  } else {
-                                                    FormData formData = FormData();
-                                                    formData = new FormData.fromMap({
-                                                      "comment": pr.comment.text,
-                                                      "request_id": widget.unitRequestDataBean.id,
-                                                    });
-                                                    mPresenter.doPostCommentApiCall(
-                                                        formData, widget.unitRequestDataBean.id);
-                                                  }
-                                                  pr.imageFiles = null;
-                                                  pr.file = null;
-                                                  pr.comment.clear();
-                                                  setState(() {});
-                                                }
-                                              },
-                                              child: Text(
-                                                S.of(context).addComment,
-                                                style: MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
-                                              ),
-                                              style: ButtonStyle(
-                                                  backgroundColor:
+                                                  },
+                                                  child: Text(
+                                                    S.of(context).confirm,
+                                                    style: MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                                  ),
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                      MaterialStateProperty.all<Color>(MColors.primary_light_color),
+                                                      elevation: MaterialStatePropertyAll(0),
+                                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          )),
+                                                      padding: MaterialStateProperty.all<EdgeInsets>(
+                                                          EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                                ),
+                                                Gaps.hGap8,
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    pr.comment.clear();
+                                                    pr.file = null;
+                                                    pr.imageFiles = null;
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text(
+                                                    S.of(context).cancel,
+                                                    style:
+                                                    MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                                  ),
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
                                                       MaterialStateProperty.all<Color>(MColors.primary_color),
-                                                  elevation: MaterialStatePropertyAll(0),
-                                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                      RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(8),
-                                                  )),
-                                                  padding: MaterialStateProperty.all<EdgeInsets>(
-                                                      EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                                      elevation: MaterialStatePropertyAll(0),
+                                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          )),
+                                                      padding: MaterialStateProperty.all<EdgeInsets>(
+                                                          EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                                )
+                                              ],
                                             ),
                                           ],
                                         ),
