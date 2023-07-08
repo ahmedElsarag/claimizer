@@ -19,7 +19,7 @@ class BuildCommentField extends StatelessWidget {
     return Consumer<UnitDetailsProvider>(
       builder: (context, pr, child) =>  TextFormField(
         controller: pr.comment,
-        maxLines: 3,
+        maxLines: 4,
         style: MTextStyles.textDark14,
         decoration: InputDecoration(
           hintText: S.of(context).comment,

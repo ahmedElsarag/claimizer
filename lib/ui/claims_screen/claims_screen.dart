@@ -456,6 +456,18 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               "available_time": provider.selectedTimeValue
                                             });
                                             mPresenter.postClaimRequestApiCall(formData);
+                                          }else{
+                                            Map<String, dynamic> parms = Map();
+                                            parms['unit_id'] = selectedUnitId;
+                                            parms['category_id'] = selectedCategoryId;
+                                            parms['sub_category_id'] = selectedSubCategoryId;
+                                            parms['claim_type_id'] = selectedTypeId;
+                                            parms['description'] = provider.description.text;
+                                            parms['available_date'] = provider.selectedDate != null
+                                                ? DateFormat('yyyy-MM-dd', 'en').format(provider.selectedDate)
+                                                : DateFormat('yyyy-MM-dd', 'en').format(DateTime.now());
+                                            parms['available_time'] = provider.selectedTimeValue;
+                                            mPresenter.postClaimRequestApiCall(parms);
                                           }
                                         },
                                         child: Text(

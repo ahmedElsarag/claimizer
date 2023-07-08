@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../../generated/l10n.dart';
@@ -7,21 +8,19 @@ import '../../../res/styles.dart';
 
 class ItemWidget extends StatelessWidget {
   const ItemWidget({Key key, this.title, this.value, this.valueColor}) : super(key: key);
- final String title;
- final String value;
- final Color valueColor;
+  final String title;
+  final String value;
+  final Color valueColor;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,
-            style: MTextStyles.textMain16.copyWith(
-              color: MColors.black,
-            )),
+        AutoSizeText(title, style: TextStyle(color: MColors.black, fontWeight: FontWeight.w700)),
         Gaps.vGap8,
-        Text(value,
-            style: MTextStyles.textMain14.copyWith(
+        AutoSizeText(value,
+            style: TextStyle(
               color: valueColor ?? MColors.black,
               fontWeight: FontWeight.w400,
             )),

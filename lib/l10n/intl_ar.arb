@@ -110,7 +110,7 @@
   "theQrCodeIsIncorrect": "رمز الاستجابة السريعة غير صحيح",
   "startDate": "تاريخ البداية",
   "endDate": "تاريخ النهاية",
-  "buildingName": "اسم المبني",
+  "buildingName": "المبني",
   "companyName": "اسم الشركة",
   "contractNo": "رقم العقد",
   "na": "لايوجد",
@@ -159,7 +159,7 @@
   "unitRequestUnlinked": "تم الغاء ربط الوحدة",
   "qrScanner": "الماسح",
   "youNeedToRenewUnit": "تحتاج الي تجديد تعاقد الوحدة ",
-  "unit": "ينتهي تعاقد الوحدة  ",
+  "unit": "ينتهي تعاقد الوحدة ",
   "contractEndsOn": " في تاريخ ",
   "noImageSelected": "لم تختار اي صورة",
   "only4ImagesAllowed": "مسموح برفع 4 صور كحد أقصي",
@@ -175,5 +175,8 @@
   "unitStatus": "حالة الوحدة",
   "pleaseEnterContractEndDate": "ادخل تاريخ انتهاء العقد",
   "pleaseEnterContractNumber": "ادخل رقم العقد",
-  "cancel": "Cancel"
+  "cancel": "الغاء",
+  "renewNotes": "ملاحظات التجديد",
+  "unitRequestCode": "كود ربط الوحدة: ",
+  "userRemarks": "ملاحظات العميل"
 }

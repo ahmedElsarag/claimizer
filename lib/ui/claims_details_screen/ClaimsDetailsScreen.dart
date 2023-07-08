@@ -132,118 +132,120 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                                         return AlertDialog(
                                           content: Form(
                                             key: pr.formKey,
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Text(
-                                                  S.of(context).addComment,
-                                                  style: MTextStyles.textMain14,
-                                                ),
-                                                Gaps.vGap8,
-                                                Gaps.vGap8,
-                                                Gaps.vGap8,
-                                                BuildCommentField(
-                                                  provider: provider,
-                                                ),
-                                                Gaps.vGap8,Gaps.vGap8,
-                                                BuildUploadFileField(
-                                                  provider: provider,
-                                                ),
-                                                Gaps.vGap8,
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    ElevatedButton(
-                                                      onPressed: () async {
-                                                        if (provider.formKey.currentState.validate()) {
-                                                          if (pr.comment.text.isEmpty) {
-                                                            showToasts(
-                                                                S.of(context).enterYourNotesInCommentField, 'warning');
-                                                          } else {
-                                                            final formData = FormData();
-                                                            if (pr.imageFiles != null) {
-                                                              for (var i = 0; i < pr.imageFiles.length; i++) {
-                                                                final file = await pr.imageFiles[i].readAsBytes();
-                                                                formData.files.add(MapEntry(
-                                                                  'file[$i]',
-                                                                  MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
-                                                                ));
-                                                                formData.fields.add(MapEntry("comment", pr.comment.text));
-                                                                formData.fields.add(MapEntry(
-                                                                    "claim_id", widget.claimsDataBean.id.toString()));
-                                                              }
-                                                              mPresenter.doPostCommentApiCall(
-                                                                  formData, widget.claimsDataBean.referenceId);
-                                                            } else if (pr.file != null) {
-                                                              FormData formData = new FormData.fromMap({
-                                                                "file[0]": await MultipartFile.fromFile(
-                                                                  pr.file.path,
-                                                                  contentType: new MediaType('application', 'octet-stream'),
-                                                                ),
-                                                                "comment": pr.comment.text,
-                                                                "claim_id": widget.claimsDataBean.id,
-                                                              });
-                                                              mPresenter.doPostCommentApiCall(
-                                                                  formData, widget.claimsDataBean.referenceId);
+                                            child: SingleChildScrollView(
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(
+                                                    S.of(context).addComment,
+                                                    style: MTextStyles.textMain14,
+                                                  ),
+                                                  Gaps.vGap8,
+                                                  Gaps.vGap8,
+                                                  Gaps.vGap8,
+                                                  BuildCommentField(
+                                                    provider: provider,
+                                                  ),
+                                                  Gaps.vGap8,Gaps.vGap8,
+                                                  BuildUploadFileField(
+                                                    provider: provider,
+                                                  ),
+                                                  Gaps.vGap8,
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      ElevatedButton(
+                                                        onPressed: () async {
+                                                          if (provider.formKey.currentState.validate()) {
+                                                            if (pr.comment.text.isEmpty) {
+                                                              showToasts(
+                                                                  S.of(context).enterYourNotesInCommentField, 'warning');
                                                             } else {
-                                                              FormData formData = FormData();
-                                                              formData = new FormData.fromMap({
-                                                                "comment": pr.comment.text,
-                                                                "claim_id": widget.claimsDataBean.id,
-                                                              });
-                                                              mPresenter.doPostCommentApiCall(
-                                                                  formData, widget.claimsDataBean.referenceId);
+                                                              final formData = FormData();
+                                                              if (pr.imageFiles != null) {
+                                                                for (var i = 0; i < pr.imageFiles.length; i++) {
+                                                                  final file = await pr.imageFiles[i].readAsBytes();
+                                                                  formData.files.add(MapEntry(
+                                                                    'file[$i]',
+                                                                    MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
+                                                                  ));
+                                                                  formData.fields.add(MapEntry("comment", pr.comment.text));
+                                                                  formData.fields.add(MapEntry(
+                                                                      "claim_id", widget.claimsDataBean.id.toString()));
+                                                                }
+                                                                mPresenter.doPostCommentApiCall(
+                                                                    formData, widget.claimsDataBean.referenceId);
+                                                              } else if (pr.file != null) {
+                                                                FormData formData = new FormData.fromMap({
+                                                                  "file[0]": await MultipartFile.fromFile(
+                                                                    pr.file.path,
+                                                                    contentType: new MediaType('application', 'octet-stream'),
+                                                                  ),
+                                                                  "comment": pr.comment.text,
+                                                                  "claim_id": widget.claimsDataBean.id,
+                                                                });
+                                                                mPresenter.doPostCommentApiCall(
+                                                                    formData, widget.claimsDataBean.referenceId);
+                                                              } else {
+                                                                FormData formData = FormData();
+                                                                formData = new FormData.fromMap({
+                                                                  "comment": pr.comment.text,
+                                                                  "claim_id": widget.claimsDataBean.id,
+                                                                });
+                                                                mPresenter.doPostCommentApiCall(
+                                                                    formData, widget.claimsDataBean.referenceId);
+                                                              }
+                                                              pr.imageFiles = null;
+                                                              pr.file = null;
+                                                              pr.comment.clear();
+                                                              setState(() {});
                                                             }
-                                                            pr.imageFiles = null;
-                                                            pr.file = null;
-                                                            pr.comment.clear();
-                                                            setState(() {});
                                                           }
-                                                        }
-                                                      },
-                                                      child: Text(
-                                                        S.of(context).confirm,
-                                                        style:
-                                                            MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                                        },
+                                                        child: Text(
+                                                          S.of(context).confirm,
+                                                          style:
+                                                              MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                                        ),
+                                                        style: ButtonStyle(
+                                                            backgroundColor:
+                                                                MaterialStateProperty.all<Color>(MColors.primary_light_color),
+                                                            elevation: MaterialStatePropertyAll(0),
+                                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius.circular(8),
+                                                            )),
+                                                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                                                EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
                                                       ),
-                                                      style: ButtonStyle(
-                                                          backgroundColor:
-                                                              MaterialStateProperty.all<Color>(MColors.primary_light_color),
-                                                          elevation: MaterialStatePropertyAll(0),
-                                                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                              RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(8),
-                                                          )),
-                                                          padding: MaterialStateProperty.all<EdgeInsets>(
-                                                              EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
-                                                    ),
-                                                    Gaps.hGap8,
-                                                    ElevatedButton(
-                                                      onPressed: () {
-                                                        pr.comment.clear();
-                                                        pr.file = null;
-                                                        pr.imageFiles = null;
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: Text(
-                                                        S.of(context).cancel,
-                                                        style:
-                                                        MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
-                                                      ),
-                                                      style: ButtonStyle(
-                                                          backgroundColor:
-                                                          MaterialStateProperty.all<Color>(MColors.primary_color),
-                                                          elevation: MaterialStatePropertyAll(0),
-                                                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                              RoundedRectangleBorder(
-                                                                borderRadius: BorderRadius.circular(8),
-                                                              )),
-                                                          padding: MaterialStateProperty.all<EdgeInsets>(
-                                                              EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
-                                                    )
-                                                  ],
-                                                )
-                                              ],
+                                                      Gaps.hGap8,
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          pr.comment.clear();
+                                                          pr.file = null;
+                                                          pr.imageFiles = null;
+                                                          Navigator.pop(context);
+                                                        },
+                                                        child: Text(
+                                                          S.of(context).cancel,
+                                                          style:
+                                                          MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                                        ),
+                                                        style: ButtonStyle(
+                                                            backgroundColor:
+                                                            MaterialStateProperty.all<Color>(MColors.primary_color),
+                                                            elevation: MaterialStatePropertyAll(0),
+                                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                                RoundedRectangleBorder(
+                                                                  borderRadius: BorderRadius.circular(8),
+                                                                )),
+                                                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                                                EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         );

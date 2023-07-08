@@ -62,6 +62,15 @@ class UnitDetailsProvider<T> extends BaseProvider<UnitRequestDetailsDataBean> {
   }
 
   TextEditingController _comment = TextEditingController();
+  TextEditingController _renewNotes = TextEditingController();
+
+  TextEditingController get renewNotes => _renewNotes;
+
+  set renewNotes(TextEditingController value) {
+    _renewNotes = value;
+    notifyListeners();
+  }
+
   TextEditingController get comment => _comment;
 
   set comment(TextEditingController value) {

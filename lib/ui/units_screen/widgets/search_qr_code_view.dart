@@ -1,5 +1,6 @@
 import 'package:Cliamizer/ui/units_screen/units_presenter.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -25,7 +26,9 @@ class SearchAboutUnitByQR extends StatelessWidget {
         child: ListView(
           // mainAxisSize: MainAxisSize.min,
           children: [
-            Center(child: Text(S.current.newLinkRequest, style: MTextStyles.textMain18)),
+            Center(
+                child: AutoSizeText(S.current.newLinkRequest,
+                    style: TextStyle(fontWeight: FontWeight.w600, color: MColors.primary_text_color))),
             Gaps.vGap8,
             Gaps.vGap8,
             Gaps.vGap8,
@@ -38,7 +41,7 @@ class SearchAboutUnitByQR extends StatelessWidget {
                   margin: EdgeInsetsDirectional.only(end: 3.w),
                   decoration: BoxDecoration(color: MColors.primary_color, borderRadius: BorderRadius.circular(4)),
                 ),
-                Text(S.of(context).unitQuery, style: MTextStyles.textMain16),
+                AutoSizeText(S.of(context).unitQuery,  style: TextStyle(fontWeight: FontWeight.w600, color: MColors.primary_text_color)),
               ],
             ),
             Gaps.vGap8,
@@ -54,7 +57,7 @@ class SearchAboutUnitByQR extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   if (pr.qrCode.text.isEmpty) {
-                    presenter.view.showToasts(S.of(context).pleaseEnterQrCode,'warning');
+                    presenter.view.showToasts(S.of(context).pleaseEnterQrCode, 'warning');
                   } else {
                     presenter.checkLinkHasParams(pr.qrCode.text);
                   }
@@ -81,7 +84,7 @@ class SearchAboutUnitByQR extends StatelessWidget {
                 decoration:
                     BoxDecoration(color: Color(0xffDA1414).withOpacity(0.12), borderRadius: BorderRadius.circular(8)),
                 child: Text(
-                  pr.message??"",
+                  pr.message ?? "",
                   style: MTextStyles.textMain14.copyWith(fontSize: 9.sp),
                 ),
               ),

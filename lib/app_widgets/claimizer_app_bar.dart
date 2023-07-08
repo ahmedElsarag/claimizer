@@ -1,4 +1,5 @@
 import 'package:Cliamizer/res/setting.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,9 +35,9 @@ class ClaimizerAppBar extends StatelessWidget {
                   )),
         Expanded(
           child: Center(
-            child: Text(
+            child: AutoSizeText(
               capitalize(title),
-              style: GoogleFonts.montserrat(fontSize: 14.sp, fontWeight: FontWeight.w700, color: MColors.dark_text_color),
+              style: GoogleFonts.montserrat(fontWeight: FontWeight.w700, color: MColors.dark_text_color),
             ),
           ),
         )

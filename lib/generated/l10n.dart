@@ -1155,20 +1155,20 @@ class S {
     );
   }
 
-  /// `Building Name`
+  /// `Building`
   String get buildingName {
     return Intl.message(
-      'Building Name',
+      'Building',
       name: 'buildingName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Company Name`
+  /// `Company`
   String get companyName {
     return Intl.message(
-      'Company Name',
+      'Company',
       name: 'companyName',
       desc: '',
       args: [],
@@ -1810,6 +1810,36 @@ class S {
     return Intl.message(
       'Cancel',
       name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Renew Notes`
+  String get renewNotes {
+    return Intl.message(
+      'Renew Notes',
+      name: 'renewNotes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unit Request Code: `
+  String get unitRequestCode {
+    return Intl.message(
+      'Unit Request Code: ',
+      name: 'unitRequestCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User Remarks`
+  String get userRemarks {
+    return Intl.message(
+      'User Remarks',
+      name: 'userRemarks',
       desc: '',
       args: [],
     );

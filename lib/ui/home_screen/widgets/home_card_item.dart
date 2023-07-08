@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../res/colors.dart';
+
 class HomeCardItem extends StatelessWidget {
   const HomeCardItem(
       {Key key, @required this.cardColor, @required this.title, @required this.imageIcon, @required this.value})
@@ -18,7 +20,7 @@ class HomeCardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 50.w,
-      height: 20.h,
+      height: 22.h,
       // margin: EdgeInsets.all(20),
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: cardColor.withOpacity(.1)),
@@ -27,11 +29,9 @@ class HomeCardItem extends StatelessWidget {
         children: [
           Row(
             children: [
-              SizedBox(
-                child: AutoSizeText(
-                  value,
-                  style: TextStyle(color: Colors.blue, fontSize: 12, fontWeight: FontWeight.bold),maxLines: 1,
-                ),
+              AutoSizeText(
+                value,
+                style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),maxLines: 1,
               ),
               Spacer(),
               Container(
@@ -46,18 +46,9 @@ class HomeCardItem extends StatelessWidget {
             ],
           ),
           Spacer(),
-          // AutoSizeText(
-          //   title,
-          //   maxLines: 1,
-          //   style: TextStyle(
-          //       color: Colors.black87,
-          //   ),textAlign: TextAlign.center,
-          // ),
-          FittedBox(
-            child: Text(
-              title,
-              style: TextStyle(color: Colors.black87, fontSize: 14),
-            ),
+          AutoSizeText(
+            title,
+            style: TextStyle(fontWeight: FontWeight.w500, color: MColors.black),
           ),
         ],
       ),

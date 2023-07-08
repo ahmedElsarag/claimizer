@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -24,9 +25,9 @@ class AppHeadline extends StatelessWidget {
           SizedBox(
             width: 12,
           ),
-          Text(title,
+          AutoSizeText(title,
               maxLines: 1,
-              style: TextStyle(color: MColors.headline_text_color, fontSize: 12.sp, fontWeight: FontWeight.bold)),
+              style: TextStyle(color: MColors.headline_text_color, fontWeight: FontWeight.bold)),
         ],
       ),
     );

@@ -151,7 +151,7 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  childAspectRatio: 16 / 9,
+                  childAspectRatio: 16 / 10,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   children: List.generate(

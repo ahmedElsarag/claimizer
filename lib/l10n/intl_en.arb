@@ -111,8 +111,8 @@
   "theQrCodeIsIncorrect": "The QR code is incorrect",
   "startDate": "Start Date",
   "endDate": "End Date",
-  "buildingName": "Building Name",
-  "companyName": "Company Name",
+  "buildingName": "Building",
+  "companyName": "Company",
   "contractNo": "Contract No",
   "youShouldSelectDateAndTime": "You should select date and time",
   "na": "N/A",
@@ -176,5 +176,8 @@
   "unitStatus": "Unit Status",
   "pleaseEnterContractEndDate": "Please enter contract end date",
   "pleaseEnterContractNumber": "Please enter contract number",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "renewNotes": "Renew Notes",
+  "unitRequestCode": "Unit Request Code: ",
+  "userRemarks": "User Remarks"
 }

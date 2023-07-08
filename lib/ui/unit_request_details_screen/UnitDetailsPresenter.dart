@@ -103,6 +103,8 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
           if (data != null) {
             Navigator.pop(view.context);
             view.showToasts(S.of(view.context).unitRequestUnlinked, "success");
+            getUnitRequestDetailsDataApiCall(view.widget.unitRequestDataBean.id);
+            Navigator.pop(view.context);
             Navigator.pop(view.context);
             passReloadByEventPath();
           }else{

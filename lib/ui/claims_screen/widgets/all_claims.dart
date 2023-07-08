@@ -73,9 +73,9 @@ class AllClaims extends StatelessWidget {
                                                 color: Colors.black, fontWeight: FontWeight.w600
                                             ),textAlign: TextAlign.center,
                                           ),
-                                          Text(
-                                            S.of(context).requestCode + "\n ${pr?.claimsList[index]?.referenceId}",
-                                            style: MTextStyles.textSubtitle,
+                                          AutoSizeText(
+                                            S.of(context).requestCode + "\n" + pr.claimsList[index].referenceId,
+                                            style: TextStyle(fontWeight: FontWeight.w500, color: MColors.subText_color),
                                           ),
                                         ],
                                       ),
@@ -88,14 +88,11 @@ class AllClaims extends StatelessWidget {
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 4),
-                                          child: FittedBox(
-                                            child: Text(
-                                              pr?.claimsList[index]?.status ?? '',
-                                              maxLines: 1,
-                                              style: TextStyle(
-                                                  color: Colors.white, fontWeight: FontWeight.w600
-                                              ),textAlign: TextAlign.center,
-                                            ),
+                                          child: AutoSizeText(
+                                            pr?.claimsList[index]?.status ?? '',
+                                            maxLines: 1,
+                                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                                            textAlign: TextAlign.center,
                                           ),
                                         ),
                                       )

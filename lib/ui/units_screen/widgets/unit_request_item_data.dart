@@ -7,8 +7,8 @@ import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/styles.dart';
 
-class ClaimCardDataItem extends StatelessWidget {
-  const ClaimCardDataItem({Key key, this.title, this.data, this.isLast = false}) : super(key: key);
+class UnitRequestDataItem extends StatelessWidget {
+  const UnitRequestDataItem({Key key, this.title, this.data, this.isLast = false}) : super(key: key);
 
   final String title;
   final String data;
@@ -18,7 +18,7 @@ class ClaimCardDataItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: isLast ? 0 : 8.0),
-      child: Row(
+      child:Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -27,7 +27,7 @@ class ClaimCardDataItem extends StatelessWidget {
             style: TextStyle(color: MColors.subtitlesColor, fontWeight: FontWeight.w700),
           ),
           SizedBox(
-            width: Utils.sWidth(30, context),
+            width: Utils.sWidth(45, context),
             child: AutoSizeText(
               data ?? "",
               style: TextStyle(color: MColors.subText_color),
