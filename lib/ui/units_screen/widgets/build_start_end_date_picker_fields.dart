@@ -32,7 +32,7 @@ class _StartEndDatePickerFieldState extends State<StartEndDatePickerField> {
                       context: context,
                       initialDate: pr.startDate ?? DateTime.now(),
                       firstDate: DateTime(1900),
-                      lastDate: DateTime.now().add(Duration(days: 1000)));
+                      lastDate: DateTime.now().add(Duration(days: 100000)));
                   if (picked != null) {
                     pr.startDate = picked;
                   }
@@ -66,7 +66,7 @@ class _StartEndDatePickerFieldState extends State<StartEndDatePickerField> {
                       context: context,
                       initialDate: pr.endDate ?? DateTime.now(),
                       firstDate: DateTime(1900),
-                      lastDate: DateTime.now().add(Duration(days: 1000)));
+                      lastDate: DateTime.now().add(Duration(days: 100000)));
                   if (picked != null) {
                     pr.endDate = picked;
                   }

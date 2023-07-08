@@ -285,7 +285,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                                 {
                                                                   "id": pr.instance.id,
                                                                   "unlink_status":"canceled", // terminated, finished
-                                                                  "comment":"a",
+                                                                  // "comment":"a",
                                                                   "unlink_date":"2023-05-11",
                                                                   "unlink_reason":"ojh"
                                                                 });
@@ -411,7 +411,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                         context: context,
                                                         initialDate: pr.endDate ?? DateTime.now(),
                                                         firstDate: DateTime(1900),
-                                                        lastDate: DateTime.now().add(Duration(days: 1000)));
+                                                        lastDate: DateTime.now().add(Duration(days: 100000)));
                                                     if (picked != null) {
                                                       pr.endDate = picked;
                                                     }
@@ -676,6 +676,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                   ElevatedButton(
                                                     onPressed: () {
                                                       pr.contractNo.clear();
+                                                      pr.renewNotes.clear();
                                                       pr.endDate = null;
                                                       pr.contractImg = null;
                                                       pr.identityImg = null;

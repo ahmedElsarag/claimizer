@@ -21,7 +21,7 @@ class BuildDatePicker extends StatelessWidget {
               context: context,
               initialDate: pr.selectedDate ?? DateTime.now(),
               firstDate: DateTime(1900),
-              lastDate: DateTime.now().add(Duration(days: 1000)));
+              lastDate: DateTime.now().add(Duration(days: 100000)));
           if (picked != null) {
             pr.selectedDate = picked;
           }
