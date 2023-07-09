@@ -91,4 +91,28 @@ class UnitDetailsProvider<T> extends BaseProvider<UnitRequestDetailsDataBean> {
     _identityImg = value;
     notifyListeners();
   }
+  DateTime _unlinkDate;
+  String _unlinkStatus;
+  TextEditingController _unlinkReason = TextEditingController();
+
+  TextEditingController get unlinkReason => _unlinkReason;
+
+  set unlinkReason(TextEditingController value) {
+    _unlinkReason = value;
+    notifyListeners();
+  }
+
+  DateTime get unlinkDate => _unlinkDate;
+
+  set unlinkDate(DateTime value) {
+    _unlinkDate = value;
+    notifyListeners();
+  }
+
+  String get unlinkStatus => _unlinkStatus;
+
+  set unlinkStatus(String value) {
+    _unlinkStatus = value;
+    notifyListeners();
+  }
 }

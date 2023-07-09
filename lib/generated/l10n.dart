@@ -1844,6 +1844,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Unlink Date`
+  String get unlinkDate {
+    return Intl.message(
+      'Unlink Date',
+      name: 'unlinkDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unlink Reason`
+  String get unlinkReason {
+    return Intl.message(
+      'Unlink Reason',
+      name: 'unlinkReason',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter Missing Data`
+  String get enterMissingData {
+    return Intl.message(
+      'Enter Missing Data',
+      name: 'enterMissingData',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

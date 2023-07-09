@@ -178,5 +178,8 @@
   "cancel": "الغاء",
   "renewNotes": "ملاحظات التجديد",
   "unitRequestCode": "كود ربط الوحدة: ",
-  "userRemarks": "ملاحظات العميل"
+  "userRemarks": "ملاحظات العميل",
+  "unlinkDate": "Unlink Date",
+  "unlinkReason": "Unlink Reason",
+  "enterMissingData": "Enter Missing Data"
 }

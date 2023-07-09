@@ -179,7 +179,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 ),
                                 onTap: () {
                                   Map<String, dynamic> parms = Map();
-                                  parms['property'] = pr.searchController.text.toString();
+                                  parms['search'] = pr.searchController.text.toString();
                                   mPresenter.getFilteredClaimsApiCall(parms);
                                 },
                               ),
@@ -196,7 +196,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                             ),
                             onFieldSubmitted: (value) {
                               Map<String, dynamic> parms = Map();
-                              parms['property'] = pr.searchController.text.toString();
+                              parms['search'] = pr.searchController.text.toString();
                               mPresenter.getFilteredClaimsApiCall(parms);
                             },
                             onChanged: (value) {

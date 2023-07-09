@@ -168,11 +168,11 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                 onTap: () {
                                   if (pr.selectedIndex == 1) {
                                     Map<String, dynamic> parms = Map();
-                                    parms['unit'] = pr.searchController.text.toString();
+                                    parms['search'] = pr.searchController.text.toString();
                                     mPresenter.getFilteredExistingUnitsApiCall(parms);
                                   } else if (pr.selectedIndex == 2) {
                                     Map<String, dynamic> parms = Map();
-                                    parms['unit'] = pr.unitLinkSearchController.text.toString();
+                                    parms['search'] = pr.unitLinkSearchController.text.toString();
                                     mPresenter.getFilteredUnitRequestsApiCall(parms);
                                   }
                                 },
@@ -196,11 +196,11 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                             onFieldSubmitted: (value) {
                               if (pr.selectedIndex == 1) {
                                 Map<String, dynamic> parms = Map();
-                                parms['unit'] = pr.searchController.text.toString();
+                                parms['search'] = pr.searchController.text.toString();
                                 mPresenter.getFilteredExistingUnitsApiCall(parms);
                               } else if (pr.selectedIndex == 2) {
                                 Map<String, dynamic> parms = Map();
-                                parms['unit'] = pr.unitLinkSearchController.text.toString();
+                                parms['search'] = pr.unitLinkSearchController.text.toString();
                                 mPresenter.getFilteredUnitRequestsApiCall(parms);
                               }
                             },

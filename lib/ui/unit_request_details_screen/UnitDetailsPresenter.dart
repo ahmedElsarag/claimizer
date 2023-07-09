@@ -105,8 +105,9 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
             view.showToasts(S.of(view.context).unitRequestUnlinked, "success");
             getUnitRequestDetailsDataApiCall(view.widget.unitRequestDataBean.id);
             Navigator.pop(view.context);
-            Navigator.pop(view.context);
-            passReloadByEventPath();
+            passReloadByEventPath(isRefresh: true);
+            view.provider.unlinkDate = null;
+            view.provider.unlinkReason.clear();
           }else{
             view.closeProgress();
           }
@@ -169,7 +170,7 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
                           view.provider.identityImg = null;
                           getUnitRequestDetailsDataApiCall(unitID);
                           Navigator.pop(context);
-                          passReloadByEventPath();
+                          passReloadByEventPath(isRefresh: true);
                         },
                         child: Text(
                           S.current.backToHome,
@@ -206,5 +207,6 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
   void passReloadByEventPath({bool isRefresh,}) {
     EventBus eventBus = EventBusUtils.getInstance();
     eventBus.fire(ReloadEvent(isRefresh: true));
+    print("IS REFRESHHHHHHHHHHHHHHH $isRefresh");
   }
 }

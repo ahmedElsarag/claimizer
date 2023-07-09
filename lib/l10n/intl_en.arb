@@ -179,5 +179,8 @@
   "cancel": "Cancel",
   "renewNotes": "Renew Notes",
   "unitRequestCode": "Unit Request Code: ",
-  "userRemarks": "User Remarks"
+  "userRemarks": "User Remarks",
+  "unlinkDate": "Unlink Date",
+  "unlinkReason": "Unlink Reason",
+  "enterMissingData": "Enter Missing Data"
 }
