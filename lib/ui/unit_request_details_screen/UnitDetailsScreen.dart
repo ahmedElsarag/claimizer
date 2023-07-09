@@ -166,7 +166,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                         for (var i = 0; i < pr.imageFiles.length; i++) {
                                                           final file = await pr.imageFiles[i].readAsBytes();
                                                           formData.files.add(MapEntry(
-                                                            'file[$i]',
+                                                            'files[$i]',
                                                             MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
                                                           ));
                                                           formData.fields.add(MapEntry("comment", pr.comment.text));
@@ -177,7 +177,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                             formData, widget.unitRequestDataBean.id);
                                                       } else if (pr.file != null) {
                                                         FormData formData = new FormData.fromMap({
-                                                          "file[0]": await MultipartFile.fromFile(
+                                                          "files[0]": await MultipartFile.fromFile(
                                                             pr.file.path,
                                                             contentType: new MediaType('application', 'octet-stream'),
                                                           ),
