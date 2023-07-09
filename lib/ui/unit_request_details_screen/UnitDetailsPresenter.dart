@@ -70,8 +70,10 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
             Log.d("onSuccess " + data.toString());
             Navigator.pop(view.context);
             view.showToasts(S.of(view.context).commentAdded, 'success');
-            view.provider.comment.clear();
             getUnitRequestDetailsDataApiCall(unitID);
+           view.provider.imageFiles = null;
+           view.provider.file = null;
+           view.provider.comment.clear();
           } else {
             view.showToasts("Error", 'error');
           }

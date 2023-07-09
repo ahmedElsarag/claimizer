@@ -195,9 +195,6 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                         mPresenter.doPostCommentApiCall(
                                                             formData, widget.unitRequestDataBean.id);
                                                       }
-                                                      pr.imageFiles = null;
-                                                      pr.file = null;
-                                                      pr.comment.clear();
                                                       setState(() {});
                                                     }
                                                   },
@@ -269,8 +266,8 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                           Gaps.vGap12,
                           pr.instance.status.toLowerCase() != "rejected" &&
                                   pr.instance.status.toLowerCase() != "canceled" &&
-                                  pr.instance.status.toLowerCase() != "1terminated" &&
-                                  pr.instance.status.toLowerCase() != "مفسوخ1" &&
+                                  pr.instance.status.toLowerCase() != "terminated" &&
+                                  pr.instance.status.toLowerCase() != "مفسوخ" &&
                                   pr.instance.status != "مرفوض" &&
                                   pr.instance.status != "ملغي"
                               ? InkWell(

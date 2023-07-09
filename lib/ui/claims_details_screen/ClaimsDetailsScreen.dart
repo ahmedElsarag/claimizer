@@ -198,9 +198,6 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                                                                   mPresenter.doPostCommentApiCall(
                                                                       formData, widget.claimsDataBean.referenceId);
                                                                 }
-                                                                pr.imageFiles = null;
-                                                                pr.file = null;
-                                                                pr.comment.clear();
                                                                 setState(() {});
                                                               }
                                                             }
