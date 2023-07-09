@@ -107,11 +107,11 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
             Navigator.pop(view.context);
             passReloadByEventPath(isRefresh: true);
             view.provider.unlinkDate = null;
+            // view.provider.unlinkStatus = S.current.unlinkStatus;
             view.provider.unlinkReason.clear();
           }else{
             view.closeProgress();
           }
-
         },
         onError: (code, msg) {
           Log.d(msg);

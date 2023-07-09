@@ -182,5 +182,9 @@
   "userRemarks": "User Remarks",
   "unlinkDate": "Unlink Date",
   "unlinkReason": "Unlink Reason",
-  "enterMissingData": "Enter Missing Data"
+  "enterMissingData": "Enter Missing Data",
+  "unlinkStatus": "Unlink Status",
+  "finished": "Finished",
+  "terminated": "Terminated",
+  "canceled": "Canceled"
 }

@@ -179,7 +179,11 @@
   "renewNotes": "ملاحظات التجديد",
   "unitRequestCode": "كود ربط الوحدة: ",
   "userRemarks": "ملاحظات العميل",
-  "unlinkDate": "Unlink Date",
-  "unlinkReason": "Unlink Reason",
-  "enterMissingData": "Enter Missing Data"
+  "unlinkDate": "تاريخ الغاء الربط",
+  "unlinkReason": "سبب الغاء الربط",
+  "enterMissingData": "ادخل البيانات المفقودة",
+  "unlinkStatus": "حالة الغاء الربط",
+  "finished": "منتهي",
+  "terminated": "مفسوخ",
+  "canceled": "ملغي"
 }

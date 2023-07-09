@@ -32,9 +32,10 @@ class BuildUnlinkStatusDropDown extends StatelessWidget {
               pr.unlinkStatus = newValue;
             },
             items: [
-              DropdownMenuItem(child: Text("Finished"), value: 'finished'),
-              DropdownMenuItem(child: Text('Terminated'), value: 'terminated'),
-              DropdownMenuItem(child: Text('Canceled'), value: 'canceled'),
+              // DropdownMenuItem(child: Text(S.of(context).unlinkStatus), value: ''),
+              DropdownMenuItem(child: Text(S.of(context).finished), value: 'finished'),
+              DropdownMenuItem(child: Text(S.of(context).terminated), value: 'terminated'),
+              DropdownMenuItem(child: Text(S.of(context).canceled), value: 'canceled'),
             ],
           ),
         ),

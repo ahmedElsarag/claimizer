@@ -117,7 +117,13 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                             presenter: mPresenter,
                             claimId: widget.unitRequestDataBean.refCode,
                           ),
-                          InkWell(
+                          pr.instance.status.toLowerCase() != "rejected" &&
+                              pr.instance.status.toLowerCase() != "canceled" &&
+                              pr.instance.status.toLowerCase() != "terminated" &&
+                              pr.instance.status.toLowerCase() != "مفسوخ" &&
+                              pr.instance.status != "مرفوض" &&
+                              pr.instance.status != "ملغي"
+                              ? InkWell(
                             onTap: () {
                               showDialog(
                                 context: context,
@@ -257,11 +263,14 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                 )
                               ],
                             ),
-                          ),
+                          )
+                              : SizedBox.shrink(),
                           Gaps.vGap12,
                           Gaps.vGap12,
                           pr.instance.status.toLowerCase() != "rejected" &&
                                   pr.instance.status.toLowerCase() != "canceled" &&
+                                  pr.instance.status.toLowerCase() != "1terminated" &&
+                                  pr.instance.status.toLowerCase() != "مفسوخ1" &&
                                   pr.instance.status != "مرفوض" &&
                                   pr.instance.status != "ملغي"
                               ? InkWell(
@@ -368,6 +377,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                           onPressed: () {
                                                             pr.unlinkReason.clear();
                                                             pr.unlinkDate = null;
+                                                            // pr.unlinkStatus = S.current.unlinkStatus;
                                                             Navigator.pop(context);
                                                           },
                                                           child: Text(
@@ -416,7 +426,13 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                               : SizedBox.shrink(),
                           Gaps.vGap12,
                           Gaps.vGap12,
-                          InkWell(
+                          pr.instance.status.toLowerCase() != "rejected" &&
+                              pr.instance.status.toLowerCase() != "canceled" &&
+                              pr.instance.status.toLowerCase() != "terminated" &&
+                              pr.instance.status.toLowerCase() != "مفسوخ" &&
+                              pr.instance.status != "مرفوض" &&
+                              pr.instance.status != "ملغي"
+                              ? InkWell(
                             onTap: () {
                               showDialog(
                                 context: context,
@@ -787,7 +803,8 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                 )
                               ],
                             ),
-                          ),
+                          )
+                              : SizedBox.shrink(),
                         ],
                       ),
                     ),

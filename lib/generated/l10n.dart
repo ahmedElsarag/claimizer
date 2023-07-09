@@ -1874,6 +1874,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Unlink Status`
+  String get unlinkStatus {
+    return Intl.message(
+      'Unlink Status',
+      name: 'unlinkStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finished`
+  String get finished {
+    return Intl.message(
+      'Finished',
+      name: 'finished',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terminated`
+  String get terminated {
+    return Intl.message(
+      'Terminated',
+      name: 'terminated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Canceled`
+  String get canceled {
+    return Intl.message(
+      'Canceled',
+      name: 'canceled',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
