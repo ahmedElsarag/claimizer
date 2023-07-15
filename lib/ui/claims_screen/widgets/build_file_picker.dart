@@ -71,6 +71,8 @@ class _BuildFilePickerState extends State<BuildFilePicker> {
           onTap: () async {
             showDialog(context: context, builder: (context) {
               return AlertDialog(
+                insetPadding: EdgeInsets.all(20),
+                contentPadding: EdgeInsets.all(16),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

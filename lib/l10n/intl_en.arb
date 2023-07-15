@@ -190,5 +190,7 @@
   "youReachToLastPage": "You reach to last page",
   "noClaimFound": "NO DETAILS OF CLAIM FOUND",
   "previousPage": "Previous Page",
-  "nextPage": "Next Page"
+  "nextPage": "Next Page",
+  "areYouSureToCloseClaim": "Are you sure to close claim?",
+  "areYouSureToCloseThisClaim": "Are you sure to close this Claim ?"
 }

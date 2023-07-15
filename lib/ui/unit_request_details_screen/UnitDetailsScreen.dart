@@ -129,6 +129,8 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
+                                    insetPadding: EdgeInsets.all(20),
+                                    contentPadding: EdgeInsets.all(16),
                                     content: Container(
                                       width: double.maxFinite,
                                       child: SingleChildScrollView(
@@ -277,6 +279,7 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                       builder: (context) {
                                         return Consumer<UnitDetailsProvider>(
                                           builder: (context, pro, child) => AlertDialog(
+                                            insetPadding: EdgeInsets.all(20),
                                             contentPadding: EdgeInsets.all(16),
                                             content: SingleChildScrollView(
                                               child: Container(
@@ -436,6 +439,8 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                 builder: (context) {
                                   return Consumer<UnitDetailsProvider>(
                                     builder: (context, pro, child) => AlertDialog(
+                                      insetPadding: EdgeInsets.all(20),
+                                      contentPadding: EdgeInsets.all(16),
                                       content: SingleChildScrollView(
                                         child: Container(
                                           width: double.maxFinite,
@@ -518,6 +523,8 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                         context: context,
                                                         builder: (context) {
                                                           return AlertDialog(
+                                                            insetPadding: EdgeInsets.all(20),
+                                                            contentPadding: EdgeInsets.all(16),
                                                             content: Column(
                                                               mainAxisSize: MainAxisSize.min,
                                                               children: [
@@ -608,6 +615,8 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                         context: context,
                                                         builder: (context) {
                                                           return AlertDialog(
+                                                            insetPadding: EdgeInsets.all(20),
+                                                            contentPadding: EdgeInsets.all(16),
                                                             content: Column(
                                                               mainAxisSize: MainAxisSize.min,
                                                               children: [

@@ -20,9 +20,10 @@ class ClaimCreatedDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ClaimsProvider>(
       builder: (ctx, pr, w) => AlertDialog(
+        insetPadding: EdgeInsets.all(20),
+        contentPadding: EdgeInsets.all(16),
         backgroundColor: MColors.whiteE,
         elevation: 0,
-        contentPadding: EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

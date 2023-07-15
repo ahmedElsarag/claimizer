@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/image_utils.dart';
+import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
+import '../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
 import '../../app_widgets/claimizer_app_bar.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
@@ -38,6 +40,16 @@ class ClaimsWithFilterScreenState extends BaseState<ClaimsWithFilterScreen, Clai
   @override
   void initState() {
     provider = context.read<ClaimsWithFilterProvider>();
+    EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
+      if (event.isRefresh != null || event.isLangChanged != null) {
+        Map<String, dynamic> params = Map();
+        params['page'] = 1;
+        params['status'] = provider.status;
+        params['search'] = provider.searchController.text.toString();
+        mPresenter.getFilteredClaimsWithStatusApiCall(params);
+      }
+      setState(() {});
+    });
     Map<String, dynamic> params = Map();
     params['page'] = 1;
     params['search'] = provider.searchController.text.toString();

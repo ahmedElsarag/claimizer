@@ -6,13 +6,9 @@ import 'package:Cliamizer/ui/claims_screen/widgets/claim_card_data_item.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sizer/sizer.dart';
-import 'package:Cliamizer/base/view/base_state.dart';
-import '../../../CommonUtils/image_utils.dart';
+
 import '../../../CommonUtils/utils.dart';
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';

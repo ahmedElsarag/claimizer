@@ -8,6 +8,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -179,18 +180,24 @@ class _AllClaimsWithFilterState extends State<AllClaimsWithFilter> {
                                         Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
+                                            FittedBox(
+                                              child: SizedBox(
+                                                width: Utils.sWidth(40, context),
+                                                child: AutoSizeText(
+                                                  pr?.claimsList[index]?.unit?.building ?? S.current.na,
+                                                  // maxLines: 2,
+                                                  style:
+                                                  TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+                                                  textAlign: TextAlign.start,
+                                                ),
+                                              ),
+                                            ),
                                             SizedBox(
                                               width: Utils.sWidth(40, context),
                                               child: AutoSizeText(
-                                                pr?.claimsList[index]?.unit?.building ?? S.current.na,
-                                                // maxLines: 2,
-                                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-                                                textAlign: TextAlign.start,
+                                                S.of(context).requestCode + "\n ${pr?.claimsList[index]?.referenceId}",
+                                                style: GoogleFonts.montserrat( fontWeight: FontWeight.w500, color: MColors.subText_color),
                                               ),
-                                            ),
-                                            Text(
-                                              S.of(context).requestCode + "\n ${pr?.claimsList[index]?.referenceId}",
-                                              style: MTextStyles.textSubtitle,
                                             ),
                                           ],
                                         ),

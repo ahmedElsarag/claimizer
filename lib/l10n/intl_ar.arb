@@ -189,5 +189,7 @@
   "youReachToLastPage": "وصلت لاخر صفحة",
   "noClaimFound": "لا يوجد تفاصيل لطلب الصيانة",
   "previousPage": "الصفحة السابقة",
-  "nextPage": "الصفحة التالية"
+  "nextPage": "الصفحة التالية",
+  "areYouSureToCloseClaim": "هل انت متأكد من اغلاق طلب الصيانة؟",
+  "areYouSureToCloseThisClaim": "هل انت متأكد من اغلاق طلب الصيانة ؟"
 }

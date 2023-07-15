@@ -84,7 +84,7 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  insetPadding: EdgeInsets.zero,
+                  insetPadding: EdgeInsets.all(20),
                   contentPadding: EdgeInsets.all(16),
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   content: Column(

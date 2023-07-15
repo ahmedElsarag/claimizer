@@ -8,6 +8,7 @@ import 'package:Cliamizer/ui/claims_details_screen/widgets/comments_widget.dart'
 import 'package:Cliamizer/ui/claims_details_screen/widgets/description_widget.dart';
 import 'package:Cliamizer/ui/claims_details_screen/widgets/files_widgets.dart';
 import 'package:Cliamizer/ui/claims_details_screen/widgets/item_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -51,6 +52,33 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
     mPresenter.getClaimDetailsDataApiCall(widget.claimsDataBean.referenceId);
   }
 
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Cancel"),
+      onPressed:  () {},
+    );
+    Widget continueButton = TextButton(
+      child: Text("Continue"),
+      onPressed:  () {},
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("AlertDialog"),
+      content: Text("Would you like to continue learning how to use Flutter alerts?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -130,6 +158,8 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                                       context: context,
                                       builder: (context) {
                                         return AlertDialog(
+                                          insetPadding: EdgeInsets.all(20),
+                                          contentPadding: EdgeInsets.all(16),
                                           content: Form(
                                             key: pr.formKey,
                                             child: Container(
@@ -303,7 +333,71 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                                 pr.instance.status != "ملغي",
                             child: InkWell(
                               onTap: () {
-                                mPresenter.closeClaimApiCall(pr.instance.referenceId);
+                                showDialog(context: context, builder: (context) {
+                                  return AlertDialog(
+                                    insetPadding: EdgeInsets.all(20),
+                                    contentPadding: EdgeInsets.all(24),
+                                    title: Text(S.current.closeClaim),
+                                    content: Container(
+                                      width: double.maxFinite,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(S.of(context).areYouSureToCloseThisClaim,style: MTextStyles.textMainLight16,),
+                                          Gaps.vGap30,
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  mPresenter.closeClaimApiCall(pr.instance.referenceId);
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                  S.of(context).confirm,
+                                                  style:
+                                                  MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                                ),
+                                                style: ButtonStyle(
+                                                    backgroundColor:
+                                                    MaterialStateProperty.all<Color>(MColors.primary_color),
+                                                    elevation: MaterialStatePropertyAll(0),
+                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        )),
+                                                    padding: MaterialStateProperty.all<EdgeInsets>(
+                                                        EdgeInsets.symmetric(horizontal: 2.w, vertical: 3.w))),
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text(
+                                                  S.of(context).cancel,
+                                                  style:
+                                                  MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                                ),
+                                                style: ButtonStyle(
+                                                    backgroundColor:
+                                                    MaterialStateProperty.all<Color>(MColors.secondary_color),
+                                                    elevation: MaterialStatePropertyAll(0),
+                                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        )),
+                                                    padding: MaterialStateProperty.all<EdgeInsets>(
+                                                        EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.w))),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },);
+                                // mPresenter.closeClaimApiCall(pr.instance.referenceId);
                               },
                               child: Row(
                                 children: [

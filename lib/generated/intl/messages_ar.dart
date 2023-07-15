@@ -29,6 +29,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "allFiles" : MessageLookupByLibrary.simpleMessage("كل الملفات"),
     "alreadyHaveAnAccount" : MessageLookupByLibrary.simpleMessage("لديك حساب بالفعل؟  "),
     "anErrorOccurredTryAgainLater" : MessageLookupByLibrary.simpleMessage("حدث خطأ ما برجاء المحاولة لاحقا"),
+    "areYouSureToCloseClaim" : MessageLookupByLibrary.simpleMessage("هل انت متأكد من اغلاق طلب الصيانة؟"),
+    "areYouSureToCloseThisClaim" : MessageLookupByLibrary.simpleMessage("هل انت متأكد من اغلاق طلب الصيانة ؟"),
     "assignedClaims" : MessageLookupByLibrary.simpleMessage("طلبات الصيانة لدى الفنيين"),
     "availableTime" : MessageLookupByLibrary.simpleMessage("الوقت المتاح"),
     "back" : MessageLookupByLibrary.simpleMessage("رجوع"),

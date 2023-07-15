@@ -1954,6 +1954,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Are you sure to close claim?`
+  String get areYouSureToCloseClaim {
+    return Intl.message(
+      'Are you sure to close claim?',
+      name: 'areYouSureToCloseClaim',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure to close this Claim ?`
+  String get areYouSureToCloseThisClaim {
+    return Intl.message(
+      'Are you sure to close this Claim ?',
+      name: 'areYouSureToCloseThisClaim',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

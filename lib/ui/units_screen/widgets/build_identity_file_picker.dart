@@ -72,6 +72,8 @@ class _BuildIdentityFilePickerState extends State<BuildIdentityFilePicker> {
               context: context,
               builder: (context) {
                 return AlertDialog(
+                  insetPadding: EdgeInsets.all(20),
+                  contentPadding: EdgeInsets.all(16),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [

@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "alreadyHaveAnAccount" : MessageLookupByLibrary.simpleMessage("Already Have An Account ? "),
     "anErrorOccurredTryAgainLater" : MessageLookupByLibrary.simpleMessage("An Error Occurred Try Again Later"),
     "ar" : MessageLookupByLibrary.simpleMessage("Ar"),
+    "areYouSureToCloseClaim" : MessageLookupByLibrary.simpleMessage("Are you sure to close claim?"),
+    "areYouSureToCloseThisClaim" : MessageLookupByLibrary.simpleMessage("Are you sure to close this Claim ?"),
     "assignedClaims" : MessageLookupByLibrary.simpleMessage("Assigned Claims"),
     "availableTime" : MessageLookupByLibrary.simpleMessage("Available time"),
     "back" : MessageLookupByLibrary.simpleMessage("Back"),

@@ -144,9 +144,10 @@ class UnitDetailsPresenter extends BasePresenter<UnitRequestDetailsScreenState> 
               showDialog(
                 context: view.context,
                 builder: (context) => AlertDialog(
+                  insetPadding: EdgeInsets.all(20),
+                  contentPadding: EdgeInsets.all(16),
                   backgroundColor: MColors.whiteE,
                   elevation: 0,
-                  contentPadding: EdgeInsets.symmetric(vertical: 8.w, horizontal: 8.w),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
