@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -76,14 +77,10 @@ abstract class BaseState<T extends StatefulWidget, P extends BasePresenter>
       clipBehavior: Clip.antiAliasWithSaveLayer,
       content: Row(
         children: <Widget>[
-          SizedBox(
-            width: 50.w,
-            child: Text(
-              msg,
-              style:GoogleFonts.montserrat(
-                  color: Utils.getStatusTypeColorFromString(status),
-                fontSize: 12.sp,
-              ),
+          AutoSizeText(
+            msg,
+            style:GoogleFonts.montserrat(
+                color: Utils.getStatusTypeColorFromString(status),
             ),
           ),
           Spacer(),

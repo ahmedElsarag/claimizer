@@ -187,5 +187,8 @@
   "finished": "Finished",
   "terminated": "Terminated",
   "canceled": "Canceled",
-  "youReachToLastPage": "You reach to last page"
+  "youReachToLastPage": "You reach to last page",
+  "noClaimFound": "NO DETAILS OF CLAIM FOUND",
+  "previousPage": "Previous Page",
+  "nextPage": "Next Page"
 }

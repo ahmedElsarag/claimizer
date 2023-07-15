@@ -1,6 +1,7 @@
 import 'package:Cliamizer/app_widgets/NoDataFound.dart';
 import 'package:Cliamizer/ui/units_screen/units_presenter.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
+import 'package:Cliamizer/ui/units_screen/widgets/unit_card_item.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -102,11 +103,18 @@ class _ExistingUnitListState extends State<ExistingUnitList> {
                                     widget.presenter.getExistingUnitsApiCall(params);
                                     _scrollListener();
                                   },
-                                  child: SvgPicture.asset(
-                                    ImageUtils.getSVGPath("back_icon"),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: MColors.white,
+                                        // border: Border.all(color: MColors.primary_color),
+                                        borderRadius: BorderRadius.circular(8)),
+                                    padding: EdgeInsets.all(8),
+                                    child:AutoSizeText(S.of(context).previousPage,style: TextStyle(
+                                        color: MColors.primary_color
+                                    ),),
                                   )),
                             ),
-                            Text(pr.currentPage.toString()),
+                            AutoSizeText(pr.currentPage.toString(),style: TextStyle(color: MColors.primary_color),),
                             Visibility(
                               visible: pr.currentPage != pr.lastPage,
                               child: InkWell(
@@ -118,11 +126,15 @@ class _ExistingUnitListState extends State<ExistingUnitList> {
                                     widget.presenter.getExistingUnitsApiCall(params);
                                     _scrollListener();
                                   },
-                                  child: RotatedBox(
-                                    quarterTurns: 2,
-                                    child: SvgPicture.asset(
-                                      ImageUtils.getSVGPath("back_icon"),
-                                    ),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: MColors.white,
+                                        // border: Border.all(color: MColors.primary_color),
+                                        borderRadius: BorderRadius.circular(8)),
+                                    padding: EdgeInsets.all(8),
+                                    child:AutoSizeText(S.of(context).nextPage,style: TextStyle(
+                                        color: MColors.primary_color
+                                    ),),
                                   )),
                             )
                             // Center(child: Lottie.asset('assets/images/loadingLottie.json', height: 8.h)),
@@ -159,131 +171,39 @@ class _ExistingUnitListState extends State<ExistingUnitList> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               // //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      S.of(context).unitName + " :    ",
-                                      style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                                    ),
-                                    SizedBox(
-                                      width: Utils.sWidth(40, context),
-                                      child: AutoSizeText(
-                                        pr.unitsList[index].name ?? "",
-                                        style: MTextStyles.textSubtitle,
-                                      ),
-                                    )
-                                  ],
+                                UnitCardItem(
+                                  title: S.of(context).unitName ,
+                                  data: pr.unitsList[index].name ?? "",
                                 ),
                                 Gaps.vGap8,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      S.of(context).buildingName + " :    ",
-                                      style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                                    ),
-                                    SizedBox(
-                                      width: Utils.sWidth(40, context),
-                                      child: AutoSizeText(
-                                        pr.unitsList[index].building ?? "",
-                                        maxLines: 2,
-                                        style: MTextStyles.textSubtitle,
-                                      ),
-                                    )
-                                  ],
+                                UnitCardItem(
+                                  title: S.of(context).buildingName ,
+                                  data: pr.unitsList[index].building ?? "",
                                 ),
                                 Gaps.vGap8,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      S.of(context).unitType + " :    ",
-                                      style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                                    ),
-                                    SizedBox(
-                                      width: Utils.sWidth(40, context),
-                                      child: AutoSizeText(
-                                        pr.unitsList[index].type ?? "",
-                                        style: MTextStyles.textSubtitle,
-                                      ),
-                                    )
-                                  ],
+                                UnitCardItem(
+                                  title: S.of(context).unitType ,
+                                  data: pr.unitsList[index].type ?? "",
                                 ),
                                 Gaps.vGap8,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      S.of(context).company + " :    ",
-                                      style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                                    ),
-                                    SizedBox(
-                                      width: Utils.sWidth(40, context),
-                                      child: AutoSizeText(
-                                        pr.unitsList[index].company ?? "",
-                                        style: MTextStyles.textSubtitle,
-                                      ),
-                                    )
-                                  ],
+                                UnitCardItem(
+                                  title: S.of(context).company ,
+                                  data: pr.unitsList[index].company ?? "",
                                 ),
                                 Gaps.vGap8,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      S.of(context).contractNo + " :    ",
-                                      style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                                    ),
-                                    SizedBox(
-                                      width: Utils.sWidth(40, context),
-                                      child: AutoSizeText(
-                                        pr.unitsList[index].id.toString() ?? "",
-                                        style: MTextStyles.textSubtitle,
-                                      ),
-                                    )
-                                  ],
+                                UnitCardItem(
+                                  title: S.of(context).contractNo ,
+                                  data: pr.unitsList[index].id.toString() ?? "",
                                 ),
                                 Gaps.vGap8,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      S.of(context).startAt + " :    ",
-                                      style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                                    ),
-                                    SizedBox(
-                                      width: Utils.sWidth(40, context),
-                                      child: AutoSizeText(
-                                        pr.unitsList[index].startAt ?? "",
-                                        style: MTextStyles.textSubtitle,
-                                      ),
-                                    )
-                                  ],
+                                UnitCardItem(
+                                  title: S.of(context).startAt ,
+                                  data: pr.unitsList[index].startAt ?? "",
                                 ),
                                 Gaps.vGap8,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      S.of(context).endAt + " :    ",
-                                      style: MTextStyles.textBoldDark12.copyWith(color: MColors.subtitlesColor),
-                                    ),
-                                    SizedBox(
-                                      width: Utils.sWidth(40, context),
-                                      child: AutoSizeText(
-                                        pr.unitsList[index].endAt ?? "",
-                                        style: MTextStyles.textSubtitle,
-                                      ),
-                                    )
-                                  ],
+                                UnitCardItem(
+                                  title: S.of(context).endAt ,
+                                  data: pr.unitsList[index].endAt ?? "",
                                 ),
                               ],
                             )

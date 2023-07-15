@@ -70,8 +70,7 @@ class _UnitLinkRequestState extends State<UnitLinkRequest> {
   void _scrollListener() {
     if (_scrollController.offset >= _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
-      _scrollController.animateTo(0,
-          duration: Duration(seconds: 1), curve: Curves.easeInOut);
+      _scrollController.animateTo(0, duration: Duration(seconds: 1), curve: Curves.easeInOut);
     }
   }
 
@@ -98,9 +97,9 @@ class _UnitLinkRequestState extends State<UnitLinkRequest> {
                 controller: _scrollController,
                 itemCount: pr.unitsRequestList.length,
                 itemBuilder: (context, index) {
-                  if (index == pr.unitsRequestList.length -1)
+                  if (index == pr.unitsRequestList.length - 1)
                     return Container(
-                      margin: const EdgeInsets.only(top: 12.0,bottom: 12),
+                      margin: const EdgeInsets.only(top: 12.0, bottom: 12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -115,11 +114,19 @@ class _UnitLinkRequestState extends State<UnitLinkRequest> {
                                   widget.presenter.getUnitRequestsApiCall(params);
                                   _scrollListener();
                                 },
-                                child: SvgPicture.asset(
-                                  ImageUtils.getSVGPath("back_icon"),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: MColors.white,
+                                      // border: Border.all(color: MColors.primary_color),
+                                      borderRadius: BorderRadius.circular(8)),
+                                  padding: EdgeInsets.all(8),
+                                  child: AutoSizeText(
+                                    S.of(context).previousPage,
+                                    style: TextStyle(color: MColors.primary_color),
+                                  ),
                                 )),
                           ),
-                          Text(pr.currentPage.toString()),
+                          AutoSizeText(pr.currentPage.toString(),style: TextStyle(color: MColors.primary_color),),
                           Visibility(
                             visible: pr.currentPage != pr.lastPage,
                             child: InkWell(
@@ -131,10 +138,15 @@ class _UnitLinkRequestState extends State<UnitLinkRequest> {
                                   widget.presenter.getUnitRequestsApiCall(params);
                                   _scrollListener();
                                 },
-                                child: RotatedBox(
-                                  quarterTurns: 2,
-                                  child: SvgPicture.asset(
-                                    ImageUtils.getSVGPath("back_icon"),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: MColors.white,
+                                      // border: Border.all(color: MColors.primary_color),
+                                      borderRadius: BorderRadius.circular(8)),
+                                  padding: EdgeInsets.all(8),
+                                  child: AutoSizeText(
+                                    S.of(context).nextPage,
+                                    style: TextStyle(color: MColors.primary_color),
                                   ),
                                 )),
                           )

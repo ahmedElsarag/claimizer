@@ -1924,6 +1924,36 @@ class S {
       args: [],
     );
   }
+
+  /// `NO DETAILS OF CLAIM FOUND`
+  String get noClaimFound {
+    return Intl.message(
+      'NO DETAILS OF CLAIM FOUND',
+      name: 'noClaimFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Previous Page`
+  String get previousPage {
+    return Intl.message(
+      'Previous Page',
+      name: 'previousPage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next Page`
+  String get nextPage {
+    return Intl.message(
+      'Next Page',
+      name: 'nextPage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

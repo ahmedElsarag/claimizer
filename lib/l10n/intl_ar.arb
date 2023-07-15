@@ -186,5 +186,8 @@
   "finished": "منتهي",
   "terminated": "مفسوخ",
   "canceled": "ملغي",
-  "youReachToLastPage": "You reach to last page"
+  "youReachToLastPage": "وصلت لاخر صفحة",
+  "noClaimFound": "لا يوجد تفاصيل لطلب الصيانة",
+  "previousPage": "الصفحة السابقة",
+  "nextPage": "الصفحة التالية"
 }

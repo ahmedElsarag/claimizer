@@ -26,6 +26,7 @@ class UnitRequestDataItem extends StatelessWidget {
             title + ":  ",
             style: TextStyle(color: MColors.subtitlesColor, fontWeight: FontWeight.w700),
           ),
+          Spacer(),
           SizedBox(
             width: Utils.sWidth(45, context),
             child: AutoSizeText(

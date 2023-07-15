@@ -7,8 +7,8 @@ import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/styles.dart';
 
-class ClaimCardDataItem extends StatelessWidget {
-  const ClaimCardDataItem({Key key, this.title, this.data, this.isLast = false}) : super(key: key);
+class UnitCardItem extends StatelessWidget {
+  const UnitCardItem({Key key, this.title, this.data, this.isLast = false}) : super(key: key);
 
   final String title;
   final String data;

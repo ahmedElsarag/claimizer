@@ -114,8 +114,15 @@ class _AllClaimsWithFilterState extends State<AllClaimsWithFilter> {
                                           widget.presenter.getFilteredClaimsWithStatusApiCall(params);
                                           _scrollListener();
                                         },
-                                        child: SvgPicture.asset(
-                                          ImageUtils.getSVGPath("back_icon"),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: MColors.white,
+                                              // border: Border.all(color: MColors.primary_color),
+                                              borderRadius: BorderRadius.circular(8)),
+                                          padding: EdgeInsets.all(8),
+                                          child:AutoSizeText(S.of(context).previousPage,style: TextStyle(
+                                              color: MColors.primary_color
+                                          ),),
                                         )),
                                   ),
                                   Text(pr.currentPage.toString()),
@@ -131,11 +138,15 @@ class _AllClaimsWithFilterState extends State<AllClaimsWithFilter> {
                                           widget.presenter.getFilteredClaimsWithStatusApiCall(params);
                                           _scrollListener();
                                         },
-                                        child: RotatedBox(
-                                          quarterTurns: 2,
-                                          child: SvgPicture.asset(
-                                            ImageUtils.getSVGPath("back_icon"),
-                                          ),
+                                        child:Container(
+                                          decoration: BoxDecoration(
+                                              color: MColors.white,
+                                              // border: Border.all(color: MColors.primary_color),
+                                              borderRadius: BorderRadius.circular(8)),
+                                          padding: EdgeInsets.all(8),
+                                          child:AutoSizeText(S.of(context).nextPage,style: TextStyle(
+                                              color: MColors.primary_color
+                                          ),),
                                         )),
                                   )
                                   // Center(child: Lottie.asset('assets/images/loadingLottie.json', height: 8.h)),

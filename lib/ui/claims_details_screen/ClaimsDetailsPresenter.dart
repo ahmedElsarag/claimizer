@@ -39,7 +39,7 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
         onError: (code, msg) {
           view.closeProgress();
           if (code == ErrorStatus.NOT_FOUND || code == ErrorStatus.PARSE_ERROR) {
-            view.showToasts("NO CLAIM FOUND", "error");
+            view.showToasts(S.of(view.context).noClaimFound, "error");
             Navigator.pop(view.context);
           }
           if (code == ErrorStatus.UNKNOWN_ERROR) view.provider.internetStatus = false;

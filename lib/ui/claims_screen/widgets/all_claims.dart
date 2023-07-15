@@ -115,8 +115,15 @@ class _AllClaimsState extends State<AllClaims> {
                                                 widget.presenter.getAllClaimsApiCall(params);
                                                 _scrollListener();
                                               },
-                                              child: SvgPicture.asset(
-                                                ImageUtils.getSVGPath("back_icon"),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: MColors.white,
+                                                    // border: Border.all(color: MColors.primary_color),
+                                                    borderRadius: BorderRadius.circular(8)),
+                                                padding: EdgeInsets.all(8),
+                                                child:AutoSizeText(S.of(context).previousPage,style: TextStyle(
+                                                    color: MColors.primary_color
+                                                ),),
                                               )),
                                         ),
                                         Text(pr.currentPage.toString()),
@@ -131,11 +138,15 @@ class _AllClaimsState extends State<AllClaims> {
                                                 widget.presenter.getAllClaimsApiCall(params);
                                                 _scrollListener();
                                               },
-                                              child: RotatedBox(
-                                                quarterTurns: 2,
-                                                child: SvgPicture.asset(
-                                                  ImageUtils.getSVGPath("back_icon"),
-                                                ),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: MColors.white,
+                                                    // border: Border.all(color: MColors.primary_color),
+                                                    borderRadius: BorderRadius.circular(8)),
+                                                padding: EdgeInsets.all(8),
+                                                child:AutoSizeText(S.of(context).nextPage,style: TextStyle(
+                                                    color: MColors.primary_color
+                                                ),),
                                               )),
                                         )
                                         // Center(child: Lottie.asset('assets/images/loadingLottie.json', height: 8.h)),
@@ -169,14 +180,16 @@ class _AllClaimsState extends State<AllClaims> {
                                               Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  SizedBox(
-                                                    width: Utils.sWidth(40, context),
-                                                    child: AutoSizeText(
-                                                      pr?.claimsList[index]?.unit?.building ?? S.current.na,
-                                                      // maxLines: 2,
-                                                      style:
-                                                          TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-                                                      textAlign: TextAlign.start,
+                                                  FittedBox(
+                                                    child: SizedBox(
+                                                      width: Utils.sWidth(40, context),
+                                                      child: AutoSizeText(
+                                                        pr?.claimsList[index]?.unit?.building ?? S.current.na,
+                                                        maxLines: 2,
+                                                        style:
+                                                            TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+                                                        textAlign: TextAlign.start,
+                                                      ),
                                                     ),
                                                   ),
                                                   AutoSizeText(
