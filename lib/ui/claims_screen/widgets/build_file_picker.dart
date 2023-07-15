@@ -15,7 +15,7 @@ import '../../../res/styles.dart';
 
 class BuildFilePicker extends StatefulWidget {
   const BuildFilePicker({Key key, this.provider}) : super(key: key);
-  final ClaimsWithFilterProvider provider;
+  final ClaimsProvider provider;
 
   @override
   State<BuildFilePicker> createState() => _BuildFilePickerState();
@@ -66,7 +66,7 @@ class _BuildFilePickerState extends State<BuildFilePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ClaimsWithFilterProvider>(
+    return Consumer<ClaimsProvider>(
       builder: (context, pr, child) => GestureDetector(
           onTap: () async {
             showDialog(context: context, builder: (context) {

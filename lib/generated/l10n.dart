@@ -75,10 +75,10 @@ class S {
     );
   }
 
-  /// `A Saudi company that provides entertainment solutions in line with the diverse aspirations of customers`
+  /// `An UAE company that provides entertainment solutions in line with the diverse aspirations of customers`
   String get joinText {
     return Intl.message(
-      'A Saudi company that provides entertainment solutions in line with the diverse aspirations of customers',
+      'An UAE company that provides entertainment solutions in line with the diverse aspirations of customers',
       name: 'joinText',
       desc: '',
       args: [],
@@ -115,10 +115,10 @@ class S {
     );
   }
 
-  /// `Login`
+  /// `Log In`
   String get login {
     return Intl.message(
-      'Login',
+      'Log In',
       name: 'login',
       desc: '',
       args: [],
@@ -195,10 +195,10 @@ class S {
     );
   }
 
-  /// `Welcome Back To Climizer`
+  /// `Welcome Back To Claimizer`
   String get welcomeBackToClimizer {
     return Intl.message(
-      'Welcome Back To Climizer',
+      'Welcome Back To Claimizer',
       name: 'welcomeBackToClimizer',
       desc: '',
       args: [],
@@ -345,10 +345,10 @@ class S {
     );
   }
 
-  /// `Welcome To Climizer`
+  /// `Welcome To Claimizer `
   String get welcomeToClimizer {
     return Intl.message(
-      'Welcome To Climizer',
+      'Welcome To Claimizer ',
       name: 'welcomeToClimizer',
       desc: '',
       args: [],
@@ -645,20 +645,20 @@ class S {
     );
   }
 
-  /// `Your building`
+  /// `Building`
   String get yourBuilding {
     return Intl.message(
-      'Your building',
+      'Building',
       name: 'yourBuilding',
       desc: '',
       args: [],
     );
   }
 
-  /// `Your Unit`
+  /// `Unit`
   String get yourUnit {
     return Intl.message(
-      'Your Unit',
+      'Unit',
       name: 'yourUnit',
       desc: '',
       args: [],
@@ -725,30 +725,30 @@ class S {
     );
   }
 
-  /// `Existing Unit`
+  /// `My Units`
   String get existingUnit {
     return Intl.message(
-      'Existing Unit',
+      'My Units',
       name: 'existingUnit',
       desc: '',
       args: [],
     );
   }
 
-  /// `Unit Link Request`
+  /// `Unit Link Requests`
   String get unitLinkRequest {
     return Intl.message(
-      'Unit Link Request',
+      'Unit Link Requests',
       name: 'unitLinkRequest',
       desc: '',
       args: [],
     );
   }
 
-  /// `Units Property`
+  /// `Units`
   String get unitsProperty {
     return Intl.message(
-      'Units Property',
+      'Units',
       name: 'unitsProperty',
       desc: '',
       args: [],
@@ -785,30 +785,30 @@ class S {
     );
   }
 
-  /// `Select Claim Category`
+  /// `Select Main Category`
   String get selectClaimCategory {
     return Intl.message(
-      'Select Claim Category',
+      'Select Main Category',
       name: 'selectClaimCategory',
       desc: '',
       args: [],
     );
   }
 
-  /// `Select Claim SubCategory`
+  /// `Select Sub Category`
   String get selectClaimSubcategory {
     return Intl.message(
-      'Select Claim SubCategory',
+      'Select Sub Category',
       name: 'selectClaimSubcategory',
       desc: '',
       args: [],
     );
   }
 
-  /// `Select Claim Type`
+  /// `Select Type`
   String get selectClaimType {
     return Intl.message(
-      'Select Claim Type',
+      'Select Type',
       name: 'selectClaimType',
       desc: '',
       args: [],
@@ -925,30 +925,30 @@ class S {
     );
   }
 
-  /// `Confirmation`
+  /// `Confirmation &Save`
   String get confirmation {
     return Intl.message(
-      'Confirmation',
+      'Confirmation &Save',
       name: 'confirmation',
       desc: '',
       args: [],
     );
   }
 
-  /// `Thank you for submitting your request. one of our customerservices representatives will contact you shortly,`
+  /// `Thank you for submitting your request. one of our customer services representatives will contact you shortly,`
   String get thankYouForSubmittingYourRequestOneOfOurCustomerservices {
     return Intl.message(
-      'Thank you for submitting your request. one of our customerservices representatives will contact you shortly,',
+      'Thank you for submitting your request. one of our customer services representatives will contact you shortly,',
       name: 'thankYouForSubmittingYourRequestOneOfOurCustomerservices',
       desc: '',
       args: [],
     );
   }
 
-  /// `Write your thoughts here`
+  /// `Type your complaints here`
   String get writeYourThoughtsHere {
     return Intl.message(
-      'Write your thoughts here',
+      'Type your complaints here',
       name: 'writeYourThoughtsHere',
       desc: '',
       args: [],
@@ -1065,10 +1065,10 @@ class S {
     );
   }
 
-  /// `Statistics For Your Claims`
+  /// `Claims Statistics`
   String get statisticsForYourClaims {
     return Intl.message(
-      'Statistics For Your Claims',
+      'Claims Statistics',
       name: 'statisticsForYourClaims',
       desc: '',
       args: [],
@@ -1085,20 +1085,20 @@ class S {
     );
   }
 
-  /// `You Need To Renew The Contract`
+  /// `You Should Renew Contract`
   String get youNeedToRenewTheContract {
     return Intl.message(
-      'You Need To Renew The Contract',
+      'You Should Renew Contract',
       name: 'youNeedToRenewTheContract',
       desc: '',
       args: [],
     );
   }
 
-  /// `You Need To Renew The Contract, You Need To Renew The Contract`
+  /// `Contract Ended, You Should Renew Contract`
   String get youNeedToRenewTheContractYouNeedToRenew {
     return Intl.message(
-      'You Need To Renew The Contract, You Need To Renew The Contract',
+      'Contract Ended, You Should Renew Contract',
       name: 'youNeedToRenewTheContractYouNeedToRenew',
       desc: '',
       args: [],
@@ -1115,10 +1115,10 @@ class S {
     );
   }
 
-  /// `The unit is reserved`
+  /// `The unit is Booked`
   String get theUnitIsReserved {
     return Intl.message(
-      'The unit is reserved',
+      'The unit is Booked',
       name: 'theUnitIsReserved',
       desc: '',
       args: [],
@@ -1275,10 +1275,10 @@ class S {
     );
   }
 
-  /// `Sorry, there are no results.`
+  /// `Sorry, No results.`
   String get sorryThereAreNoResultsForThisSearchPleaseTry {
     return Intl.message(
-      'Sorry, there are no results.',
+      'Sorry, No results.',
       name: 'sorryThereAreNoResultsForThisSearchPleaseTry',
       desc: '',
       args: [],
@@ -1295,10 +1295,10 @@ class S {
     );
   }
 
-  /// `All Attachment`
+  /// `All Attachments`
   String get allAttachment {
     return Intl.message(
-      'All Attachment',
+      'All Attachments',
       name: 'allAttachment',
       desc: '',
       args: [],
@@ -1465,10 +1465,10 @@ class S {
     );
   }
 
-  /// `Identity Image`
+  /// `ID Image`
   String get uploadIdentityImage {
     return Intl.message(
-      'Identity Image',
+      'ID Image',
       name: 'uploadIdentityImage',
       desc: '',
       args: [],
@@ -1615,30 +1615,30 @@ class S {
     );
   }
 
-  /// `Unit Request UnLinked`
+  /// `Unit UnLinked`
   String get unitRequestUnlinked {
     return Intl.message(
-      'Unit Request UnLinked',
+      'Unit UnLinked',
       name: 'unitRequestUnlinked',
       desc: '',
       args: [],
     );
   }
 
-  /// `Qr Scanner`
+  /// `QR Scanner`
   String get qrScanner {
     return Intl.message(
-      'Qr Scanner',
+      'QR Scanner',
       name: 'qrScanner',
       desc: '',
       args: [],
     );
   }
 
-  /// `You need to renew unit `
+  /// `You should renew unit `
   String get youNeedToRenewUnit {
     return Intl.message(
-      'You need to renew unit ',
+      'You should renew unit ',
       name: 'youNeedToRenewUnit',
       desc: '',
       args: [],
@@ -1685,10 +1685,10 @@ class S {
     );
   }
 
-  /// `Upload Your Identity`
+  /// `Upload Your ID`
   String get uploadYourIdentity {
     return Intl.message(
-      'Upload Your Identity',
+      'Upload Your ID',
       name: 'uploadYourIdentity',
       desc: '',
       args: [],
@@ -1715,10 +1715,10 @@ class S {
     );
   }
 
-  /// `Identity file`
+  /// `ID file`
   String get identityFile {
     return Intl.message(
-      'Identity file',
+      'ID file',
       name: 'identityFile',
       desc: '',
       args: [],
@@ -1825,20 +1825,20 @@ class S {
     );
   }
 
-  /// `Unit Request Code: `
+  /// ` Code: `
   String get unitRequestCode {
     return Intl.message(
-      'Unit Request Code: ',
+      ' Code: ',
       name: 'unitRequestCode',
       desc: '',
       args: [],
     );
   }
 
-  /// `User Remarks`
+  /// `Tenant Remarks`
   String get userRemarks {
     return Intl.message(
-      'User Remarks',
+      'Tenant Remarks',
       name: 'userRemarks',
       desc: '',
       args: [],
@@ -1910,6 +1910,16 @@ class S {
     return Intl.message(
       'Canceled',
       name: 'canceled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You reach to last page`
+  String get youReachToLastPage {
+    return Intl.message(
+      'You reach to last page',
+      name: 'youReachToLastPage',
       desc: '',
       args: [],
     );

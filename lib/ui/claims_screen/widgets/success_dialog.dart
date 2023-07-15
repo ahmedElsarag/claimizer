@@ -18,7 +18,7 @@ class ClaimCreatedDialog extends StatelessWidget {
  final ClaimsPresenter presenter;
   @override
   Widget build(BuildContext context) {
-    return Consumer<ClaimsWithFilterProvider>(
+    return Consumer<ClaimsProvider>(
       builder: (ctx, pr, w) => AlertDialog(
         backgroundColor: MColors.whiteE,
         elevation: 0,
@@ -50,7 +50,11 @@ class ClaimCreatedDialog extends StatelessWidget {
                 pr.isStepsFinished = !pr.isStepsFinished;
                 pr.selectedIndex = 1;
                 pr.currentStep = 0;
-                presenter.getAllClaimsApiCall();
+                Map<String, dynamic> params = Map();
+                params['page'] = 1;
+                params['search'] = pr.searchController.text.toString();
+                presenter.getAllClaimsApiCall(params);
+                // presenter.getAllClaimsApiCall(pr.currentPage);
                 Navigator.pop(context);
               },
               child: Text(

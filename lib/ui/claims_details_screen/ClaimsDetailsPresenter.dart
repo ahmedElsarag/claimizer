@@ -1,3 +1,4 @@
+import 'package:Cliamizer/app_widgets/NoDataFound.dart';
 import 'package:Cliamizer/base/presenter/base_presenter.dart';
 import 'package:Cliamizer/network/models/ClaimDetailsResponse.dart';
 import 'package:Cliamizer/network/models/general_response.dart';
@@ -37,13 +38,17 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
         },
         onError: (code, msg) {
           view.closeProgress();
-          Log.d(msg);
+          if (code == ErrorStatus.NOT_FOUND || code == ErrorStatus.PARSE_ERROR) {
+            view.showToasts("NO CLAIM FOUND", "error");
+            Navigator.pop(view.context);
+          }
           if (code == ErrorStatus.UNKNOWN_ERROR) view.provider.internetStatus = false;
           if (code == ErrorStatus.UNAUTHORIZED)
             showDialog(
                 context: view.context,
                 builder: (_) => LoginRequiredDialog(message: S.of(view.context).sessionTimeoutPleaseLogin),
                 barrierDismissible: false);
+          Log.d(msg);
         },
       );
     });

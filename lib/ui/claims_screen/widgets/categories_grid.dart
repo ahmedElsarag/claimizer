@@ -19,7 +19,7 @@ class CategoriesGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ClaimsWithFilterProvider>(
+    return Consumer<ClaimsProvider>(
         builder: (ctx, pr, w) => Column(
               mainAxisSize: MainAxisSize.min,
               children: [

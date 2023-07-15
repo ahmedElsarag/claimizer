@@ -12,8 +12,6 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/image_utils.dart';
-import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
-import '../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
@@ -39,14 +37,23 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
   void initState() {
     provider = context.read<UnitProvider>();
     homeProvider = context.read<HomeProvider>();
-    EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
-      if (event.isRefresh != null || event.isLangChanged != null) {
-        mPresenter.getUnitRequestsApiCall();
-      }
-      setState(() {});
-    });
-    mPresenter.getExistingUnitsApiCall();
-    mPresenter.getUnitRequestsApiCall();
+    // EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
+    //   if (event.isRefresh != null || event.isLangChanged != null) {
+    //     Map<String, dynamic> linkRequestParams = Map();
+    //     linkRequestParams['page'] = provider.currentPage;
+    //     linkRequestParams['search'] = provider.searchController.text.toString();
+    //     mPresenter.getUnitRequestsApiCall(linkRequestParams);
+    //   }
+    //   setState(() {});
+    // });
+    // Map<String, dynamic> exitingParams = Map();
+    // exitingParams['page'] = provider.currentPage;
+    // exitingParams['search'] = provider.searchController.text.toString();
+    // mPresenter.getExistingUnitsApiCall(exitingParams);
+    // Map<String, dynamic> linkRequestParams = Map();
+    // linkRequestParams['page'] = provider.currentPage;
+    // linkRequestParams['search'] = provider.searchController.text.toString();
+    // mPresenter.getUnitRequestsApiCall(linkRequestParams);
     super.initState();
   }
 
@@ -117,9 +124,9 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                         width: pr.selectedIndex == pageIndex ? 80 : 90,
                                         child: AutoSizeText(
                                           cardTitles[pageIndex],
-                                          style:TextStyle(
+                                          style: TextStyle(
                                             color:
-                                            pr.selectedIndex == pageIndex ? Colors.white : MColors.light_text_color,
+                                                pr.selectedIndex == pageIndex ? Colors.white : MColors.light_text_color,
                                           ),
                                           maxLines: 2,
                                           textAlign: TextAlign.center,
@@ -167,13 +174,22 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                 ),
                                 onTap: () {
                                   if (pr.selectedIndex == 1) {
-                                    Map<String, dynamic> parms = Map();
-                                    parms['search'] = pr.searchController.text.toString();
-                                    mPresenter.getFilteredExistingUnitsApiCall(parms);
+                                    pr.currentPage = 1;
+                                    Map<String, dynamic> exitingParams = Map();
+                                    exitingParams['page'] = provider.currentPage;
+                                    exitingParams['search'] = provider.searchController.text.toString();
+                                    mPresenter.getExistingUnitsApiCall(exitingParams);
                                   } else if (pr.selectedIndex == 2) {
-                                    Map<String, dynamic> parms = Map();
-                                    parms['search'] = pr.unitLinkSearchController.text.toString();
-                                    mPresenter.getFilteredUnitRequestsApiCall(parms);
+                                    pr.currentPage = 1;
+                                    Map<String, dynamic> params = Map();
+                                    params['page'] = pr.currentPage;
+                                    params['search'] = pr.unitLinkSearchController.text.toString();
+                                    mPresenter.getUnitRequestsApiCall(params);
+                                    // pr.currentPage = 1;
+                                    // Map<String, dynamic> linkRequestParams = Map();
+                                    // linkRequestParams['page'] = provider.currentPage;
+                                    // linkRequestParams['search'] = provider.unitLinkSearchController.text.toString();
+                                    // mPresenter.getUnitRequestsApiCall(linkRequestParams);
                                   }
                                 },
                               ),
@@ -184,24 +200,36 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                 ),
                                 onTap: () {
                                   if (pr.selectedIndex == 1) {
-                                    mPresenter.getExistingUnitsApiCall();
+                                    pr.currentPage = 1;
+                                    Map<String, dynamic> exitingParams = Map();
+                                    exitingParams['page'] = provider.currentPage;
+                                    exitingParams['search'] = provider.searchController.text.toString();
+                                    mPresenter.getExistingUnitsApiCall(exitingParams);
                                     pr.searchController.clear();
                                   } else if (pr.selectedIndex == 2) {
                                     pr.unitLinkSearchController.clear();
-                                    mPresenter.getUnitRequestsApiCall();
+                                    pr.currentPage = 1;
+                                    Map<String, dynamic> linkRequestParams = Map();
+                                    linkRequestParams['page'] = provider.currentPage;
+                                    linkRequestParams['search'] = provider.unitLinkSearchController.text.toString();
+                                    mPresenter.getUnitRequestsApiCall(linkRequestParams);
                                   }
                                 },
                               ),
                             ),
                             onFieldSubmitted: (value) {
                               if (pr.selectedIndex == 1) {
-                                Map<String, dynamic> parms = Map();
-                                parms['search'] = pr.searchController.text.toString();
-                                mPresenter.getFilteredExistingUnitsApiCall(parms);
+                                pr.currentPage = 1;
+                                Map<String, dynamic> exitingParams = Map();
+                                exitingParams['page'] = provider.currentPage;
+                                exitingParams['search'] = provider.searchController.text.toString();
+                                mPresenter.getExistingUnitsApiCall(exitingParams);
                               } else if (pr.selectedIndex == 2) {
-                                Map<String, dynamic> parms = Map();
-                                parms['search'] = pr.unitLinkSearchController.text.toString();
-                                mPresenter.getFilteredUnitRequestsApiCall(parms);
+                                pr.currentPage = 1;
+                                Map<String, dynamic> params = Map();
+                                params['page'] = pr.currentPage;
+                                params['search'] = pr.unitLinkSearchController.text.toString();
+                                mPresenter.getUnitRequestsApiCall(params);
                               }
                             },
                             onChanged: (value) {
@@ -264,10 +292,12 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                         : pr.selectedIndex == 1
                             ? ExistingUnitList(
                                 presenter: mPresenter,
+                                provider: pr,
                               )
                             : UnitLinkRequest(
                                 presenter: mPresenter,
                                 homeProvider: homeProvider,
+                                provider: pr,
                               ),
                   ],
                 ),

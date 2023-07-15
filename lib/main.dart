@@ -2,6 +2,7 @@ import 'package:Cliamizer/res/setting.dart';
 import 'package:Cliamizer/route/application.dart';
 import 'package:Cliamizer/route/routers.dart';
 import 'package:Cliamizer/styles/light_theme_style.dart';
+import 'package:Cliamizer/ui/ClaimsWithFilter/ClaimsWithFitlerProvider.dart';
 import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsProvider.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/edit_profile_screen/EditProfileProvider.dart';
@@ -69,10 +70,12 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => MoreProvider()),
         ChangeNotifierProvider(create: (context) => HomeProvider()),
         ChangeNotifierProvider(create: (context) => ClaimsWithFilterProvider()),
+        ChangeNotifierProvider(create: (context) => ClaimsProvider()),
         ChangeNotifierProvider(create: (context) => ClaimsDetailsProvider()),
         ChangeNotifierProvider(create: (context) => EditProfileProvider()),
         ChangeNotifierProvider(create: (context) => UnitProvider()),
         ChangeNotifierProvider(create: (context) => UnitDetailsProvider()),
+        ChangeNotifierProvider(create: (context) => NotificationProvider()),
         ChangeNotifierProvider(create: (context) => NotificationProvider()),
       ],
       child: ValueListenableBuilder(

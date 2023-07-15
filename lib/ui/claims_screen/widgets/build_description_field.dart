@@ -8,10 +8,10 @@ import '../../../res/styles.dart';
 
 class BuildDescriptionField extends StatelessWidget {
   const BuildDescriptionField({Key key, this.provider}) : super(key: key);
-  final ClaimsWithFilterProvider provider;
+  final ClaimsProvider provider;
   @override
   Widget build(BuildContext context) {
-    return Consumer<ClaimsWithFilterProvider>(
+    return Consumer<ClaimsProvider>(
       builder: (context, pr, child) =>  TextFormField(
         controller: pr.description,
         maxLines: 3,

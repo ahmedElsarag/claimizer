@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../network/models/claims_response.dart';
 
-class ClaimsWithFilterProvider extends ChangeNotifier {
+class ClaimsProvider extends ChangeNotifier {
   int _selectedIndex = 1;
   DateTime _selectedDate;
 
@@ -72,20 +72,8 @@ class ClaimsWithFilterProvider extends ChangeNotifier {
     _searchController = value;
     notifyListeners();
   }
-  String _status;
-  String _titleStatus;
-
-  String get titleStatus => _titleStatus;
-
-  set titleStatus(String value) {
-    _titleStatus = value;
-    notifyListeners();
-  }
-
-  String get status => _status;
-
-  set status(String value) {
-    _status = value;
+  setCurrentPage(){
+    ++currentPage;
     notifyListeners();
   }
 
@@ -289,4 +277,31 @@ class ClaimsWithFilterProvider extends ChangeNotifier {
   String selectedCategory;
   String selectedSubCategory;
   String selectedType;
+
+  bool _isLoading = false;
+  int  currentPage = 1;
+  int  _lastPage = 0 ;
+
+  bool get isLoading => _isLoading;
+
+  set isLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
+  int get lastPage => _lastPage;
+
+  set lastPage(int value) {
+    _lastPage = value;
+    notifyListeners();
+  }
+
+  bool _isDataLoaded = false;
+
+  bool get isDataLoaded => _isDataLoaded;
+
+  set isDataLoaded(bool value) {
+    _isDataLoaded = value;
+    notifyListeners();
+  }
 }

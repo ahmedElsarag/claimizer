@@ -439,345 +439,358 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                       content: SingleChildScrollView(
                                         child: Container(
                                           width: double.maxFinite,
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                S.of(context).renew,
-                                                style: MTextStyles.textMain14,
-                                              ),
-                                              Gaps.vGap8,
-                                              Gaps.vGap8,
-                                              Gaps.vGap8,
-                                              Container(
-                                                height: MediaQuery.of(context).size.height * .07,
-                                                child: TextFormField(
-                                                  controller: pr.contractNo,
-                                                  style: MTextStyles.textDark14,
-                                                  decoration: InputDecoration(
-                                                      hintText: S.of(context).contractNo,
-                                                      hintStyle: MTextStyles.textMain14.copyWith(
-                                                          color: MColors.light_text_color, fontWeight: FontWeight.w500),
-                                                      border: OutlineInputBorder(
-                                                        borderRadius: BorderRadius.circular(8),
-                                                        borderSide: BorderSide(color: MColors.textFieldBorder),
-                                                      ),
-                                                      enabledBorder: OutlineInputBorder(
-                                                        borderRadius: BorderRadius.circular(8),
-                                                        borderSide: BorderSide(color: MColors.textFieldBorder),
-                                                      ),
-                                                      focusedBorder: OutlineInputBorder(
-                                                        borderRadius: BorderRadius.circular(8),
-                                                        borderSide: BorderSide(color: MColors.textFieldBorder),
-                                                      ),
-                                                      labelStyle: MTextStyles.textDark14),
+                                          child: Form(
+                                            key: pr.formKeyRenew,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(
+                                                  S.of(context).renew,
+                                                  style: MTextStyles.textMain14,
                                                 ),
-                                              ),
-                                              Gaps.vGap8,
-                                              Gaps.vGap8,
-                                              Container(
-                                                height: MediaQuery.of(context).size.height * .07,
-                                                child: GestureDetector(
-                                                  onTap: () async {
-                                                    final DateTime picked = await showDatePicker(
-                                                        context: context,
-                                                        initialDate: pr.endDate ?? DateTime.now(),
-                                                        firstDate: DateTime(1900),
-                                                        lastDate: DateTime.now().add(Duration(days: 100000)));
-                                                    if (picked != null) {
-                                                      pr.endDate = picked;
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(8),
-                                                      border: Border.all(color: MColors.textFieldBorder),
-                                                    ),
-                                                    padding: EdgeInsets.all(12.0),
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          pr.endDate != null
-                                                              ? _dateFormatEN.format(pr.endDate)
-                                                              : S.of(context).endDate,
-                                                          style: MTextStyles.textDark14,
+                                                Gaps.vGap8,
+                                                Gaps.vGap8,
+                                                Gaps.vGap8,
+                                                Container(
+                                                  height: MediaQuery.of(context).size.height * .07,
+                                                  child: TextFormField(
+                                                    controller: pr.contractNo,
+                                                    style: MTextStyles.textDark14,
+                                                    decoration: InputDecoration(
+                                                        hintText: S.of(context).contractNo,
+                                                        hintStyle: MTextStyles.textMain14.copyWith(
+                                                            color: MColors.light_text_color, fontWeight: FontWeight.w500),
+                                                        border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          borderSide: BorderSide(color: MColors.textFieldBorder),
                                                         ),
-                                                      ],
-                                                    ),
+                                                        enabledBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                        ),
+                                                        focusedBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          borderSide: BorderSide(color: MColors.textFieldBorder),
+                                                        ),
+                                                        labelStyle: MTextStyles.textDark14),
                                                   ),
                                                 ),
-                                              ),
-                                              Gaps.vGap8,
-                                              Gaps.vGap8,
-                                              GestureDetector(
-                                                  onTap: () async {
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return AlertDialog(
-                                                          content: Column(
-                                                            mainAxisSize: MainAxisSize.min,
-                                                            children: [
-                                                              Container(
-                                                                width: 60.w,
-                                                                child: ElevatedButton.icon(
-                                                                  onPressed: getContractFromCamera,
-                                                                  icon: Icon(Icons.camera_alt,
-                                                                      color: MColors.text_button_color),
-                                                                  label: FittedBox(
-                                                                    child: Text(S.of(context).takePhoto,
-                                                                        style: MTextStyles.textMain12.copyWith(
-                                                                            color: MColors.text_button_color)),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              SizedBox(height: 8),
-                                                              Container(
-                                                                width: 60.w,
-                                                                child: ElevatedButton.icon(
-                                                                  onPressed: pickContractFromGallery,
-                                                                  icon: Icon(Icons.photo_library,
-                                                                      color: MColors.text_button_color),
-                                                                  label: FittedBox(
-                                                                    child: Text(
-                                                                      S.of(context).chooseFromGallery,
-                                                                      style: MTextStyles.textMain12
-                                                                          .copyWith(color: MColors.text_button_color),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(color: MColors.textFieldBorder),
-                                                        borderRadius: BorderRadius.circular(8)),
-                                                    padding: EdgeInsets.all(8),
-                                                    child: Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        pr.contractImg != null
-                                                            ? ClipRRect(
-                                                                borderRadius: BorderRadius.circular(12),
-                                                                child: Image.file(
-                                                                  pr.contractImg,
-                                                                  width: 10.w,
-                                                                  height: 10.w,
-                                                                  fit: BoxFit.cover,
-                                                                ))
-                                                            : Column(
-                                                                children: [
-                                                                  SvgPicture.asset(ImageUtils.getSVGPath("file_upload"),
-                                                                      color: MColors.light_text_color),
-                                                                  Gaps.vGap8,
-                                                                  Text(
-                                                                    S.of(context).uploadContractImage,
-                                                                    style: MTextStyles.textMain14
-                                                                        .copyWith(color: MColors.light_text_color),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                        // Spacer(),
-                                                        Visibility(
-                                                          visible: pr.contractImg != null,
-                                                          child: InkWell(
-                                                            onTap: () async {
-                                                              pr.contractImg = null;
-                                                              setState(() {});
-                                                            },
-                                                            child: Icon(Icons.close),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )),
-                                              Gaps.vGap8,
-                                              Gaps.vGap8,
-                                              GestureDetector(
-                                                  onTap: () async {
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return AlertDialog(
-                                                          content: Column(
-                                                            mainAxisSize: MainAxisSize.min,
-                                                            children: [
-                                                              Container(
-                                                                width: 60.w,
-                                                                child: ElevatedButton.icon(
-                                                                  onPressed: getIdentityFromCamera,
-                                                                  icon: Icon(Icons.camera_alt,
-                                                                      color: MColors.text_button_color),
-                                                                  label: FittedBox(
-                                                                    child: Text(S.of(context).takePhoto,
-                                                                        style: MTextStyles.textMain12.copyWith(
-                                                                            color: MColors.text_button_color)),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              SizedBox(height: 8),
-                                                              Container(
-                                                                width: 60.w,
-                                                                child: ElevatedButton.icon(
-                                                                  onPressed: pickIdentityFromGallery,
-                                                                  icon: Icon(Icons.photo_library,
-                                                                      color: MColors.text_button_color),
-                                                                  label: FittedBox(
-                                                                    child: Text(
-                                                                      S.of(context).chooseFromGallery,
-                                                                      style: MTextStyles.textMain12
-                                                                          .copyWith(color: MColors.text_button_color),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(color: MColors.textFieldBorder),
-                                                        borderRadius: BorderRadius.circular(8)),
-                                                    padding: EdgeInsets.all(8),
-                                                    child: Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: [
-                                                        pr.identityImg != null
-                                                            ? ClipRRect(
-                                                                borderRadius: BorderRadius.circular(12),
-                                                                child: Image.file(
-                                                                  pr.identityImg,
-                                                                  width: 10.w,
-                                                                  height: 10.w,
-                                                                  fit: BoxFit.cover,
-                                                                ))
-                                                            : Column(
-                                                                children: [
-                                                                  SvgPicture.asset(ImageUtils.getSVGPath("file_upload"),
-                                                                      color: MColors.light_text_color),
-                                                                  Gaps.vGap8,
-                                                                  Text(
-                                                                    S.of(context).uploadIdentityImage,
-                                                                    style: MTextStyles.textMain14
-                                                                        .copyWith(color: MColors.light_text_color),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                        // Spacer(),
-                                                        Visibility(
-                                                          visible: pr.identityImg != null,
-                                                          child: InkWell(
-                                                            onTap: () async {
-                                                              pr.identityImg = null;
-                                                              setState(() {});
-                                                            },
-                                                            child: Icon(Icons.close),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )),
-                                              Gaps.vGap8,
-                                              Gaps.vGap8,
-                                              BuildRenewNotesField(
-                                                provider: provider,
-                                              ),
-                                              Gaps.vGap8,
-                                              Gaps.vGap8,
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  ElevatedButton(
-                                                    onPressed: () async {
-                                                      if (pr.contractNo.text.isEmpty && pr.endDate == null) {
-                                                        showToasts(S.of(context).enterMissingData, 'warning');
-                                                      } else if (pr.contractImg != null || pr.identityImg != null) {
-                                                        FormData formData = new FormData.fromMap({
-                                                          "contract_attach": await MultipartFile.fromFile(
-                                                            pr.contractImg.path,
-                                                            filename: pr.contractImg.path.split('/').last,
-                                                            contentType: MediaType('application', 'octet-stream'),
-                                                          ),
-                                                          "client_gov_id": await MultipartFile.fromFile(
-                                                            pr.identityImg.path,
-                                                            filename: pr.identityImg.path.split('/').last,
-                                                            contentType: MediaType('application', 'octet-stream'),
-                                                          ),
-                                                          "contract_no": pr.contractNo.text,
-                                                          "note": pr.renewNotes.text,
-                                                          "end_at": pr.endDate.toString(),
-                                                          "id": pr.instance.id,
-                                                        });
-                                                        mPresenter.renewUnitLinkRequestApiCall(
-                                                            formData, widget.unitRequestDataBean.id);
-                                                        // Navigator.pop(context);
-                                                      } else {
-                                                        FormData formData = new FormData.fromMap({
-                                                          "contract_no": pr.contractNo.text,
-                                                          "note": pr.renewNotes.text,
-                                                          "end_at": pr.endDate.toString(),
-                                                          "id": pr.instance.id,
-                                                        });
-                                                        mPresenter.renewUnitLinkRequestApiCall(
-                                                            formData, widget.unitRequestDataBean.id);
+                                                Gaps.vGap8,
+                                                Gaps.vGap8,
+                                                Container(
+                                                  height: MediaQuery.of(context).size.height * .07,
+                                                  child: GestureDetector(
+                                                    onTap: () async {
+                                                      final DateTime picked = await showDatePicker(
+                                                          context: context,
+                                                          initialDate: pr.endDate ?? DateTime.now(),
+                                                          firstDate: DateTime(1900),
+                                                          lastDate: DateTime.now().add(Duration(days: 100000)));
+                                                      if (picked != null) {
+                                                        pr.endDate = picked;
                                                       }
                                                     },
-                                                    child: Text(
-                                                      S.of(context).renew,
-                                                      style:
-                                                          MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(8),
+                                                        border: Border.all(color: MColors.textFieldBorder),
+                                                      ),
+                                                      padding: EdgeInsets.all(12.0),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            pr.endDate != null
+                                                                ? _dateFormatEN.format(pr.endDate)
+                                                                : S.of(context).endDate,
+                                                            style: MTextStyles.textDark14,
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                    style: ButtonStyle(
-                                                        backgroundColor: MaterialStateProperty.all<Color>(
-                                                            MColors.primary_light_color),
-                                                        elevation: MaterialStatePropertyAll(0),
-                                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                            RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                        )),
-                                                        padding: MaterialStateProperty.all<EdgeInsets>(
-                                                            EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
                                                   ),
-                                                  Gaps.hGap8,
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      pr.contractNo.clear();
-                                                      pr.renewNotes.clear();
-                                                      pr.endDate = null;
-                                                      pr.contractImg = null;
-                                                      pr.identityImg = null;
-                                                      Navigator.pop(context);
+                                                ),
+                                                Gaps.vGap8,
+                                                Gaps.vGap8,
+                                                GestureDetector(
+                                                    onTap: () async {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return AlertDialog(
+                                                            content: Column(
+                                                              mainAxisSize: MainAxisSize.min,
+                                                              children: [
+                                                                Container(
+                                                                  width: 60.w,
+                                                                  child: ElevatedButton.icon(
+                                                                    onPressed: getContractFromCamera,
+                                                                    icon: Icon(Icons.camera_alt,
+                                                                        color: MColors.text_button_color),
+                                                                    label: FittedBox(
+                                                                      child: Text(S.of(context).takePhoto,
+                                                                          style: MTextStyles.textMain12.copyWith(
+                                                                              color: MColors.text_button_color)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(height: 8),
+                                                                Container(
+                                                                  width: 60.w,
+                                                                  child: ElevatedButton.icon(
+                                                                    onPressed: pickContractFromGallery,
+                                                                    icon: Icon(Icons.photo_library,
+                                                                        color: MColors.text_button_color),
+                                                                    label: FittedBox(
+                                                                      child: Text(
+                                                                        S.of(context).chooseFromGallery,
+                                                                        style: MTextStyles.textMain12
+                                                                            .copyWith(color: MColors.text_button_color),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
                                                     },
-                                                    child: Text(
-                                                      S.of(context).cancel,
-                                                      style:
-                                                          MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(color: MColors.textFieldBorder),
+                                                          borderRadius: BorderRadius.circular(8)),
+                                                      padding: EdgeInsets.all(8),
+                                                      child: Row(
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          pr.contractImg != null
+                                                              ? ClipRRect(
+                                                                  borderRadius: BorderRadius.circular(12),
+                                                                  child: Image.file(
+                                                                    pr.contractImg,
+                                                                    width: 10.w,
+                                                                    height: 10.w,
+                                                                    fit: BoxFit.cover,
+                                                                  ))
+                                                              : Column(
+                                                                  children: [
+                                                                    SvgPicture.asset(ImageUtils.getSVGPath("file_upload"),
+                                                                        color: MColors.light_text_color),
+                                                                    Gaps.vGap8,
+                                                                    Text(
+                                                                      S.of(context).uploadContractImage,
+                                                                      style: MTextStyles.textMain14
+                                                                          .copyWith(color: MColors.light_text_color),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                          // Spacer(),
+                                                          Visibility(
+                                                            visible: pr.contractImg != null,
+                                                            child: InkWell(
+                                                              onTap: () async {
+                                                                pr.contractImg = null;
+                                                                setState(() {});
+                                                              },
+                                                              child: Icon(Icons.close),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )),
+                                                Gaps.vGap8,
+                                                Gaps.vGap8,
+                                                GestureDetector(
+                                                    onTap: () async {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return AlertDialog(
+                                                            content: Column(
+                                                              mainAxisSize: MainAxisSize.min,
+                                                              children: [
+                                                                Container(
+                                                                  width: 60.w,
+                                                                  child: ElevatedButton.icon(
+                                                                    onPressed: getIdentityFromCamera,
+                                                                    icon: Icon(Icons.camera_alt,
+                                                                        color: MColors.text_button_color),
+                                                                    label: FittedBox(
+                                                                      child: Text(S.of(context).takePhoto,
+                                                                          style: MTextStyles.textMain12.copyWith(
+                                                                              color: MColors.text_button_color)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(height: 8),
+                                                                Container(
+                                                                  width: 60.w,
+                                                                  child: ElevatedButton.icon(
+                                                                    onPressed: pickIdentityFromGallery,
+                                                                    icon: Icon(Icons.photo_library,
+                                                                        color: MColors.text_button_color),
+                                                                    label: FittedBox(
+                                                                      child: Text(
+                                                                        S.of(context).chooseFromGallery,
+                                                                        style: MTextStyles.textMain12
+                                                                            .copyWith(color: MColors.text_button_color),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(color: MColors.textFieldBorder),
+                                                          borderRadius: BorderRadius.circular(8)),
+                                                      padding: EdgeInsets.all(8),
+                                                      child: Row(
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          pr.identityImg != null
+                                                              ? ClipRRect(
+                                                                  borderRadius: BorderRadius.circular(12),
+                                                                  child: Image.file(
+                                                                    pr.identityImg,
+                                                                    width: 10.w,
+                                                                    height: 10.w,
+                                                                    fit: BoxFit.cover,
+                                                                  ))
+                                                              : Column(
+                                                                  children: [
+                                                                    SvgPicture.asset(ImageUtils.getSVGPath("file_upload"),
+                                                                        color: MColors.light_text_color),
+                                                                    Gaps.vGap8,
+                                                                    Text(
+                                                                      S.of(context).uploadIdentityImage,
+                                                                      style: MTextStyles.textMain14
+                                                                          .copyWith(color: MColors.light_text_color),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                          // Spacer(),
+                                                          Visibility(
+                                                            visible: pr.identityImg != null,
+                                                            child: InkWell(
+                                                              onTap: () async {
+                                                                pr.identityImg = null;
+                                                                setState(() {});
+                                                              },
+                                                              child: Icon(Icons.close),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )),
+                                                Gaps.vGap8,
+                                                Gaps.vGap8,
+                                                BuildRenewNotesField(
+                                                  provider: provider,
+                                                ),
+                                                Gaps.vGap8,
+                                                Gaps.vGap8,
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    ElevatedButton(
+                                                      onPressed: () async {
+                                                        if (pr.formKeyRenew.currentState.validate()) {
+                                                          if(pr.contractNo == null || pr.contractNo.text.isEmpty && pr.endDate == null){
+                                                            showToasts(S.of(context).enterMissingData, 'warning');
+                                                          }
+                                                          else if (pr.contractNo == null || pr.contractNo.text.isEmpty) {
+                                                            showToasts(S.of(context).pleaseEnterContractNumber, 'warning');
+                                                          }
+                                                          else if(pr.endDate == null){
+                                                            showToasts(S.of(context).pleaseEnterContractEndDate, 'warning');
+                                                          }
+                                                          else if (pr.contractImg != null || pr.identityImg != null) {
+                                                            FormData formData = new FormData.fromMap({
+                                                              "contract_attach": await MultipartFile.fromFile(
+                                                                pr.contractImg.path,
+                                                                filename: pr.contractImg.path.split('/').last,
+                                                                contentType: MediaType('application', 'octet-stream'),
+                                                              ),
+                                                              "client_gov_id": await MultipartFile.fromFile(
+                                                                pr.identityImg.path,
+                                                                filename: pr.identityImg.path.split('/').last,
+                                                                contentType: MediaType('application', 'octet-stream'),
+                                                              ),
+                                                              "contract_no": pr.contractNo.text,
+                                                              "note": pr.renewNotes.text,
+                                                              "end_at": pr.endDate.toString(),
+                                                              "id": pr.instance.id,
+                                                            });
+                                                            mPresenter.renewUnitLinkRequestApiCall(
+                                                                formData, widget.unitRequestDataBean.id);
+                                                            // Navigator.pop(context);
+                                                          }
+                                                          else {
+                                                            FormData formData = new FormData.fromMap({
+                                                              "contract_no": pr.contractNo.text,
+                                                              "note": pr.renewNotes.text,
+                                                              "end_at": pr.endDate.toString(),
+                                                              "id": pr.instance.id,
+                                                            });
+                                                            mPresenter.renewUnitLinkRequestApiCall(
+                                                                formData, widget.unitRequestDataBean.id);
+                                                          }
+                                                        }
+                                                      },
+                                                      child: Text(
+                                                        S.of(context).renew,
+                                                        style:
+                                                            MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                                      ),
+                                                      style: ButtonStyle(
+                                                          backgroundColor: MaterialStateProperty.all<Color>(
+                                                              MColors.primary_light_color),
+                                                          elevation: MaterialStatePropertyAll(0),
+                                                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                              RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          )),
+                                                          padding: MaterialStateProperty.all<EdgeInsets>(
+                                                              EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
                                                     ),
-                                                    style: ButtonStyle(
-                                                        backgroundColor:
-                                                            MaterialStateProperty.all<Color>(MColors.primary_color),
-                                                        elevation: MaterialStatePropertyAll(0),
-                                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                            RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                        )),
-                                                        padding: MaterialStateProperty.all<EdgeInsets>(
-                                                            EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
-                                                  )
-                                                ],
-                                              )
-                                            ],
+                                                    Gaps.hGap8,
+                                                    ElevatedButton(
+                                                      onPressed: () {
+                                                        pr.contractNo.clear();
+                                                        pr.renewNotes.clear();
+                                                        pr.endDate = null;
+                                                        pr.contractImg = null;
+                                                        pr.identityImg = null;
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text(
+                                                        S.of(context).cancel,
+                                                        style:
+                                                            MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                                      ),
+                                                      style: ButtonStyle(
+                                                          backgroundColor:
+                                                              MaterialStateProperty.all<Color>(MColors.primary_color),
+                                                          elevation: MaterialStatePropertyAll(0),
+                                                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                              RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          )),
+                                                          padding: MaterialStateProperty.all<EdgeInsets>(
+                                                              EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),

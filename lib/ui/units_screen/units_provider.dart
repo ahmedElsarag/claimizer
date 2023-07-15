@@ -251,4 +251,29 @@ class UnitProvider<T> extends BaseProvider<T> {
     _validated = value;
     notifyListeners();
   }
+
+
+  bool _isLoading = false;
+  int  currentPage = 1;
+  int  _lastPage = 0 ;
+
+  bool get isLoading => _isLoading;
+
+  set isLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
+  int get lastPage => _lastPage;
+
+  set lastPage(int value) {
+    _lastPage = value;
+    notifyListeners();
+  }
+
+  setCurrentPage(){
+    ++currentPage;
+    notifyListeners();
+  }
+
 }

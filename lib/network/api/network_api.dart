@@ -10,15 +10,15 @@ class Api {
   static const String loginApiCall = "login";
   static const String registerApiCall = "register";
   static const String statisticsApiCall = "statistics";
-  static const String claimsApiCall = "claims?per_page=1000";
+  static const String claimsApiCall = "claims";
   static const String profileApiCall = "profile";
   static const String editPasswordApiCall = "change-password";
   static const String editBasicInfo = "profile";
   static const String doAddCommentToClaimApiCall = "claims/comment";
   static const String doAddCommentToUnitRequestApiCall = "requests/addComment";
   static const String buildingsApiCall = "buildings";
-  static const String unitsApiCall = "units?per_page=1000";
-  static const String unitRequestApiCall = "requests?per_page=1000";
+  static const String unitsApiCall = "units";
+  static const String unitRequestApiCall = "requests";
   static const String newLinkRequestApiCall = "requests";
   static const String completeLinkRequestApiCall = "requests/joinUnit";
   static const String renewUnitLinkRequestApiCall = "requests/renew";

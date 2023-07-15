@@ -23,7 +23,7 @@ class StepWidget extends StatelessWidget {
       this.stepCount,
       this.stepCountCompare})
       : super(key: key);
-  final ClaimsWithFilterProvider provider;
+  final ClaimsProvider provider;
   final List<dynamic> itemsList;
   int selectedItemIndex;
   String selectedItem;

@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/preference/Prefs.dart';
+import '../../app_widgets/NoDataFound.dart';
 import '../../network/api/network_api.dart';
 import '../../network/models/claim_type_response.dart';
 import '../../network/models/units_response.dart';
@@ -22,16 +23,21 @@ import '../../network/network_util.dart';
 import 'claims_screen.dart';
 
 class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
-  Future getAllClaimsApiCall() async {
+  Future getAllClaimsApiCall(Map<String, dynamic> params/*int pageKey*/) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
     });
+    // Map<String, dynamic> params = Map();
+    // params['per_page'] = 20;
+    // params['page'] = pageKey;
     view.showProgress(isDismiss: false);
-    await requestFutureData<ClaimsResponse>(Method.get, options: Options(headers: header), endPoint: Api.claimsApiCall,
-        onSuccess: (data) {
+    await requestFutureData<ClaimsResponse>(Method.get,
+        queryParams: params, options: Options(headers: header), endPoint: Api.claimsApiCall, onSuccess: (data) {
       if (data != null) {
         view.provider.claimsList = data.data;
+        view.provider.isLoading = false;
+        view.provider.lastPage = data.meta.pagination.totalPages;
       }
       view.closeProgress();
     }, onError: (code, msg) {
@@ -190,13 +196,18 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
   }
 
   showProgress() {
-    WillPopScope(
-      onWillPop: () async => false,
-      child: Container(
-        height: 30.h,
-        alignment: Alignment.center,
-        child: Lottie.asset('assets/images/png/loading.json', width: 10.w),
-      ),
+    showDialog(
+      context: view.context,
+      builder: (context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: Container(
+            height: 30.h,
+            alignment: Alignment.center,
+            child: Lottie.asset('assets/images/png/loading.json', width: 10.w),
+          ),
+        );
+      },
     );
   }
 
@@ -226,5 +237,11 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
       default:
         return Color(0xff44A4F2).withOpacity(0.08);
     }
+  }
+
+  Widget showMessage(){
+    if(view.provider.claimsList.isEmpty)
+      return Center(child: NoDataWidget(),);
+    return showProgress();
   }
 }

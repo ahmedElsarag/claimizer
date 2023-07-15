@@ -2,17 +2,22 @@ import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/res/setting.dart';
 import 'package:Cliamizer/ui/ClaimsWithFilter/widgets/all_claims.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../CommonUtils/image_utils.dart';
 import '../../app_widgets/claimizer_app_bar.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
 import '../../res/gaps.dart';
 import '../../res/styles.dart';
 import 'ClaimsWithFitlerPresenter.dart';
+import 'ClaimsWithFitlerProvider.dart';
 
 class ClaimsWithFilterScreen extends StatefulWidget {
   static const String TAG = "/ClaimsScreen";
@@ -33,9 +38,14 @@ class ClaimsWithFilterScreenState extends BaseState<ClaimsWithFilterScreen, Clai
   @override
   void initState() {
     provider = context.read<ClaimsWithFilterProvider>();
-    mPresenter.getFilteredClaimsWithStatusApiCall(provider.status);
+    Map<String, dynamic> params = Map();
+    params['page'] = 1;
+    params['search'] = provider.searchController.text.toString();
+    params['status'] = provider.status;
+    mPresenter.getFilteredClaimsWithStatusApiCall(params);
     super.initState();
   }
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +58,32 @@ class ClaimsWithFilterScreenState extends BaseState<ClaimsWithFilterScreen, Clai
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ClaimizerAppBar(
-                title: pr.titleStatus,
+              Row(
+                children: [
+                  InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                        pr.currentPage =1;
+                      },
+                      child: Setting.mobileLanguage.value != Locale("en")
+                          ? RotatedBox(
+                              quarterTurns: 2,
+                              child: SvgPicture.asset(
+                                ImageUtils.getSVGPath("back_icon"),
+                              ),
+                            )
+                          : SvgPicture.asset(
+                              ImageUtils.getSVGPath("back_icon"),
+                            )),
+                  Expanded(
+                    child: Center(
+                      child: AutoSizeText(
+                        capitalize(pr.titleStatus),
+                        style: GoogleFonts.montserrat(fontWeight: FontWeight.w700, color: MColors.dark_text_color),
+                      ),
+                    ),
+                  )
+                ],
               ),
               Gaps.vGap16,
               Visibility(
@@ -80,9 +114,12 @@ class ClaimsWithFilterScreenState extends BaseState<ClaimsWithFilterScreen, Clai
                                   color: MColors.primary_light_color,
                                 ),
                                 onTap: () {
-                                  Map<String, dynamic> parms = Map();
-                                  parms['property'] = pr.searchController.text.toString();
-                                  mPresenter.getFilteredClaimsApiCall(parms);
+                                  pr.currentPage = 1;
+                                  Map<String, dynamic> params = Map();
+                                  params['page'] = pr.currentPage;
+                                  params['search'] = provider.searchController.text.toString();
+                                  params['status'] = provider.status;
+                                  mPresenter.getFilteredClaimsWithStatusApiCall(params);
                                 },
                               ),
                               suffixIcon: GestureDetector(
@@ -92,15 +129,21 @@ class ClaimsWithFilterScreenState extends BaseState<ClaimsWithFilterScreen, Clai
                                 ),
                                 onTap: () {
                                   pr.searchController.clear();
-                                  mPresenter.getFilteredClaimsWithStatusApiCall(provider.status);
+                                  Map<String, dynamic> params = Map();
+                                  params['page'] = 1;
+                                  params['search'] = provider.searchController.text.toString();
+                                  params['status'] = provider.status;
+                                  mPresenter.getFilteredClaimsWithStatusApiCall(params);
                                 },
                               ),
                             ),
                             onFieldSubmitted: (value) {
-                              Map<String, dynamic> parms = Map();
-                              parms['property'] = pr.searchController.text.toString();
-                              parms['status'] = pr.status;
-                              mPresenter.getFilteredClaimsApiCall(parms);
+                              pr.currentPage = 1;
+                              Map<String, dynamic> params = Map();
+                              params['page'] = pr.currentPage;
+                              params['search'] = provider.searchController.text.toString();
+                              params['status'] = provider.status;
+                              mPresenter.getFilteredClaimsWithStatusApiCall(params);
                             },
                             onChanged: (value) {
                               pr.searchValue = value;
@@ -149,6 +192,7 @@ class ClaimsWithFilterScreenState extends BaseState<ClaimsWithFilterScreen, Clai
               Expanded(
                 child: AllClaimsWithFilter(
                   presenter: mPresenter,
+                  provider: pr,
                 ),
               )
             ],

@@ -12,7 +12,7 @@ class BuildTimeDropDown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ClaimsWithFilterProvider>(
+    return Consumer<ClaimsProvider>(
       builder: (context, pr, child) => Container(
         padding: EdgeInsets.symmetric(horizontal: 8),
         decoration: new BoxDecoration(

@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:Cliamizer/CommonUtils/image_utils.dart';
 import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/res/gaps.dart';
+import 'package:Cliamizer/res/styles.dart';
 import 'package:Cliamizer/ui/user/login_screen/LoginScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -230,7 +231,7 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
               focusedBorder:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
               counterText: "",
-              hintStyle: Theme.of(context).textTheme.displaySmall,
+              hintStyle: MTextStyles.textLabelSmall,
             ),
             inputFormatters: [
               LengthLimitingTextInputFormatter(50),
@@ -290,7 +291,7 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
               focusedBorder:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
               counterText: "",
-              hintStyle: Theme.of(context).textTheme.displaySmall,
+              hintStyle: MTextStyles.textLabelSmall,
             ),
             inputFormatters: [LengthLimitingTextInputFormatter(50)],
             maxLength: 50,
@@ -336,7 +337,7 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
             style: Theme.of(context).textTheme.bodySmall,
             decoration: InputDecoration(
               hintText: "123456789",
-              hintStyle: Theme.of(context).textTheme.displaySmall,
+              hintStyle: MTextStyles.textLabelSmall,
               counterText: "",
               errorStyle: Theme.of(context).textTheme.bodySmall.copyWith(color: Colors.redAccent),
               contentPadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.w),
@@ -411,7 +412,7 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
               focusedBorder:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
               counterText: "",
-              hintStyle: Theme.of(context).textTheme.displaySmall,
+              hintStyle: MTextStyles.textLabelSmall,
             ),
             inputFormatters: [LengthLimitingTextInputFormatter(50)],
             controller: passwordController,
@@ -488,7 +489,7 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
               focusedBorder:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: MColors.primary_light_color)),
               counterText: "",
-              hintStyle: Theme.of(context).textTheme.displaySmall,
+              hintStyle: MTextStyles.textLabelSmall,
             ),
             inputFormatters: [LengthLimitingTextInputFormatter(50)],
             controller: confirmPasswordController,

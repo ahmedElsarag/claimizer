@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../network/models/claims_response.dart';
 
-class ClaimsProvider extends ChangeNotifier {
+class ClaimsWithFilterProvider extends ChangeNotifier {
   int _selectedIndex = 1;
   DateTime _selectedDate;
 
@@ -19,6 +19,22 @@ class ClaimsProvider extends ChangeNotifier {
   int companyId;
 
   String _selectedTimeValue;
+  String _status;
+  String _titleStatus;
+
+  String get titleStatus => _titleStatus;
+
+  set titleStatus(String value) {
+    _titleStatus = value;
+    notifyListeners();
+  }
+
+  String get status => _status;
+
+  set status(String value) {
+    _status = value;
+    notifyListeners();
+  }
 
   // String _description;
   File _fileName;
@@ -72,15 +88,6 @@ class ClaimsProvider extends ChangeNotifier {
     _searchController = value;
     notifyListeners();
   }
-  String _status;
-
-  String get status => _status;
-
-  set status(String value) {
-    _status = value;
-    notifyListeners();
-  }
-
   String _searchValue = '';
 
   String get searchValue => _searchValue;
@@ -281,4 +288,28 @@ class ClaimsProvider extends ChangeNotifier {
   String selectedCategory;
   String selectedSubCategory;
   String selectedType;
+
+  bool _isLoading = false;
+  int  currentPage = 1;
+  int  _lastPage = 0 ;
+
+  bool get isLoading => _isLoading;
+
+  set isLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
+  int get lastPage => _lastPage;
+
+  set lastPage(int value) {
+    _lastPage = value;
+    notifyListeners();
+  }
+
+  setCurrentPage(){
+    ++currentPage;
+    notifyListeners();
+  }
+
 }

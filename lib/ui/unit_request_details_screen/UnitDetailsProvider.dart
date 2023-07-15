@@ -115,4 +115,12 @@ class UnitDetailsProvider<T> extends BaseProvider<UnitRequestDetailsDataBean> {
     _unlinkStatus = value;
     notifyListeners();
   }
+  GlobalKey<FormState> _formKeyRenew = GlobalKey<FormState>();
+
+  GlobalKey<FormState> get formKeyRenew => _formKeyRenew;
+
+  set formKeyRenew(GlobalKey<FormState> value) {
+    _formKeyRenew = value;
+    notifyListeners();
+  }
 }

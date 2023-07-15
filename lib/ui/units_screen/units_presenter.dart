@@ -24,17 +24,19 @@ import 'units_screen.dart';
 
 class UnitPresenter extends BasePresenter<UnitsScreenState> {
 
-  Future getExistingUnitsApiCall() async {
+  Future getExistingUnitsApiCall(Map<String, dynamic> params) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
     });
     view.showProgress(isDismiss: false);
-    await requestFutureData<UnitsResponse>(Method.get, options: Options(headers: header), endPoint: Api.unitsApiCall,
+    await requestFutureData<UnitsResponse>(Method.get, queryParams:params,options: Options(headers: header), endPoint: Api.unitsApiCall,
         onSuccess: (data) {
       view.closeProgress();
       if (data != null) {
         view.provider.unitsList = data.data;
+        view.provider.isLoading = false;
+        view.provider.lastPage = data.meta.pagination.totalPages;
       }
     }, onError: (code, msg) {
       view.closeProgress();
@@ -58,17 +60,19 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
     });
   }
 
-  Future getUnitRequestsApiCall() async {
+  Future getUnitRequestsApiCall(Map<String, dynamic> params) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
     });
     view.showProgress(isDismiss: false);
     await requestFutureData<UnitRequestsResponse>(Method.get,
-        options: Options(headers: header), endPoint: Api.unitRequestApiCall, onSuccess: (data) {
+        options: Options(headers: header),queryParams: params, endPoint: Api.unitRequestApiCall, onSuccess: (data) {
       view.closeProgress();
       if (data != null) {
         view.provider.unitsRequestList = data.data;
+        view.provider.isLoading = false;
+        view.provider.lastPage = data.meta.pagination.totalPages;
       }
     }, onError: (code, msg) {
       view.closeProgress();
@@ -248,7 +252,11 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
                       view.provider.qrCodeValid = null;
                       Navigator.pop(context);
                       view.provider.selectedIndex = 2;
-                      getUnitRequestsApiCall();
+                      view.provider.currentPage = 1;
+                      Map<String, dynamic> params = Map();
+                      params['page'] =   view.provider.currentPage;
+                      params['search'] = view.provider.searchController.text.toString();
+                      getUnitRequestsApiCall(params);
                     },
                     child: Text(
                       S.current.backToHome,
