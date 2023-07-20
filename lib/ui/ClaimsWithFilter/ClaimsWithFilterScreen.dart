@@ -43,6 +43,7 @@ class ClaimsWithFilterScreenState extends BaseState<ClaimsWithFilterScreen, Clai
     EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
       if (event.isRefresh != null || event.isLangChanged != null) {
         Map<String, dynamic> params = Map();
+        params['per_page'] = 1000;
         params['page'] = 1;
         params['status'] = provider.status;
         params['search'] = provider.searchController.text.toString();
@@ -51,12 +52,14 @@ class ClaimsWithFilterScreenState extends BaseState<ClaimsWithFilterScreen, Clai
       setState(() {});
     });
     Map<String, dynamic> params = Map();
+    params['per_page'] = 1000;
     params['page'] = 1;
     params['search'] = provider.searchController.text.toString();
     params['status'] = provider.status;
     mPresenter.getFilteredClaimsWithStatusApiCall(params);
     super.initState();
   }
+
   String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
   @override
@@ -75,7 +78,7 @@ class ClaimsWithFilterScreenState extends BaseState<ClaimsWithFilterScreen, Clai
                   InkWell(
                       onTap: () {
                         Navigator.pop(context);
-                        pr.currentPage =1;
+                        pr.currentPage = 1;
                       },
                       child: Setting.mobileLanguage.value != Locale("en")
                           ? RotatedBox(
@@ -129,6 +132,7 @@ class ClaimsWithFilterScreenState extends BaseState<ClaimsWithFilterScreen, Clai
                                   pr.currentPage = 1;
                                   Map<String, dynamic> params = Map();
                                   params['page'] = pr.currentPage;
+                                  params['per_page'] = 1000;
                                   params['search'] = provider.searchController.text.toString();
                                   params['status'] = provider.status;
                                   mPresenter.getFilteredClaimsWithStatusApiCall(params);
@@ -142,6 +146,7 @@ class ClaimsWithFilterScreenState extends BaseState<ClaimsWithFilterScreen, Clai
                                 onTap: () {
                                   pr.searchController.clear();
                                   Map<String, dynamic> params = Map();
+                                  params['per_page'] = 1000;
                                   params['page'] = 1;
                                   params['search'] = provider.searchController.text.toString();
                                   params['status'] = provider.status;
@@ -153,6 +158,7 @@ class ClaimsWithFilterScreenState extends BaseState<ClaimsWithFilterScreen, Clai
                               pr.currentPage = 1;
                               Map<String, dynamic> params = Map();
                               params['page'] = pr.currentPage;
+                              params['per_page'] = 1000;
                               params['search'] = provider.searchController.text.toString();
                               params['status'] = provider.status;
                               mPresenter.getFilteredClaimsWithStatusApiCall(params);

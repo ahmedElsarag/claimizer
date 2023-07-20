@@ -1,25 +1,20 @@
 import 'package:Cliamizer/app_widgets/NoDataFound.dart';
 import 'package:Cliamizer/ui/ClaimsWithFilter/ClaimsWithFitlerPresenter.dart';
 import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsScreen.dart';
-import 'package:Cliamizer/ui/claims_screen/ClaimsPresenter.dart';
-import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/claim_card_data_item.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../CommonUtils/image_utils.dart';
 import '../../../CommonUtils/utils.dart';
 import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
 import '../../../res/gaps.dart';
-import '../../../res/styles.dart';
 import '../ClaimsWithFitlerProvider.dart';
 
 class AllClaimsWithFilter extends StatefulWidget {
@@ -37,28 +32,29 @@ class _AllClaimsWithFilterState extends State<AllClaimsWithFilter> {
   @override
   void initState() {
     widget.provider = context.read<ClaimsWithFilterProvider>();
-    // _scrollController.addListener(() {
-    //   if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-    //     if (widget.provider.lastPage != widget.provider.currentPage && !widget.provider.isLoading) {
-    //       widget.provider.isLoading = !widget.provider.isLoading;
-    //       widget.provider.setCurrentPage();
-    //       Map<String, dynamic> params = Map();
-    //       params['page'] = widget.provider.currentPage;
-    //       params['search'] = widget.provider.searchController.text.toString();
-    //       params['status'] = widget.provider.status;
-    //       widget.presenter.getFilteredClaimsWithStatusApiCall(params);
-    //       print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ${widget.provider.currentPage}");
-    //       print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ search: ${widget.provider.searchController.text}");
-    //     }
-    //   }
-    // });
+    _scrollController.addListener(() {
+      if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
+        if (widget.provider.lastPage != widget.provider.currentPage && !widget.provider.isLoading) {
+          widget.provider.isLoading = !widget.provider.isLoading;
+          widget.provider.setCurrentPage();
+          Map<String, dynamic> params = Map();
+          params['page'] = widget.provider.currentPage;
+          params['per_page'] = 1000;
+          params['search'] = widget.provider.searchController.text.toString();
+          params['status'] = widget.provider.status;
+          widget.presenter.getFilteredClaimsWithStatusApiCall(params);
+          print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ${widget.provider.currentPage}");
+          print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ search: ${widget.provider.searchController.text}");
+        }
+      }
+    });
     super.initState();
   }
+
   void _scrollListener() {
     if (_scrollController.offset >= _scrollController.position.maxScrollExtent &&
         !_scrollController.position.outOfRange) {
-      _scrollController.animateTo(0,
-          duration: Duration(seconds: 1), curve: Curves.easeInOut);
+      _scrollController.animateTo(0, duration: Duration(seconds: 1), curve: Curves.easeInOut);
     }
   }
 
@@ -86,6 +82,7 @@ class _AllClaimsWithFilterState extends State<AllClaimsWithFilter> {
                       onRefresh: () async {
                         pr.searchController.text = "";
                         Map<String, dynamic> params = Map();
+                        params['per_page'] = 1000;
                         params['page'] = 1;
                         params['search'] = widget.provider.searchController.text.toString();
                         params['status'] = widget.provider.status;
@@ -97,63 +94,8 @@ class _AllClaimsWithFilterState extends State<AllClaimsWithFilter> {
                         shrinkWrap: true,
                         itemCount: pr.claimsList.length,
                         itemBuilder: (context, index) {
-                          if (index == pr.claimsList.length -1)
-                            return Container(
-                              margin: const EdgeInsets.only(top: 12.0,bottom: 12),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Visibility(
-                                    visible: pr.currentPage != 1,
-                                    child: InkWell(
-                                        onTap: () {
-                                          pr.currentPage -= 1;
-                                          Map<String, dynamic> params = Map();
-                                          params['page'] = pr.currentPage;
-                                          params['status'] = widget.provider.status;
-                                          params['search'] = pr.searchController.text.toString();
-                                          widget.presenter.getFilteredClaimsWithStatusApiCall(params);
-                                          _scrollListener();
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: MColors.white,
-                                              // border: Border.all(color: MColors.primary_color),
-                                              borderRadius: BorderRadius.circular(8)),
-                                          padding: EdgeInsets.all(8),
-                                          child:AutoSizeText(S.of(context).previousPage,style: TextStyle(
-                                              color: MColors.primary_color
-                                          ),),
-                                        )),
-                                  ),
-                                  Text(pr.currentPage.toString()),
-                                  Visibility(
-                                    visible: pr.currentPage != pr.lastPage,
-                                    child: InkWell(
-                                        onTap: () {
-                                          pr.currentPage += 1;
-                                          Map<String, dynamic> params = Map();
-                                          params['page'] = pr.currentPage;
-                                          params['status'] = widget.provider.status;
-                                          params['search'] = pr.searchController.text.toString();
-                                          widget.presenter.getFilteredClaimsWithStatusApiCall(params);
-                                          _scrollListener();
-                                        },
-                                        child:Container(
-                                          decoration: BoxDecoration(
-                                              color: MColors.white,
-                                              // border: Border.all(color: MColors.primary_color),
-                                              borderRadius: BorderRadius.circular(8)),
-                                          padding: EdgeInsets.all(8),
-                                          child:AutoSizeText(S.of(context).nextPage,style: TextStyle(
-                                              color: MColors.primary_color
-                                          ),),
-                                        )),
-                                  )
-                                  // Center(child: Lottie.asset('assets/images/loadingLottie.json', height: 8.h)),
-                                ],
-                              ),
-                            );
+                          if (index == pr.claimsList.length - 1 && pr.isLoading)
+                            return Center(child: Lottie.asset('assets/images/loadingLottie.json', height: 8.h));
                           else
                             return InkWell(
                               onTap: () {
@@ -186,8 +128,7 @@ class _AllClaimsWithFilterState extends State<AllClaimsWithFilter> {
                                                 child: AutoSizeText(
                                                   pr?.claimsList[index]?.unit?.building ?? S.current.na,
                                                   // maxLines: 2,
-                                                  style:
-                                                  TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+                                                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
                                                   textAlign: TextAlign.start,
                                                 ),
                                               ),
@@ -196,7 +137,8 @@ class _AllClaimsWithFilterState extends State<AllClaimsWithFilter> {
                                               width: Utils.sWidth(40, context),
                                               child: AutoSizeText(
                                                 S.of(context).requestCode + "\n ${pr?.claimsList[index]?.referenceId}",
-                                                style: GoogleFonts.montserrat( fontWeight: FontWeight.w500, color: MColors.subText_color),
+                                                style: GoogleFonts.montserrat(
+                                                    fontWeight: FontWeight.w500, color: MColors.subText_color),
                                               ),
                                             ),
                                           ],
@@ -270,6 +212,7 @@ class _AllClaimsWithFilterState extends State<AllClaimsWithFilter> {
                   : NoDataWidget(
                       onRefresh: () async {
                         Map<String, dynamic> params = Map();
+                        params['per_page'] = 1000;
                         params['page'] = 1;
                         params['search'] = widget.provider.searchController.text.toString();
                         params['status'] = widget.provider.status;

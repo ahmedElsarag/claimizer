@@ -39,7 +39,7 @@ class DioUtils {
       connectTimeout: 40000,
 
       ///The interval between receiving data before and after the response stream
-      receiveTimeout: 6000,
+      receiveTimeout: 40000,
 
       ///If the returned is json (content-type), dio is automatically converted to json by default, no need to manually transfer
       ///(https://github.com/flutterchina/dio/issues/30)

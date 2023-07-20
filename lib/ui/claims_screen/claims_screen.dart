@@ -62,6 +62,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
     EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
       if (event.isRefresh != null || event.isLangChanged != null) {
         Map<String, dynamic> params = Map();
+        params['per_page'] = 1000;
         params['page'] = 1;
         params['search'] = provider.searchController.text.toString();
         mPresenter.getAllClaimsApiCall(params);
@@ -69,6 +70,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
       setState(() {});
     });
     Map<String, dynamic> params = Map();
+    params['per_page'] = 1000;
     params['page'] = 1;
     params['search'] = provider.searchController.text.toString();
     mPresenter.getAllClaimsApiCall(params);
@@ -136,8 +138,9 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                           child: Text(
                                             cardTitles[pageIndex],
                                             style: MTextStyles.textMainLight14.copyWith(
-                                                color:
-                                                    pr.selectedIndex == pageIndex ? Colors.white : MColors.light_text_color,
+                                                color: pr.selectedIndex == pageIndex
+                                                    ? Colors.white
+                                                    : MColors.light_text_color,
                                                 fontSize: 9.sp),
                                             textAlign: TextAlign.center,
                                           ),
@@ -188,9 +191,11 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                   // params['page'] = 1;
                                   // params['search'] = pr.searchController.text.toString();
                                   // mPresenter.getFilteredClaimsApiCall(params);
+                                  print("################## search : ${pr.searchController.text.toString()}");
                                   pr.currentPage = 1;
                                   Map<String, dynamic> params = Map();
                                   params['page'] = pr.currentPage;
+                                  params['per_page'] = 1000;
                                   params['search'] = pr.searchController.text.toString();
                                   mPresenter.getAllClaimsApiCall(params);
                                 },
@@ -204,6 +209,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                   pr.searchController.clear();
                                   pr.currentPage = 1;
                                   Map<String, dynamic> params = Map();
+                                  params['per_page'] = 1000;
                                   params['page'] = 1;
                                   params['search'] = pr.searchController.text.toString();
                                   mPresenter.getAllClaimsApiCall(params);
@@ -218,6 +224,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                               pr.currentPage = 1;
                               Map<String, dynamic> params = Map();
                               params['page'] = pr.currentPage;
+                              params['per_page'] = 1000;
                               params['search'] = pr.searchController.text.toString();
                               mPresenter.getAllClaimsApiCall(params);
                             },
@@ -478,7 +485,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                               "available_time": provider.selectedTimeValue
                                             });
                                             mPresenter.postClaimRequestApiCall(formData);
-                                          }else{
+                                          } else {
                                             Map<String, dynamic> parms = Map();
                                             parms['unit_id'] = selectedUnitId;
                                             parms['category_id'] = selectedCategoryId;
@@ -723,7 +730,8 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                             ),
                           )
                     : AllClaims(
-                        presenter: mPresenter,provider: pr,
+                        presenter: mPresenter,
+                        provider: pr,
                       ),
               )
             ],

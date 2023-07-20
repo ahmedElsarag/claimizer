@@ -177,12 +177,14 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                     pr.currentPage = 1;
                                     Map<String, dynamic> exitingParams = Map();
                                     exitingParams['page'] = provider.currentPage;
+                                    exitingParams['per_page'] = 1000;
                                     exitingParams['search'] = provider.searchController.text.toString();
                                     mPresenter.getExistingUnitsApiCall(exitingParams);
                                   } else if (pr.selectedIndex == 2) {
                                     pr.currentPage = 1;
                                     Map<String, dynamic> params = Map();
                                     params['page'] = pr.currentPage;
+                                    params['per_page'] = 1000;
                                     params['search'] = pr.unitLinkSearchController.text.toString();
                                     mPresenter.getUnitRequestsApiCall(params);
                                     // pr.currentPage = 1;
@@ -222,12 +224,14 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                 pr.currentPage = 1;
                                 Map<String, dynamic> exitingParams = Map();
                                 exitingParams['page'] = provider.currentPage;
+                                exitingParams['per_page'] = 1000;
                                 exitingParams['search'] = provider.searchController.text.toString();
                                 mPresenter.getExistingUnitsApiCall(exitingParams);
                               } else if (pr.selectedIndex == 2) {
                                 pr.currentPage = 1;
                                 Map<String, dynamic> params = Map();
                                 params['page'] = pr.currentPage;
+                                params['per_page'] = 1000;
                                 params['search'] = pr.unitLinkSearchController.text.toString();
                                 mPresenter.getUnitRequestsApiCall(params);
                               }

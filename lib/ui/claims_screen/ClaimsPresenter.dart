@@ -36,6 +36,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
         queryParams: params, options: Options(headers: header), endPoint: Api.claimsApiCall, onSuccess: (data) {
       if (data != null) {
         view.provider.claimsList = data.data;
+        print("LENGTH : ${view.provider.claimsList.length}");
         view.provider.isLoading = false;
         view.provider.lastPage = data.meta.pagination.totalPages;
       }

@@ -52,7 +52,7 @@ class ClaimCreatedDialog extends StatelessWidget {
                 pr.selectedIndex = 1;
                 pr.currentStep = 0;
                 Map<String, dynamic> params = Map();
-                params['page'] = 1;
+               params['per_page'] = 1000;   params['page'] = 1;
                 params['search'] = pr.searchController.text.toString();
                 presenter.getAllClaimsApiCall(params);
                 // presenter.getAllClaimsApiCall(pr.currentPage);

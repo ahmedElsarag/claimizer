@@ -256,6 +256,7 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
                       view.provider.currentPage = 1;
                       Map<String, dynamic> params = Map();
                       params['page'] =   view.provider.currentPage;
+                      params['per_page'] = 1000;
                       params['search'] = view.provider.searchController.text.toString();
                       getUnitRequestsApiCall(params);
                     },

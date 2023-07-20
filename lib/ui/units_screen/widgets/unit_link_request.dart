@@ -6,12 +6,10 @@ import 'package:Cliamizer/ui/units_screen/widgets/unit_request_item_data.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../CommonUtils/image_utils.dart';
 import '../../../CommonUtils/model_eventbus/EventBusUtils.dart';
 import '../../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
 import '../../../generated/l10n.dart';
@@ -40,6 +38,7 @@ class _UnitLinkRequestState extends State<UnitLinkRequest> {
         widget.provider.currentPage = 1;
         Map<String, dynamic> linkRequestParams = Map();
         linkRequestParams['page'] = widget.provider.currentPage;
+        linkRequestParams['per_page'] = 1000;
         linkRequestParams['search'] = widget.provider.searchController.text.toString();
         widget.presenter.getUnitRequestsApiCall(linkRequestParams);
       }
@@ -48,6 +47,7 @@ class _UnitLinkRequestState extends State<UnitLinkRequest> {
     widget.provider.currentPage = 1;
     Map<String, dynamic> linkRequestParams = Map();
     linkRequestParams['page'] = widget.provider.currentPage;
+    linkRequestParams['per_page'] = 1000;
     linkRequestParams['search'] = widget.provider.searchController.text.toString();
     widget.presenter.getUnitRequestsApiCall(linkRequestParams);
     // _scrollController.addListener(() {
@@ -57,6 +57,7 @@ class _UnitLinkRequestState extends State<UnitLinkRequest> {
     //       widget.provider.setCurrentPage();
     //       Map<String, dynamic> params = Map();
     //       params['page'] = widget.provider.currentPage;
+    //       params['per_page'] = 1000;
     //       params['search'] = widget.provider.searchController.text.toString();
     //       widget.presenter.getUnitRequestsApiCall(params);
     //       print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ${widget.provider.currentPage}");
@@ -97,63 +98,8 @@ class _UnitLinkRequestState extends State<UnitLinkRequest> {
                 controller: _scrollController,
                 itemCount: pr.unitsRequestList.length,
                 itemBuilder: (context, index) {
-                  if (index == pr.unitsRequestList.length - 1)
-                    return Container(
-                      margin: const EdgeInsets.only(top: 12.0, bottom: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Visibility(
-                            visible: pr.currentPage != 1,
-                            child: InkWell(
-                                onTap: () {
-                                  pr.currentPage -= 1;
-                                  Map<String, dynamic> params = Map();
-                                  params['page'] = pr.currentPage;
-                                  params['search'] = pr.searchController.text.toString();
-                                  widget.presenter.getUnitRequestsApiCall(params);
-                                  _scrollListener();
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: MColors.white,
-                                      // border: Border.all(color: MColors.primary_color),
-                                      borderRadius: BorderRadius.circular(8)),
-                                  padding: EdgeInsets.all(8),
-                                  child: AutoSizeText(
-                                    S.of(context).previousPage,
-                                    style: TextStyle(color: MColors.primary_color),
-                                  ),
-                                )),
-                          ),
-                          AutoSizeText(pr.currentPage.toString(),style: TextStyle(color: MColors.primary_color),),
-                          Visibility(
-                            visible: pr.currentPage != pr.lastPage,
-                            child: InkWell(
-                                onTap: () {
-                                  pr.currentPage += 1;
-                                  Map<String, dynamic> params = Map();
-                                  params['page'] = pr.currentPage;
-                                  params['search'] = pr.searchController.text.toString();
-                                  widget.presenter.getUnitRequestsApiCall(params);
-                                  _scrollListener();
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: MColors.white,
-                                      // border: Border.all(color: MColors.primary_color),
-                                      borderRadius: BorderRadius.circular(8)),
-                                  padding: EdgeInsets.all(8),
-                                  child: AutoSizeText(
-                                    S.of(context).nextPage,
-                                    style: TextStyle(color: MColors.primary_color),
-                                  ),
-                                )),
-                          )
-                          // Center(child: Lottie.asset('assets/images/loadingLottie.json', height: 8.h)),
-                        ],
-                      ),
-                    );
+                  if (index == pr.unitsRequestList.length - 1 && pr.isLoading)
+                    return Center(child: Lottie.asset('assets/images/loadingLottie.json', height: 8.h));
                   else
                     return InkWell(
                       onTap: () {
