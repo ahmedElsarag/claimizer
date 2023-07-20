@@ -36,10 +36,10 @@ class DioUtils {
   DioUtils._internal() {
     _options = BaseOptions(
       baseUrl: Api.baseUrl,
-      connectTimeout: 40000,
+      connectTimeout: 60000,
 
       ///The interval between receiving data before and after the response stream
-      receiveTimeout: 40000,
+      receiveTimeout: 60000,
 
       ///If the returned is json (content-type), dio is automatically converted to json by default, no need to manually transfer
       ///(https://github.com/flutterchina/dio/issues/30)
