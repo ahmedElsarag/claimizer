@@ -23,7 +23,6 @@ class LocalNotification{
       final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       const NotificationDetails notificationDetails = NotificationDetails(
         android: AndroidNotificationDetails(
-          "1",
           "pushnotificationapp",
           "pushnotificationappchannel",
           importance: Importance.max,

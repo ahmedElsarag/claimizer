@@ -19,10 +19,7 @@ class HomeCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 50.w,
-      height: 22.h,
-      // margin: EdgeInsets.all(20),
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: cardColor.withOpacity(.1)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,7 +28,7 @@ class HomeCardItem extends StatelessWidget {
             children: [
               AutoSizeText(
                 value,
-                style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),maxLines: 1,
+                style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 18),maxLines: 1,
               ),
               Spacer(),
               Container(
@@ -39,16 +36,20 @@ class HomeCardItem extends StatelessWidget {
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(200), color: cardColor.withOpacity(.15)),
                 child: SvgPicture.asset(
                   ImageUtils.getSVGPath(imageIcon),
-                  width: 3.w,
-                  height: 3.w,
+                  width: 5.w,
+                  height: 5.w,
                 ),
               )
             ],
           ),
           Spacer(),
-          AutoSizeText(
-            title,
-            style: TextStyle(fontWeight: FontWeight.w500, color: MColors.black),
+          Container(
+            width: 90.w,
+            child: AutoSizeText(
+              title,
+              maxLines: 2,
+              style: TextStyle(fontWeight: FontWeight.w500, color: cardColor,fontSize: 12),
+            ),
           ),
         ],
       ),

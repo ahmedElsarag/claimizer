@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "235439740198-mufi3fall2erhpssvh8b0srh22u12j4t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.claimizer",
+            "certificate_hash": "83c4e37ec719d6d5e7a2277706323c9fe3af1bc0"
+          }
+        },
+        {
           "client_id": "235439740198-ih5kihd8smtnchdr9qooug8r93dfuof7.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -37,6 +45,13 @@
             {
               "client_id": "235439740198-ih5kihd8smtnchdr9qooug8r93dfuof7.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "235439740198-hnh0n5dc3mfoos7mslllu2v8b7fo4geu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.claimizer"
+              }
             }
           ]
         }

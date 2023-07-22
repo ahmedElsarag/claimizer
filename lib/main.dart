@@ -14,7 +14,6 @@ import 'package:Cliamizer/ui/notification_screen/NotificationProvider.dart';
 import 'package:Cliamizer/ui/splash_screen/SplashScreen.dart';
 import 'package:Cliamizer/ui/unit_request_details_screen/UnitDetailsProvider.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fluro/fluro.dart';
@@ -26,18 +25,35 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'CommonUtils/LocalNotification.dart';
+import 'firebase_options.dart';
 import 'generated/l10n.dart';
 
+// Lisitnening to the background messages
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print("Handling a background message: ${message.notification?.title}");
+  print("Handling a background message: ${message.messageId}");
 }
+
 void main() async {
   if (!kIsWeb) {
     WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    print('User granted permission: ${settings.authorizationStatus}');
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     LocalNotification.initialize();
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -58,9 +74,6 @@ void main() async {
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
-    final androidInfo = await DeviceInfoPlugin().androidInfo;
-    final sdkVersion = androidInfo.version.sdkInt ?? 0;
-    final androidOverscrollIndicator = sdkVersion > 30 ? AndroidOverscrollIndicator.stretch : AndroidOverscrollIndicator.glow;
   }
 
   runApp(MyApp());
