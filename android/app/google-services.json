@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "235439740198",
+    "project_id": "claimizer-342606",
+    "storage_bucket": "claimizer-342606.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235439740198:android:ad1dc3e8b0de7f48ff1de7",
+        "android_client_info": {
+          "package_name": "com.app.claimizer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235439740198-c7kp3kb4fr418oun15a36bbs1ci77dm4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.claimizer",
+            "certificate_hash": "620c2a5532bd119d175b693c095888bdbe47d3fb"
+          }
+        },
+        {
+          "client_id": "235439740198-ih5kihd8smtnchdr9qooug8r93dfuof7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBl64zDaqF4-eTfTxjZE21HJTLda7Hpqs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235439740198-ih5kihd8smtnchdr9qooug8r93dfuof7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

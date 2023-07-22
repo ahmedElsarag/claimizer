@@ -15,6 +15,8 @@ import 'package:Cliamizer/ui/splash_screen/SplashScreen.dart';
 import 'package:Cliamizer/ui/unit_request_details_screen/UnitDetailsProvider.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart' hide Router;
@@ -23,6 +25,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'CommonUtils/LocalNotification.dart';
 import 'generated/l10n.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -32,9 +35,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   if (!kIsWeb) {
     WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    await Firebase.initializeApp();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     FirebaseMessaging messaging = FirebaseMessaging.instance;
     LocalNotification.initialize();
