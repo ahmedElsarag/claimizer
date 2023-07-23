@@ -49,6 +49,7 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
     if (pickedFiles != null) {
       setState(() {
         widget.provider.imageFiles = pickedFiles;
+        print(widget.provider.imageFiles);
       });
     }
     Navigator.pop(context);
@@ -166,7 +167,7 @@ class _BuildUploadFileFieldState extends State<BuildUploadFileField> {
                           height: 10.w,
                           fit: BoxFit.cover,
                         ))
-                    : pr.imageFiles != null
+                    : pr.imageFiles != null&&pr.imageFiles.isNotEmpty
                         ? Row(
                             children: [
                               Icon(

@@ -155,96 +155,105 @@ class ClaimsDetailsScreenState extends BaseState<ClaimsDetailsScreen, ClaimsDeta
                                   onTap: () {
                                     showModalBottomSheet(
                                       context: context,
+                                      isScrollControlled: true,
                                       builder: (context) => Form(
                                         key: pr.formKey,
                                         child: Container(
                                           padding: EdgeInsets.all(20),
                                           width: double.maxFinite,
                                           child: SingleChildScrollView(
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Text(
-                                                  S.of(context).addComment,
-                                                  style: MTextStyles.textMain14,
-                                                ),
-                                                Gaps.vGap16,
-                                                Gaps.vGap8,
-                                                BuildCommentField(),
-                                                Gaps.vGap8,
-                                                Gaps.vGap8,
-                                                BuildUploadFileField(
-                                                  provider: provider,
-                                                ),
-                                                Gaps.vGap16,
-                                                ElevatedButton(
-                                                  onPressed: () async {
-                                                    if (provider.formKey.currentState.validate()) {
-                                                      if (pr.comment.text.isEmpty) {
-                                                        showToasts(
-                                                            S.of(context).enterYourNotesInCommentField, 'warning');
-                                                      } else {
-                                                        final formData = FormData();
-                                                        if (pr.imageFiles != null) {
-                                                          for (var i = 0; i < pr.imageFiles.length; i++) {
-                                                            final file = await pr.imageFiles[i].readAsBytes();
-                                                            formData.files.add(MapEntry(
-                                                              'file[$i]',
-                                                              MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
-                                                            ));
-                                                            formData.fields.add(MapEntry("comment", pr.comment.text));
-                                                            formData.fields.add(MapEntry(
-                                                                "claim_id", widget.claimsDataBean.id.toString()));
-                                                          }
-                                                          mPresenter.doPostCommentApiCall(
-                                                              formData, widget.claimsDataBean.referenceId);
-                                                        } else if (pr.file != null) {
-                                                          FormData formData = new FormData.fromMap({
-                                                            "file[0]": await MultipartFile.fromFile(
-                                                              pr.file.path,
-                                                              contentType: new MediaType('application', 'octet-stream'),
-                                                            ),
-                                                            "comment": pr.comment.text,
-                                                            "claim_id": widget.claimsDataBean.id,
-                                                          });
-                                                          mPresenter.doPostCommentApiCall(
-                                                              formData, widget.claimsDataBean.referenceId);
-                                                        } else {
-                                                          FormData formData = FormData();
-                                                          formData = new FormData.fromMap({
-                                                            "comment": pr.comment.text,
-                                                            "claim_id": widget.claimsDataBean.id,
-                                                          });
-                                                          mPresenter.doPostCommentApiCall(
-                                                              formData, widget.claimsDataBean.referenceId);
-                                                        }
-                                                        setState(() {});
-                                                      }
-                                                    }
-                                                  },
-                                                  child: Text(
-                                                    S.of(context).confirm,
-                                                    style:
-                                                        MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                            child: Padding(
+                                              padding:EdgeInsets.only(
+                                                  bottom: MediaQuery.of(context).viewInsets.bottom),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(
+                                                    S.of(context).addComment,
+                                                    style: MTextStyles.textMain14,
                                                   ),
-                                                  style: ButtonStyle(
-                                                      backgroundColor:
-                                                          MaterialStateProperty.all<Color>(MColors.primary_color),
-                                                      minimumSize: MaterialStateProperty.all<Size>(Size(double.maxFinite,25)),
-                                                      elevation: MaterialStatePropertyAll(0),
-                                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                          RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(8),
-                                                      )),
-                                                      padding: MaterialStateProperty.all<EdgeInsets>(
-                                                          EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
-                                                ),
-                                              ],
+                                                  Gaps.vGap16,
+                                                  Gaps.vGap8,
+                                                  BuildCommentField(),
+                                                  Gaps.vGap8,
+                                                  Gaps.vGap8,
+                                                  BuildUploadFileField(
+                                                    provider: provider,
+                                                  ),
+                                                  Gaps.vGap16,
+                                                  ElevatedButton(
+                                                    onPressed: () async {
+                                                      if (provider.formKey.currentState.validate()) {
+                                                        if (pr.comment.text.isEmpty) {
+                                                          showToasts(
+                                                              S.of(context).enterYourNotesInCommentField, 'warning');
+                                                        } else {
+                                                          final formData = FormData();
+                                                          if (pr.imageFiles != null&&pr.imageFiles.isNotEmpty) {
+                                                            for (var i = 0; i < pr.imageFiles.length; i++) {
+                                                              final file = await pr.imageFiles[i].readAsBytes();
+                                                              formData.files.add(MapEntry(
+                                                                'file[$i]',
+                                                                MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
+                                                              ));
+                                                              formData.fields.add(MapEntry("comment", pr.comment.text));
+                                                              formData.fields.add(MapEntry(
+                                                                  "claim_id", widget.claimsDataBean.id.toString()));
+                                                            }
+                                                            mPresenter.doPostCommentApiCall(
+                                                                formData, widget.claimsDataBean.referenceId);
+                                                          } else if (pr.file != null) {
+                                                            FormData formData = new FormData.fromMap({
+                                                              "file[0]": await MultipartFile.fromFile(
+                                                                pr.file.path,
+                                                                contentType: new MediaType('application', 'octet-stream'),
+                                                              ),
+                                                              "comment": pr.comment.text,
+                                                              "claim_id": widget.claimsDataBean.id,
+                                                            });
+                                                            mPresenter.doPostCommentApiCall(
+                                                                formData, widget.claimsDataBean.referenceId);
+                                                          } else {
+                                                            FormData formData = FormData();
+                                                            formData = new FormData.fromMap({
+                                                              "comment": pr.comment.text,
+                                                              "claim_id": widget.claimsDataBean.id,
+                                                            });
+                                                            mPresenter.doPostCommentApiCall(
+                                                                formData, widget.claimsDataBean.referenceId);
+                                                          }
+                                                          setState(() {});
+                                                        }
+                                                      }
+                                                    },
+                                                    child: Text(
+                                                      S.of(context).confirm,
+                                                      style:
+                                                          MTextStyles.textWhite14.copyWith(fontWeight: FontWeight.w700),
+                                                    ),
+                                                    style: ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStateProperty.all<Color>(MColors.primary_color),
+                                                        minimumSize: MaterialStateProperty.all<Size>(Size(double.maxFinite,25)),
+                                                        elevation: MaterialStatePropertyAll(0),
+                                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                            RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        )),
+                                                        padding: MaterialStateProperty.all<EdgeInsets>(
+                                                            EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    );
+                                    ).whenComplete((){
+                                      pr.comment.clear();
+                                      pr.file = null;
+                                      pr.imageFiles = null;
+                                    });
                                     // showDialog(
                                     //   context: context,
                                     //   builder: (context) {
