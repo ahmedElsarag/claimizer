@@ -12,8 +12,7 @@ import '../../../res/styles.dart';
 import '../UnitDetailsProvider.dart';
 
 class BuildCommentField extends StatelessWidget {
-  const BuildCommentField({Key key, this.provider}) : super(key: key);
-  final UnitDetailsProvider provider;
+  const BuildCommentField({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Consumer<UnitDetailsProvider>(
@@ -26,17 +25,11 @@ class BuildCommentField extends StatelessWidget {
           hintStyle: MTextStyles.textMain14.copyWith(
               color: MColors.light_text_color
           ),
+          filled: true,
+          fillColor: MColors.primary_color.withOpacity(.1),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: MColors.textFieldBorder),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: MColors.textFieldBorder),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: MColors.textFieldBorder),
+            borderSide: BorderSide.none,
           ),
         ),
       ),

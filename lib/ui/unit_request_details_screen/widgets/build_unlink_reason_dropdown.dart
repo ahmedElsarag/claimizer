@@ -18,7 +18,7 @@ class BuildUnlinkStatusDropDown extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 8),
         decoration: new BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: MColors.textFieldBorder),
+          color: MColors.primary_color.withOpacity(.1)
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(

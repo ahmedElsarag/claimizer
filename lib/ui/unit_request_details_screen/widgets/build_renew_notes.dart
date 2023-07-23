@@ -26,17 +26,11 @@ class BuildRenewNotesField extends StatelessWidget {
           hintStyle: MTextStyles.textMain14.copyWith(
               color: MColors.light_text_color
           ),
+          fillColor: MColors.primary_color.withOpacity(.1),
+          filled: true,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: MColors.textFieldBorder),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: MColors.textFieldBorder),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: MColors.textFieldBorder),
+            borderSide: BorderSide.none,
           ),
         ),
       ),

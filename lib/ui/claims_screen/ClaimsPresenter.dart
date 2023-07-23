@@ -35,14 +35,17 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     await requestFutureData<ClaimsResponse>(Method.get,
         queryParams: params, options: Options(headers: header), endPoint: Api.claimsApiCall, onSuccess: (data) {
       if (data != null) {
+        view.closeProgress();
         view.provider.claimsList = data.data;
-        print("LENGTH : ${view.provider.claimsList.length}");
         view.provider.isLoading = false;
+        print("LENGTH : ${view.provider.claimsList.length}");
         view.provider.lastPage = data.meta.pagination.totalPages;
       }
-      view.closeProgress();
+     getBuildingsApiCall();
+
     }, onError: (code, msg) {
       view.closeProgress();
+     getBuildingsApiCall();
     });
   }
 

@@ -192,5 +192,7 @@
   "previousPage": "Previous Page",
   "nextPage": "Next Page",
   "areYouSureToCloseClaim": "Are you sure to close claim?",
-  "areYouSureToCloseThisClaim": "Are you sure to close this Claim ?"
+  "areYouSureToCloseThisClaim": "Are you sure to close this Claim ?",
+  "fromGallery": "From Gallery",
+  "uploadImageFrom": "Upload image from"
 }

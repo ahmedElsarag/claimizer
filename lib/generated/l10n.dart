@@ -1974,6 +1974,26 @@ class S {
       args: [],
     );
   }
+
+  /// `From Gallery`
+  String get fromGallery {
+    return Intl.message(
+      'From Gallery',
+      name: 'fromGallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upload image from`
+  String get uploadImageFrom {
+    return Intl.message(
+      'Upload image from',
+      name: 'uploadImageFrom',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

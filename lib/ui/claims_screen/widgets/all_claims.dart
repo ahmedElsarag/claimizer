@@ -67,13 +67,6 @@ class _AllClaimsState extends State<AllClaims> {
 
   @override
   Widget build(BuildContext context) {
-    String formatDate(String date) {
-      String dateTimeString = date;
-      DateTime dateTime = DateTime.parse(dateTimeString);
-      String formattedDateString = DateFormat("dd-MM-yyyy | hh:mm a").format(dateTime.toLocal());
-      return formattedDateString;
-    }
-
     return Consumer<ClaimsProvider>(
         builder: (ctx, pr, w) => MediaQuery.removePadding(
               removeTop: true,
