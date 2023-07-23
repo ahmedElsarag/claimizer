@@ -130,10 +130,10 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(100),
                                         child: _image != null
-                                            ? Image.file(_image)
+                                            ? Image.file(_image,fit: BoxFit.cover,)
                                             : ImageLoader(
                                           imageUrl: provider.instance.avatar,
-                                          fit: BoxFit.contain,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
                                     ),
@@ -259,31 +259,63 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
 
   AlertDialog buildPickImageDialog(BuildContext context) {
     return AlertDialog(
-      insetPadding: EdgeInsets.all(20),
-      contentPadding: EdgeInsets.all(16),
+      insetPadding: EdgeInsets.all(14),
+      contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 30),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            width: 60.w,
-            child: ElevatedButton.icon(
-              onPressed: getImageFromCamera,
-              icon: Icon(Icons.camera_alt, color: MColors.text_button_color),
-              label: Text(S.of(context).takePhoto,
-                  style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color)),
-            ),
-          ),
-          SizedBox(height: 8),
-          Container(
-            width: 60.w,
-            child: ElevatedButton.icon(
-              onPressed: getImageFromGallery,
-              icon: Icon(Icons.photo_library, color: MColors.text_button_color),
-              label: Text(
-                S.of(context).chooseFromGallery,
-                style: MTextStyles.textMain14.copyWith(color: MColors.text_button_color),
+          Text(S.of(context).uploadImageFrom,
+              style: MTextStyles.textMain14.copyWith(color: MColors.primary_text_color)),
+          SizedBox(height: 30),
+          Row(
+            children: [
+              GestureDetector(
+                onTap: getImageFromCamera,
+                child: Container(
+                  width: 40.w,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                      color: MColors.primary_color.withOpacity(.1),
+                      borderRadius: BorderRadius.circular(8)
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.camera_alt, color: MColors.primary_color),
+                      Gaps.vGap6,
+                      FittedBox(
+                        child: Text(S.of(context).takePhoto,
+                            style: MTextStyles.textMain12.copyWith(color: MColors.primary_color)),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
+              SizedBox(width: 10),
+              GestureDetector(
+                onTap: getImageFromGallery,
+                child: Container(
+                  width: 40.w,
+                  padding: EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                      color: MColors.primary_color.withOpacity(.1),
+                      borderRadius: BorderRadius.circular(8)
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.photo_library, color: MColors.primary_color),
+                      Gaps.vGap6,
+                      FittedBox(
+                        child: Text(S.of(context).fromGallery,
+                            style: MTextStyles.textMain12.copyWith(color: MColors.primary_color)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -685,6 +717,7 @@ class EditProfileScreenState extends BaseState<EditProfileScreen, EditProfilePre
     return Container(
       decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      margin: EdgeInsets.only(bottom:20),
       child: Form(
         key: provider.formKey,
         child: Column(

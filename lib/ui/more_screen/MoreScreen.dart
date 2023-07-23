@@ -100,7 +100,7 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
               children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(50),
-                    child: ImageLoader(imageUrl: provider.instance.avatar,width: 16.w,height: 16.w,)),
+                    child: ImageLoader(imageUrl: provider.instance.avatar,width: 16.w,height: 16.w,fit: BoxFit.cover,)),
                 Gaps.hGap12,
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 10, top: 6),
@@ -221,7 +221,7 @@ class MoreScreenState extends BaseState<MoreScreen, MorePresenter>
   Widget accountWidget() {
     return Container(
       decoration: BoxDecoration(color: MColors.whiteE, borderRadius: BorderRadius.circular(8)),
-      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 3.w),
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 20),
       child: Column(
         children: [
           // notification

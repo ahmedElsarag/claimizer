@@ -164,77 +164,68 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                 child: Container(
                   decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
                   padding: EdgeInsets.all(12),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          // width: 237,
-                          height: 10.w,
-                          child: TextFormField(
-                            style: MTextStyles.textDark14,
-                            controller: pr.searchController,
-                            decoration: InputDecoration(
-                              hintText: S.current.search,
-                              hintStyle: MTextStyles.textGray14,
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none, borderRadius: BorderRadius.circular(8)),
-                              contentPadding: EdgeInsets.zero,
-                              filled: true,
-                              fillColor: Color(0xffF7F7F7),
-                              prefixIcon: GestureDetector(
-                                child: Icon(
-                                  CupertinoIcons.search,
-                                  color: MColors.primary_light_color,
-                                ),
-                                onTap: () {
-                                  // Map<String, dynamic> params = Map();
-                                  // params['page'] = 1;
-                                  // params['search'] = pr.searchController.text.toString();
-                                  // mPresenter.getFilteredClaimsApiCall(params);
-                                  print("################## search : ${pr.searchController.text.toString()}");
-                                  pr.currentPage = 1;
-                                  Map<String, dynamic> params = Map();
-                                  params['page'] = pr.currentPage;
-                                  params['per_page'] = 1000;
-                                  params['search'] = pr.searchController.text.toString();
-                                  mPresenter.getAllClaimsApiCall(params);
-                                },
-                              ),
-                              suffixIcon: GestureDetector(
-                                child: Icon(
-                                  Icons.cancel_rounded,
-                                  color: MColors.primary_light_color,
-                                ),
-                                onTap: () {
-                                  pr.searchController.clear();
-                                  pr.currentPage = 1;
-                                  Map<String, dynamic> params = Map();
-                                  params['per_page'] = 1000;
-                                  params['page'] = 1;
-                                  params['search'] = pr.searchController.text.toString();
-                                  mPresenter.getAllClaimsApiCall(params);
-                                },
-                              ),
-                            ),
-                            onFieldSubmitted: (value) {
-                              // Map<String, dynamic> params = Map();
-                              // params['page'] = pr.currentPage;
-                              // params['search'] = pr.searchController.text.toString();
-                              // mPresenter.getFilteredClaimsApiCall(params);
-                              pr.currentPage = 1;
-                              Map<String, dynamic> params = Map();
-                              params['page'] = pr.currentPage;
-                              params['per_page'] = 1000;
-                              params['search'] = pr.searchController.text.toString();
-                              mPresenter.getAllClaimsApiCall(params);
-                            },
-                            onChanged: (value) {
-                              pr.searchValue = value;
-                            },
-                          ),
+                  margin: EdgeInsets.only(bottom: 12) ,
+                  child: TextFormField(
+                    style: MTextStyles.textDark14,
+                    controller: pr.searchController,
+                    decoration: InputDecoration(
+                      hintText: S.current.search,
+                      hintStyle: MTextStyles.textGray14,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none, borderRadius: BorderRadius.circular(8)),
+                      contentPadding: EdgeInsets.zero,
+                      filled: true,
+                      fillColor: Color(0xffF7F7F7),
+                      prefixIcon: GestureDetector(
+                        child: Icon(
+                          CupertinoIcons.search,
+                          color: MColors.primary_light_color,
                         ),
+                        onTap: () {
+                          // Map<String, dynamic> params = Map();
+                          // params['page'] = 1;
+                          // params['search'] = pr.searchController.text.toString();
+                          // mPresenter.getFilteredClaimsApiCall(params);
+                          print("################## search : ${pr.searchController.text.toString()}");
+                          pr.currentPage = 1;
+                          Map<String, dynamic> params = Map();
+                          params['page'] = pr.currentPage;
+                          params['per_page'] = 1000;
+                          params['search'] = pr.searchController.text.toString();
+                          mPresenter.getAllClaimsApiCall(params);
+                        },
                       ),
-                    ],
+                      suffixIcon: GestureDetector(
+                        child: Icon(
+                          Icons.cancel_rounded,
+                          color: MColors.primary_light_color,
+                        ),
+                        onTap: () {
+                          pr.searchController.clear();
+                          pr.currentPage = 1;
+                          Map<String, dynamic> params = Map();
+                          params['per_page'] = 1000;
+                          params['page'] = 1;
+                          params['search'] = pr.searchController.text.toString();
+                          mPresenter.getAllClaimsApiCall(params);
+                        },
+                      ),
+                    ),
+                    onFieldSubmitted: (value) {
+                      // Map<String, dynamic> params = Map();
+                      // params['page'] = pr.currentPage;
+                      // params['search'] = pr.searchController.text.toString();
+                      // mPresenter.getFilteredClaimsApiCall(params);
+                      pr.currentPage = 1;
+                      Map<String, dynamic> params = Map();
+                      params['page'] = pr.currentPage;
+                      params['per_page'] = 1000;
+                      params['search'] = pr.searchController.text.toString();
+                      mPresenter.getAllClaimsApiCall(params);
+                    },
+                    onChanged: (value) {
+                      pr.searchValue = value;
+                    },
                   ),
                 ),
               ),

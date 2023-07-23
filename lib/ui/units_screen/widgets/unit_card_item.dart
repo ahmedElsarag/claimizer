@@ -19,18 +19,26 @@ class UnitCardItem extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: isLast ? 0 : 8.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          AutoSizeText(
-            title + ":  ",
-            style: TextStyle(color: MColors.subtitlesColor, fontWeight: FontWeight.w700),
+          SizedBox(
+            width: Utils.sWidth(35, context),
+            child: AutoSizeText(
+              title,
+              maxFontSize: 12,
+              maxLines: 2,
+              style: TextStyle(color: MColors.subtitlesColor, fontWeight: FontWeight.w700),
+            ),
           ),
           // Spacer(),
           SizedBox(
-            width: Utils.sWidth(30, context),
+            width: Utils.sWidth(47, context),
             child: AutoSizeText(
               data ?? "",
+              textAlign: TextAlign.end,
+              maxLines: 2,
+              maxFontSize: 12,
               style: TextStyle(color: MColors.subText_color),
             ),
           )

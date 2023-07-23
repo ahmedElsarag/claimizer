@@ -114,8 +114,8 @@ class _UnitLinkRequestState extends State<UnitLinkRequest> {
                       },
                       child: Container(
                         decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                        padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
-                        margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
+                        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 3.w),
+                        margin: index == 0 ? EdgeInsets.only(bottom: 12) : EdgeInsets.symmetric(vertical: 12),
                         child: Column(
                           children: [
                             Row(
