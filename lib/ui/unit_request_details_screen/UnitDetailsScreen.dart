@@ -425,36 +425,40 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                             ),
                                             Gaps.vGap8,
                                             Gaps.vGap8,
-                                            GestureDetector(
-                                              onTap: () async {
-                                                final DateTime picked = await showDatePicker(
-                                                    context: context,
-                                                    initialDate: pr.endDate ?? DateTime.now(),
-                                                    firstDate: DateTime(1900),
-                                                    lastDate: DateTime.now().add(Duration(days: 100000)));
-                                                if (picked != null) {
-                                                  pr.endDate = picked;
-                                                }
-                                              },
-                                              child: Container(
-                                                height: MediaQuery.of(context).size.height * .07,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  color: MColors.primary_color.withOpacity(.1)
-                                                ),
-                                                padding: EdgeInsets.all(12.0),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      pr.endDate != null
-                                                          ? _dateFormatEN.format(pr.endDate)
-                                                          : S.of(context).endDate,
-                                                      style: MTextStyles.textDark14,
+                                        Consumer<UnitDetailsProvider>(
+                                              builder: (ctx,pr,w) {
+                                                return GestureDetector(
+                                                  onTap: () async {
+                                                    final DateTime picked = await showDatePicker(
+                                                        context: context,
+                                                        initialDate: pr.endDate ?? DateTime.now(),
+                                                        firstDate: DateTime(1900),
+                                                        lastDate: DateTime.now().add(Duration(days: 100000)));
+                                                    if (picked != null) {
+                                                      pr.endDate = picked;
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    height: MediaQuery.of(context).size.height * .07,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(8),
+                                                      color: MColors.primary_color.withOpacity(.1)
                                                     ),
-                                                  ],
-                                                ),
-                                              ),
+                                                    padding: EdgeInsets.all(12.0),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          pr.endDate != null
+                                                              ? _dateFormatEN.format(pr.endDate)
+                                                              : S.of(context).endDate,
+                                                          style: MTextStyles.textDark14,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              }
                                             ),
                                             Gaps.vGap8,
                                             Gaps.vGap8,

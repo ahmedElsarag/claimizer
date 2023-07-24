@@ -157,49 +157,11 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
                   physics: NeverScrollableScrollPhysics(),
                   children: List.generate(
                     7,
-                    (index) => GestureDetector(
-                      onTap: () {
-                        if (index == 0) {
-                          claimsProvider.status = "all";
-                        } else if (index == 1) {
-                          claimsProvider.status = "new";
-                          claimsProvider.titleStatus = S.current.newClaims;
-                        } else if (index == 2) {
-                          claimsProvider.status = "assigned";
-                          claimsProvider.titleStatus = S.current.assignedClaims;
-                        } else if (index == 3) {
-                          claimsProvider.status = "started";
-                          claimsProvider.titleStatus = S.current.startedClaims;
-                        } else if (index == 4) {
-                          claimsProvider.status = "completed";
-                          claimsProvider.titleStatus = S.current.completedClaims;
-                        } else if (index == 5) {
-                          claimsProvider.status = "cancelled";
-                          claimsProvider.titleStatus = S.current.cancelledClaims;
-                        } else if (index == 6) {
-                          claimsProvider.status = "closed";
-                          claimsProvider.titleStatus = S.current.closedClaims;
-                        }
-                        if (index != 0) {
-                          Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                builder: (context) => ClaimsWithFilterScreen(),
-                              ));
-                        } else {
-                          mainProvider.tabController = TabController(vsync: this, length: 4, initialIndex: 1);
-                          mainProvider.currentSelect = 1;
-                          mainProvider.tabController.addListener(() {
-                            mainProvider.currentSelect = mainProvider.tabController.index;
-                          });
-                        }
-                      },
-                      child: HomeCardItem(
-                          cardColor: cardsColor[index],
-                          title: cardTitles[index],
-                          imageIcon: cardImages[index],
-                          value: list.isNotEmpty ? list[index] : ' '),
-                    ),
+                    (index) => HomeCardItem(
+                        cardColor: cardsColor[index],
+                        title: cardTitles[index],
+                        imageIcon: cardImages[index],
+                        value: list.isNotEmpty ? list[index] : ' '),
                   ),
                 ),
               ),

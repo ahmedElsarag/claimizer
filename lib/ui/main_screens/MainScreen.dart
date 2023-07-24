@@ -29,18 +29,18 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   DateTime currentBackPressTime;
   MainProvider pr;
-  TabController _tabController;
 
   @override
   void initState() {
     pr = context.read<MainProvider>();
-    pr.currentSelect = 0;
-    pr.tabController = TabController(vsync: this, length: 4);
-    if (mounted)
-      pr.tabController.addListener(() {
-        pr.currentSelect = pr.tabController.index;
-      });
-    super.initState();
+    pr.tabController = TabController(vsync: this, length: 4,initialIndex: 0);
+    pr.tabController.addListener(_handleTabSelection);
+  super.initState();
+  }
+
+  void _handleTabSelection() {
+    setState(() {
+    });
   }
 
   @override
@@ -71,6 +71,7 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
                 labelStyle:  TextStyle(fontSize: 10.sp),
                 isScrollable: false,
                 unselectedLabelColor: MColors.subText_color,
+                automaticIndicatorColorAdjustment: true,
                 indicatorWeight: 3,
                 indicatorSize: TabBarIndicatorSize.label,
                 tabs: [
@@ -78,7 +79,7 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
                     child: Tab(
                       icon: SvgPicture.asset(
                         ImageUtils.getSVGPath('home'),
-                        color: mainProvider.currentSelect == 0 ? MColors.primary_color : MColors.tabsTextColor,
+                        color: pr.tabController.index == 0 ? MColors.primary_color : MColors.tabsTextColor,
                       ),
                       text: S.of(context).home,
                     ),
@@ -87,7 +88,7 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
                     child: Tab(
                       icon: SvgPicture.asset(
                         ImageUtils.getSVGPath('claims'),
-                        color: mainProvider.currentSelect == 1 ? MColors.primary_color : MColors.tabsTextColor,
+                        color: pr.tabController.index == 1 ? MColors.primary_color : MColors.tabsTextColor,
                       ),
                       text: S.of(context).claims,
                     ),
@@ -96,7 +97,7 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
                     child: Tab(
                       icon: SvgPicture.asset(
                         ImageUtils.getSVGPath('units'),
-                        color: mainProvider.currentSelect == 2 ? MColors.primary_color : MColors.tabsTextColor,
+                        color: pr.tabController.index == 2 ? MColors.primary_color : MColors.tabsTextColor,
                       ),
                       text: S.of(context).units,
                     ),
@@ -105,7 +106,7 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
                     child: Tab(
                       icon: Icon(
                         Icons.more_horiz_rounded,
-                        color: mainProvider.currentSelect == 3 ? MColors.primary_color : MColors.tabsTextColor,
+                        color: pr.tabController.index == 3 ? MColors.primary_color : MColors.tabsTextColor,
                       ),
                       text: S.of(context).more,
                     ),

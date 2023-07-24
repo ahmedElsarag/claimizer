@@ -17,7 +17,4 @@ class MainPresenter extends BasePresenter<MainScreenState> {
     });
   }
 
-  changeTabScreen(int currentTab) {
-    view.pr.currentSelect = currentTab;
-  }
 }

@@ -30,19 +30,7 @@ class MainProvider<T> extends BaseProvider<T> {
     notifyListeners();
   }
 
-  int _currentSelect = 0;
 
-  int get currentSelect => _currentSelect;
-
-  set currentSelect(int value) {
-    _currentSelect = value;
-    notifyListeners();
-  }
-
-  changeTabScreen(int currentTab) {
-    currentSelect = currentTab;
-    notifyListeners();
-  }
 
   PageController _pageController = PageController();
 
