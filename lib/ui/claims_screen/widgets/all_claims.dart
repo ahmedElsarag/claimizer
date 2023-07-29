@@ -54,7 +54,7 @@ class _AllClaimsState extends State<AllClaims> {
                       child: Column(
                         children: [
                           Expanded(
-                            child: ListView.separated(
+                            child: ListView.builder(
                               controller: _scrollController,
                               shrinkWrap: true,
                               itemCount: pr.claimsList.length,
@@ -73,9 +73,8 @@ class _AllClaimsState extends State<AllClaims> {
                                   child: Container(
                                       decoration:
                                           BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                                      margin: EdgeInsets.only(
-                                          top: index == 0 ? 20 : 0, bottom: index == pr.claimsList.length - 1 ? 20 : 0),
-                                      padding: EdgeInsets.all(20),
+                                      margin: index == 0 ? EdgeInsets.only(bottom: 12) : EdgeInsets.symmetric(vertical: 12),
+                                      padding: EdgeInsets.all(14),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
@@ -124,8 +123,6 @@ class _AllClaimsState extends State<AllClaims> {
                                           ),
                                           buildDivider(),
                                           Column(
-                                            // crossAxisAlignment: CrossAxisAlignment.start,
-                                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                             children: [
                                               ClaimCardDataItem(
                                                 title: S.of(context).priority,
@@ -163,9 +160,6 @@ class _AllClaimsState extends State<AllClaims> {
                                     ),
                                   );
                               },
-                              separatorBuilder: (context, index) => SizedBox(
-                                height: 20,
-                              ),
                             ),
                           ),
                         ],

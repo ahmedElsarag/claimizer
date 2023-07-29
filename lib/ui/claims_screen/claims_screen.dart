@@ -160,6 +160,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                 child: Container(
                   decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
                   padding: EdgeInsets.all(12),
+                  margin: EdgeInsets.only(bottom: 12),
                   child: Row(
                     children: [
                       Expanded(

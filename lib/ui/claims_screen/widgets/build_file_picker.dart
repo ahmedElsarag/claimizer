@@ -71,33 +71,63 @@ class _BuildFilePickerState extends State<BuildFilePicker> {
           onTap: () async {
             showDialog(context: context, builder: (context) {
               return AlertDialog(
-                insetPadding: EdgeInsets.all(20),
-                contentPadding: EdgeInsets.all(16),
+                insetPadding: EdgeInsets.all(14),
+                contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 30),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      width: 60.w,
-                      child: ElevatedButton.icon(
-                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(MColors.white)),
-                          onPressed: getImageFromCamera,
-                          icon: Icon(Icons.camera_alt, color: MColors.primary_color),
-                          label: Text(S.of(context).takePhoto,
-                              style: MTextStyles.textMain14.copyWith(color: MColors.primary_color)),
-                        ),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: 60.w,
-                      child: ElevatedButton.icon(
-                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(MColors.white)),
-                          onPressed: pickImages,
-                          icon: Icon(Icons.photo_library, color: MColors.primary_color),
-                          label: Text(
-                            S.of(context).chooseFromGallery,
-                            style: MTextStyles.textMain14.copyWith(color: MColors.primary_color),
+                    Text(S.of(context).uploadImageFrom,
+                        style: MTextStyles.textMain14.copyWith(color: MColors.primary_text_color)),
+                    SizedBox(height: 30),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: getImageFromCamera,
+                          child: Container(
+                            width: 40.w,
+                            padding: EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                                color: MColors.primary_color.withOpacity(.1),
+                                borderRadius: BorderRadius.circular(8)
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.camera_alt, color: MColors.primary_color),
+                                Gaps.vGap6,
+                                FittedBox(
+                                  child: Text(S.of(context).takePhoto,
+                                      style: MTextStyles.textMain12.copyWith(color: MColors.primary_color)),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
+                        SizedBox(width: 10),
+                        GestureDetector(
+                          onTap: pickImages,
+                          child: Container(
+                            width: 40.w,
+                            padding: EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                                color: MColors.primary_color.withOpacity(.1),
+                                borderRadius: BorderRadius.circular(8)
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.photo_library, color: MColors.primary_color),
+                                Gaps.vGap6,
+                                FittedBox(
+                                  child: Text(S.of(context).fromGallery,
+                                      style: MTextStyles.textMain12.copyWith(color: MColors.primary_color)),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -117,7 +147,7 @@ class _BuildFilePickerState extends State<BuildFilePicker> {
                     ? ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.file(pr.file,width: 10.w, height: 10.w,fit: BoxFit.cover,))
-                    : pr.imageFiles != null
+                    : pr.imageFiles != null&&pr.imageFiles.isNotEmpty
                     ? Row(
                   children: [Icon(Icons.image,color: MColors.rejected_color,), Text(pr.imageFiles.length.toString() +" "+ S.of(context).images)],
                 )
