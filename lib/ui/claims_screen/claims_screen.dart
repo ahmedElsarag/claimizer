@@ -62,20 +62,17 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
     EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
       if (event.isRefresh != null || event.isLangChanged != null) {
         Map<String, dynamic> params = Map();
-        params['per_page'] = 1000;
-        params['page'] = 1;
         params['search'] = provider.searchController.text.toString();
         mPresenter.getAllClaimsApiCall(params);
       }
       setState(() {});
     });
     Map<String, dynamic> params = Map();
-    params['per_page'] = 1000;
-    params['page'] = 1;
     params['search'] = provider.searchController.text.toString();
     mPresenter.getAllClaimsApiCall(params);
     super.initState();
   }
+
   List<String> cardTitles = [
     S.current.addNewClaim,
     S.current.allClaims,
@@ -84,11 +81,10 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
     'newclaims',
     'allclaims',
   ];
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
-
 
     return Scaffold(
       backgroundColor: MColors.page_background,
@@ -192,10 +188,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                   // params['search'] = pr.searchController.text.toString();
                                   // mPresenter.getFilteredClaimsApiCall(params);
                                   print("################## search : ${pr.searchController.text.toString()}");
-                                  pr.currentPage = 1;
                                   Map<String, dynamic> params = Map();
-                                  params['page'] = pr.currentPage;
-                                  params['per_page'] = 1000;
                                   params['search'] = pr.searchController.text.toString();
                                   mPresenter.getAllClaimsApiCall(params);
                                 },
@@ -207,10 +200,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 ),
                                 onTap: () {
                                   pr.searchController.clear();
-                                  pr.currentPage = 1;
                                   Map<String, dynamic> params = Map();
-                                  params['per_page'] = 1000;
-                                  params['page'] = 1;
                                   params['search'] = pr.searchController.text.toString();
                                   mPresenter.getAllClaimsApiCall(params);
                                 },
@@ -221,10 +211,9 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                               // params['page'] = pr.currentPage;
                               // params['search'] = pr.searchController.text.toString();
                               // mPresenter.getFilteredClaimsApiCall(params);
-                              pr.currentPage = 1;
+
                               Map<String, dynamic> params = Map();
-                              params['page'] = pr.currentPage;
-                              params['per_page'] = 1000;
+
                               params['search'] = pr.searchController.text.toString();
                               mPresenter.getAllClaimsApiCall(params);
                             },

@@ -72,10 +72,6 @@ class ClaimsProvider extends ChangeNotifier {
     _searchController = value;
     notifyListeners();
   }
-  setCurrentPage(){
-    ++currentPage;
-    notifyListeners();
-  }
 
   String _searchValue = '';
 
@@ -277,31 +273,4 @@ class ClaimsProvider extends ChangeNotifier {
   String selectedCategory;
   String selectedSubCategory;
   String selectedType;
-
-  bool _isLoading = false;
-  int  currentPage = 1;
-  int  _lastPage = 0 ;
-
-  bool get isLoading => _isLoading;
-
-  set isLoading(bool value) {
-    _isLoading = value;
-    notifyListeners();
-  }
-
-  int get lastPage => _lastPage;
-
-  set lastPage(int value) {
-    _lastPage = value;
-    notifyListeners();
-  }
-
-  bool _isDataLoaded = false;
-
-  bool get isDataLoaded => _isDataLoaded;
-
-  set isDataLoaded(bool value) {
-    _isDataLoaded = value;
-    notifyListeners();
-  }
 }

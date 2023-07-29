@@ -6,7 +6,6 @@ import 'package:Cliamizer/ui/units_screen/widgets/unit_request_item_data.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -35,49 +34,20 @@ class _UnitLinkRequestState extends State<UnitLinkRequest> {
     widget.provider = context.read<UnitProvider>();
     EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
       if (event.isRefresh != null || event.isLangChanged != null) {
-        widget.provider.currentPage = 1;
         Map<String, dynamic> linkRequestParams = Map();
-        linkRequestParams['page'] = widget.provider.currentPage;
-        linkRequestParams['per_page'] = 1000;
         linkRequestParams['search'] = widget.provider.searchController.text.toString();
         widget.presenter.getUnitRequestsApiCall(linkRequestParams);
       }
       setState(() {});
     });
-    widget.provider.currentPage = 1;
     Map<String, dynamic> linkRequestParams = Map();
-    linkRequestParams['page'] = widget.provider.currentPage;
-    linkRequestParams['per_page'] = 1000;
     linkRequestParams['search'] = widget.provider.searchController.text.toString();
     widget.presenter.getUnitRequestsApiCall(linkRequestParams);
-     // _scrollController.addListener(() {
-    //   if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-    //     if (widget.provider.lastPage != widget.provider.currentPage && !widget.provider.isLoading) {
-    //       widget.provider.isLoading = !widget.provider.isLoading;
-    //       widget.provider.setCurrentPage();
-    //       Map<String, dynamic> params = Map();
-    //       params['page'] = widget.provider.currentPage;
-    //       params['per_page'] = 1000;
-    //       params['search'] = widget.provider.searchController.text.toString();
-    //       widget.presenter.getUnitRequestsApiCall(params);
-    //       print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ${widget.provider.currentPage}");
-    //       print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ search: ${widget.provider.searchController.text}");
-    //     }
-    //   }
-    // });
     super.initState();
-  }
-
-  void _scrollListener() {
-    if (_scrollController.offset >= _scrollController.position.maxScrollExtent &&
-        !_scrollController.position.outOfRange) {
-      _scrollController.animateTo(0, duration: Duration(seconds: 1), curve: Curves.easeInOut);
-    }
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_scrollListener);
     super.dispose();
   }
 
@@ -87,9 +57,7 @@ class _UnitLinkRequestState extends State<UnitLinkRequest> {
       builder: (context, pr, child) => pr.unitsRequestList.isNotEmpty
           ? RefreshIndicator(
               onRefresh: () async {
-                pr.currentPage = 1;
                 Map<String, dynamic> linkRequestParams = Map();
-                linkRequestParams['page'] = widget.provider.currentPage;
                 linkRequestParams['search'] = widget.provider.searchController.text.toString();
                 widget.presenter.getUnitRequestsApiCall(linkRequestParams);
                 pr.unitLinkSearchController.clear();
@@ -98,21 +66,18 @@ class _UnitLinkRequestState extends State<UnitLinkRequest> {
                 controller: _scrollController,
                 itemCount: pr.unitsRequestList.length,
                 itemBuilder: (context, index) {
-                  if (index == pr.unitsRequestList.length - 1 && pr.isLoading)
-                    return Center(child: Lottie.asset('assets/images/loadingLottie.json', height: 8.h));
-                  else
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => UnitRequestDetailsScreen(
-                                id: pr.unitsRequestList[index].id,
-                                unitRequestDataBean: pr.unitsRequestList[index],
-                              ),
-                            ));
-                      },
-                      child: Container(
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => UnitRequestDetailsScreen(
+                              id: pr.unitsRequestList[index].id,
+                              unitRequestDataBean: pr.unitsRequestList[index],
+                            ),
+                          ));
+                    },
+                    child: Container(
                         decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
                         padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
                         margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
@@ -208,9 +173,7 @@ class _UnitLinkRequestState extends State<UnitLinkRequest> {
               ),
             )
           : NoDataWidget(onRefresh: () async {
-              pr.currentPage = 1;
               Map<String, dynamic> linkRequestParams = Map();
-              linkRequestParams['page'] = widget.provider.currentPage;
               linkRequestParams['search'] = widget.provider.searchController.text.toString();
               widget.presenter.getUnitRequestsApiCall(linkRequestParams);
             }),

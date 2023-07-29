@@ -6,10 +6,7 @@ import 'package:Cliamizer/ui/claims_screen/widgets/claim_card_data_item.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../CommonUtils/utils.dart';
 import '../../../generated/l10n.dart';
@@ -31,36 +28,11 @@ class _AllClaimsState extends State<AllClaims> {
   @override
   void initState() {
     widget.provider = context.read<ClaimsProvider>();
-    _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-        if (widget.provider.lastPage != widget.provider.currentPage && !widget.provider.isLoading) {
-          widget.provider.isLoading = !widget.provider.isLoading;
-          widget.provider.setCurrentPage();
-          Map<String, dynamic> params = Map();
-          params['page'] = widget.provider.currentPage;
-          params['per_page'] = 1000;
-          params['search'] = widget.provider.searchController.text.toString();
-          widget.presenter.getAllClaimsApiCall(params);
-          _scrollListener();
-          print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ${widget.provider.currentPage}");
-          print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ search: ${widget.provider.searchController.text}");
-        }
-      }
-    });
     super.initState();
-  }
-
-  void _scrollListener() {
-    if (_scrollController.offset >= _scrollController.position.maxScrollExtent &&
-        !_scrollController.position.outOfRange) {
-      _scrollController.animateTo(0,
-          duration: Duration(seconds: 1), curve: Curves.easeInOut);
-    }
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_scrollListener);
     super.dispose();
   }
 
@@ -75,14 +47,9 @@ class _AllClaimsState extends State<AllClaims> {
                   ? RefreshIndicator(
                       onRefresh: () async {
                         pr.searchController.text = "";
-                        pr.currentPage = 1;
                         Map<String, dynamic> params = Map();
-                       params['per_page'] = 1000;
-                        params['per_page'] = 1000;
                         params['search'] = pr.searchController.text.toString();
                         await widget.presenter.getAllClaimsApiCall(params);
-                        // await widget.presenter.getAllClaimsApiCall(1);
-                        // await widget.presenter.getAllClaimsApiCall(pr.currentPage);
                       },
                       child: Column(
                         children: [
@@ -92,21 +59,18 @@ class _AllClaimsState extends State<AllClaims> {
                               shrinkWrap: true,
                               itemCount: pr.claimsList.length,
                               itemBuilder: (context, index) {
-                                if (index == pr.claimsList.length - 1 && pr.isLoading)
-                                  return Center(child: Lottie.asset('assets/images/loadingLottie.json', height: 8.h));
-                                else
-                                  return InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                            builder: (_) => ClaimsDetailsScreen(
-                                              id: pr.claimsList[index].id,
-                                              claimsDataBean: pr.claimsList[index],
-                                            ),
-                                          ));
-                                    },
-                                    child: Container(
+                               return InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                          builder: (_) => ClaimsDetailsScreen(
+                                            id: pr.claimsList[index].id,
+                                            claimsDataBean: pr.claimsList[index],
+                                          ),
+                                        ));
+                                  },
+                                  child: Container(
                                       decoration:
                                           BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
                                       margin: EdgeInsets.only(
@@ -209,10 +173,7 @@ class _AllClaimsState extends State<AllClaims> {
                     )
                   : NoDataWidget(
                       onRefresh: () async {
-                        pr.currentPage = 1;
                         Map<String, dynamic> params = Map();
-                        params['page'] = pr.currentPage;
-                        params['per_page'] = 1000;
                         params['search'] = pr.searchController.text.toString();
                         await widget.presenter.getAllClaimsApiCall(params);
                         // await widget.presenter.getAllClaimsApiCall(1);

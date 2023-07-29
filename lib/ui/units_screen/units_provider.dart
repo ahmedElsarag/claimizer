@@ -3,13 +3,11 @@ import 'dart:io';
 import 'package:Cliamizer/base/provider/base_provider.dart';
 import 'package:Cliamizer/network/models/units_response.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
+
 import '../../network/models/NewLinkListRequestResponse.dart';
 import '../../network/models/NewLinkRequestResponse.dart';
 import '../../network/models/UnitRequestResponse.dart';
-import '../../network/models/claims_response.dart';
 
 class UnitProvider<T> extends BaseProvider<T> {
   TextEditingController _description = TextEditingController();
@@ -251,29 +249,4 @@ class UnitProvider<T> extends BaseProvider<T> {
     _validated = value;
     notifyListeners();
   }
-
-
-  bool _isLoading = false;
-  int  currentPage = 1;
-  int  _lastPage = 0 ;
-
-  bool get isLoading => _isLoading;
-
-  set isLoading(bool value) {
-    _isLoading = value;
-    notifyListeners();
-  }
-
-  int get lastPage => _lastPage;
-
-  set lastPage(int value) {
-    _lastPage = value;
-    notifyListeners();
-  }
-
-  setCurrentPage(){
-    ++currentPage;
-    notifyListeners();
-  }
-
 }

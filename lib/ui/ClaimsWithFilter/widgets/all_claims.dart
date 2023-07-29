@@ -7,9 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../CommonUtils/utils.dart';
 import '../../../generated/l10n.dart';
@@ -32,35 +30,15 @@ class _AllClaimsWithFilterState extends State<AllClaimsWithFilter> {
   @override
   void initState() {
     widget.provider = context.read<ClaimsWithFilterProvider>();
-    _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-        if (widget.provider.lastPage != widget.provider.currentPage && !widget.provider.isLoading) {
-          widget.provider.isLoading = !widget.provider.isLoading;
-          widget.provider.setCurrentPage();
-          Map<String, dynamic> params = Map();
-          params['page'] = widget.provider.currentPage;
-          params['per_page'] = 1000;
-          params['search'] = widget.provider.searchController.text.toString();
-          params['status'] = widget.provider.status;
-          widget.presenter.getFilteredClaimsWithStatusApiCall(params);
-          print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ${widget.provider.currentPage}");
-          print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ search: ${widget.provider.searchController.text}");
-        }
-      }
-    });
+    Map<String, dynamic> params = Map();
+    params['search'] = widget.provider.searchController.text.toString();
+    params['status'] = widget.provider.status;
+    widget.presenter.getFilteredClaimsWithStatusApiCall(params);
     super.initState();
-  }
-
-  void _scrollListener() {
-    if (_scrollController.offset >= _scrollController.position.maxScrollExtent &&
-        !_scrollController.position.outOfRange) {
-      _scrollController.animateTo(0, duration: Duration(seconds: 1), curve: Curves.easeInOut);
-    }
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_scrollListener);
     super.dispose();
   }
 
@@ -82,8 +60,6 @@ class _AllClaimsWithFilterState extends State<AllClaimsWithFilter> {
                       onRefresh: () async {
                         pr.searchController.text = "";
                         Map<String, dynamic> params = Map();
-                        params['per_page'] = 1000;
-                        params['page'] = 1;
                         params['search'] = widget.provider.searchController.text.toString();
                         params['status'] = widget.provider.status;
                         await widget.presenter.getFilteredClaimsWithStatusApiCall(params);
@@ -94,9 +70,6 @@ class _AllClaimsWithFilterState extends State<AllClaimsWithFilter> {
                         shrinkWrap: true,
                         itemCount: pr.claimsList.length,
                         itemBuilder: (context, index) {
-                          if (index == pr.claimsList.length - 1 && pr.isLoading)
-                            return Center(child: Lottie.asset('assets/images/loadingLottie.json', height: 8.h));
-                          else
                             return InkWell(
                               onTap: () {
                                 Navigator.push(
@@ -212,8 +185,6 @@ class _AllClaimsWithFilterState extends State<AllClaimsWithFilter> {
                   : NoDataWidget(
                       onRefresh: () async {
                         Map<String, dynamic> params = Map();
-                        params['per_page'] = 1000;
-                        params['page'] = 1;
                         params['search'] = widget.provider.searchController.text.toString();
                         params['status'] = widget.provider.status;
                         await widget.presenter.getFilteredClaimsWithStatusApiCall(params);

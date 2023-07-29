@@ -35,8 +35,6 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
       view.closeProgress();
       if (data != null) {
         view.provider.unitsList = data.data;
-        view.provider.isLoading = false;
-        view.provider.lastPage = data.meta.pagination.totalPages;
       }
     }, onError: (code, msg) {
       view.closeProgress();
@@ -71,8 +69,6 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
       view.closeProgress();
       if (data != null) {
         view.provider.unitsRequestList = data.data;
-        view.provider.isLoading = false;
-        view.provider.lastPage = data.meta.pagination.totalPages;
       }
     }, onError: (code, msg) {
       view.closeProgress();
@@ -253,10 +249,7 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
                       view.provider.qrCodeValid = null;
                       Navigator.pop(context);
                       view.provider.selectedIndex = 2;
-                      view.provider.currentPage = 1;
                       Map<String, dynamic> params = Map();
-                      params['page'] =   view.provider.currentPage;
-                      params['per_page'] = 1000;
                       params['search'] = view.provider.searchController.text.toString();
                       getUnitRequestsApiCall(params);
                     },

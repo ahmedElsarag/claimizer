@@ -12,7 +12,6 @@ import 'package:Cliamizer/ui/unit_request_details_screen/widgets/comments_widget
 import 'package:Cliamizer/ui/unit_request_details_screen/widgets/item_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http_parser/http_parser.dart';
@@ -151,18 +150,18 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                           Gaps.vGap16,
                                           ElevatedButton(
                                             onPressed: () async {
-                                              if (pr.comment.text.isEmpty) {
-                                                showToasts(S.of(context).enterYourNotesInCommentField, 'warning');
-                                              } else {
-                                                final formData = FormData();
-                                                if (pr.imageFiles != null) {
-                                                  for (var i = 0; i < pr.imageFiles.length; i++) {
-                                                    final file = await pr.imageFiles[i].readAsBytes();
-                                                    formData.files.add(MapEntry(
-                                                      'files[$i]',
-                                                      MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
-                                                    ));
-                                                    formData.fields.add(MapEntry("comment", pr.comment.text));
+                                              if (pr.comment.text.isEmpty || pr.comment == null) {
+                                                      showToasts(S.of(context).enterYourNotesInCommentField, 'warning');
+                                                    } else {
+                                                      final formData = FormData();
+                                                      if (pr.imageFiles != null) {
+                                                        for (var i = 0; i < pr.imageFiles.length; i++) {
+                                                          final file = await pr.imageFiles[i].readAsBytes();
+                                                          formData.files.add(MapEntry(
+                                                            'files[$i]',
+                                                            MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
+                                                          ));
+                                                          formData.fields.add(MapEntry("comment", pr.comment.text));
                                                     formData.fields.add(MapEntry(
                                                         "request_id", widget.unitRequestDataBean.id.toString()));
                                                   }

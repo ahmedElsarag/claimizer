@@ -15,48 +15,22 @@ import '../../network/network_util.dart';
 import 'ClaimsWithFilterScreen.dart';
 
 class ClaimsWithFilterPresenter extends BasePresenter<ClaimsWithFilterScreenState> {
-  Future getFilteredClaimsWithStatusApiCall(Map<String, dynamic> params/*int pageKey*/) async {
+  Future getFilteredClaimsWithStatusApiCall(Map<String, dynamic> params) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
     });
-    // Map<String, dynamic> params = Map();
-    // params['per_page'] = 20;
-    // params['page'] = pageKey;
     view.showProgress(isDismiss: false);
     await requestFutureData<ClaimsResponse>(Method.get,
         queryParams: params, options: Options(headers: header), endPoint: Api.claimsApiCall, onSuccess: (data) {
-          if (data != null) {
-            view.provider.claimsList = data.data;
-            view.provider.isLoading = false;
-            view.provider.lastPage = data.meta.pagination.totalPages;
-          }
-          view.closeProgress();
+      if (data != null) {
+        view.provider.claimsList = data.data;
+      }
+      view.closeProgress();
         }, onError: (code, msg) {
           view.closeProgress();
         });
   }
-  // Future getFilteredClaimsWithStatusApiCall(Map<String, dynamic> params/*,String status*/) async {
-  //   Map<String, dynamic> header = Map();
-  //   await Prefs.getUserToken.then((token) {
-  //     header['Authorization'] = "Bearer $token";
-  //   });
-  //   view.showProgress(isDismiss: false);
-  //   await requestFutureData<ClaimsResponse>(Method.get,
-  //       options: Options(headers: header),
-  //       queryParams: params/*{"status": status}*/,
-  //       endPoint: Api.claimsApiCall, onSuccess: (data) {
-  //     if (data != null) {
-  //       view.provider.claimsList = data.data;
-  //       view.provider.isLoading = false;
-  //       view.provider.lastPage = data.meta.pagination.totalPages;;
-  //     }
-  //     view.closeProgress();
-  //   }, onError: (code, msg) {
-  //     view.closeProgress();
-  //   });
-  // }
-
   Future getFilteredClaimsApiCall(Map<String, dynamic> params) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {

@@ -23,23 +23,18 @@ import '../../network/network_util.dart';
 import 'claims_screen.dart';
 
 class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
-  Future getAllClaimsApiCall(Map<String, dynamic> params/*int pageKey*/) async {
+  Future getAllClaimsApiCall(Map<String, dynamic> params) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
     });
-    // Map<String, dynamic> params = Map();
-    // params['per_page'] = 20;
-    // params['page'] = pageKey;
     view.showProgress(isDismiss: false);
     await requestFutureData<ClaimsResponse>(Method.get,
         queryParams: params, options: Options(headers: header), endPoint: Api.claimsApiCall, onSuccess: (data) {
       if (data != null) {
         view.closeProgress();
         view.provider.claimsList = data.data;
-        view.provider.isLoading = false;
         print("LENGTH : ${view.provider.claimsList.length}");
-        view.provider.lastPage = data.meta.pagination.totalPages;
       }
      getBuildingsApiCall();
 

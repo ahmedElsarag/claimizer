@@ -174,24 +174,13 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                 ),
                                 onTap: () {
                                   if (pr.selectedIndex == 1) {
-                                    pr.currentPage = 1;
                                     Map<String, dynamic> exitingParams = Map();
-                                    exitingParams['page'] = provider.currentPage;
-                                    exitingParams['per_page'] = 1000;
                                     exitingParams['search'] = provider.searchController.text.toString();
                                     mPresenter.getExistingUnitsApiCall(exitingParams);
                                   } else if (pr.selectedIndex == 2) {
-                                    pr.currentPage = 1;
                                     Map<String, dynamic> params = Map();
-                                    params['page'] = pr.currentPage;
-                                    params['per_page'] = 1000;
                                     params['search'] = pr.unitLinkSearchController.text.toString();
                                     mPresenter.getUnitRequestsApiCall(params);
-                                    // pr.currentPage = 1;
-                                    // Map<String, dynamic> linkRequestParams = Map();
-                                    // linkRequestParams['page'] = provider.currentPage;
-                                    // linkRequestParams['search'] = provider.unitLinkSearchController.text.toString();
-                                    // mPresenter.getUnitRequestsApiCall(linkRequestParams);
                                   }
                                 },
                               ),
@@ -202,17 +191,14 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                                 ),
                                 onTap: () {
                                   if (pr.selectedIndex == 1) {
-                                    pr.currentPage = 1;
                                     Map<String, dynamic> exitingParams = Map();
-                                    exitingParams['page'] = provider.currentPage;
                                     exitingParams['search'] = provider.searchController.text.toString();
                                     mPresenter.getExistingUnitsApiCall(exitingParams);
                                     pr.searchController.clear();
                                   } else if (pr.selectedIndex == 2) {
                                     pr.unitLinkSearchController.clear();
-                                    pr.currentPage = 1;
+
                                     Map<String, dynamic> linkRequestParams = Map();
-                                    linkRequestParams['page'] = provider.currentPage;
                                     linkRequestParams['search'] = provider.unitLinkSearchController.text.toString();
                                     mPresenter.getUnitRequestsApiCall(linkRequestParams);
                                   }
@@ -221,17 +207,11 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                             ),
                             onFieldSubmitted: (value) {
                               if (pr.selectedIndex == 1) {
-                                pr.currentPage = 1;
                                 Map<String, dynamic> exitingParams = Map();
-                                exitingParams['page'] = provider.currentPage;
-                                exitingParams['per_page'] = 1000;
                                 exitingParams['search'] = provider.searchController.text.toString();
                                 mPresenter.getExistingUnitsApiCall(exitingParams);
                               } else if (pr.selectedIndex == 2) {
-                                pr.currentPage = 1;
                                 Map<String, dynamic> params = Map();
-                                params['page'] = pr.currentPage;
-                                params['per_page'] = 1000;
                                 params['search'] = pr.unitLinkSearchController.text.toString();
                                 mPresenter.getUnitRequestsApiCall(params);
                               }

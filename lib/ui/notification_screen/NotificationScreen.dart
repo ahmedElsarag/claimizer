@@ -5,7 +5,6 @@ import 'package:Cliamizer/ui/notification_screen/NotificationPresenter.dart';
 import 'package:Cliamizer/ui/notification_screen/NotificationProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:grouped_list/grouped_list.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -146,14 +145,14 @@ class NotificationScreenState extends BaseState<NotificationScreen, Notification
                                             SizedBox(
                                                 width: 70.w,
                                                 child: Text(
-                                                  pr.notificationList[index].items[nIndex].title,
-                                                  style: MTextStyles.textDark14,
-                                                ),),
+                                                  pr.notificationList[index].items[nIndex].title ?? "",
+                                            style: MTextStyles.textDark14,
+                                          ),),
                                             Gaps.vGap6,
                                             Text(
-                                              pr.notificationList[index].diffDate,
-                                              style: MTextStyles.textDark12,
-                                            ),
+                                              pr.notificationList[index].diffDate ?? "",
+                                          style: MTextStyles.textDark12,
+                                        ),
                                           ],
                                         )
                                       ],

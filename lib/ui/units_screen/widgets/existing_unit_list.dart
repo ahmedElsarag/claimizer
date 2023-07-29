@@ -3,7 +3,6 @@ import 'package:Cliamizer/ui/units_screen/units_presenter.dart';
 import 'package:Cliamizer/ui/units_screen/units_provider.dart';
 import 'package:Cliamizer/ui/units_screen/widgets/unit_card_item.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -27,39 +26,14 @@ class _ExistingUnitListState extends State<ExistingUnitList> {
   @override
   void initState() {
     widget.provider = context.read<UnitProvider>();
-    widget.provider.currentPage = 1;
     Map<String, dynamic> params = Map();
-    params['page'] = widget.provider.currentPage;
-    params['per_page'] = 1000;
     params['search'] = widget.provider.searchController.text.toString();
     widget.presenter.getExistingUnitsApiCall(params);
-    // _scrollController.addListener(() {
-    //   if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-    //     if (widget.provider.lastPage != widget.provider.currentPage && !widget.provider.isLoading) {
-    //       widget.provider.isLoading = !widget.provider.isLoading;
-    //       widget.provider.setCurrentPage();
-    //       Map<String, dynamic> params = Map();
-    //       params['page'] = widget.provider.currentPage;
-    //       params['per_page'] = 1000;
-    //       params['search'] = widget.provider.searchController.text.toString();
-    //       widget.presenter.getExistingUnitsApiCall(params);
-    //     }
-    //   }
-    // });
-
     super.initState();
-  }
-  void _scrollListener() {
-    if (_scrollController.offset >= _scrollController.position.maxScrollExtent &&
-        !_scrollController.position.outOfRange) {
-      _scrollController.animateTo(0,
-          duration: Duration(seconds: 1), curve: Curves.easeInOut);
-    }
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_scrollListener);
     super.dispose();
   }
   @override
@@ -70,10 +44,7 @@ class _ExistingUnitListState extends State<ExistingUnitList> {
             ? RefreshIndicator(
                 onRefresh: () async {
                   pr.searchController.clear();
-                  widget.provider.currentPage = 1;
                   Map<String, dynamic> params = Map();
-                  params['page'] = widget.provider.currentPage;
-                  params['per_page'] = 1000;
                   params['search'] = widget.provider.searchController.text.toString();
                   await widget.presenter.getExistingUnitsApiCall(params);
                 },
@@ -82,21 +53,18 @@ class _ExistingUnitListState extends State<ExistingUnitList> {
                   controller: _scrollController,
                   itemCount: pr.unitsList.length,
                   itemBuilder: (context, index) {
-                    if (index == pr.unitsList.length - 1 && pr.isLoading)
-                      return Center(child: Lottie.asset('assets/images/loadingLottie.json', height: 8.h));
-                    else
-                      return Container(
-                        decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
-                        padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
-                        margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
-                        child: Column(
-                          children: [
-                            Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
+                    return Container(
+                      decoration: BoxDecoration(color: MColors.white, borderRadius: BorderRadius.circular(8)),
+                      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.w),
+                      margin: index == 0 ? EdgeInsets.zero : EdgeInsets.symmetric(vertical: 2.w),
+                      child: Column(
+                        children: [
+                          Row(
+                            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                                     Text(
                                       pr.unitsList[index].name ?? "",
                                       style: MTextStyles.textBoldDark16,
@@ -158,10 +126,7 @@ class _ExistingUnitListState extends State<ExistingUnitList> {
               )
             : NoDataWidget(
                 onRefresh: () async {
-                  widget.provider.currentPage = 1;
                   Map<String, dynamic> params = Map();
-                  params['page'] = widget.provider.currentPage;
-                  params['per_page'] = 1000;
                   params['search'] = widget.provider.searchController.text.toString();
                   await widget.presenter.getExistingUnitsApiCall(params);
                 },
