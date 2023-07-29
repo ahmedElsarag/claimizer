@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../res/colors.dart';
-
 class HomeCardItem extends StatelessWidget {
   const HomeCardItem(
       {Key key, @required this.cardColor, @required this.title, @required this.imageIcon, @required this.value})
@@ -19,7 +17,7 @@ class HomeCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: cardColor.withOpacity(.1)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,11 +26,12 @@ class HomeCardItem extends StatelessWidget {
             children: [
               AutoSizeText(
                 value,
-                style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 18),maxLines: 1,
+                style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                maxLines: 1,
               ),
               Spacer(),
               Container(
-                padding: EdgeInsets.all(8),
+                padding: EdgeInsets.all(6),
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(200), color: cardColor.withOpacity(.15)),
                 child: SvgPicture.asset(
                   ImageUtils.getSVGPath(imageIcon),
@@ -48,7 +47,7 @@ class HomeCardItem extends StatelessWidget {
             child: AutoSizeText(
               title,
               maxLines: 2,
-              style: TextStyle(fontWeight: FontWeight.w500, color: cardColor,fontSize: 12),
+              style: TextStyle(fontWeight: FontWeight.w500, color: cardColor),
             ),
           ),
         ],

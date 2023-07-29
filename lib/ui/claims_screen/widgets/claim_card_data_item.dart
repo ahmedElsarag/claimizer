@@ -1,11 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../CommonUtils/utils.dart';
-import '../../../generated/l10n.dart';
 import '../../../res/colors.dart';
-import '../../../res/styles.dart';
 
 class ClaimCardDataItem extends StatelessWidget {
   const ClaimCardDataItem({Key key, this.title, this.data, this.isLast = false}) : super(key: key);
@@ -33,7 +30,7 @@ class ClaimCardDataItem extends StatelessWidget {
           ),
           // Spacer(),
           SizedBox(
-            width: Utils.sWidth(47, context),
+            width: Utils.sWidth(40, context),
             child: AutoSizeText(
               data ?? "",
               textAlign: TextAlign.end,
