@@ -133,7 +133,7 @@ class CompleteNewUnit extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (pr.contractNo.text.isEmpty && pr.startDate == null && pr.endDate == null) {
-                        presenter.view.showSnackBar("msg");
+                        presenter.view.showToasts(S.of(context).enterAllData, 'error');
                       } else if (pr.contractImg != null ||
                           pr.identityImg != null) {
                         FormData formData = new FormData.fromMap({
@@ -152,6 +152,8 @@ class CompleteNewUnit extends StatelessWidget {
                           "request_remarks": pr.description.text,
                         });
                         presenter.completeLinkRequestApiCall(formData);
+                      }else{
+                        presenter.view.showToasts(S.of(context).enterAllData, 'error');
                       }
                     },
                     child: Text(

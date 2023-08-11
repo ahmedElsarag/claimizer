@@ -59,6 +59,11 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
   @override
   void initState() {
     provider = context.read<ClaimsProvider>();
+    if(provider.homeFilter!=null){
+      provider.selectedIndex = 1;
+      print('hereeeeeeeeeeee');
+    }
+
     EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
       if (event.isRefresh != null || event.isLangChanged != null) {
         Map<String, dynamic> params = Map();
@@ -67,10 +72,17 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
       }
       setState(() {});
     });
+
     Map<String, dynamic> params = Map();
     params['search'] = provider.searchController.text.toString();
     mPresenter.getAllClaimsApiCall(params);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    provider.homeFilter = null;
   }
 
   List<String> cardTitles = [
@@ -85,7 +97,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
+    print(provider.selectedIndex);
     return Scaffold(
       backgroundColor: MColors.page_background,
       body: Consumer<ClaimsProvider>(

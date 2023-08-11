@@ -33,7 +33,7 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   HomeProvider provider;
   MainProvider mainProvider;
-  ClaimsWithFilterProvider claimsProvider;
+  ClaimsProvider claimsProvider;
   List cardsColor = [
     Color(0xff44A4F2),
     Color(0xffFF9500),
@@ -58,7 +58,7 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
   void initState() {
     provider = context.read<HomeProvider>();
     mainProvider = context.read<MainProvider>();
-    claimsProvider = context.read<ClaimsWithFilterProvider>();
+    claimsProvider = context.read<ClaimsProvider>();
     EventBusUtils.getInstance().on<ProfileEvent>().listen((event) {
       if (event.username != null) {
         provider.name = event.username;
@@ -161,7 +161,12 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
                         cardColor: cardsColor[index],
                         title: cardTitles[index],
                         imageIcon: cardImages[index],
-                        value: list.isNotEmpty ? list[index] : ' '),
+                        value: list.isNotEmpty ? list[index] : ' ',
+                        onTap: (){
+                          mainProvider.tabController.index=1;
+                          claimsProvider.homeFilter = 'closed';
+                        },
+                    ),
                   ),
                 ),
               ),

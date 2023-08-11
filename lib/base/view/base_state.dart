@@ -73,7 +73,8 @@ abstract class BaseState<T extends StatefulWidget, P extends BasePresenter>
 
   @override
   void showToasts(String msg, String status) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       content: Row(
         children: <Widget>[

@@ -268,6 +268,8 @@ class ClaimsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  String homeFilter;
+
   String selectedBuilding;
   String selectedUnit;
   String selectedCategory;
