@@ -235,7 +235,7 @@ class RegisterScreenState extends BaseState<RegisterScreen, RegisterPresenter>
             ),
             inputFormatters: [
               LengthLimitingTextInputFormatter(50),
-              FilteringTextInputFormatter.allow(RegExp("[a-zA-Zأ-ي]")),
+              FilteringTextInputFormatter.allow(RegExp("[ a-zA-Zأ-ي]")),
             ],
             maxLength: 50,
             maxLengthEnforced: false,
