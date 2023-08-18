@@ -91,16 +91,15 @@ class UnitPresenter extends BasePresenter<UnitsScreenState> {
           view.closeProgress();
         });
   }
-
   checkLinkHasParams(String link) {
     Uri myUri = Uri.parse(link);
-    bool hasContractNumber = myUri.queryParameters.containsKey('contract_number');
-    bool hasStartDate = myUri.queryParameters.containsKey('start_date');
-    bool hasEndDate = myUri.queryParameters.containsKey('end_date');
+    bool hasContractNumber = myUri.queryParameters.containsKey('contract_no');
+    bool hasStartDate = myUri.queryParameters.containsKey('contract_start');
+    bool hasEndDate = myUri.queryParameters.containsKey('contract_end');
     String qrCode = myUri.queryParameters['qr_code'];
-    String contractNumber = myUri.queryParameters['contract_number'];
-    String startDate = myUri.queryParameters['start_date'];
-    String endDate = myUri.queryParameters['end_date'];
+    String contractNumber = myUri.queryParameters['contract_no'];
+    String startDate = myUri.queryParameters['contract_start'];
+    String endDate = myUri.queryParameters['contract_end'];
     String mLink = myUri.queryParameters['m'];
     RegExp uPattern = RegExp('^U\\d{2}-\\d{5}-\\d');
     RegExp bPattern = RegExp('^B\\d{2}-\\d{5}-\\d');
