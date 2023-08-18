@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import '../../CommonUtils/log_utils.dart';
 import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
+import '../../CommonUtils/model_eventbus/ReloadClaimsEevet.dart';
 import '../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
 import '../../CommonUtils/preference/Prefs.dart';
 import '../../app_widgets/LoginRequiredDialog.dart';
@@ -88,39 +89,7 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
           }
         });
   }
-  
-  deleteClaimApiCall(int id) async {
-    Map<String, dynamic> header = Map();
-    await Prefs.getUserToken.then((token)  {
-      view.showProgress(isDismiss: false);
-      header['Authorization'] = "Bearer $token";
-      requestFutureData<GeneralResponse>(
-        Method.delete,
-        endPoint: Api.deleteClaimDetailsApiCall(id),
-        options: Options(headers: header),
-        onSuccess: (data)  {
-          if (data != null) {
-            Navigator.pop(view.context);
-            view.showToasts(S.of(view.context).claimDeleted, "success");
-            Navigator.pop(view.context);
-            passReloadByEventPath();
-          }else{
-            view.closeProgress();
-          }
 
-        },
-        onError: (code, msg) {
-          Log.d(msg);
-          if(code == ErrorStatus.UNKNOWN_ERROR)
-            view.provider.internetStatus = false;
-          view.closeProgress();
-          if(code == ErrorStatus.UNAUTHORIZED)
-            showDialog( context: view.context,builder: (_)=>
-                LoginRequiredDialog( message: S.of(view.context).sessionTimeoutPleaseLogin),barrierDismissible: false);
-        },
-      );
-    });
-  }
 
   closeClaimApiCall(String code) async {
     Map<String, dynamic> header = Map();
@@ -158,5 +127,6 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
   void passReloadByEventPath({bool isRefresh,}) {
     EventBus eventBus = EventBusUtils.getInstance();
     eventBus.fire(ReloadEvent(isRefresh: true));
+    eventBus.fire(ReloadClaimsEvent(isRefresh:true));
   }
 }

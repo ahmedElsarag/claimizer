@@ -47,9 +47,7 @@ class _AllClaimsState extends State<AllClaims> {
                   ? RefreshIndicator(
                       onRefresh: () async {
                         pr.searchController.text = "";
-                        Map<String, dynamic> params = Map();
-                        params['search'] = pr.searchController.text.toString();
-                        await widget.presenter.getAllClaimsApiCall(params);
+                        widget.presenter.getClaims();
                       },
                       child: Column(
                         children: [
@@ -167,11 +165,7 @@ class _AllClaimsState extends State<AllClaims> {
                     )
                   : NoDataWidget(
                       onRefresh: () async {
-                        Map<String, dynamic> params = Map();
-                        params['search'] = pr.searchController.text.toString();
-                        await widget.presenter.getAllClaimsApiCall(params);
-                        // await widget.presenter.getAllClaimsApiCall(1);
-                        // await widget.presenter.getAllClaimsApiCall(pr.currentPage);
+                        widget.presenter.getClaims();
                       },
                     ),
             ));

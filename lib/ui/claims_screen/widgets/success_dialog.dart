@@ -51,11 +51,7 @@ class ClaimCreatedDialog extends StatelessWidget {
                 pr.isStepsFinished = !pr.isStepsFinished;
                 pr.selectedIndex = 1;
                 pr.currentStep = 0;
-                Map<String, dynamic> params = Map();
-               params['per_page'] = 1000;   params['page'] = 1;
-                params['search'] = pr.searchController.text.toString();
-                presenter.getAllClaimsApiCall(params);
-                // presenter.getAllClaimsApiCall(pr.currentPage);
+                presenter.getClaims();
                 Navigator.pop(context);
               },
               child: Text(

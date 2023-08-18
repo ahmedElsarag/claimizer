@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:Cliamizer/base/presenter/base_presenter.dart';
 import 'package:Cliamizer/network/models/buildings_response.dart';
 import 'package:Cliamizer/network/models/categories_response.dart';
@@ -5,15 +8,20 @@ import 'package:Cliamizer/network/models/claim_available_time_response.dart';
 import 'package:Cliamizer/network/models/claim_request_response.dart';
 import 'package:Cliamizer/network/models/claims_response.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/success_dialog.dart';
+import 'package:Cliamizer/ui/home_screen/HomePresenter.dart';
 import 'package:Cliamizer/ui/home_screen/HomeProvider.dart';
+import 'package:Cliamizer/ui/main_screens/MainProvider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
+import '../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
 import '../../CommonUtils/preference/Prefs.dart';
 import '../../app_widgets/NoDataFound.dart';
 import '../../network/api/network_api.dart';
@@ -23,7 +31,17 @@ import '../../network/network_util.dart';
 import 'claims_screen.dart';
 
 class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
+
+  getClaims(){
+    Map<String, dynamic> params = Map();
+    params['search'] = view.provider.searchController.text.toString();
+    if(view.provider.homeFilter!=null&&view.provider.homeFilter!='all'){
+      params['status'] = view.provider.homeFilter;
+    }
+    getAllClaimsApiCall(params);
+  }
   Future getAllClaimsApiCall(Map<String, dynamic> params) async {
+    print('~~~~~~~~~ called');
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
@@ -44,22 +62,6 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     });
   }
 
-  Future getFilteredClaimsApiCall(Map<String, dynamic> params) async {
-    Map<String, dynamic> header = Map();
-    await Prefs.getUserToken.then((token) {
-      header['Authorization'] = "Bearer $token";
-    });
-    view.showProgress(isDismiss: false);
-    await requestFutureData<ClaimsResponse>(Method.get,
-        options: Options(headers: header), queryParams: params, endPoint: Api.claimsApiCall, onSuccess: (data) {
-      if (data != null) {
-        view.provider.claimsList = data.data;
-      }
-      view.closeProgress();
-    }, onError: (code, msg) {
-      view.closeProgress();
-    });
-  }
 
   formatDate(String date) {
     if (date != null || date.isNotEmpty) return DateFormat('yyyy-MM-dd').format(DateTime.parse(date));
@@ -179,6 +181,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
       if (data != null) {
         showDialog(
           context: view.context,
+          barrierDismissible: false,
           builder: (context) => ClaimCreatedDialog(
             presenter: view.mPresenter,
             claimsRequestResponse: data,
@@ -187,6 +190,8 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
         view.provider.file = null;
         view.provider.imageFiles = null;
         view.provider.description.clear();
+        EventBusUtils.getInstance().fire(ReloadEvent(isRefresh: true));
+
       }
     }, onError: (code, msg) {
       view.closeProgress();
@@ -242,5 +247,18 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
     if(view.provider.claimsList.isEmpty)
       return Center(child: NoDataWidget(),);
     return showProgress();
+  }
+
+  // 1. compress file and get Uint8List
+  Future<Uint8List> compressFile(File file) async {
+    var result = await FlutterImageCompress.compressWithFile(
+      file.absolute.path,
+      minWidth: 720,
+      minHeight: 720,
+      quality: 94,
+    );
+    print(file.lengthSync());
+    print(result.length);
+    return result;
   }
 }

@@ -57,7 +57,7 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
               controller: pr.tabController,
               children: [
                 HomeScreen(),
-                ClaimsScreen(isFilteredFromHome: false),
+                ClaimsScreen(),
                 UnitsScreen(),
                 MoreScreen(),
               ],

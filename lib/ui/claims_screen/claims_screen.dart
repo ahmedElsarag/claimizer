@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:Cliamizer/base/view/base_state.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/claims_screen/widgets/all_claims.dart';
@@ -21,6 +23,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../CommonUtils/image_utils.dart';
 import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
+import '../../CommonUtils/model_eventbus/ReloadClaimsEevet.dart';
 import '../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
 import '../../app_widgets/app_headline.dart';
 import '../../app_widgets/custom_stepper.dart' as appStepper;
@@ -34,8 +37,7 @@ import 'ClaimsPresenter.dart';
 class ClaimsScreen extends StatefulWidget {
   static const String TAG = "/ClaimsScreen";
 
-  const ClaimsScreen({Key key, this.isFilteredFromHome}) : super(key: key);
-  final bool isFilteredFromHome;
+  const ClaimsScreen({Key key}) : super(key: key);
 
   @override
   State<ClaimsScreen> createState() => ClaimsScreenState();
@@ -64,18 +66,14 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
       print('hereeeeeeeeeeee');
     }
 
-    EventBusUtils.getInstance().on<ReloadEvent>().listen((event) {
-      if (event.isRefresh != null || event.isLangChanged != null) {
-        Map<String, dynamic> params = Map();
-        params['search'] = provider.searchController.text.toString();
-        mPresenter.getAllClaimsApiCall(params);
+    EventBusUtils.getInstance().on<ReloadClaimsEvent>().listen((event) {
+      if (event.isRefresh != null) {
+        mPresenter.getClaims();
       }
-      setState(() {});
     });
 
-    Map<String, dynamic> params = Map();
-    params['search'] = provider.searchController.text.toString();
-    mPresenter.getAllClaimsApiCall(params);
+
+    mPresenter.getClaims();
     super.initState();
   }
 
@@ -196,14 +194,8 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                   color: MColors.primary_light_color,
                                 ),
                                 onTap: () {
-                                  // Map<String, dynamic> params = Map();
-                                  // params['page'] = 1;
-                                  // params['search'] = pr.searchController.text.toString();
-                                  // mPresenter.getFilteredClaimsApiCall(params);
                                   print("################## search : ${pr.searchController.text.toString()}");
-                                  Map<String, dynamic> params = Map();
-                                  params['search'] = pr.searchController.text.toString();
-                                  mPresenter.getAllClaimsApiCall(params);
+                                  mPresenter.getClaims();
                                 },
                               ),
                               suffixIcon: GestureDetector(
@@ -213,22 +205,12 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 ),
                                 onTap: () {
                                   pr.searchController.clear();
-                                  Map<String, dynamic> params = Map();
-                                  params['search'] = pr.searchController.text.toString();
-                                  mPresenter.getAllClaimsApiCall(params);
+                                  mPresenter.getClaims();
                                 },
                               ),
                             ),
                             onFieldSubmitted: (value) {
-                              // Map<String, dynamic> params = Map();
-                              // params['page'] = pr.currentPage;
-                              // params['search'] = pr.searchController.text.toString();
-                              // mPresenter.getFilteredClaimsApiCall(params);
-
-                              Map<String, dynamic> params = Map();
-
-                              params['search'] = pr.searchController.text.toString();
-                              mPresenter.getAllClaimsApiCall(params);
+                              mPresenter.getClaims();
                             },
                             onChanged: (value) {
                               pr.searchValue = value;
@@ -412,8 +394,9 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                         onPressed: () async {
                                           final formData = FormData();
                                           if (pr.imageFiles != null) {
+                                            print('herrrrrrrrrrrrrrrrrrrrrrrrrrrrre');
                                             for (var i = 0; i < pr.imageFiles.length; i++) {
-                                              final file = await pr.imageFiles[i].readAsBytes();
+                                              final file = await mPresenter.compressFile(File(pr.imageFiles[i].path));
                                               formData.files.add(MapEntry(
                                                 'file[$i]',
                                                 MultipartFile.fromBytes(file, filename: 'image$i.jpg'),
@@ -436,11 +419,11 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                             }
                                             mPresenter.postClaimRequestApiCall(formData);
                                           } else if (pr.file != null) {
+                                            final file = await mPresenter.compressFile(pr.file);
                                             FormData formData = new FormData.fromMap({
-                                              "file[0]": await MultipartFile.fromFile(
-                                                pr.file.path,
+                                              "file[0]": await MultipartFile.fromBytes(
+                                                file,
                                                 filename: pr.file.path.split('/').last,
-                                                contentType: MediaType('application', 'octet-stream'),
                                               ),
                                               "unit_id": selectedUnitId,
                                               "category_id": selectedCategoryId,

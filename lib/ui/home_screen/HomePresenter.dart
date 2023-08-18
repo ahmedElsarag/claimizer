@@ -13,22 +13,24 @@ class HomePresenter extends BasePresenter<HomeScreenState> {
       view.provider.name = value;
     });
   }
+
   void getUserImage() async {
     await Prefs.getUserImage.then((value) {
       view.provider.avatar = value;
     });
   }
 
-  Future getStatisticsApiCall() async {
+  Future getStatisticsApiCall({bool isUpdateData = false}) async {
     Map<String, dynamic> header = Map();
     await Prefs.getUserToken.then((token) {
       header['Authorization'] = "Bearer $token";
     });
-    view.showProgress(isDismiss: false);
+    if (!isUpdateData) view.showProgress(isDismiss: false);
     await requestFutureData<StatisticsResponse>(Method.get,
         options: Options(headers: header), endPoint: Api.statisticsApiCall, onSuccess: (data) {
-      view.closeProgress();
+      if (!isUpdateData) view.closeProgress();
       if (data != null) {
+        print('~~~~~~~~~~~~~updated');
         view.provider.claimsStatistics.clear();
         view.provider.rememberThatList = data.data.aboutToExpireUnits;
         view.provider.claimStatusColors = data.data.claimColor;
@@ -42,9 +44,19 @@ class HomePresenter extends BasePresenter<HomeScreenState> {
       }
     }, onError: (code, msg) {
       view.closeProgress();
-      if(code==401){
+      if (code == 401) {
         return "error";
       }
     });
   }
+
+  List<String> statusList = [
+    'all',
+    'new',
+    'assigned',
+    'inProgress',
+    'completed',
+    'cancelled',
+    'closed',
+  ];
 }

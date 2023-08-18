@@ -56,6 +56,7 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
 
   @override
   void initState() {
+    print('ahmeeeeeeeeeeeeed');
     provider = context.read<HomeProvider>();
     mainProvider = context.read<MainProvider>();
     claimsProvider = context.read<ClaimsProvider>();
@@ -164,7 +165,7 @@ class HomeScreenState extends BaseState<HomeScreen, HomePresenter>
                         value: list.isNotEmpty ? list[index] : ' ',
                         onTap: (){
                           mainProvider.tabController.index=1;
-                          claimsProvider.homeFilter = 'closed';
+                          claimsProvider.homeFilter = mPresenter.statusList[index];
                         },
                     ),
                   ),
