@@ -1994,6 +1994,26 @@ class S {
       args: [],
     );
   }
+
+  /// `description required`
+  String get descriptionRequired {
+    return Intl.message(
+      'description required',
+      name: 'descriptionRequired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back again to close app`
+  String get backAgainToCloseApp {
+    return Intl.message(
+      'Back again to close app',
+      name: 'backAgainToCloseApp',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

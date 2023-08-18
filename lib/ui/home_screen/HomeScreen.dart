@@ -13,14 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../CommonUtils/model_eventbus/EventBusUtils.dart';
 import '../../CommonUtils/model_eventbus/ProfileEvent.dart';
 import '../../CommonUtils/model_eventbus/ReloadHomeEevet.dart';
 import '../../generated/l10n.dart';
 import '../../res/colors.dart';
-import '../ClaimsWithFilter/ClaimsWithFilterScreen.dart';
-import '../ClaimsWithFilter/ClaimsWithFitlerProvider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);

@@ -102,10 +102,10 @@ class ClaimsDetailsPresenter extends BasePresenter<ClaimsDetailsScreenState> {
         options: Options(headers: header),
         onSuccess: (data)  {
           if (data != null) {
-            Navigator.pop(view.context);
-            view.showToasts(S.of(view.context).claimClosed, "success");
+            view.closeProgress();
             Navigator.pop(view.context);
             passReloadByEventPath();
+            view.showToasts(S.of(view.context).claimClosed, "success");
           }else{
             view.closeProgress();
           }

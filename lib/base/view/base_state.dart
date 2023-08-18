@@ -8,6 +8,7 @@ import 'package:Cliamizer/route/fluro_navigator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:toast/toast.dart';
 
@@ -73,29 +74,7 @@ abstract class BaseState<T extends StatefulWidget, P extends BasePresenter>
 
   @override
   void showToasts(String msg, String status) {
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      content: Row(
-        children: <Widget>[
-          AutoSizeText(
-            msg,
-            style:GoogleFonts.montserrat(
-                color: Utils.getStatusTypeColorFromString(status),
-            ),
-          ),
-          Spacer(),
-          Utils.getStatusTypeIconFromString(status),
-        ],
-      ),
-      duration: Duration(seconds: 3),
-      margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.w),
-      backgroundColor: Utils.getStatusTypeBGColorFromString(status),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 1,
-      padding: EdgeInsets.all(12),
-      behavior: SnackBarBehavior.floating,
-    ));
+    showToast(msg,position: ToastPosition.bottom);
   }
 
 

@@ -16,10 +16,16 @@ class BuildDescriptionField extends StatelessWidget {
         controller: pr.description,
         maxLines: 3,
         style: MTextStyles.textDark14,
+        validator: (val){
+          if(val.isEmpty){
+            return S.of(context).descriptionRequired;
+          }
+          return null;
+        },
         decoration: InputDecoration(
           hintText: S.of(context).writeYourThoughtsHere,
           hintStyle: MTextStyles.textMain14.copyWith(
-              color: MColors.light_text_color
+              color: MColors.secondary_text_color
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),

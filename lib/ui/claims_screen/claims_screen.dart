@@ -333,7 +333,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                         )),
                                     Gaps.vGap8,
                                     Text(
-                                        "${pr.selectedDate == null ? DateFormat('yyyy-MM-dd', 'en').format(DateTime.now()) : Setting.mobileLanguage.value == Locale("en") ? _dateFormatEN.format(pr.selectedDate) : _dateFormatAR.format(pr.selectedDate)} ${S.of(context).from} ${pr.selectedTimeValue}",
+                                        "${pr.selectedDate == null ? DateFormat('yyyy-MM-dd', 'en').format(DateTime.now()) : Setting.mobileLanguage.value == Locale("en") ? _dateFormatEN.format(pr.selectedDate) : _dateFormatAR.format(pr.selectedDate)}\n${pr.selectedTimeValue}",
                                         style: MTextStyles.textMain14.copyWith(
                                           color: MColors.black,
                                           fontWeight: FontWeight.w400,
@@ -363,7 +363,6 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                 ),
                                 Gaps.vGap30,
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                       width: 30.w,
@@ -387,6 +386,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                                 EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w))),
                                       ),
                                     ),
+                                    SizedBox(width:14,),
                                     Container(
                                       width: 30.w,
                                       margin: EdgeInsets.symmetric(vertical: 3.w),
@@ -394,7 +394,6 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                                         onPressed: () async {
                                           final formData = FormData();
                                           if (pr.imageFiles != null) {
-                                            print('herrrrrrrrrrrrrrrrrrrrrrrrrrrrre');
                                             for (var i = 0; i < pr.imageFiles.length; i++) {
                                               final file = await mPresenter.compressFile(File(pr.imageFiles[i].path));
                                               formData.files.add(MapEntry(

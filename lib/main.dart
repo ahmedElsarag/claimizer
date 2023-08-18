@@ -2,7 +2,6 @@ import 'package:Cliamizer/res/setting.dart';
 import 'package:Cliamizer/route/application.dart';
 import 'package:Cliamizer/route/routers.dart';
 import 'package:Cliamizer/styles/light_theme_style.dart';
-import 'package:Cliamizer/ui/ClaimsWithFilter/ClaimsWithFitlerProvider.dart';
 import 'package:Cliamizer/ui/claims_details_screen/ClaimsDetailsProvider.dart';
 import 'package:Cliamizer/ui/claims_screen/ClaimsProvider.dart';
 import 'package:Cliamizer/ui/edit_profile_screen/EditProfileProvider.dart';
@@ -22,6 +21,7 @@ import 'package:flutter/material.dart' hide Router;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'CommonUtils/LocalNotification.dart';
@@ -104,7 +104,6 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => MainProvider()),
         ChangeNotifierProvider(create: (context) => MoreProvider()),
         ChangeNotifierProvider(create: (context) => HomeProvider()),
-        ChangeNotifierProvider(create: (context) => ClaimsWithFilterProvider()),
         ChangeNotifierProvider(create: (context) => ClaimsProvider()),
         ChangeNotifierProvider(create: (context) => ClaimsDetailsProvider()),
         ChangeNotifierProvider(create: (context) => EditProfileProvider()),
@@ -118,19 +117,21 @@ class _MyAppState extends State<MyApp> {
         builder: (context, Locale local, _) {
           return Sizer(
             builder: (context, orientation, deviceType) {
-              return MaterialApp(
-                locale: local,
-                localizationsDelegates: [
-                  S.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                supportedLocales: S.delegate.supportedLocales,
-                debugShowCheckedModeBanner: false,
-                title: "Claimizer",
-                theme: LightStyles.lightTheme(context),
-                home: SplashScreen(),
+              return OKToast(
+                child: MaterialApp(
+                  locale: local,
+                  localizationsDelegates: [
+                    S.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  supportedLocales: S.delegate.supportedLocales,
+                  debugShowCheckedModeBanner: false,
+                  title: "Claimizer",
+                  theme: LightStyles.lightTheme(context),
+                  home: SplashScreen(),
+                ),
               );
             },
           );

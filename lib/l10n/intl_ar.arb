@@ -193,5 +193,7 @@
   "areYouSureToCloseClaim": "هل انت متأكد من اغلاق طلب الصيانة؟",
   "areYouSureToCloseThisClaim": "هل انت متأكد من اغلاق طلب الصيانة ؟",
   "fromGallery": "من الاستوديو",
-  "uploadImageFrom": "اضافة صورة من"
+  "uploadImageFrom": "اضافة صورة من",
+  "descriptionRequired": "وصف الشكوي مطلوب",
+  "backAgainToCloseApp": "الرجوع مره اخري لغلق التطبيق"
 }

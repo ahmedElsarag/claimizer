@@ -194,5 +194,7 @@
   "areYouSureToCloseClaim": "Are you sure to close claim?",
   "areYouSureToCloseThisClaim": "Are you sure to close this Claim ?",
   "fromGallery": "From Gallery",
-  "uploadImageFrom": "Upload image from"
+  "uploadImageFrom": "Upload image from",
+  "descriptionRequired": "description required",
+  "backAgainToCloseApp": "Back again to close app"
 }

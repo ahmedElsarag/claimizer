@@ -17,6 +17,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -318,7 +319,10 @@ class UnitRequestDetailsScreenState extends BaseState<UnitRequestDetailsScreen, 
                                                   Gaps.vGap16,
                                                   ElevatedButton(
                                                     onPressed: () async {
-                                                      if (pr.unlinkReason.text.isEmpty && pr.unlinkDate == null) {
+                                                      print('~~~~~~~~~${pr.unlinkReason.text.isEmpty}');
+                                                      if (pr.unlinkReason.text.isEmpty || pr.unlinkDate == null) {
+                                                        print('error');
+                                                        // showToast(S.of(context).enterMissingData);
                                                         showToasts(S.of(context).enterMissingData, 'warning');
                                                       } else {
                                                         Map<String, dynamic> params = Map();
