@@ -179,6 +179,7 @@ class ClaimsPresenter extends BasePresenter<ClaimsScreenState> {
         params: formData, options: Options(headers: header), endPoint: Api.claimsApiCall, onSuccess: (data) {
       view.closeProgress();
       if (data != null) {
+        print('~~~~~~~~~~~~~~${data.id}');
         showDialog(
           context: view.context,
           barrierDismissible: false,

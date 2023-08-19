@@ -97,7 +97,7 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                     Gaps.vGap16,
                     Consumer<UnitProvider>(
                       builder: (context, pr, child) => Container(
-                        height: 14.h,
+                        height:110,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: cardTitles.length,
@@ -109,19 +109,21 @@ class UnitsScreenState extends BaseState<UnitsScreen, UnitPresenter>
                               child: Card(
                                 elevation: 0.5,
                                 color: pr.selectedIndex == pageIndex ? MColors.primary_color : Colors.white,
-                                child: SizedBox(
+                                child: Container(
                                   width: 25.w,
-                                  height: 102,
+                                  height: 100,
+                                  padding: EdgeInsets.all(12),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         ImageUtils.getSVGPath(cardImages[pageIndex]),
                                         color: pr.selectedIndex == pageIndex ? Colors.white : MColors.primary_color,
                                       ),
+                                      SizedBox(height: 12,),
                                       SizedBox(
-                                        width: pr.selectedIndex == pageIndex ? 80 : 90,
+                                        width: 90,
                                         child: AutoSizeText(
                                           cardTitles[pageIndex],
                                           style: TextStyle(

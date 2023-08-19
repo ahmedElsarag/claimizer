@@ -113,7 +113,7 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                     Gaps.vGap16,
                     Container(
                       alignment: Alignment.center,
-                      height: 110,
+                      height: 120,
                       child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
@@ -124,36 +124,35 @@ class ClaimsScreenState extends BaseState<ClaimsScreen, ClaimsPresenter>
                               pr.selectedIndex = pageIndex;
                             },
                             child: Card(
-                              elevation: 0.5,
+                              elevation: .5,
+                              shadowColor: MColors.dividerColor,
                               color: pr.selectedIndex == pageIndex ? MColors.primary_color : Colors.white,
-                              child: FittedBox(
-                                child: SizedBox(
-                                  width: 30.w,
-                                  height: 100,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      SvgPicture.asset(
-                                        ImageUtils.getSVGPath(cardImages[pageIndex]),
-                                        color: pr.selectedIndex == pageIndex ? Colors.white : MColors.primary_color,
+                              child: Container(
+                                width: 120,
+                                height: 120,
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      ImageUtils.getSVGPath(cardImages[pageIndex]),
+                                      color: pr.selectedIndex == pageIndex ? Colors.white : MColors.primary_color,
+                                    ),
+                                    SizedBox(height: 14,),
+                                    SizedBox(
+                                      width:  100,
+                                      child: Text(
+                                        cardTitles[pageIndex],
+                                        style: MTextStyles.textMainLight14.copyWith(
+                                            color: pr.selectedIndex == pageIndex
+                                                ? Colors.white
+                                                : MColors.light_text_color,
+                                            fontSize: 13),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      FittedBox(
-                                        child: SizedBox(
-                                          width: pr.selectedIndex == pageIndex ? 90 : 100,
-                                          child: Text(
-                                            cardTitles[pageIndex],
-                                            style: MTextStyles.textMainLight14.copyWith(
-                                                color: pr.selectedIndex == pageIndex
-                                                    ? Colors.white
-                                                    : MColors.light_text_color,
-                                                fontSize: 9.sp),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),

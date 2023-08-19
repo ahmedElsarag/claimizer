@@ -41,7 +41,7 @@ class ClaimCreatedDialog extends StatelessWidget {
             ),
             Gaps.vGap8,
             Text(
-              S.of(context).requestCode +" "+ claimsRequestResponse.id,
+              '${S.of(context).requestCode} ${claimsRequestResponse?.id}'  ,
               style: MTextStyles.textSubtitle,
               textAlign: TextAlign.center,
             ),

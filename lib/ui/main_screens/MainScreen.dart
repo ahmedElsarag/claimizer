@@ -70,48 +70,44 @@ class MainScreenState extends BaseState<MainScreen, MainPresenter>
                 color: MColors.white,
                 child: TabBar(
                   controller: pr.tabController,
-                  labelStyle:  TextStyle(fontSize: 10.sp),
+                  labelStyle:  TextStyle(fontSize: 12),
                   isScrollable: false,
                   unselectedLabelColor: MColors.subText_color,
                   automaticIndicatorColorAdjustment: true,
                   indicatorWeight: 3,
                   indicatorSize: TabBarIndicatorSize.label,
                   tabs: [
-                    FittedBox(
-                      child: Tab(
-                        icon: SvgPicture.asset(
-                          ImageUtils.getSVGPath('home'),
-                          color: pr.tabController.index == 0 ? MColors.primary_color : MColors.tabsTextColor,
-                        ),
-                        text: S.of(context).home,
+                    Tab(
+                      icon: SvgPicture.asset(
+                        ImageUtils.getSVGPath('home'),
+                        color: pr.tabController.index == 0 ? MColors.primary_color : MColors.tabsTextColor,
+                        width: 18,
                       ),
+                      text: S.of(context).home,
                     ),
-                    FittedBox(
-                      child: Tab(
-                        icon: SvgPicture.asset(
-                          ImageUtils.getSVGPath('claims'),
-                          color: pr.tabController.index == 1 ? MColors.primary_color : MColors.tabsTextColor,
-                        ),
-                        text: S.of(context).claims,
+                    Tab(
+                      icon: SvgPicture.asset(
+                        ImageUtils.getSVGPath('claims'),
+                        color: pr.tabController.index == 1 ? MColors.primary_color : MColors.tabsTextColor,
+                        width: 16,
                       ),
+                      text: S.of(context).claims,
                     ),
-                    FittedBox(
-                      child: Tab(
-                        icon: SvgPicture.asset(
-                          ImageUtils.getSVGPath('units'),
-                          color: pr.tabController.index == 2 ? MColors.primary_color : MColors.tabsTextColor,
-                        ),
-                        text: S.of(context).units,
+                    Tab(
+                      icon: SvgPicture.asset(
+                        ImageUtils.getSVGPath('units'),
+                        color: pr.tabController.index == 2 ? MColors.primary_color : MColors.tabsTextColor,
+                        width: 18,
                       ),
+                      text: S.of(context).units,
                     ),
-                    FittedBox(
-                      child: Tab(
-                        icon: Icon(
-                          Icons.more_horiz_rounded,
-                          color: pr.tabController.index == 3 ? MColors.primary_color : MColors.tabsTextColor,
-                        ),
-                        text: S.of(context).more,
+                    Tab(
+                      icon: Icon(
+                        Icons.more_horiz_rounded,
+                        color: pr.tabController.index == 3 ? MColors.primary_color : MColors.tabsTextColor,
+                        size: 18,
                       ),
+                      text: S.of(context).more,
                     ),
                   ],
                   // labelPadding: EdgeInsets.symmetric(horizontal: 1.0),
